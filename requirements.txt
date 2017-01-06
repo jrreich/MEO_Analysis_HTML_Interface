@@ -1,0 +1,7 @@
+virtualenv==15.1.0
+virtualenvwrapper-win==1.2.1
+Werkzeug==0.10.4
+xlrd==0.9.4
+XlsxWriter==0.7.7
+xlwings==0.4.1
+xlwt==1.0.0
