@@ -16,7 +16,7 @@
     <PythonWsgiHandler>{StartupModule}.wsgi_app</PythonWsgiHandler>
     <Name>FlaskWebProject1</Name>
     <RootNamespace>FlaskWebProject1</RootNamespace>
-    <InterpreterId>{d53ba9cf-5a9c-4206-8a29-d6913c38e8ed}</InterpreterId>
+    <InterpreterId>{65639d92-8542-4f9f-93c1-3708d4328045}</InterpreterId>
     <InterpreterVersion>2.7</InterpreterVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -53,8 +53,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="static\" />
+    <Folder Include="static\styles\" />
+    <Folder Include="templates\" />
+  </ItemGroup>
+  <ItemGroup>
     <Interpreter Include="env\">
-      <Id>{d53ba9cf-5a9c-4206-8a29-d6913c38e8ed}</Id>
+      <Id>{65639d92-8542-4f9f-93c1-3708d4328045}</Id>
       <BaseInterpreter>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</BaseInterpreter>
       <Version>2.7</Version>
       <Description>env (Python 64-bit 2.7)</Description>
@@ -64,11 +69,6 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>Amd64</Architecture>
     </Interpreter>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="static\" />
-    <Folder Include="static\styles\" />
-    <Folder Include="templates\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
