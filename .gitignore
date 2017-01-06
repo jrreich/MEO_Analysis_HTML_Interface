@@ -241,5 +241,16 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
-env/
+!env/
+
+env/*
+!env/Lib/
+
+env/Lib/*
+!/env/Lib/site-packages/
+
+env/Lib/site-packages/*
+!env/Lib/site-packages/beacon_decode/
+
+
 var/
