@@ -112,6 +112,25 @@ fieldset {
     display:inline-block;
 }
 
+#MEOInputAnalysis #beaconIDinput{
+    display: none;
+
+}
+
+#userbeaconid:checked ~ #beaconIDinput {
+    margin-left: 40px;
+    display:inline-block;
+}
+
+#MEOInputAnalysis #fileinput {
+    display:none;
+}
+
+#MEOInputAnalysis .fileinputneeded:checked ~ #fileinput {
+    margin-left: 40px;
+    display: inline-block;
+}
+
 #RawAnalyzer #fileinput {
     display:none;
 }

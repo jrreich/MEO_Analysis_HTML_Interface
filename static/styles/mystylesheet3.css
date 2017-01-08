@@ -102,6 +102,35 @@ fieldset {
 }
 
 
+
+
+#MEOInputAnalysis input{
+    display: inline-block;
+}
+
+#MEOInputAnalysis #rthours {
+    display: none;
+}
+
+#realtime:checked ~ #rthours {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#MEOInputAnalysis .times {
+    display: none;
+}
+
+#pasttime:checked ~ .times {
+    display: inline-block;
+    margin-left:10px;
+}
+
+
+
+
+
+
 #RawAnalyzer #beaconIDinput{
     display: none;
 
@@ -110,6 +139,25 @@ fieldset {
 #userbeaconid:checked ~ #beaconIDinput {
     margin-left: 40px;
     display:inline-block;
+}
+
+#MEOInputAnalysis #beaconIDinput{
+    display: none;
+
+}
+
+#userbeaconid:checked ~ #beaconIDinput {
+    margin-left: 40px;
+    display:inline-block;
+}
+
+#MEOInputAnalysis #fileinput {
+    display:none;
+}
+
+#MEOInputAnalysis .fileinputneeded:checked ~ #fileinput {
+    margin-left: 40px;
+    display: inline-block;
 }
 
 #RawAnalyzer #fileinput {
