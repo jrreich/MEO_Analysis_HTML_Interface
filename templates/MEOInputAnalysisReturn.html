@@ -25,7 +25,7 @@
             <a href="/MEOInputAnalysis" class="active">MEOLUT Input Analysis</a>
             <a href="#">Satellite Orbit Analysis</a>
         </nav>
-        <section class="content form" id="MEOInputAnalysis">
+        <section class="content" id="MEOInputAnalysis">
             <form method="post" enctype="multipart/form-data">
                 <fieldset>
                     <legend>MEOLUT</legend>
@@ -55,15 +55,13 @@
                     <label for="FLref">Florida Reference Beacon</label>
                     <input type="radio" name="UseBeaconID" value="FLref"/><br />
                     <label for="UseBeaconID">Use Beacon ID</label>
-                    <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" /> <br />
+                    <input type="radio" id="userbeaconid" name="UseBeaconID" value="UserInput" /> <br />
                     <label for="UseSiteID">Use Site ID</label>
-                    <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" /> <br />
+                    <input type="radio" id="usersiteid" name="UseSiteID" value="UserInput" /> <br />
                     <input type="text" id="beaconIDinput" name="beaconID" placeholder="Beacon ID"> 
                     <input type="text" id="siteIDinput" name="siteID" placeholder="Site ID"> 
                     <input type="text" id="beaconIDinput" name="beaconLat" placeholder="Ground Truth Latitude">
                     <input type="text" id="beaconIDinput" name="beaconLon" placeholder="Ground Truth Longitude"> 
-                    <input type="text" id="beaconIDinput" name="Location" placeholder="Location name">
-                    <input type="text" id="siteIDinput" name="Location" placeholder="Location name"> 
                 </fieldset>
                 <fieldset>
                     <legend>Input File</legend>
@@ -93,9 +91,16 @@
             </form>
             <article>
                 <h3>Results</h3>
+                <table>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row.0 }}</td>
+                        <td>{{ row.1 }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </article>
         </section>
-
     </main>
 </body>
 </html>

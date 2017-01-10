@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 import pypyodbc
 import MEOInput_Analysis
 import datetime
+import csv
 
 UPLOAD_FOLDER = 'var/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
@@ -49,16 +50,30 @@ def rawburst():
     elif request.method == 'POST':
         # read input
         result = request.form
-        f = request.files['inputfile']
-        print f        
-        f.save(UPLOAD_FOLDER + '/' + secure_filename(f.filename))
-        print result
-        print result['StartTime']
-        print result.getlist('MEOLUT')  #.encode('ascii','ignore') - need to do it to each element not list
-        return render_template('BurstAnalysisReturn.html', \
-            MEOLUT = result['MEOLUT'], \
-            StartTime = result['StartTime'], \
-            file_name = secure_filename(f.filename))
+        if 'MEOLUT' in result: 
+            MEOLUT = int(result['MEOLUT'])
+            #MEOLUT_list = [x.strip() for x in MEOLUT_in.split(',')] 
+        else:
+            MEOLUT = '%'
+        print 'MEOLUT - ' + str(MEOLUT) 
+        if result['StartTime']:
+            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
+        else:
+            StartTime = datetime.datetime(2015,1,1,0,0,0)
+        if result['EndTime']:
+            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
+        else:
+            EndTime = datetime.datetime.utcnow()
+        if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
+            f = request.files['inputfile'] 
+            filesaved = UPLOAD_FOLDER + '/' + secure_filename(f.filename)    
+            f.save(filesaved)
+            #if result['inputsource'] == 'excelfile':
+                #MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
+        elif result['inputsource'] == 'mccdb':
+            filename = MEOInput_Analysis.MSSQL_burst(result, MEOLUT, StartTime, EndTime, databasename='MccTestLGM')
+            return render_template('BurstAnalysisReturn.html', filename=filename )
+
 
 
     else: 
@@ -73,31 +88,34 @@ def MEOInputAnalysis():
         result = request.form
         #print result['StartTime']
         MEOLUT = int(result['MEOLUT'])
-        StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
-        EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
-        print StartTime
+        if result['StartTime']:
+            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
+        else:
+            StartTime = datetime.datetime(2015,1,1,0,0,0)
+        if result['EndTime']:
+            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
+        else:
+            EndTime = datetime.datetime.utcnow()
         if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
             f = request.files['inputfile'] 
             filesaved = UPLOAD_FOLDER + '/' + secure_filename(f.filename)    
             f.save(filesaved)
+            print result['KMLgen']
+            if result['EncLocGen']: print 'true'
             if result['inputsource'] == 'excelfile':
-                MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result['beaconID'])
-        else:
-            conn = pypyodbc.connect(r'Driver={SQL Server};Server=.\SQLEXPRESS;Database=mccoperational;Trusted_Connection=yes;')
-            cursor = conn.cursor()
-            print result['MEOLUT'], result['StartTime'][:10], result['EndTime'][:10]
-            cursor.execute("Select * from MEOInputSolution where SourceId = ? and TimeSolutionGenerated BETWEEN ? AND ?", [result['MEOLUT'],result['StartTime'][:10], result['EndTime'][:10]])
-            for dataRow in cursor.fetchall():
-                print(dataRow)
-            #    crsr.execute(sql, dataRow)
-            cursor.close()
-            conn.close()
+                MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
+        elif result['inputsource'] == 'mccdb':
+            csvfile = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, UPLOAD_FOLDER)
+            rdr= csv.reader( open(csvfile, "r" ) )
+            csv_data = [ row for row in rdr ]
+            return render_template('MEOInputAnalysisReturn.html', data=csv_data )
             
-        print result
-        print result['StartTime']
-        print result.getlist('MEOLUT')  #.encode('ascii','ignore') - need to do it to each element not list
-        return render_template('MEOInputAnalysisReturn.html', \
-            result = result)
+            
+        #print result
+        #print result['StartTime']
+        #print result.getlist('MEOLUT')  #.encode('ascii','ignore') - need to do it to each element not list
+        #return render_template('MEOInputAnalysisReturn.html', \
+        #    result = result)
             #StartTime = result['StartTime'], \
             #file_name = secure_filename(f.filename))
 

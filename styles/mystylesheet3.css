@@ -70,6 +70,8 @@ section h2{
 
 fieldset {
     margin: 10px 5px 20px 5px;
+    float: left;
+    width: 25%
            
 }
 
@@ -139,6 +141,8 @@ fieldset {
     margin-left: 40px;
     display: inline-block;
 }
+
+
 
 @media screen and (max-width: 700px) {
 
