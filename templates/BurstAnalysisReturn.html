@@ -19,8 +19,8 @@
         <nav class="topnav">
             <a href="/" class="home">Home</a>
             <a href="/beacon">Beacon Decode</a>
-            <a href="/rawburst">Burst Analysis</a>
-            <a href="/MEOInputAnalysis" class="active">MEOLUT Input Analysis</a>
+            <a href="/rawburst" class="active">Burst Analysis</a>
+            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
             <a href="#">Satellite Orbit Analysis</a>
         </nav>
         <section class="content" id="MEOInputAnalysis">
@@ -76,20 +76,14 @@
                 </fieldset>
                 <fieldset>
                     <legend>Options</legend>
-                    <label for="KMLgen"> Generate KML file </label>
-                    <input type="checkbox" name="KMLgen" value="KMLgen" /><br />
-                    <label for="SingleBurstGen"> Single Burst Loctions in KML ? </label>
-                    <input type="checkbox" name="SingleBurstGen" value="SingleBurstGen" /><br />
-                    <label for="EncLocGen"> Encoded Loctions in KML ? </label>
-                    <input type="checkbox" name="EncLocGen" value="EncLocGen" /><br />
-                    <label for="LEOGen"> LEO Loctions in KML ? </label>
-                    <input type="checkbox" name="LEOGen" value="LEOGen" /><br />
                 </fieldset>
                 <button type="submit"> Submit </button> <br />
             </form>
             <article>
                 <h3>Results</h3>
-                <img src="{{ filename }}" alt="Results png" title="results" />
+                {% for filename in filelist %}         
+                <img id="BurstResult" src="{{ filename }}" alt="Results png" title="results" />
+                {% endfor %}
             </article>
         </section>
     </main>

@@ -8,7 +8,8 @@ import MEOInput_Analysis
 import datetime
 import csv
 
-UPLOAD_FOLDER = 'var/uploads'
+UPLOAD_FOLDER = 'var/uploads/'
+OUTPUTFOLDER = 'static/output/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
 
 def allowed_file(filename):
@@ -51,11 +52,13 @@ def rawburst():
         # read input
         result = request.form
         if 'MEOLUT' in result: 
-            MEOLUT = int(result['MEOLUT'])
+            MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
+            
             #MEOLUT_list = [x.strip() for x in MEOLUT_in.split(',')] 
         else:
-            MEOLUT = '%'
-        print 'MEOLUT - ' + str(MEOLUT) 
+            MEOLUTList = ['%']
+        print 'MEOLUTList - ' 
+        print MEOLUTList 
         if result['StartTime']:
             StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
         else:
@@ -66,13 +69,13 @@ def rawburst():
             EndTime = datetime.datetime.utcnow()
         if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
             f = request.files['inputfile'] 
-            filesaved = UPLOAD_FOLDER + '/' + secure_filename(f.filename)    
+            filesaved = UPLOAD_FOLDER + secure_filename(f.filename)    
             f.save(filesaved)
             #if result['inputsource'] == 'excelfile':
                 #MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
-            filename = MEOInput_Analysis.MSSQL_burst(result, MEOLUT, StartTime, EndTime, databasename='MccTestLGM')
-            return render_template('BurstAnalysisReturn.html', filename=filename )
+            filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, databasename='MccTestLGM')
+            return render_template('BurstAnalysisReturn.html', filelist=filelist )
 
 
 
@@ -103,7 +106,7 @@ def MEOInputAnalysis():
             print result['KMLgen']
             if result['EncLocGen']: print 'true'
             if result['inputsource'] == 'excelfile':
-                MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
+                MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
             csvfile = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, UPLOAD_FOLDER)
             rdr= csv.reader( open(csvfile, "r" ) )

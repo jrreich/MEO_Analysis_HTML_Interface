@@ -80,7 +80,7 @@ fieldset {
 article {
     width: 71%;
     height: 90%;
-    overflow:auto;
+    overflow-y:scroll;
     display: block;
     margin-left: 2px;
     margin-right: 2px;
@@ -91,6 +91,7 @@ article {
     padding-right: 0.75em;
     border: 2px groove #b4bac4;
     float: right;
+    background-color: white;
 
 }
 
@@ -200,12 +201,16 @@ section h2{
     display: inline-block;
 }
 
+#BurstResult {
+    width: 100%;
+    border:1px groove #b4bac4;
+}
+
 @media screen and (max-width: 700px) {
 
 nav a{
     display: block;
     text-align: center;
-
 
 }
 

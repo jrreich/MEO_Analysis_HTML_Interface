@@ -254,3 +254,5 @@ env/Lib/site-packages/*
 
 
 var/
+
+static/output/

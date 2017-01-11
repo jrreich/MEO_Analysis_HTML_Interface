@@ -28,17 +28,15 @@
                 <fieldset>
                     <legend>MEOLUT</legend>
                     <label for="3385">Hawaii</label>
-                    <input type="checkbox" name="MEOLUT" value="3385" /><br />
+                    <input type="checkbox" name="MEOLUT" value="3385" checked /><br />
                     <label for="3669">Florida</label>
-                    <input type="checkbox" name="MEOLUT" value="3669" /><br />
+                    <input type="checkbox" name="MEOLUT" value="3669" checked/><br />
                 </fieldset>
                 <fieldset>
                     <legend>Date/Time</legend>
-                    <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" />
-                    <label for="realtime"> Real Time </label> 
-                    
-                    <label id="rthours"> Number of Hours to Display <input type="number" name="realtimehours" /></label> <br />
-                    
+                    <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" checked/>
+                    <label for="realtime"> Real Time </label>
+                    <label id="rthours"> Number of Hours to Display <input type="number" name="realtimehours" value="4"/></label> <br />     
                     <input type="radio" id="pasttime" name="RealPastTime" value="RT_no"> 
                     <label for="pasttime"> Past Time </label><br />
                     <label class="times"> Start Time <input type="datetime-local" name="StartTime" /> </label>
@@ -48,6 +46,8 @@
                 </fieldset>
                 <fieldset>
                     <legend>Beacon</legend>
+                    <label for="REFref">Reference Beacon Analysis</label>
+                    <input type="radio" name="UseBeaconID" value="REFref" checked /><br />
                     <label for="HIref">Hawaii Reference Beacon</label>
                     <input type="radio" name="UseBeaconID" value="HIref" /><br />
                     <label for="FLref">Florida Reference Beacon</label>
@@ -59,7 +59,7 @@
                 <fieldset>
                     <legend>Input File</legend>
                     <label for="mccdb"> Use USMCC DB</label>
-                    <input type="radio" name="inputsource" value="mccdb" /> <br />
+                    <input type="radio" name="inputsource" value="mccdb" checked/> <br />
                     <label for="xmlfile">Input XML File</label>
                     <input type="radio" class="fileinputneeded" name="inputsource" value="xmlfile" /><br />
                     <label for="zipfile">Input ZIP File</label>
