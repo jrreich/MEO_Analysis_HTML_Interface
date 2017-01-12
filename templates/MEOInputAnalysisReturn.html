@@ -68,13 +68,12 @@
                     <label for="mccdb"> Use USMCC DB</label>
                     <input type="radio" name="inputsource" value="mccdb" /> <br />
                     <label for="excelfile">Input Excel File</label>
-                    <input type="radio" class="fileinputneeded" name="inputsource" value="excelfile" /><br />
+                    <input type="radio" class="fileinputneeded" name="inputsource" value="excelfile" /> <br />
                     <label for="csvfile">Input CSV File</label>
-                    <input type="radio" class="fileinputneeded" name="inputsource" value="csvfile" /><br />
+                    <input type="radio" class="fileinputneeded" name="inputsource" value="csvfile" /> <br />
                     <label for="sqldbfile">Input SQL lite DB (not working)</label>
                     <input type="radio" class="fileinputneeded" name="inputsource" value="sqldbfile" /> <br />
-                    <input type="file" id="fileinput" name="inputfile" >
-                    <br />
+                    <input type="file" id="fileinput" name="inputfile" > <br />
                 </fieldset>
                 <fieldset>
                     <legend>Options</legend>
@@ -88,6 +87,12 @@
                     <input type="checkbox" name="LEOGen" value="LEOGen" /><br />
                 </fieldset>
                 <button type="submit"> Submit </button> <br />
+                <article>
+                    {% for link, desc in linklist.iteritems() %}
+                    <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
+
+                    
+                </article>
             </form>
             <article>
                 <h3>Results</h3>

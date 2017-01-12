@@ -92,7 +92,10 @@ article {
     border: 2px groove #b4bac4;
     float: right;
     background-color: white;
+}
 
+article a {
+    text-decoration: none;
 }
 
 section {
