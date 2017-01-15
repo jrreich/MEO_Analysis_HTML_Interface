@@ -80,15 +80,15 @@ fieldset {
 article {
     width: 71%;
     height: 90%;
-    overflow-y:scroll;
+    overflow: auto;
     display: block;
     margin-left: 2px;
     margin-right: 2px;
     margin-top: 0.75em;
     padding-top: 0.6em;
     padding-bottom: 0.625em;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
+    padding-left: 0.15em;
+    padding-right: 0.15em;
     border: 2px groove #b4bac4;
     float: right;
     background-color: white;
@@ -97,6 +97,23 @@ article {
 article a {
     text-decoration: none;
 }
+
+.openalarms, .closedalarms {
+    width: 35%;
+    display: inline-block;
+    float:left;
+}
+
+article.status {
+    width: 27%;
+    float: right;
+    display: inline-block;
+}    
+
+table #openalarms {
+    background-color: red;
+}
+
 
 section {
     background-color: whitesmoke;

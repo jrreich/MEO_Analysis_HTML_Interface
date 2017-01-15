@@ -29,7 +29,7 @@
         <section class="content" >
             <article class="openalarms">
                 <h3>There are {{ numalarms}} alarms as of {{ EndTime }}</h3>
-                <table class="RealTimeMonitoring">
+                <table class="RealTimeMonitoring" id="openalarms">
                     <tr>
                         <th>AlarmID</th>
                         <th>MEOLUT</th>
@@ -49,7 +49,7 @@
                 </table> 
                     
             </article>
-            <article>
+            <article class="closedalarms">
                 <h3>Closed alarms from {{ StartTime }} to now</h3>
                 <table class="RealTimeMonitoring">
                     <tr>
@@ -70,6 +70,41 @@
                     {% endfor %}
                 </table>
 
+            </article>
+            <article class="status" id="HI">
+                <h3>Hawaii Status as of {{ EndTime }} </h3>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Status</th>
+                        <th>MsgTime</th>
+                    </tr>
+                    {% for component in statusHI %}
+                    <tr>
+                        <td>{{component.component}}</td>
+                        <td>{{component.status}}</td>
+                        <td> {{component.msgtime}} </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+            </article>
+            <article class="status" id="FL">
+                <h3>Florida Status as of {{ EndTime }} </h3>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Status</th>
+                        <th>MsgTime</th>
+                    </tr>
+                    {% for component in statusFL %}
+                    <tr>
+                        <td>{{component.component}}</td>
+                        <td>{{component.status}}</td>
+                        <td> {{component.msgtime}} </td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </article>
         </section>
     </main>

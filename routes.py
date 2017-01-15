@@ -39,7 +39,8 @@ def beacon():
             beaconID = beaconID, \
             beaconID15 = bcn1.bcnID15, \
             countrycode = int(bcn1.country_code,2), \
-            protocolcode = bcn1.protocol)
+            protocolcode = bcn1.protocol,
+            bcn = bcn1)
     else: 
         return '<h2> Invalid Request </h2>'
 
@@ -132,50 +133,45 @@ def realtimemonitor():
             days = request.args.get('days')
         else:
             days = 4
-        # Send the user the form
-        print 'days='
-        print days
-        StartTime = datetime.datetime(2016,1,1,0,0,0)
-        #EndTime = datetime.datetime.utcnow()
-        EndTime = datetime.datetime(2017,1,5,20,30)
+        #StartTime = datetime.datetime(2016,1,1,0,0,0)
+        EndTime = datetime.datetime.utcnow()
+        #EndTime = datetime.datetime(2017,1,5,20,30)
         StartTime = EndTime - datetime.timedelta(days=float(days)) 
-        
-        
-        
-        print StartTime 
-        print EndTime
-        
+
         alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime)
+        statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime)
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
             closedalarms = closedalarms, 
-            numalarms = numalarms, 
+            numalarms = numalarms,
+            statusHI = statusHI, 
+            statusFL = statusFL,
             StartTime = StartTime,
             EndTime = EndTime)
-    elif request.method == 'POST':
-        # read input
-        result = request.form
-        #print result['StartTime']
-        MEOLUT = int(result['MEOLUT'])
-        if result['StartTime']:
-            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
-        else:
-            StartTime = datetime.datetime(2015,1,1,0,0,0)
-        if result['EndTime']:
-            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
-        else:
-            EndTime = datetime.datetime.utcnow()
-        if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
-            f = request.files['inputfile'] 
-            filesaved = UPLOAD_FOLDER + '/' + secure_filename(f.filename)    
-            f.save(filesaved)
-            print result['KMLgen']
-            if result['EncLocGen']: print 'true'
-            if result['inputsource'] == 'excelfile':
-                MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
-        elif result['inputsource'] == 'mccdb':
-            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER)
-            rdr= csv.reader( open(csvoutfile, "r" ) )
-            csv_data = [ row for row in rdr ]
-            return render_template('MEOInputAnalysisReturn.html', data=csv_data, linklist = filelist)
+    #elif request.method == 'POST':
+    #    # read input
+    #    result = request.form
+    #    #print result['StartTime']
+    #    MEOLUT = int(result['MEOLUT'])
+    #    if result['StartTime']:
+    #        StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
+    #    else:
+    #        StartTime = datetime.datetime(2015,1,1,0,0,0)
+    #    if result['EndTime']:
+    #        EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
+    #    else:
+    #        EndTime = datetime.datetime.utcnow()
+    #    if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
+    #        f = request.files['inputfile'] 
+    #        filesaved = UPLOAD_FOLDER + '/' + secure_filename(f.filename)    
+    #        f.save(filesaved)
+    #        print result['KMLgen']
+    #        if result['EncLocGen']: print 'true'
+    #        if result['inputsource'] == 'excelfile':
+    #            MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
+    #    elif result['inputsource'] == 'mccdb':
+    #        csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER)
+    #        rdr= csv.reader( open(csvoutfile, "r" ) )
+    #        csv_data = [ row for row in rdr ]
+    #        return render_template('MEOInputAnalysisReturn.html', data=csv_data, linklist = filelist)
        

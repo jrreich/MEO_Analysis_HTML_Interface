@@ -38,6 +38,7 @@
     <Compile Include="testing.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
@@ -55,6 +56,7 @@
     <Content Include="templates\BurstAnalysisReturn.html">
       <Publish>True</Publish>
     </Content>
+    <Content Include="__init__.pyc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="static\" />
