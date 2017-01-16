@@ -54,7 +54,6 @@ def rawburst():
         result = request.form
         if 'MEOLUT' in result: 
             MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
-            
             #MEOLUT_list = [x.strip() for x in MEOLUT_in.split(',')] 
         else:
             MEOLUTList = ['%']
@@ -133,21 +132,24 @@ def realtimemonitor():
             days = request.args.get('days')
         else:
             days = 4
-        #StartTime = datetime.datetime(2016,1,1,0,0,0)
-        EndTime = datetime.datetime.utcnow()
-        #EndTime = datetime.datetime(2017,1,5,20,30)
-        StartTime = EndTime - datetime.timedelta(days=float(days)) 
+        StartTime = datetime.datetime(2017,1,9,14,0)
+        #EndTime = datetime.datetime.utcnow()
+        EndTime = datetime.datetime(2017,1,9,16,0)
+        #StartTime = EndTime - datetime.timedelta(days=float(days)) 
 
         alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime)
         statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime)
+        packetpercent = MEOInput_Analysis.MEOLUT_percent(StartTime, EndTime)
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
             closedalarms = closedalarms, 
             numalarms = numalarms,
             statusHI = statusHI, 
             statusFL = statusFL,
+            packetpercent = packetpercent,
             StartTime = StartTime,
-            EndTime = EndTime)
+            EndTime = EndTime
+            )
     #elif request.method == 'POST':
     #    # read input
     #    result = request.form

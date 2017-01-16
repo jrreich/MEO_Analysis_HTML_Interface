@@ -48,29 +48,7 @@
                     {% endfor %}
                 </table> 
                     
-            </article>
-            <article class="closedalarms">
-                <h3>Closed alarms from {{ StartTime }} to now</h3>
-                <table class="RealTimeMonitoring">
-                    <tr>
-                        <th>AlarmID</th>
-                        <th>MEOLUT</th>
-                        <th>Alarm</th>
-                        <th>Open at</th>
-                        <th>Closed at</th>
-                    </tr>
-                    {% for alarm in closedalarms %}
-                    <tr>
-                        <td>{{alarm.alarmid}}</td>
-                        <td>{{alarm.meolutname}}</td>
-                        <td> {{alarm.alarmtext}} </td>
-                        <td>{{alarm.openat}}</td>
-                        <td>{{alarm.closedat}}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-
-            </article>
+            </article> 
             <article class="status" id="HI">
                 <h3>Hawaii Status as of {{ EndTime }} </h3>
                 <table>
@@ -103,6 +81,47 @@
                         <td>{{component.status}}</td>
                         <td> {{component.msgtime}} </td>
                     </tr>
+                    {% endfor %}
+                </table>
+            </article>
+            <article class="closedalarms">
+                <h3>Closed alarms from {{ StartTime }} to now</h3>
+                <table class="RealTimeMonitoring" id="closedalarms">
+                    <tr>
+                        <th>AlarmID</th>
+                        <th>MEOLUT</th>
+                        <th>Alarm</th>
+                        <th>Open at</th>
+                        <th>Closed at</th>
+                    </tr>
+                    {% for alarm in closedalarms %}
+                    <tr>
+                        <td>{{alarm.alarmid}}</td>
+                        <td>{{alarm.meolutname}}</td>
+                        <td> {{alarm.alarmtext}} </td>
+                        <td>{{alarm.openat}}</td>
+                        <td>{{alarm.closedat}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+            </article>
+            <article class="percent" id="packetpercent">
+                <h3>Packet percents from {{StartTime}} to {{ EndTime }} </h3>
+                <table>
+                    <tr>
+                        <th>MEO</th>
+                        <th>Antenna</th>
+                        <th>Percent</th>
+                    </tr>
+                    {% for MEO, dict in packetpercent.iteritems() %}
+                        {% for ant, percent in dict.iteritems() %}
+                        <tr>
+                            <td>{{ MEO }} - </td>
+                            <td>{{ ant }}</td>
+                            <td>{{ percent }} </td>
+                        </tr>
+                        {% endfor %}
                     {% endfor %}
                 </table>
             </article>

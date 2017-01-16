@@ -98,8 +98,8 @@ article a {
     text-decoration: none;
 }
 
-.openalarms, .closedalarms {
-    width: 35%;
+.openalarms, .closedalarms, .percent {
+    width: 42%;
     display: inline-block;
     float:left;
 }
@@ -113,7 +113,13 @@ article.status {
 table #openalarms {
     background-color: red;
 }
+table #closealarms {
+    background-color: yellow;
+}
 
+article.percent {
+    width: 20%;
+}
 
 section {
     background-color: whitesmoke;
