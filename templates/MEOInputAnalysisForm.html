@@ -82,13 +82,15 @@
                 <fieldset>
                     <legend>Options</legend>
                     <label for="KMLgen"> Generate KML file </label>
-                    <input type="checkbox" name="KMLgen" value="KMLgen"/><br/>
-                    <label for="SingleBurstGen"> Single Burst Loctions in KML ? </label>
-                    <input type="checkbox" name="SingleBurstGen" value="SingleBurstGen" /><br />
-                    <label for="EncLocGen"> Encoded Loctions in KML ? </label>
-                    <input type="checkbox" name="EncLocGen" value="EncLocGen" /><br />
-                    <label for="LEOGen"> LEO Loctions in KML ? </label>
-                    <input type="checkbox" name="LEOGen" value="LEOGen" /><br />
+                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="KMLgen"/><br/>
+                    <label for="SingleBurstGen" class="KMLsub"> Single Burst Loctions in KML ? </label>
+                    <input type="checkbox" class="KMLsub" name="SingleBurstGen" value="SingleBurstGen" /><br />
+                    <label for="EncLocGen" class="KMLsub"> Encoded Loctions in KML ? </label>
+                    <input type="checkbox" class="KMLsub" name="EncLocGen" value="EncLocGen" /><br />
+                    <label for="LEOGen" class="KMLsub"> LEO Loctions in KML ? </label>
+                    <input type="checkbox" class="KMLsub" name="LEOGen" value="LEOGen" /><br />
+                    <label for="OutputSolution" class="KMLsub"> Output (to RCC) Solutions in KML ? </label>
+                    <input type="checkbox" class="KMLsub" name="OutputSolution" value="OutputSolution" /><br />
                 </fieldset>
                 <button type="submit"> Submit </button> <br />
             </form>

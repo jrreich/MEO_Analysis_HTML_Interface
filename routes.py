@@ -127,19 +127,29 @@ def MEOInputAnalysis():
 @app.route('/RealTimeMonitor')
 def realtimemonitor():
     if request.method == 'GET':
-        print request.args.get('days')
         if request.args.get('days') <> None:
             days = request.args.get('days')
         else:
             days = 4
-        StartTime = datetime.datetime(2017,1,9,14,0)
-        #EndTime = datetime.datetime.utcnow()
-        EndTime = datetime.datetime(2017,1,9,16,0)
-        #StartTime = EndTime - datetime.timedelta(days=float(days)) 
-
+        if request.args.get('refreshtimer') <> None:
+            refreshtimer = float(request.args.get('refreshtimer'))
+        else:
+            refreshtimer = 30
+        if request.args.get('burstwindow') <> None:
+            burstwindow = float(request.args.get('burstwindow'))
+        else:
+            burstwindow = 60
+        #StartTime = datetime.datetime(2017,1,9,14,0)
+        EndTime = datetime.datetime.utcnow() #.strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
+        #print EndTime
+        #s = t.strftime('%Y-%m-%d %H:%M:%S.%f')
+        #return s[:-3]
+        #EndTime = datetime.datetime(2017,1,9,16,0)
+        StartTime = EndTime - datetime.timedelta(days=float(days)) 
+        BurstStartTime = EndTime - datetime.timedelta(minutes=burstwindow)
         alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime)
         statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime)
-        packetpercent = MEOInput_Analysis.MEOLUT_percent(StartTime, EndTime)
+        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime)
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
             closedalarms = closedalarms, 
@@ -148,7 +158,10 @@ def realtimemonitor():
             statusFL = statusFL,
             packetpercent = packetpercent,
             StartTime = StartTime,
-            EndTime = EndTime
+            EndTime = EndTime,
+            BurstStartTime = BurstStartTime,
+            refreshtimer = refreshtimer,
+            burstwindow = burstwindow
             )
     #elif request.method == 'POST':
     #    # read input

@@ -12,12 +12,29 @@
     </script> -->
 </head>
 <body>
+
+    <script type="text/javascript">
+    setInterval(function () {
+        location.reload();
+    }, "{{refreshtimer}}" * 1000);   
+    </script>
     <main>
+        <aside id="monitoringoptions">
+            <form action="RealTimeMonitor" method="get">
+                <label for="refreshtimer">Refresh period (seconds)</label>
+                <input id="refreshtimer" name="refreshtimer" type="text" value="{{ refreshtimer }}" style="display:inline-block" /> <br />
+                <label for="burstwindow">Burst Percentage Window (minutes)</label>
+                <input id="burstwindow" name="burstwindow" type="text" value="{{burstwindow}}" style="display:inline-block" /> <br />
+                <input type="submit" style="display:inline-block" />
+            </form>
+        </aside>
         <div id="heading1">
             <h1>
-                <a href="{{ url_for('index') }}">Analysis Tools</a>
+                <a href="{{ url_for('index') }}">Real Time Monitoring - {{EndTime.strftime('%m/%d/%y %H:%M:%S')}}</a>
             </h1>
         </div>
+
+
         <nav class="topnav">
             <a href="/" class="home">Home</a>
             <a href="/beacon">Beacon Decode</a>
@@ -28,7 +45,7 @@
         </nav>
         <section class="content" >
             <article class="openalarms">
-                <h3>There are {{ numalarms}} alarms as of {{ EndTime }}</h3>
+                <h3>There are {{ numalarms}} alarms as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }}</h3>
                 <table class="RealTimeMonitoring" id="openalarms">
                     <tr>
                         <th>AlarmID</th>
@@ -50,7 +67,7 @@
                     
             </article> 
             <article class="status" id="HI">
-                <h3>Hawaii Status as of {{ EndTime }} </h3>
+                <h3>Hawaii Status as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }} </h3>
                 <table>
                     <tr>
                         <th>Component</th>
@@ -68,7 +85,7 @@
 
             </article>
             <article class="status" id="FL">
-                <h3>Florida Status as of {{ EndTime }} </h3>
+                <h3>Florida Status as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }} </h3>
                 <table>
                     <tr>
                         <th>Component</th>
@@ -85,7 +102,7 @@
                 </table>
             </article>
             <article class="closedalarms">
-                <h3>Closed alarms from {{ StartTime }} to now</h3>
+                <h3>Closed alarms from {{ StartTime.strftime('%m/%d/%y %H:%M:%S') }} to now</h3>
                 <table class="RealTimeMonitoring" id="closedalarms">
                     <tr>
                         <th>AlarmID</th>
@@ -107,7 +124,8 @@
 
             </article>
             <article class="percent" id="packetpercent">
-                <h3>Packet percents from {{StartTime}} to {{ EndTime }} </h3>
+                <h3>Packet percents from {{BurstStartTime.strftime('%m/%d/%y %H:%M:%S')}} to
+                 {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }} </h3>
                 <table>
                     <tr>
                         <th>MEO</th>
