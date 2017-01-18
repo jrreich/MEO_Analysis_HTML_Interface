@@ -252,6 +252,7 @@ env/Lib/*
 env/Lib/site-packages/*
 !env/Lib/site-packages/beacon_decode/
 !env/Lib/site-packages/burst_processor/
+!env/Lib/site-packages/MEOInput_Analysis/
 
 
 var/
