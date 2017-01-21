@@ -80,19 +80,45 @@ fieldset {
 article {
     width: 71%;
     height: 90%;
-    overflow-y:scroll;
+    overflow: auto;
     display: block;
     margin-left: 2px;
     margin-right: 2px;
     margin-top: 0.75em;
     padding-top: 0.6em;
     padding-bottom: 0.625em;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
+    padding-left: 0.15em;
+    padding-right: 0.15em;
     border: 2px groove #b4bac4;
     float: right;
     background-color: white;
+}
 
+article a {
+    text-decoration: none;
+}
+
+.openalarms, .closedalarms, .percent {
+    width: 42%;
+    display: inline-block;
+    float:left;
+}
+
+article.status {
+    width: 27%;
+    float: right;
+    display: inline-block;
+}    
+
+table #openalarms {
+    background-color: red;
+}
+table #closealarms {
+    background-color: yellow;
+}
+
+article.percent {
+    width: 20%;
 }
 
 section {
@@ -204,6 +230,29 @@ section h2{
 #BurstResult {
     width: 100%;
     border:1px groove #b4bac4;
+}
+
+table.RealTimeMonitoring {
+	border-width: 2px;
+	border-spacing: 3px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: separate;
+	background-color: white;
+}
+table.RealTimeMonitoring th {
+    border-width: 1px;
+    padding: 3px;
+    border-style: inset;
+    border-color: gray;
+}
+
+table.RealTimeMonitoring td {
+    border-width: 1px;
+    padding: 3px;
+    border-style: inset;
+    border-color: gray;
+    background-color: white;
 }
 
 @media screen and (max-width: 700px) {

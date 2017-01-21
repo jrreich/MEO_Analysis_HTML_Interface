@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Raw Burst Analysis</title>
+    <title>MEOLUT Solution Analysis</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}"> 
     <!--<link rel="stylesheet" type="text/css" href='/styles/mystylesheet3.css'>-->
     <!--<script language="javascript">
@@ -23,6 +23,7 @@
             <a href="/beacon">Beacon Decode</a>
             <a href="/rawburst">Burst Analysis</a>
             <a href="/MEOInputAnalysis" class="active">MEOLUT Input Analysis</a>
+            <a href="/RealTimeMonitor">Real Time Monitoring</a>
             <a href="#">Satellite Orbit Analysis</a>
         </nav>
         <section class="content form" id="MEOInputAnalysis">
@@ -30,9 +31,9 @@
                 <fieldset>
                     <legend>MEOLUT</legend>
                     <label for="3385">Hawaii</label>
-                    <input type="checkbox" name="MEOLUT" value="3385" /><br />
+                    <input type="radio" name="MEOLUT" value="3385" /><br />
                     <label for="3669">Florida</label>
-                    <input type="checkbox" name="MEOLUT" value="3669" /><br />
+                    <input type="radio" name="MEOLUT" value="3669" /><br />
                 </fieldset>
                 <fieldset>
                     <legend>Date/Time</legend>
@@ -81,13 +82,15 @@
                 <fieldset>
                     <legend>Options</legend>
                     <label for="KMLgen"> Generate KML file </label>
-                    <input type="checkbox" name="KMLgen" value="KMLgen"/><br/>
-                    <label for="SingleBurstGen"> Single Burst Loctions in KML ? </label>
-                    <input type="checkbox" name="SingleBurstGen" value="SingleBurstGen" /><br />
-                    <label for="EncLocGen"> Encoded Loctions in KML ? </label>
-                    <input type="checkbox" name="EncLocGen" value="EncLocGen" /><br />
-                    <label for="LEOGen"> LEO Loctions in KML ? </label>
-                    <input type="checkbox" name="LEOGen" value="LEOGen" /><br />
+                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="KMLgen"/><br/>
+                    <label for="SingleBurstGen" class="KMLsub"> Single Burst Loctions in KML ? </label>
+                    <input type="checkbox" class="KMLsub" name="SingleBurstGen" value="SingleBurstGen" /><br />
+                    <label for="EncLocGen" class="KMLsub"> Encoded Loctions in KML ? </label>
+                    <input type="checkbox" class="KMLsub" name="EncLocGen" value="EncLocGen" /><br />
+                    <label for="LEOGen" class="KMLsub"> LEO Loctions in KML ? </label>
+                    <input type="checkbox" class="KMLsub" name="LEOGen" value="LEOGen" /><br />
+                    <label for="OutputSolution" class="KMLsub"> Output (to RCC) Solutions in KML ? </label>
+                    <input type="checkbox" class="KMLsub" name="OutputSolution" value="OutputSolution" /><br />
                 </fieldset>
                 <button type="submit"> Submit </button> <br />
             </form>
