@@ -147,9 +147,9 @@ def realtimemonitor():
         #EndTime = datetime.datetime(2017,1,9,16,0)
         StartTime = EndTime - datetime.timedelta(days=float(days)) 
         BurstStartTime = EndTime - datetime.timedelta(minutes=burstwindow)
-        alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime)
-        statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime)
-        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime)
+        alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime, sql_login = 'yes')
+        statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime, sql_login = 'yes')
+        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, sql_login = 'yes')
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
             closedalarms = closedalarms, 
