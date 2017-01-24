@@ -74,7 +74,7 @@ def rawburst():
             #if result['inputsource'] == 'excelfile':
                 #MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
-            filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, databasename='MccTestLGM')
+            filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, databasename='MccTestLGM',sql_login = 'yes')
             return render_template('BurstAnalysisReturn.html', filelist=filelist )
     else: 
         return '<h2> Invalid Request </h2>'
@@ -106,7 +106,7 @@ def MEOInputAnalysis():
             if result['inputsource'] == 'excelfile':
                 MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
-            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER)
+            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER,sql_login = 'yes')
             rdr= csv.reader( open(csvoutfile, "r" ) )
             csv_data = [ row for row in rdr ]
             return render_template('MEOInputAnalysisReturn.html', data=csv_data, linklist = filelist)
