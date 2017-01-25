@@ -263,9 +263,10 @@ nav a{
 
 }
 
-form, content{
-    width:auto;
+form, .content {
+    width: 98%;
     display: block;
+    float: none;
 
 }
 
