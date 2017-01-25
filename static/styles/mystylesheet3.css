@@ -263,7 +263,7 @@ nav a{
 
 }
 
-form, .content {
+form, .content, .openalarms, .closedalarms, .status {
     width: 98%;
     display: block;
     float: none;
