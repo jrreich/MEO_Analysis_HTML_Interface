@@ -57,8 +57,8 @@ def rawburst():
             #MEOLUT_list = [x.strip() for x in MEOLUT_in.split(',')] 
         else:
             MEOLUTList = ['%']
-        print 'MEOLUTList - ' 
-        print MEOLUTList 
+        #print 'MEOLUTList - ' 
+        #print MEOLUTList 
         if result['StartTime']:
             StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
         else:
