@@ -153,4 +153,9 @@ nav a{
 
 }
 
+form {
+    width:auto;
+    display: block;
+}
+
 }
