@@ -610,11 +610,11 @@ def MSSQL_analysis(result, MEOLUT, TimeStart, TimeEnd, OUTPUTFOLDER, databasenam
     
 
     outfiletag = '_{}_{:%Y-%m-%d-%H%M}_{:%Y-%m-%d-%H%M}'.format(BeaconID,TimeStart,TimeEnd)
-    SBLfile = OUTPUTFOLDER + '\SBL' + str(MEOLUT)    + outfiletag +'.csv'
-    MBLfile = OUTPUTFOLDER + '\MBL' + str(MEOLUT) + outfiletag +'.csv'
-    OUTfile = OUTPUTFOLDER + '\OUT' + str(MEOLUT) + outfiletag +'.csv'
-    LEOGEO_file = OUTPUTFOLDER + '\LEO' + outfiletag + '.csv'
-    RCC_Output_file = OUTPUTFOLDER + '\RCC' + outfiletag + '.csv'
+    SBLfile = OUTPUTFOLDER + r'SBL' + str(MEOLUT)    + outfiletag +'.csv'
+    MBLfile = OUTPUTFOLDER + r'MBL' + str(MEOLUT) + outfiletag +'.csv'
+    OUTfile = OUTPUTFOLDER + r'OUT' + str(MEOLUT) + outfiletag +'.csv'
+    LEOGEO_file = OUTPUTFOLDER + r'LEO' + outfiletag + '.csv'
+    RCC_Output_file = OUTPUTFOLDER + r'RCC' + outfiletag + '.csv'
     #outfilenamelist = list()
     outfilelist = OrderedDict()
     outfilelist[OUTfile] = 'Output Summary'
@@ -626,7 +626,7 @@ def MSSQL_analysis(result, MEOLUT, TimeStart, TimeEnd, OUTPUTFOLDER, databasenam
 
     
     if 'KMLgen' in result: 
-        KMLfile = OUTPUTFOLDER + '\KML' + outfiletag +'.kml'
+        KMLfile = OUTPUTFOLDER + r'KML' + outfiletag +'.kml'
         outfilelist[KMLfile] = 'KML File Output'
     df_SBL.to_csv(SBLfile)
     df_MBL.to_csv(MBLfile)
