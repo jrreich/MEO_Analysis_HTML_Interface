@@ -1,0 +1,52 @@
+﻿body
+{
+    background-color: #FFF;
+    color: darkslategrey;
+    padding: 10px 5px 0px 5px;
+
+
+}
+
+#main {
+    position: relative;
+   
+}
+#heading1 {
+    color: lightgray;
+    padding-left: 10px;
+    width: 100%;
+      
+}
+
+#heading1 h1 a {
+    color: cornflowerblue;
+    font-size: larger;
+    font-family: 'Courier New','Times New Roman',sans-serif;
+    font-variant: small-caps;
+}
+
+
+#menu ul {
+    background-color: lightcyan;
+    list-style: none;
+    max-width: 400px;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid;     
+}
+
+#menu li {
+    border-bottom: 1px solid;
+    padding-left: 10px;
+    line-height: 45px;
+}
+
+#menu a {
+    font-size: x-large;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: darkslateblue;
+    font-family: 'Courier New','Times New Roman',sans-serif;
+}
+
+

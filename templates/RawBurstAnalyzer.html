@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Raw Burst Analyzer</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet2.css') }}">
+
+</head>
+<body>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="/" style="font-variant:small-caps;color:#AAA">Home</a>
+            <a href="/beacon">Beacon Decode</a>
+            <a href="/rawburst">Burst Analysis</a>
+            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
+            <a href="#">Satellite Orbit Analysis</a>
+        </div>
+        
+        <!-- Use any element to open the sidenav -->
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+        <div id="main">
+            <div id="heading1">
+                <h1>
+                    <a href="{{ url_for('index') }}">Analysis Tools</a>
+                </h1>
+            </div>
+        <h2> Raw Burst Analyzer</h2>
+        <section class="content" id="RawAnalyzer">
+            <form method="post">
+                <fieldset>
+                    <legend>MEOLUT</legend>
+                    <label for="3385">Hawaii</label>
+                    <input type="checkbox" name="MEOLUT" value="3385" /><br>
+                    <label for="3669">Florida</label>
+                    <input type="checkbox" name="MEOLUT" value="3669" /><br>
+                </fieldset>
+                <fieldset>
+                    <legend>Date/Time</legend>
+                    <label for="RealTime">Real Time?</label>
+                    <input type="radio" name="RealTime" value="RT_yes" />
+                    <label for="RealTime">Past?</label>
+                    <input type="radio" name="RealTime" value="RT_no" />
+                    <label for="StartTime">Start Time</label>
+                    <input type="datetime-local" name="StartTime" />
+                    <label for="EndTime">End Time</label>
+                    <input type="datetime-local" name="EndTime" />
+
+                    <label for="beaconID">Beacon ID</label>
+                    <input type="text" name="beaconID" />
+                    <input type="text" name="beaconID2" />
+                    <button type="submit"> Submit </button>
+                </fieldset>
+            </form>
+        </section>
+    </div>
+    <script>    
+        /* Set the width of the side navigation to 250px */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        /* Set the width of the side navigation to 0 */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+
+        function init() {
+            openNav()
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

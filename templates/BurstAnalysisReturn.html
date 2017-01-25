@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Burst Analysis</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
+    <!--<link rel="stylesheet" type="text/css" href='styles/mystylesheet3.css'>-->
+
+</head>
+<body>
+    <main>
+        <div id="heading1">
+            <h1>
+                <a href="{{ url_for('index') }}">Analysis Tools</a>
+            </h1>
+        </div>
+        <nav class="topnav">
+            <a href="/" class="home">Home</a>
+            <a href="/beacon">Beacon Decode</a>
+            <a href="/rawburst" class="active">Burst Analysis</a>
+            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
+            <a href="/RealTimeMonitor">Real Time Monitoring</a>
+            <a href="#">Satellite Orbit Analysis</a>
+        </nav>
+        <section class="content" id="MEOInputAnalysis">
+            <form method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <legend>MEOLUT</legend>
+                    <label for="3385">Hawaii</label>
+                    <input type="checkbox" name="MEOLUT" value="3385" /><br />
+                    <label for="3669">Florida</label>
+                    <input type="checkbox" name="MEOLUT" value="3669" /><br />
+                </fieldset>
+                <fieldset>
+                    <legend>Date/Time</legend>
+                    <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" />
+                    <label for="realtime"> Real Time </label>
+
+                    <label id="rthours"> Number of Hours to Display <input type="number" name="realtimehours" /></label> <br />
+
+                    <input type="radio" id="pasttime" name="RealPastTime" value="RT_no">
+                    <label for="pasttime"> Past Time </label><br />
+                    <label class="times"> Start Time <input type="datetime-local" name="StartTime" /> </label>
+                    <br />
+                    <label class="times" id="EndDate"> End Time <input type="datetime-local" name="EndTime" /><br /></label>
+
+                </fieldset>
+                <fieldset>
+                    <legend>Beacon</legend>
+                    <label for="HIref">Hawaii Reference Beacon</label>
+                    <input type="radio" name="UseBeaconID" value="HIref" /><br />
+                    <label for="FLref">Florida Reference Beacon</label>
+                    <input type="radio" name="UseBeaconID" value="FLref" /><br />
+                    <label for="UseBeaconID">Use Beacon ID</label>
+                    <input type="radio" id="userbeaconid" name="UseBeaconID" value="UserInput" /> <br />
+                    <label for="UseSiteID">Use Site ID</label>
+                    <input type="radio" id="usersiteid" name="UseSiteID" value="UserInput" /> <br />
+                    <input type="text" id="beaconIDinput" name="beaconID" placeholder="Beacon ID">
+                    <input type="text" id="siteIDinput" name="siteID" placeholder="Site ID">
+                    <input type="text" id="beaconIDinput" name="beaconLat" placeholder="Ground Truth Latitude">
+                    <input type="text" id="beaconIDinput" name="beaconLon" placeholder="Ground Truth Longitude">
+                </fieldset>
+                <fieldset>
+                    <legend>Input File</legend>
+                    <label for="mccdb"> Use USMCC DB</label>
+                    <input type="radio" name="inputsource" value="mccdb" /> <br />
+                    <label for="excelfile">Input Excel File</label>
+                    <input type="radio" class="fileinputneeded" name="inputsource" value="excelfile" /><br />
+                    <label for="csvfile">Input CSV File</label>
+                    <input type="radio" class="fileinputneeded" name="inputsource" value="csvfile" /><br />
+                    <label for="sqldbfile">Input SQL lite DB (not working)</label>
+                    <input type="radio" class="fileinputneeded" name="inputsource" value="sqldbfile" /> <br />
+                    <input type="file" id="fileinput" name="inputfile">
+                    <br />
+                </fieldset>
+                <fieldset>
+                    <legend>Options</legend>
+                </fieldset>
+                <button type="submit"> Submit </button> <br />
+            </form>
+            <article>
+                <h3>Results</h3>
+                {% for filename in filelist %}         
+                <img id="BurstResult" src="{{ filename }}" alt="Results png" title="results" />
+                {% endfor %}
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>
