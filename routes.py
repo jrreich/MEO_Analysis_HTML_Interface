@@ -87,7 +87,6 @@ def MEOInputAnalysis():
     elif request.method == 'POST':
         # read input
         result = request.form
-        #print result['StartTime']
         MEOLUT = int(result['MEOLUT'])
         if result['StartTime']:
             StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
