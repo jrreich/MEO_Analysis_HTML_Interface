@@ -106,6 +106,8 @@ def MEOInputAnalysis():
                 MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
             csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER, sql_login = 'yes')
+            if csvoutfile == None:
+                return render_template('MEOInputAnalysisReturnNone.html', data = filelist)
             rdr= csv.reader( open(csvoutfile, "r" ) )
             csv_data = [ row for row in rdr ]
             return render_template('MEOInputAnalysisReturn.html', data=csv_data, linklist = filelist)
