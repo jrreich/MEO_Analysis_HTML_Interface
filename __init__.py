@@ -541,7 +541,13 @@ def MSSQL_analysis(result, MEOLUT, TimeStart, TimeEnd, OUTPUTFOLDER, databasenam
     #df3 = df2[(df2.BcnId15 == BeaconID)]
     dfSB = df3[(df3.datatype == 3)] 
     dfMB = df3[(df3.datatype == 0)] 
-    if df3.empty: print "Data Frame is empty after filtering out Beacon ID = " + BeaconID
+    if df3.empty: 
+        print "Data Frame is empty after filtering out Beacon ID = " + BeaconID
+        return None, { 'MEOLUT': MEOLUT,
+                        'TimeStart': TimeStart,
+                        'TimeEnd': TimeEnd,
+                        'Beacon': BeaconQuery,
+                      }
     
     lat_fun = lambda hexin: bcn.beacon(hexin).lat
     lon_fun = lambda hexin: bcn.beacon(hexin).lon
