@@ -757,13 +757,14 @@ def MSSQL_analysis(result, MEOLUT, TimeStart, TimeEnd, OUTPUTFOLDER, databasenam
             params=[TimeStart, TimeEnd, BeaconQuery]
             df = pd.read_sql_query(sql_query,conn, index_col = 'addtime', params=params)
             #df = df[(df.BcnId15 == BeaconID)]
-            print df.a_lat.head(5)
+            #print df.a_lat.head(5)
+            dfLEO_loc = df[df.a_lat <> 'null']
             if df.empty: 
                 print('query did not find any data that matched')    
             else:
                 #dfLEO = df[df.Orbit.notnull()]
-                dfLEO_loc = df[df.a_lat.notnull()]
-                print dfLEO_loc.head(5)
+                #dfLEO_loc = df[df.a_lat.notnull()]
+                #print dfLEO_loc.head(5)
                 dfLEO_loc.to_csv(LEOGEO_file)
                 with open(LEOGEO_file, 'rb') as csvfile:
                     filereader = csv.reader(csvfile)

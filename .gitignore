@@ -261,3 +261,6 @@ static/output/
 
 web.config
 web.debug.config
+
+*.vsdx
+*.png
