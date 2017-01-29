@@ -44,6 +44,28 @@
             <a href="#">Satellite Orbit Analysis</a>
         </nav>
         <section class="content" >
+            <article class="percent" id="packetpercent">
+                <h3>
+                    Packet percents from {{BurstStartTime.strftime('%m/%d/%y %H:%M:%S')}} to
+                    {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }}
+                </h3>
+                <table>
+                    <tr>
+                        <th>MEO</th>
+                        <th>Antenna</th>
+                        <th>Percent</th>
+                    </tr>
+                    {% for MEO, dict in packetpercent.iteritems() %}
+                    {% for ant, percent in dict.iteritems() %}
+                    <tr>
+                        <td>{{ MEO }} - </td>
+                        <td>{{ ant }}</td>
+                        <td>{{ percent }} </td>
+                    </tr>
+                    {% endfor %}
+                    {% endfor %}
+                </table>
+            </article>
             <article class="openalarms">
                 <h3>There are {{ numalarms}} alarms as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }}</h3>
                 <table class="RealTimeMonitoring" id="openalarms">
@@ -122,26 +144,6 @@
                     {% endfor %}
                 </table>
 
-            </article>
-            <article class="percent" id="packetpercent">
-                <h3>Packet percents from {{BurstStartTime.strftime('%m/%d/%y %H:%M:%S')}} to
-                 {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }} </h3>
-                <table>
-                    <tr>
-                        <th>MEO</th>
-                        <th>Antenna</th>
-                        <th>Percent</th>
-                    </tr>
-                    {% for MEO, dict in packetpercent.iteritems() %}
-                        {% for ant, percent in dict.iteritems() %}
-                        <tr>
-                            <td>{{ MEO }} - </td>
-                            <td>{{ ant }}</td>
-                            <td>{{ percent }} </td>
-                        </tr>
-                        {% endfor %}
-                    {% endfor %}
-                </table>
             </article>
         </section>
     </main>
