@@ -764,7 +764,7 @@ def MSSQL_analysis(result, MEOLUT, TimeStart, TimeEnd, OUTPUTFOLDER, databasenam
             df = pd.read_sql_query(sql_query,conn, index_col = 'addtime', params=params)
             #df = df[(df.BcnId15 == BeaconID)]
             #print df.a_lat.head(5)
-            dfLEO_loc = df[df.a_lat <> 'null']
+            dfLEO_loc = df[(df.a_lat != 'null')]
             if df.empty: 
                 print('query did not find any data that matched')    
             else:
