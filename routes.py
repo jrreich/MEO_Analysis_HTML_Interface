@@ -111,16 +111,6 @@ def MEOInputAnalysis():
             rdr= csv.reader( open(csvoutfile, "r" ) )
             csv_data = [ row for row in rdr ]
             return render_template('MEOInputAnalysisReturn.html', data=csv_data, linklist = filelist)
-            
-            
-        #print result
-        #print result['StartTime']
-        #print result.getlist('MEOLUT')  #.encode('ascii','ignore') - need to do it to each element not list
-        #return render_template('MEOInputAnalysisReturn.html', \
-        #    result = result)
-            #StartTime = result['StartTime'], \
-            #file_name = secure_filename(f.filename))
-
 
     else: 
         return '<h2> Invalid Request </h2>'
