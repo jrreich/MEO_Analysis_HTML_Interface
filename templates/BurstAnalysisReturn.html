@@ -82,8 +82,10 @@
             </form>
             <article>
                 <h3>Results</h3>
-                {% for filename in filelist %}         
-                <img id="BurstResult" src="{{ filename }}" alt="Results png" title="results" />
+                {% for filename in filelist %}
+                <a href="{{ filename }}">
+                    <img id="BurstResult" src="{{ filename }}" alt="Results png" title="results" />
+                </a>         
                 {% endfor %}
             </article>
         </section>
