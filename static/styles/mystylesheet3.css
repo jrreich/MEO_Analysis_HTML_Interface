@@ -263,7 +263,7 @@ nav a{
 
 }
 
-form, .content, .openalarms, .closedalarms, article.status, article.percent #results{
+form, .content, .openalarms, .closedalarms, article.status, article.packets article.results{
     width: 98%;
     display: block;
     float: none;
