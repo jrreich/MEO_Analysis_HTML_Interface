@@ -10,7 +10,7 @@ import csv
 import sys
 
 UPLOAD_FOLDER = 'var/uploads/'
-OUTPUTFOLDER = 'static/output/'
+OUTPUTFOLDER = r'C:/Users/reichj/Source/Repos/MEO_Analysis_HTML_Interface/static/output/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
 
 app = Flask(__name__)
