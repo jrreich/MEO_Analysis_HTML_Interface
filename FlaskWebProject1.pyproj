@@ -37,6 +37,9 @@
     <Compile Include="module1.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="myapp.wsgi">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes.py">
       <SubType>Code</SubType>
     </Compile>

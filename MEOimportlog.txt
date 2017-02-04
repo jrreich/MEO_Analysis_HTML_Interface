@@ -1,0 +1,13 @@
+2017-02-03 19:03:03,282 INFO numpy pandas and itertools
+2017-02-03 19:03:04,528 INFO imported matplotlib
+2017-02-03 19:03:04,582 INFO imported math, sys, os and xlrd
+2017-02-03 19:03:04,585 INFO datetime and csv
+2017-02-03 19:03:04,693 INFO collections and simplekml
+2017-02-03 19:03:04,694 INFO re and beacon decode
+2017-02-03 19:03:04,697 INFO pypyodbc ... all imported - look elsewhere
+2017-02-03 19:03:04,769 INFO  * Running on http://localhost:64319/ (Press CTRL+C to quit)
+2017-02-03 19:03:05,655 INFO 127.0.0.1 - - [03/Feb/2017 19:03:05] "GET / HTTP/1.1" 200 -
+2017-02-03 19:03:06,528 INFO 127.0.0.1 - - [03/Feb/2017 19:03:06] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
+2017-02-03 19:03:06,845 INFO 127.0.0.1 - - [03/Feb/2017 19:03:06] "GET /favicon.ico HTTP/1.1" 404 -
+2017-02-03 19:03:11,627 INFO 127.0.0.1 - - [03/Feb/2017 19:03:11] "GET /MEOInputAnalysis HTTP/1.1" 200 -
+2017-02-03 19:03:31,051 INFO 127.0.0.1 - - [03/Feb/2017 19:03:31] "GET /RealTimeMonitor HTTP/1.1" 500 -

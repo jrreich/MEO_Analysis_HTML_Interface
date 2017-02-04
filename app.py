@@ -11,7 +11,7 @@ app = Flask(__name__)
 #app.wsgi_app = ProxyFix(app.wsgi_app)
 
 # Make the WSGI interface available at the top level so wfastcgi can get it.
-wsgi_app = app.wsgi_app
+#wsgi_app = app.wsgi_app
 
 
 

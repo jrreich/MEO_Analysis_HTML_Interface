@@ -1,16 +1,19 @@
 from werkzeug.utils import secure_filename
 from flask import Flask, url_for, request, render_template; 
-from app import app
+#from app import app
 import beacon_decode as bcn
 from werkzeug.utils import secure_filename
 import pypyodbc
 import MEOInput_Analysis
 import datetime
 import csv
+import sys
 
 UPLOAD_FOLDER = 'var/uploads/'
 OUTPUTFOLDER = 'static/output/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
+
+app = Flask(__name__)
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -20,7 +23,7 @@ def allowed_file(filename):
 @app.route('/')
 def index():
     """Renders a sample page."""
-    createLink = "<a href = '" + url_for('beacon') + "'>Beacon Decoder</a>"; # url_for usings the function name to point to URL
+    #createLink = "<a href = '" + url_for('beacon') + "'>Beacon Decoder</a>"; # url_for usings the function name to point to URL
     return render_template('index3.html')
 
 @app.route('/beacon', methods=['GET','POST'])
@@ -74,7 +77,7 @@ def rawburst():
             #if result['inputsource'] == 'excelfile':
                 #MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
-            filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, databasename='MccTestLGM',sql_login = 'yes')
+            filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, databasename='MccTestLGM') #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
             return render_template('BurstAnalysisReturn.html', filelist=filelist )
     else: 
         return '<h2> Invalid Request </h2>'
@@ -105,7 +108,7 @@ def MEOInputAnalysis():
             if result['inputsource'] == 'excelfile':
                 MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
-            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER, sql_login = 'yes')
+            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER) #, sql_login = 'yes')
             if csvoutfile == None:
                 return render_template('MEOInputAnalysisReturnNone.html', data = filelist)
             rdr= csv.reader( open(csvoutfile, "r" ) )
@@ -138,9 +141,9 @@ def realtimemonitor():
         #EndTime = datetime.datetime(2017,1,9,16,0)
         StartTime = EndTime - datetime.timedelta(days=float(days)) 
         BurstStartTime = EndTime - datetime.timedelta(minutes=burstwindow)
-        alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime, sql_login = 'yes')
-        statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime, sql_login = 'yes')
-        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, sql_login = 'yes')
+        alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime) #, sql_login = 'yes')
+        statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime) #, sql_login = 'yes')
+        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime) #, sql_login = 'yes')
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
             closedalarms = closedalarms, 
