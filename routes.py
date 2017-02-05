@@ -8,9 +8,12 @@ import MEOInput_Analysis
 import datetime
 import csv
 import sys
+import os
 
 UPLOAD_FOLDER = 'var/uploads/'
-OUTPUTFOLDER = r'C:/Users/reichj/Source/Repos/MEO_Analysis_HTML_Interface/static/output/'
+approot = os.path.dirname(__file__)
+OUTPUTFOLDER = os.path.join('static','output')
+#OUTPUTFOLDER = r'C:/Users/reichj/Source/Repos/MEO_Analysis_HTML_Interface/static/output/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
 
 app = Flask(__name__)
@@ -77,7 +80,7 @@ def rawburst():
             #if result['inputsource'] == 'excelfile':
                 #MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
-            filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, databasename='MccTestLGM') #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
+            filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, databasename='MccTestLGM') #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
             return render_template('BurstAnalysisReturn.html', filelist=filelist )
     else: 
         return '<h2> Invalid Request </h2>'
@@ -106,12 +109,12 @@ def MEOInputAnalysis():
             print result['KMLgen']
             if result['EncLocGen']: print 'true'
             if result['inputsource'] == 'excelfile':
-                MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
+                MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
         elif result['inputsource'] == 'mccdb':
-            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER) #, sql_login = 'yes')
+            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER, approot) #, sql_login = 'yes')
             if csvoutfile == None:
                 return render_template('MEOInputAnalysisReturnNone.html', data = filelist)
-            rdr= csv.reader( open(csvoutfile, "r" ) )
+            rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
             csv_data = [ row for row in rdr ]
             return render_template('MEOInputAnalysisReturn.html', data=csv_data, linklist = filelist)
 
