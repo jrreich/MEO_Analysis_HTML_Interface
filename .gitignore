@@ -258,3 +258,10 @@ env/Lib/site-packages/*
 var/
 
 static/output/
+
+web.config
+web.debug.config
+
+*.vsdx
+*.png
+*.txt

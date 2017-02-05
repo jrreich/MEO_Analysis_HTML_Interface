@@ -98,7 +98,7 @@ article a {
     text-decoration: none;
 }
 
-.openalarms, .closedalarms, .percent {
+.openalarms, .closedalarms, .packets {
     width: 42%;
     display: inline-block;
     float:left;
@@ -117,7 +117,7 @@ table #closealarms {
     background-color: yellow;
 }
 
-article.percent {
+article.packets {
     width: 20%;
 }
 
@@ -262,5 +262,16 @@ nav a{
     text-align: center;
 
 }
+
+form, .content, .openalarms, .closedalarms, article.status, article.packets, article.results{
+    width: 98%;
+    display: block;
+    float: none;
+}
+
+article {
+    float: none;
+}
+
 
 }

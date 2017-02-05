@@ -33,7 +33,11 @@
     <Compile Include="env\Lib\site-packages\burst_processor\sat_plot6.py" />
     <Compile Include="env\Lib\site-packages\burst_processor\xml_process_v7.py" />
     <Compile Include="env\Lib\site-packages\burst_processor\__init__.py" />
+    <Compile Include="env\Lib\site-packages\MEOInput_Analysis\__init__.py" />
     <Compile Include="module1.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="myapp.wsgi">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="routes.py">
@@ -42,11 +46,11 @@
     <Compile Include="testing.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="env\Lib\site-packages\beacon_decode\__init__.pyc" />
     <Content Include="env\Lib\site-packages\burst_processor\__init__.pyc" />
+    <Content Include="env\Lib\site-packages\MEOInput_Analysis\__init__.pyc" />
     <Content Include="requirements.txt" />
     <Content Include="static\styles\mystylesheet.css" />
     <Content Include="static\styles\mystylesheet3.css" />
@@ -54,6 +58,7 @@
     <Content Include="templates\BeaconDecoder.html" />
     <Content Include="templates\BurstAnalysisForm.html" />
     <Content Include="templates\index3.html" />
+    <Content Include="templates\MEOInputAnalysisReturnNone.html" />
     <Content Include="templates\RealTimeMonitor.html" />
     <Content Include="templates\BadDecode.html" />
     <Content Include="static\styles\mystylesheet2.css" />
@@ -70,6 +75,7 @@
     <Folder Include="env\Lib\site-packages\" />
     <Folder Include="env\Lib\site-packages\beacon_decode\" />
     <Folder Include="env\Lib\site-packages\burst_processor\" />
+    <Folder Include="env\Lib\site-packages\MEOInput_Analysis\" />
     <Folder Include="static\" />
     <Folder Include="static\styles\" />
     <Folder Include="templates\" />
