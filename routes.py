@@ -17,7 +17,7 @@ OUTPUTFOLDER = os.path.join('static','output')
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
 
 #servername = 'localhost' #for deploying on MCC
-servername = './SQLEXPRESS' #for deploying on REICHJ-PC
+servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC
 #oppsdatabase = 'mccoperationalRpt' #for deploying on MCC
 oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
 
@@ -153,7 +153,7 @@ def realtimemonitor():
         BurstStartTime = EndTime - datetime.timedelta(minutes=burstwindow)
         alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime, servername,oppsdatabase) #, sql_login = 'yes')
         statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime, servername,oppsdatabase)  #, sql_login = 'yes')
-        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, servername,oppsdatabase)  #, sql_login = 'yes')
+        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, servername,mcctestLGM)  #, sql_login = 'yes')
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
             closedalarms = closedalarms, 
