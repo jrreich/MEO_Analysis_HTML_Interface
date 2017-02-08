@@ -10,11 +10,18 @@ import csv
 import sys
 import os
 
-UPLOAD_FOLDER = 'var/uploads/'
+UPLOAD_FOLDER = os.path.join('var','uploads')
 approot = os.path.dirname(__file__)
 OUTPUTFOLDER = os.path.join('static','output')
 #OUTPUTFOLDER = r'C:/Users/reichj/Source/Repos/MEO_Analysis_HTML_Interface/static/output/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
+
+#servername = 'localhost' #for deploying on MCC
+servername = './SQLEXPRESS' #for deploying on REICHJ-PC
+#oppsdatabase = 'mccoperationalRpt' #for deploying on MCC
+oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
+
+mcctestLGM = 'MccTestLGM' #should work for both MCC and REICHJ-PC
 
 app = Flask(__name__)
 
@@ -80,7 +87,7 @@ def rawburst():
             #if result['inputsource'] == 'excelfile':
                 #MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
-            filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, databasename='MccTestLGM') #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
+            filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
             return render_template('BurstAnalysisReturn.html', filelist=filelist )
     else: 
         return '<h2> Invalid Request </h2>'
@@ -111,7 +118,7 @@ def MEOInputAnalysis():
             if result['inputsource'] == 'excelfile':
                 MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
         elif result['inputsource'] == 'mccdb':
-            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER, approot) #, sql_login = 'yes')
+            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase) 
             if csvoutfile == None:
                 return render_template('MEOInputAnalysisReturnNone.html', data = filelist)
             rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
@@ -144,9 +151,9 @@ def realtimemonitor():
         #EndTime = datetime.datetime(2017,1,9,16,0)
         StartTime = EndTime - datetime.timedelta(days=float(days)) 
         BurstStartTime = EndTime - datetime.timedelta(minutes=burstwindow)
-        alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime) #, sql_login = 'yes')
-        statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime) #, sql_login = 'yes')
-        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime) #, sql_login = 'yes')
+        alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime, servername,oppsdatabase) #, sql_login = 'yes')
+        statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime, servername,oppsdatabase)  #, sql_login = 'yes')
+        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, servername,oppsdatabase)  #, sql_login = 'yes')
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
             closedalarms = closedalarms, 
