@@ -1,15 +1,14 @@
-2017-02-04 22:31:25,997 INFO numpy pandas and itertools
-2017-02-04 22:31:27,269 INFO imported matplotlib
-2017-02-04 22:31:27,305 INFO imported math, sys, os and xlrd
-2017-02-04 22:31:27,308 INFO datetime and csv
-2017-02-04 22:31:27,371 INFO collections and simplekml
-2017-02-04 22:31:27,374 INFO re and beacon decode
-2017-02-04 22:31:27,375 INFO pypyodbc ... all imported - look elsewhere
-2017-02-04 22:31:27,430 INFO  * Running on http://localhost:51698/ (Press CTRL+C to quit)
-2017-02-04 22:31:27,983 INFO 127.0.0.1 - - [04/Feb/2017 22:31:27] "GET / HTTP/1.1" 200 -
-2017-02-04 22:31:28,786 INFO 127.0.0.1 - - [04/Feb/2017 22:31:28] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
-2017-02-04 22:31:29,122 INFO 127.0.0.1 - - [04/Feb/2017 22:31:29] "GET /favicon.ico HTTP/1.1" 404 -
-2017-02-04 22:31:30,473 INFO 127.0.0.1 - - [04/Feb/2017 22:31:30] "GET /rawburst HTTP/1.1" 200 -
-2017-02-04 22:31:57,282 INFO 127.0.0.1 - - [04/Feb/2017 22:31:57] "POST /rawburst HTTP/1.1" 200 -
-2017-02-04 22:31:57,615 INFO 127.0.0.1 - - [04/Feb/2017 22:31:57] "GET /static/output/3385_20170205_033132_output.png HTTP/1.1" 200 -
-2017-02-04 22:31:57,757 INFO 127.0.0.1 - - [04/Feb/2017 22:31:57] "GET /static/output/3669_20170205_033132_output.png HTTP/1.1" 200 -
+2017-02-20 21:20:45,815 INFO numpy pandas and itertools
+2017-02-20 21:20:47,006 INFO imported matplotlib
+2017-02-20 21:20:47,048 INFO imported math, sys, os and xlrd
+2017-02-20 21:20:47,049 INFO datetime and csv
+2017-02-20 21:20:47,112 INFO collections and simplekml
+2017-02-20 21:20:47,114 INFO re and beacon decode
+2017-02-20 21:20:47,115 INFO pypyodbc imported - all modules imported
+2017-02-20 21:20:47,186 INFO  * Running on http://localhost:51244/ (Press CTRL+C to quit)
+2017-02-20 21:20:47,805 INFO 127.0.0.1 - - [20/Feb/2017 21:20:47] "GET / HTTP/1.1" 200 -
+2017-02-20 21:20:48,721 INFO 127.0.0.1 - - [20/Feb/2017 21:20:48] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
+2017-02-20 21:20:49,437 INFO 127.0.0.1 - - [20/Feb/2017 21:20:49] "GET /favicon.ico HTTP/1.1" 404 -
+2017-02-20 21:20:52,492 INFO 127.0.0.1 - - [20/Feb/2017 21:20:52] "GET /MEOInputAnalysis HTTP/1.1" 200 -
+2017-02-20 21:21:20,226 INFO 127.0.0.1 - - [20/Feb/2017 21:21:20] "POST /MEOInputAnalysis HTTP/1.1" 200 -
+2017-02-20 21:21:25,309 INFO 127.0.0.1 - - [20/Feb/2017 21:21:25] "GET /static/output/KML_ADCD41C3040028D_2015-01-01-0000_2017-02-21-0221.kml HTTP/1.1" 200 -

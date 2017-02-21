@@ -58,6 +58,7 @@
     <Content Include="templates\BeaconDecoder.html" />
     <Content Include="templates\BurstAnalysisForm.html" />
     <Content Include="templates\index3.html" />
+    <Content Include="templates\MEOInputAnalysisForm.html" />
     <Content Include="templates\MEOInputAnalysisReturnNone.html" />
     <Content Include="templates\RealTimeMonitor.html" />
     <Content Include="templates\BadDecode.html" />
