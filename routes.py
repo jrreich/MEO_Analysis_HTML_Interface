@@ -167,30 +167,26 @@ def realtimemonitor():
             refreshtimer = refreshtimer,
             burstwindow = burstwindow
             )
-    #elif request.method == 'POST':
-    #    # read input
-    #    result = request.form
-    #    #print result['StartTime']
-    #    MEOLUT = int(result['MEOLUT'])
-    #    if result['StartTime']:
-    #        StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
-    #    else:
-    #        StartTime = datetime.datetime(2015,1,1,0,0,0)
-    #    if result['EndTime']:
-    #        EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
-    #    else:
-    #        EndTime = datetime.datetime.utcnow()
-    #    if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
-    #        f = request.files['inputfile'] 
-    #        filesaved = UPLOAD_FOLDER + '/' + secure_filename(f.filename)    
-    #        f.save(filesaved)
-    #        print result['KMLgen']
-    #        if result['EncLocGen']: print 'true'
-    #        if result['inputsource'] == 'excelfile':
-    #            MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
-    #    elif result['inputsource'] == 'mccdb':
-    #        csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER)
-    #        rdr= csv.reader( open(csvoutfile, "r" ) )
-    #        csv_data = [ row for row in rdr ]
-    #        return render_template('MEOInputAnalysisReturn.html', data=csv_data, linklist = filelist)
-       
+@app.route('/OpenSites')
+def opensites():
+    if request.method == 'GET':
+        #if request.args.get('days') <> None:
+        #    days = request.args.get('days')
+        #else:
+        #    days = 4
+        #if request.args.get('refreshtimer') <> None:
+        #    refreshtimer = float(request.args.get('refreshtimer'))
+        #else:
+        #    refreshtimer = 30
+        #if request.args.get('burstwindow') <> None:
+        #    burstwindow = float(request.args.get('burstwindow'))
+        #else:
+        #    burstwindow = 60
+        #StartTime = datetime.datetime(2017,1,9,14,0)
+        #EndTime = datetime.datetime.utcnow() #.strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
+        #StartTime = EndTime - datetime.timedelta(days=float(days)) 
+        open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
+        return render_template('OpenSites.html',
+            open_site_list = open_site_list,
+            num_sites = len(open_site_list),
+            ) 

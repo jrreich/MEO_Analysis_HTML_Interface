@@ -1,14 +1,12 @@
-2017-02-20 21:20:45,815 INFO numpy pandas and itertools
-2017-02-20 21:20:47,006 INFO imported matplotlib
-2017-02-20 21:20:47,048 INFO imported math, sys, os and xlrd
-2017-02-20 21:20:47,049 INFO datetime and csv
-2017-02-20 21:20:47,112 INFO collections and simplekml
-2017-02-20 21:20:47,114 INFO re and beacon decode
-2017-02-20 21:20:47,115 INFO pypyodbc imported - all modules imported
-2017-02-20 21:20:47,186 INFO  * Running on http://localhost:51244/ (Press CTRL+C to quit)
-2017-02-20 21:20:47,805 INFO 127.0.0.1 - - [20/Feb/2017 21:20:47] "GET / HTTP/1.1" 200 -
-2017-02-20 21:20:48,721 INFO 127.0.0.1 - - [20/Feb/2017 21:20:48] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
-2017-02-20 21:20:49,437 INFO 127.0.0.1 - - [20/Feb/2017 21:20:49] "GET /favicon.ico HTTP/1.1" 404 -
-2017-02-20 21:20:52,492 INFO 127.0.0.1 - - [20/Feb/2017 21:20:52] "GET /MEOInputAnalysis HTTP/1.1" 200 -
-2017-02-20 21:21:20,226 INFO 127.0.0.1 - - [20/Feb/2017 21:21:20] "POST /MEOInputAnalysis HTTP/1.1" 200 -
-2017-02-20 21:21:25,309 INFO 127.0.0.1 - - [20/Feb/2017 21:21:25] "GET /static/output/KML_ADCD41C3040028D_2015-01-01-0000_2017-02-21-0221.kml HTTP/1.1" 200 -
+2017-03-01 22:56:16,397 INFO numpy pandas and itertools
+2017-03-01 22:56:17,440 INFO imported matplotlib
+2017-03-01 22:56:17,480 INFO imported math, sys, os and xlrd
+2017-03-01 22:56:17,482 INFO datetime and csv
+2017-03-01 22:56:17,542 INFO collections and simplekml
+2017-03-01 22:56:17,542 INFO re and beacon decode
+2017-03-01 22:56:17,545 INFO pypyodbc imported - all modules imported
+2017-03-01 22:56:17,601 INFO  * Running on http://localhost:54603/ (Press CTRL+C to quit)
+2017-03-01 22:56:18,553 INFO 127.0.0.1 - - [01/Mar/2017 22:56:18] "GET / HTTP/1.1" 200 -
+2017-03-01 22:56:19,536 INFO 127.0.0.1 - - [01/Mar/2017 22:56:19] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
+2017-03-01 22:56:19,888 INFO 127.0.0.1 - - [01/Mar/2017 22:56:19] "GET /favicon.ico HTTP/1.1" 404 -
+2017-03-01 22:56:21,802 INFO 127.0.0.1 - - [01/Mar/2017 22:56:21] "GET /OpenSites HTTP/1.1" 200 -

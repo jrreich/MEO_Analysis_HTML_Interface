@@ -232,6 +232,19 @@ section h2{
     border:1px groove #b4bac4;
 }
 
+article#opensites {
+    width:100%
+}
+
+table {
+    border:2px groove #b4bac4;
+}
+
+td, th {
+    border:1px groove #b4bac4;
+}
+
+
 table.RealTimeMonitoring {
 	border-width: 2px;
 	border-spacing: 3px;

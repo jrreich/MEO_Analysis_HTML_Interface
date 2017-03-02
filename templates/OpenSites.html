@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Sites</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
+    <!--<link rel="stylesheet" type="text/css" href='/styles/mystylesheet3.css'>-->
+    <!--<script language="javascript">
+    document.getElementById('EndDate').value = new Date().toDateInputValue();
+    </script> -->
+</head>
+<body>
+    <main>
+        <div id="heading1">
+            <h1>
+                <a href="{{ url_for('index') }}">Analysis Tools</a>
+            </h1>
+        </div>
+        <nav class="topnav">
+            <a href="/" class="home">Home</a>
+            <a href="/beacon">Beacon Decode</a>
+            <a href="/rawburst">Burst Analysis</a>
+            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
+            <a href="/RealTimeMonitor">Real Time Monitoring</a>
+            <a href="/OpenSites" class="active">Open Sites</a>
+        </nav>
+        <section class="content">
+            <article id="opensites">
+                <h3> {{ num_sites }} Open Sites </h3>
+                <table>
+                    <tr>
+                        <th>AlertSiteNum</th>
+                        <th>Beacon ID</th>
+                        <th>Country Code Name</th>
+                        <th>Comp Lat</th>
+                        <th>Comp Lon</th>
+                        <th>Open Time</th>
+                        <th>Last Update</th>
+                        <th>Num Passes</th>
+                        <th>Num Sol</th>
+                        <th>Num LEO/GEO Sol</th>
+                        <th>Num MEO Sol</th>
+                        <th>Num Doppler Sol</th>
+                        <th>Num DOA Sol</th>
+                    </tr>
+                    {% for row in open_site_list %}
+                    <tr>
+                        <td>{{ row.0 }}</td>
+                        <td>{{ row.1 }}</td>
+                        <td>{{ row.2 }}</td>
+                        <td>{{ row.3 }}</td>
+                        <td>{{ row.4 }}</td>
+                        <td>{{ row.5 }}</td>
+                        <td>{{ row.6 }}</td>
+                        <td>{{ row.7 }}</td>
+                        <td>{{ row.8 }}</td>
+                        <td>{{ row.9 }}</td>
+                        <td>{{ row.10 }}</td>
+                        <td>{{ row.11 }}</td>
+                        <td>{{ row.12 }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

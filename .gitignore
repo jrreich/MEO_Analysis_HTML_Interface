@@ -267,3 +267,5 @@ web.debug.config
 *.txt
 
 packages/
+
+*.txt
