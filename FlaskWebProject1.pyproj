@@ -60,6 +60,7 @@
     <Content Include="templates\MEOInputAnalysisForm.html" />
     <Content Include="templates\MEOInputAnalysisReturn.html" />
     <Content Include="templates\OpenSites.html" />
+    <Content Include="templates\SiteQuery.html" />
     <Content Include="templates\RealTimeMonitor.html" />
     <Content Include="templates\BadDecode.html" />
     <Content Include="static\styles\mystylesheet2.css" />

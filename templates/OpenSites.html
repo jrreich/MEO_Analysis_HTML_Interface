@@ -13,6 +13,13 @@
 </head>
 <body>
     <main>
+        <aside id="sitequeryoptions">
+            <form action="SiteQuery" method="get">
+                <label for="sitenum">Alert Site Number</label>
+                <input id="sitenum" name="sitenum" type="text" value="{{ sitenum }}" style="display:inline-block" /> 
+                <input type="submit" style="display:inline-block" />
+            </form>
+        </aside>
         <div id="heading1">
             <h1>
                 <a href="{{ url_for('index') }}">Analysis Tools</a>
@@ -24,7 +31,7 @@
             <a href="/rawburst">Burst Analysis</a>
             <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
             <a href="/RealTimeMonitor">Real Time Monitoring</a>
-            <a href="/OpenSites" class="active">Open Sites</a>
+            <a href="/SiteQuery" class="active">Site Query </a>
         </nav>
         <section class="content">
             <article id="opensites">
@@ -47,7 +54,7 @@
                     </tr>
                     {% for row in open_site_list %}
                     <tr>
-                        <td>{{ row.0 }}</td>
+                        <td><a href="/SiteQuery?sitenum={{ row.0 }}">{{ row.0 }}</a></td>
                         <td>{{ row.1 }}</td>
                         <td>{{ row.2 }}</td>
                         <td>{{ row.3 }}</td>

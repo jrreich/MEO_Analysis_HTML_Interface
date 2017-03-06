@@ -1,12 +1,20 @@
-2017-03-01 22:56:16,397 INFO numpy pandas and itertools
-2017-03-01 22:56:17,440 INFO imported matplotlib
-2017-03-01 22:56:17,480 INFO imported math, sys, os and xlrd
-2017-03-01 22:56:17,482 INFO datetime and csv
-2017-03-01 22:56:17,542 INFO collections and simplekml
-2017-03-01 22:56:17,542 INFO re and beacon decode
-2017-03-01 22:56:17,545 INFO pypyodbc imported - all modules imported
-2017-03-01 22:56:17,601 INFO  * Running on http://localhost:54603/ (Press CTRL+C to quit)
-2017-03-01 22:56:18,553 INFO 127.0.0.1 - - [01/Mar/2017 22:56:18] "GET / HTTP/1.1" 200 -
-2017-03-01 22:56:19,536 INFO 127.0.0.1 - - [01/Mar/2017 22:56:19] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
-2017-03-01 22:56:19,888 INFO 127.0.0.1 - - [01/Mar/2017 22:56:19] "GET /favicon.ico HTTP/1.1" 404 -
-2017-03-01 22:56:21,802 INFO 127.0.0.1 - - [01/Mar/2017 22:56:21] "GET /OpenSites HTTP/1.1" 200 -
+2017-03-05 23:02:20,266 INFO numpy pandas and itertools
+2017-03-05 23:02:21,335 INFO imported matplotlib
+2017-03-05 23:02:21,365 INFO imported math, sys, os and xlrd
+2017-03-05 23:02:21,367 INFO datetime and csv
+2017-03-05 23:02:21,411 INFO collections and simplekml
+2017-03-05 23:02:21,413 INFO re and beacon decode
+2017-03-05 23:02:21,414 INFO pypyodbc imported - all modules imported
+2017-03-05 23:02:21,463 INFO  * Running on http://localhost:51221/ (Press CTRL+C to quit)
+2017-03-05 23:02:22,226 INFO 127.0.0.1 - - [05/Mar/2017 23:02:22] "GET / HTTP/1.1" 200 -
+2017-03-05 23:02:22,996 INFO 127.0.0.1 - - [05/Mar/2017 23:02:22] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
+2017-03-05 23:02:23,296 INFO 127.0.0.1 - - [05/Mar/2017 23:02:23] "GET /favicon.ico HTTP/1.1" 404 -
+2017-03-05 23:02:28,473 INFO 127.0.0.1 - - [05/Mar/2017 23:02:28] "GET /RealTimeMonitor HTTP/1.1" 200 -
+2017-03-05 23:02:29,410 INFO 127.0.0.1 - - [05/Mar/2017 23:02:29] "GET /MEOInputAnalysis HTTP/1.1" 200 -
+2017-03-05 23:02:31,417 INFO 127.0.0.1 - - [05/Mar/2017 23:02:31] "GET /rawburst HTTP/1.1" 200 -
+2017-03-05 23:02:40,460 INFO 127.0.0.1 - - [05/Mar/2017 23:02:40] "GET /SiteQuery HTTP/1.1" 200 -
+2017-03-05 23:02:49,430 INFO 127.0.0.1 - - [05/Mar/2017 23:02:49] "GET /SiteQuery?sitenum=13108.0 HTTP/1.1" 200 -
+2017-03-05 23:03:14,729 INFO 127.0.0.1 - - [05/Mar/2017 23:03:14] "GET /SiteQuery?sitenum=13024.0 HTTP/1.1" 200 -
+2017-03-05 23:03:22,954 INFO 127.0.0.1 - - [05/Mar/2017 23:03:22] "GET /SiteQuery?sitenum=12899.0 HTTP/1.1" 200 -
+2017-03-05 23:03:39,380 INFO 127.0.0.1 - - [05/Mar/2017 23:03:39] "GET /SiteQuery?sitenum=13168.0 HTTP/1.1" 200 -
+2017-03-05 23:03:45,907 INFO 127.0.0.1 - - [05/Mar/2017 23:03:45] "GET /SiteQuery?sitenum=12942.0 HTTP/1.1" 200 -

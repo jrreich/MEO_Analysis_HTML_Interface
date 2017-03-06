@@ -167,26 +167,23 @@ def realtimemonitor():
             refreshtimer = refreshtimer,
             burstwindow = burstwindow
             )
-@app.route('/OpenSites')
+@app.route('/SiteQuery')
 def opensites():
     if request.method == 'GET':
-        #if request.args.get('days') <> None:
-        #    days = request.args.get('days')
-        #else:
-        #    days = 4
-        #if request.args.get('refreshtimer') <> None:
-        #    refreshtimer = float(request.args.get('refreshtimer'))
-        #else:
-        #    refreshtimer = 30
-        #if request.args.get('burstwindow') <> None:
-        #    burstwindow = float(request.args.get('burstwindow'))
-        #else:
-        #    burstwindow = 60
-        #StartTime = datetime.datetime(2017,1,9,14,0)
-        #EndTime = datetime.datetime.utcnow() #.strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
-        #StartTime = EndTime - datetime.timedelta(days=float(days)) 
-        open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
-        return render_template('OpenSites.html',
-            open_site_list = open_site_list,
-            num_sites = len(open_site_list),
-            ) 
+        if request.args.get('sitenum') <> None:
+            sitenum = request.args.get('sitenum')
+            alertsitesum = MEOInput_Analysis.alertsitesum_query(sitenum,servername,oppsdatabase)
+            alertsitesols = MEOInput_Analysis.alertsitesol_query(sitenum,servername,oppsdatabase)
+            outsitesols = MEOInput_Analysis.outsol_query(sitenum,servername,oppsdatabase)
+            return render_template('SiteQuery.html',
+                sitenum = sitenum,
+                alertsitesum = alertsitesum,
+                alertsitesols = alertsitesols, 
+                outsitesols = outsitesols,
+                )
+        else:
+            open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
+            return render_template('OpenSites.html',
+                open_site_list = open_site_list,
+                num_sites = len(open_site_list),
+                ) 

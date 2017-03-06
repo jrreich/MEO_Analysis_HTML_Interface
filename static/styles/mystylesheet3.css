@@ -78,7 +78,7 @@ fieldset {
 }
 
 article {
-    width: 71%;
+    width: 99%;
     height: 90%;
     overflow: auto;
     display: block;
@@ -96,6 +96,10 @@ article {
 
 article a {
     text-decoration: none;
+}
+
+article.results {
+    width: 71%;
 }
 
 .openalarms, .closedalarms, .packets {
@@ -232,7 +236,7 @@ section h2{
     border:1px groove #b4bac4;
 }
 
-article#opensites {
+article#opensites,  {
     width:100%
 }
 
