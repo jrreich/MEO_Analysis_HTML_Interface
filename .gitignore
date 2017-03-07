@@ -269,3 +269,4 @@ web.debug.config
 packages/
 
 *.txt
+*.kml

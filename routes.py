@@ -154,9 +154,11 @@ def realtimemonitor():
         alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime, servername,oppsdatabase) #, sql_login = 'yes')
         statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime, servername,oppsdatabase)  #, sql_login = 'yes')
         packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, servername,mcctestLGM)  #, sql_login = 'yes')
+        open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
             closedalarms = closedalarms, 
+            open_site_list = open_site_list,
             numalarms = numalarms,
             statusHI = statusHI, 
             statusFL = statusFL,
@@ -165,16 +167,20 @@ def realtimemonitor():
             EndTime = EndTime,
             BurstStartTime = BurstStartTime,
             refreshtimer = refreshtimer,
-            burstwindow = burstwindow
+            burstwindow = burstwindow,
             )
 @app.route('/SiteQuery')
 def opensites():
     if request.method == 'GET':
         if request.args.get('sitenum') <> None:
+            KML = False
+            if request.args.get('KML') <> None:
+                KML = request.args.get('KML')            
             sitenum = request.args.get('sitenum')
-            alertsitesum = MEOInput_Analysis.alertsitesum_query(sitenum,servername,oppsdatabase)
-            alertsitesols = MEOInput_Analysis.alertsitesol_query(sitenum,servername,oppsdatabase)
-            outsitesols = MEOInput_Analysis.outsol_query(sitenum,servername,oppsdatabase)
+            alertsitesum = MEOInput_Analysis.alertsitesum_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
+            alertsitesols = MEOInput_Analysis.alertsitesol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
+            outsitesols = MEOInput_Analysis.outsol_query(sitenum,approot,OUTPUTFOLDER,servername,oppsdatabase, makeKML=KML)
+
             return render_template('SiteQuery.html',
                 sitenum = sitenum,
                 alertsitesum = alertsitesum,

@@ -17,7 +17,13 @@
             <form action="SiteQuery" method="get">
                 <label for="sitenum">Alert Site Number</label>
                 <input id="sitenum" name="sitenum" type="text" value="{{ sitenum }}" style="display:inline-block" /> 
-                <input type="submit" style="display:inline-block" />
+                <input type="submit" style="display:inline-block" /> <br />
+                <input type="checkbox" name="KML" value="True" />
+                <label for="KML">Generate KML?</label>
+                {% if kmlfile %}
+                <a href="{{ kmlfilename }}"> KML - site {{ sitenum }}  </a> <br />
+                {% endif %}
+                
             </form>
         </aside>
         <div id="heading1">

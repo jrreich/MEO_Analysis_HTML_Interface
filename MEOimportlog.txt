@@ -1,20 +1,14 @@
-2017-03-05 23:02:20,266 INFO numpy pandas and itertools
-2017-03-05 23:02:21,335 INFO imported matplotlib
-2017-03-05 23:02:21,365 INFO imported math, sys, os and xlrd
-2017-03-05 23:02:21,367 INFO datetime and csv
-2017-03-05 23:02:21,411 INFO collections and simplekml
-2017-03-05 23:02:21,413 INFO re and beacon decode
-2017-03-05 23:02:21,414 INFO pypyodbc imported - all modules imported
-2017-03-05 23:02:21,463 INFO  * Running on http://localhost:51221/ (Press CTRL+C to quit)
-2017-03-05 23:02:22,226 INFO 127.0.0.1 - - [05/Mar/2017 23:02:22] "GET / HTTP/1.1" 200 -
-2017-03-05 23:02:22,996 INFO 127.0.0.1 - - [05/Mar/2017 23:02:22] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
-2017-03-05 23:02:23,296 INFO 127.0.0.1 - - [05/Mar/2017 23:02:23] "GET /favicon.ico HTTP/1.1" 404 -
-2017-03-05 23:02:28,473 INFO 127.0.0.1 - - [05/Mar/2017 23:02:28] "GET /RealTimeMonitor HTTP/1.1" 200 -
-2017-03-05 23:02:29,410 INFO 127.0.0.1 - - [05/Mar/2017 23:02:29] "GET /MEOInputAnalysis HTTP/1.1" 200 -
-2017-03-05 23:02:31,417 INFO 127.0.0.1 - - [05/Mar/2017 23:02:31] "GET /rawburst HTTP/1.1" 200 -
-2017-03-05 23:02:40,460 INFO 127.0.0.1 - - [05/Mar/2017 23:02:40] "GET /SiteQuery HTTP/1.1" 200 -
-2017-03-05 23:02:49,430 INFO 127.0.0.1 - - [05/Mar/2017 23:02:49] "GET /SiteQuery?sitenum=13108.0 HTTP/1.1" 200 -
-2017-03-05 23:03:14,729 INFO 127.0.0.1 - - [05/Mar/2017 23:03:14] "GET /SiteQuery?sitenum=13024.0 HTTP/1.1" 200 -
-2017-03-05 23:03:22,954 INFO 127.0.0.1 - - [05/Mar/2017 23:03:22] "GET /SiteQuery?sitenum=12899.0 HTTP/1.1" 200 -
-2017-03-05 23:03:39,380 INFO 127.0.0.1 - - [05/Mar/2017 23:03:39] "GET /SiteQuery?sitenum=13168.0 HTTP/1.1" 200 -
-2017-03-05 23:03:45,907 INFO 127.0.0.1 - - [05/Mar/2017 23:03:45] "GET /SiteQuery?sitenum=12942.0 HTTP/1.1" 200 -
+2017-03-06 23:05:30,042 INFO numpy pandas and itertools
+2017-03-06 23:05:31,053 INFO imported matplotlib
+2017-03-06 23:05:31,085 INFO imported math, sys, os and xlrd
+2017-03-06 23:05:31,086 INFO datetime and csv
+2017-03-06 23:05:31,134 INFO collections and simplekml
+2017-03-06 23:05:31,135 INFO re and beacon decode
+2017-03-06 23:05:31,137 INFO pypyodbc imported - all modules imported
+2017-03-06 23:05:31,187 INFO  * Running on http://localhost:55773/ (Press CTRL+C to quit)
+2017-03-06 23:05:31,832 INFO 127.0.0.1 - - [06/Mar/2017 23:05:31] "GET / HTTP/1.1" 200 -
+2017-03-06 23:05:32,706 INFO 127.0.0.1 - - [06/Mar/2017 23:05:32] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
+2017-03-06 23:05:33,006 INFO 127.0.0.1 - - [06/Mar/2017 23:05:33] "GET /favicon.ico HTTP/1.1" 404 -
+2017-03-06 23:05:35,227 INFO 127.0.0.1 - - [06/Mar/2017 23:05:35] "GET /SiteQuery HTTP/1.1" 200 -
+2017-03-06 23:05:38,796 INFO 127.0.0.1 - - [06/Mar/2017 23:05:38] "GET /SiteQuery?sitenum=12915.0 HTTP/1.1" 200 -
+2017-03-06 23:05:44,543 INFO 127.0.0.1 - - [06/Mar/2017 23:05:44] "GET /SiteQuery?sitenum=12915.0&KML=True HTTP/1.1" 200 -
