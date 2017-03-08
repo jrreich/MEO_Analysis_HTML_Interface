@@ -1,14 +1,15 @@
-2017-03-06 23:05:30,042 INFO numpy pandas and itertools
-2017-03-06 23:05:31,053 INFO imported matplotlib
-2017-03-06 23:05:31,085 INFO imported math, sys, os and xlrd
-2017-03-06 23:05:31,086 INFO datetime and csv
-2017-03-06 23:05:31,134 INFO collections and simplekml
-2017-03-06 23:05:31,135 INFO re and beacon decode
-2017-03-06 23:05:31,137 INFO pypyodbc imported - all modules imported
-2017-03-06 23:05:31,187 INFO  * Running on http://localhost:55773/ (Press CTRL+C to quit)
-2017-03-06 23:05:31,832 INFO 127.0.0.1 - - [06/Mar/2017 23:05:31] "GET / HTTP/1.1" 200 -
-2017-03-06 23:05:32,706 INFO 127.0.0.1 - - [06/Mar/2017 23:05:32] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
-2017-03-06 23:05:33,006 INFO 127.0.0.1 - - [06/Mar/2017 23:05:33] "GET /favicon.ico HTTP/1.1" 404 -
-2017-03-06 23:05:35,227 INFO 127.0.0.1 - - [06/Mar/2017 23:05:35] "GET /SiteQuery HTTP/1.1" 200 -
-2017-03-06 23:05:38,796 INFO 127.0.0.1 - - [06/Mar/2017 23:05:38] "GET /SiteQuery?sitenum=12915.0 HTTP/1.1" 200 -
-2017-03-06 23:05:44,543 INFO 127.0.0.1 - - [06/Mar/2017 23:05:44] "GET /SiteQuery?sitenum=12915.0&KML=True HTTP/1.1" 200 -
+2017-03-07 22:46:11,677 INFO numpy pandas and itertools
+2017-03-07 22:46:12,760 INFO imported matplotlib
+2017-03-07 22:46:12,806 INFO imported math, sys, os and xlrd
+2017-03-07 22:46:12,808 INFO datetime and csv
+2017-03-07 22:46:12,872 INFO collections and simplekml
+2017-03-07 22:46:12,875 INFO re and beacon decode
+2017-03-07 22:46:12,875 INFO pypyodbc imported - all modules imported
+2017-03-07 22:46:12,927 INFO  * Running on http://localhost:64456/ (Press CTRL+C to quit)
+2017-03-07 22:46:14,148 INFO 127.0.0.1 - - [07/Mar/2017 22:46:14] "GET / HTTP/1.1" 200 -
+2017-03-07 22:46:15,661 INFO 127.0.0.1 - - [07/Mar/2017 22:46:15] "GET /static/styles/mystylesheet3.css HTTP/1.1" 200 -
+2017-03-07 22:46:16,752 INFO 127.0.0.1 - - [07/Mar/2017 22:46:16] "GET /favicon.ico HTTP/1.1" 404 -
+2017-03-07 22:46:18,502 INFO 127.0.0.1 - - [07/Mar/2017 22:46:18] "GET /SiteQuery HTTP/1.1" 200 -
+2017-03-07 22:46:27,134 INFO 127.0.0.1 - - [07/Mar/2017 22:46:27] "GET /SiteQuery?sitenum=12683.0 HTTP/1.1" 200 -
+2017-03-07 22:46:36,039 INFO 127.0.0.1 - - [07/Mar/2017 22:46:36] "GET /SiteQuery?sitenum=12683.0&KML=True HTTP/1.1" 200 -
+2017-03-07 22:46:38,153 INFO 127.0.0.1 - - [07/Mar/2017 22:46:38] "GET /static/output/KML_site_12683.0.kml HTTP/1.1" 200 -

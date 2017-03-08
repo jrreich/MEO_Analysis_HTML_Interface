@@ -169,6 +169,7 @@ def realtimemonitor():
             refreshtimer = refreshtimer,
             burstwindow = burstwindow,
             )
+
 @app.route('/SiteQuery')
 def opensites():
     if request.method == 'GET':
@@ -179,13 +180,14 @@ def opensites():
             sitenum = request.args.get('sitenum')
             alertsitesum = MEOInput_Analysis.alertsitesum_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
             alertsitesols = MEOInput_Analysis.alertsitesol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
-            outsitesols = MEOInput_Analysis.outsol_query(sitenum,approot,OUTPUTFOLDER,servername,oppsdatabase, makeKML=KML)
+            outsitesols, KMLfile = MEOInput_Analysis.outsol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase, makeKML=KML)
 
             return render_template('SiteQuery.html',
                 sitenum = sitenum,
                 alertsitesum = alertsitesum,
                 alertsitesols = alertsitesols, 
                 outsitesols = outsitesols,
+                KMLfile = KMLfile,
                 )
         else:
             open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
