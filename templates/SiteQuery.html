@@ -18,10 +18,15 @@
                 <label for="sitenum">Alert Site Number</label>
                 <input id="sitenum" name="sitenum" type="text" value="{{ sitenum }}" style="display:inline-block" /> 
                 <input type="submit" style="display:inline-block" /> <br />
-                <input type="checkbox" name="KML" value="True" />
-                <label for="KML">Generate KML?</label>
-                {% if KMLfile %}
-                <a href="{{ KMLfile }}"> KML - site {{ sitenum }}  </a> <br />
+                <input type="checkbox" name="RCC_KML" value="True" />
+                <label for="KML">Generate Output RCC KML?</label>
+                {% if RCC_KMLfile %}
+                <a href="{{ RCC_KMLfile }}"> Output to RCC Locations, Site - {{ sitenum }}  </a> 
+                {% endif %}
+                <br /><input type="checkbox" name="Input_KML" value="True" />
+                <label for="KML">Generate Input KML?</label>
+                {% if Input_KMLfile %}
+                <a href="{{ Input_KMLfile }}"> Input Locations, Site - {{ sitenum }}  </a> 
                 {% endif %}
                 
             </form>

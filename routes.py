@@ -174,20 +174,24 @@ def realtimemonitor():
 def opensites():
     if request.method == 'GET':
         if request.args.get('sitenum') <> None:
-            KML = False
-            if request.args.get('KML') <> None:
-                KML = request.args.get('KML')            
+            RCC_KML = False
+            Input_KML = False
+            if request.args.get('RCC_KML') <> None:
+                RCC_KML = request.args.get('RCC_KML')        
+            if request.args.get('Input_KML') <> None:
+                Input_KML = request.args.get('Input_KML')            
             sitenum = request.args.get('sitenum')
             alertsitesum = MEOInput_Analysis.alertsitesum_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
-            alertsitesols = MEOInput_Analysis.alertsitesol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
-            outsitesols, KMLfile = MEOInput_Analysis.outsol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase, makeKML=KML)
+            alertsitesols, Input_KMLfile = MEOInput_Analysis.alertsitesol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase, makeKML = Input_KML)
+            outsitesols, RCC_KMLfile = MEOInput_Analysis.outsol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase, makeKML=RCC_KML)
 
             return render_template('SiteQuery.html',
                 sitenum = sitenum,
                 alertsitesum = alertsitesum,
                 alertsitesols = alertsitesols, 
                 outsitesols = outsitesols,
-                KMLfile = KMLfile,
+                RCC_KMLfile = RCC_KMLfile,
+                Input_KMLfile = Input_KMLfile,
                 )
         else:
             open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
