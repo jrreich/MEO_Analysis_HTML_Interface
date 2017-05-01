@@ -16,8 +16,8 @@
     <PythonWsgiHandler>{StartupModule}.wsgi_app</PythonWsgiHandler>
     <Name>FlaskWebProject1</Name>
     <RootNamespace>FlaskWebProject1</RootNamespace>
-    <InterpreterId>{65639d92-8542-4f9f-93c1-3708d4328045}</InterpreterId>
-    <InterpreterVersion>2.7</InterpreterVersion>
+    <InterpreterId>MSBuild|{65639d92-8542-4f9f-93c1-3708d4328045}|$(MSBuildProjectFullPath)</InterpreterId>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -84,7 +84,6 @@
   <ItemGroup>
     <Interpreter Include="env\">
       <Id>{65639d92-8542-4f9f-93c1-3708d4328045}</Id>
-      <BaseInterpreter>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</BaseInterpreter>
       <Version>2.7</Version>
       <Description>env (Python 64-bit 2.7)</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
@@ -134,4 +133,5 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>

@@ -1,13 +1,55 @@
-2017-03-08 22:58:03,529 INFO app root
-2017-03-08 22:58:03,532 INFO executed activate virtualenv
-2017-03-08 22:58:03,532 INFO executed path insert
-2017-03-08 22:58:03,535 INFO beacon decode as a test
-2017-03-08 22:58:04,844 INFO numpy pandas and itertools
-2017-03-08 22:58:05,062 INFO imported matplotlib
-2017-03-08 22:58:05,078 INFO imported math, sys, os and xlrd
-2017-03-08 22:58:05,078 INFO datetime and csv
-2017-03-08 22:58:05,104 INFO collections and simplekml
-2017-03-08 22:58:05,104 INFO re and beacon decode
-2017-03-08 22:58:05,104 INFO pypyodbc imported - all modules imported
-2017-03-08 22:58:05,107 INFO imported app
-2017-03-08 22:58:05,107 INFO imported application as app
+2017-04-30 22:30:11,555 INFO app root
+2017-04-30 22:30:11,568 INFO executed activate virtualenv
+2017-04-30 22:30:11,568 INFO executed path insert
+2017-04-30 22:30:11,575 INFO beacon decode as a test
+2017-04-30 22:30:16,539 INFO numpy pandas and itertools
+2017-04-30 22:30:17,552 INFO imported matplotlib
+2017-04-30 22:30:17,697 INFO imported math, sys, os and xlrd
+2017-04-30 22:30:17,698 INFO datetime and csv
+2017-04-30 22:30:17,921 INFO collections and simplekml
+2017-04-30 22:30:17,923 INFO re and beacon decode
+2017-04-30 22:30:17,923 INFO pypyodbc imported - all modules imported
+2017-04-30 22:30:17,924 INFO imported app
+2017-04-30 22:30:17,924 INFO imported application as app
+2017-04-30 22:30:25,628 ERROR Exception on /RealTimeMonitor [GET]
+Traceback (most recent call last):
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 157, in realtimemonitor
+    open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\MEOInput_Analysis\__init__.py", line 1095, in Open_Sites
+    c.execute(sql_query, params)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\pypyodbc.py", line 1480, in execute
+    self.prepare(query_string)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\pypyodbc.py", line 1258, in prepare
+    raise sys.exc_info()[1]
+ProgrammingError: (u'42S02', u"[42S02] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid object name 'AlertSiteSum'.")
+2017-04-30 22:30:44,196 ERROR Exception on /RealTimeMonitor [GET]
+Traceback (most recent call last):
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 157, in realtimemonitor
+    open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\MEOInput_Analysis\__init__.py", line 1095, in Open_Sites
+    c.execute(sql_query, params)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\pypyodbc.py", line 1480, in execute
+    self.prepare(query_string)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\pypyodbc.py", line 1258, in prepare
+    raise sys.exc_info()[1]
+ProgrammingError: (u'42S02', u"[42S02] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid object name 'AlertSiteSum'.")
