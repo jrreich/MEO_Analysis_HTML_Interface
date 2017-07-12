@@ -82,7 +82,7 @@ def rawburst():
             EndTime = datetime.datetime.utcnow()
         if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
             f = request.files['inputfile'] 
-            filesaved = UPLOAD_FOLDER + secure_filename(f.filename)    
+            filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
             f.save(filesaved)
             #if result['inputsource'] == 'excelfile':
                 #MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
@@ -111,12 +111,10 @@ def MEOInputAnalysis():
             EndTime = datetime.datetime.utcnow()
         if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
             f = request.files['inputfile'] 
-            filesaved = UPLOAD_FOLDER + '/' + secure_filename(f.filename)    
+            filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
             f.save(filesaved)
-            print result['KMLgen']
-            if result['EncLocGen']: print 'true'
             if result['inputsource'] == 'excelfile':
-                MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, OUTPUTFOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
+                MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
         elif result['inputsource'] == 'mccdb':
             csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase) 
             if csvoutfile == None:
