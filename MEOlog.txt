@@ -1,55 +1,13 @@
-2017-07-12 13:19:29,589 INFO app root
-2017-07-12 13:19:29,592 INFO executed activate virtualenv
-2017-07-12 13:19:29,592 INFO executed path insert
-2017-07-12 13:19:29,592 INFO beacon decode as a test
-2017-07-12 13:19:30,059 INFO numpy pandas and itertools
-2017-07-12 13:19:30,167 INFO imported matplotlib
-2017-07-12 13:19:30,174 INFO imported math, sys, os and xlrd
-2017-07-12 13:19:30,174 INFO datetime and csv
-2017-07-12 13:19:30,187 INFO collections and simplekml
-2017-07-12 13:19:30,187 INFO re and beacon decode
-2017-07-12 13:19:30,187 INFO pypyodbc imported - all modules imported
-2017-07-12 13:19:30,190 INFO imported app
-2017-07-12 13:19:30,190 INFO imported application as app
-2017-07-12 13:19:51,164 ERROR Exception on /MEOInputAnalysis [POST]
-Traceback (most recent call last):
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
-    response = self.full_dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 118, in MEOInputAnalysis
-    MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\MEOInput_Analysis\__init__.py", line 240, in xlx_analysis
-    df = pd.read_excel(InputMEO_excelfile, index_col = 'TimeSolutionAdded', parse_dates = True) #, parse_cols =  data_cols) #parse_dates = True,
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\pandas\io\excel.py", line 200, in read_excel
-    **kwds)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\pandas\io\excel.py", line 339, in _parse_excel
-    raise NotImplementedError("parse_dates keyword of read_excel "
-NotImplementedError: parse_dates keyword of read_excel is not implemented
-2017-07-12 13:34:41,732 ERROR Exception on /MEOInputAnalysis [POST]
-Traceback (most recent call last):
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
-    response = self.full_dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 118, in MEOInputAnalysis
-    MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\MEOInput_Analysis\__init__.py", line 240, in xlx_analysis
-    df = pd.read_excel(InputMEO_excelfile, index_col = 'TimeSolutionAdded') #, parse_dates = True) #, parse_cols =  data_cols) #parse_dates = True,
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\pandas\io\excel.py", line 200, in read_excel
-    **kwds)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\pandas\io\excel.py", line 339, in _parse_excel
-    raise NotImplementedError("parse_dates keyword of read_excel "
-NotImplementedError: parse_dates keyword of read_excel is not implemented
+2017-07-12 15:46:53,680 INFO app root
+2017-07-12 15:46:53,687 INFO executed activate virtualenv
+2017-07-12 15:46:53,687 INFO executed path insert
+2017-07-12 15:46:53,690 INFO beacon decode as a test
+2017-07-12 15:46:58,283 INFO numpy pandas and itertools
+2017-07-12 15:46:59,342 INFO imported matplotlib
+2017-07-12 15:46:59,479 INFO imported math, sys, os and xlrd
+2017-07-12 15:46:59,479 INFO datetime and csv
+2017-07-12 15:46:59,665 INFO collections and simplekml
+2017-07-12 15:46:59,665 INFO re and beacon decode
+2017-07-12 15:46:59,665 INFO pypyodbc imported - all modules imported
+2017-07-12 15:46:59,667 INFO imported app
+2017-07-12 15:46:59,667 INFO imported application as app
