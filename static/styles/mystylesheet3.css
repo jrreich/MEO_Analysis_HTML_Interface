@@ -195,13 +195,13 @@ section h2{
     display: none;
 }
 
-#userbeaconid:checked ~ #beaconIDinput {
+#MEOInputAnalysis #userbeaconid:checked ~ #beaconIDinput {
     margin-left: 40px;
-    display:inline-block;
+    display: inline-block;
 }
-#usersiteid:checked ~ #siteIDinput {
+#MEOInputAnalysis #usersiteid:checked ~ #siteIDinput {
     margin-left: 40px;
-    display:inline-block;
+    display: inline-block;
 }
 
 #MEOInputAnalysis #beaconIDinput{
@@ -272,9 +272,168 @@ table.RealTimeMonitoring td {
     background-color: white;
 }
 
-@media screen and (max-width: 700px) {
 
-nav a{
+
+fieldset#gtsource #gtfileinput {
+    display: none;
+}
+
+#gtfile:checked ~ #gtfileinput {
+    margin-left: 40px;
+    display: inline-block;
+}
+
+fieldset#gtsource #latloninput {
+    display: none;
+}
+
+#gtlatlon:checked ~ #latloninput {
+    margin-left: 40px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #userbeaconid:checked ~ #beaconIDinput {
+    margin-left: 40px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #usersiteid:checked ~ #siteIDinput {
+    margin-left: 40px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #beaconIDinput {
+    display: none;
+}
+
+#MEOBeaconAnalysis #siteIDinput {
+    display: none;
+}
+
+#MEOBeaconAnalysis input {
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #rthours {
+    display: none;
+}
+
+#MEOBeaconAnalysis #realtime:checked ~ #rthours {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#MEOBeaconAnalysis .times {
+    display: none;
+}
+
+#MEOBeaconAnalysis #pasttime:checked ~ .times {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#MEOBeaconAnalysis #fileinput {
+    display: none;
+}
+
+#MEOBeaconAnalysis .fileinputneeded:checked ~ #fileinput {
+    margin-left: 40px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter1,
+#MEOBeaconAnalysis #filter2,
+#MEOBeaconAnalysis #filter3
+{
+    display: none;
+}
+
+#MEOBeaconAnalysis .filter1s,
+#MEOBeaconAnalysis .filter2s,
+#MEOBeaconAnalysis .filter3s
+{
+    display: none;
+}
+
+#MEOBeaconAnalysis #filter1check:checked ~ #filter1sel {
+    margin-left: 40px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter1check:checked ~ #filter1,
+#MEOBeaconAnalysis #filter1check:checked ~ #filter1val,
+#MEOBeaconAnalysis #filter1check:checked ~ #filter1ran
+{
+    margin-left: 5px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter1val:checked ~ #valueinput {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter1ran:checked ~ #rangeinput {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+
+
+
+
+
+#MEOBeaconAnalysis #filter2check:checked ~ #filter2sel {
+    margin-left: 40px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter2check:checked ~ #filter2,
+#MEOBeaconAnalysis #filter2check:checked ~ #filter2val,
+#MEOBeaconAnalysis #filter2check:checked ~ #filter2ran {
+    margin-left: 5px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter2val:checked ~ #valueinput {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter2ran:checked ~ #rangeinput {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+
+
+
+#MEOBeaconAnalysis #filter3check:checked ~ #filter3sel {
+    margin-left: 40px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter3check:checked ~ #filter3,
+#MEOBeaconAnalysis #filter3check:checked ~ #filter3val,
+#MEOBeaconAnalysis #filter3check:checked ~ #filter3ran {
+    margin-left: 5px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter3val:checked ~ #valueinput {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#MEOBeaconAnalysis #filter3ran:checked ~ #rangeinput {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+
+
+@media screen and (max-width: 700px) {
+    nav a{
     display: block;
     text-align: center;
 

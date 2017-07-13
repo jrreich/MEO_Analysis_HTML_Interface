@@ -204,3 +204,36 @@ def opensites():
                 open_site_list = open_site_list,
                 num_sites = len(open_site_list),
                 ) 
+
+@app.route('/MEOBeaconAnalysis', methods=['GET','POST'])
+def MEOBeaconAnalysis():
+    if request.method == 'GET':
+        return render_template('MEOBeaconAnalysisForm.html')
+    elif request.method == 'POST':
+        # read input
+        result = request.form
+        MEOLUT = int(result['MEOLUT'])
+        if result['StartTime']:
+            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
+        else:
+            StartTime = datetime.datetime(2015,1,1,0,0,0)
+        if result['EndTime']:
+            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
+        else:
+            EndTime = datetime.datetime.utcnow()
+        if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
+            f = request.files['inputfile'] 
+            filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
+            f.save(filesaved)
+            if result['inputsource'] == 'excelfile':
+                MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
+        elif result['inputsource'] == 'mccdb':
+            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUT, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase) 
+            if csvoutfile == None:
+                return render_template('MEOInputAnalysisReturnNone.html', data = filelist)
+            rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
+            csv_data = [ row for row in rdr ]
+            return render_template('MEOInputAnalysisReturn.html', data=csv_data, linklist = filelist)
+
+    else: 
+        return '<h2> Invalid Request </h2>'
