@@ -19,9 +19,11 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
 #servername = 'localhost' #for deploying on MCC
 servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC
 #oppsdatabase = 'mccoperationalRpt' #for deploying on MCC
-oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
+#oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
+oppsdatabase = 'MccMeoLutMonitor' #for deploying on MCC - new db																
 
-mcctestLGM = 'MccTestLGM' #should work for both MCC and REICHJ-PC
+#mcctestLGM = 'MccTestLGM' #should work for both MCC and REICHJ-PC
+mcctestLGM = 'MccMeoLutMonitor' #for deploying on MCC - new db															  
 
 app = Flask(__name__)
 
@@ -109,6 +111,10 @@ def MEOInputAnalysis():
             EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
         else:
             EndTime = datetime.datetime.utcnow()
+            if result['realtimehours']:
+			    StartTime = EndTime - datetime.timedelta(hours = float(result['realtimehours']))
+            else:
+				StartTime = EndTime - datetime.timedelta(hours = 24)								   													
         if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
             f = request.files['inputfile'] 
             filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
