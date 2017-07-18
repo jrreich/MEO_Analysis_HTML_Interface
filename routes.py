@@ -11,20 +11,25 @@ import sys
 import os
 
 UPLOAD_FOLDER = os.path.join('var','uploads')
+
 approot = os.path.dirname(__file__)
+
 OUTPUTFOLDER = os.path.join('static','output')
 #OUTPUTFOLDER = r'C:/Users/reichj/Source/Repos/MEO_Analysis_HTML_Interface/static/output/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
 
-#servername = 'localhost' #for deploying on MCC
-servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC
-#oppsdatabase = 'mccoperationalRpt' #for deploying on MCC
-#oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
-oppsdatabase = 'MccMeoLutMonitor' #for deploying on MCC - new db																
+Deploy_on = 'other'
 
-#mcctestLGM = 'MccTestLGM' #should work for both MCC and REICHJ-PC
-mcctestLGM = 'MccMeoLutMonitor' #for deploying on MCC - new db															  
-
+if Deploy_on == 'MCC':
+    servername = 'localhost' #for deploying on MCC
+    #oppsdatabase = 'mccoperationalRpt' #for deploying on operational MCC
+    oppsdatabase = 'MccMeoLutMonitor' #for deploying on MCC - new db
+    mcctestLGM = 'MccMeoLutMonitor' #for deploying on MCC - new db	
+else:
+    servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC
+    oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
+    mcctestLGM = 'MccTestLGM' #should work for both MCC and REICHJ-PC
+														
 app = Flask(__name__)
 
 def allowed_file(filename):
@@ -243,3 +248,10 @@ def MEOBeaconAnalysis():
 
     else: 
         return '<h2> Invalid Request </h2>'
+@app.route('/MapTest', methods=['GET','POST'])
+def MapTest():
+    if request.method == 'GET':
+        if request.args.get('KML') is not None:
+            return render_template('MapTest.html', KMLFILE = request.args.get('KML'))
+        else: 
+            return render_template('MapTest.html')

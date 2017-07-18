@@ -57,6 +57,7 @@
     <Content Include="templates\BeaconDecoded.html" />
     <Content Include="templates\BurstAnalysisForm.html" />
     <Content Include="templates\index3.html" />
+    <Content Include="templates\MapTest.html" />
     <Content Include="templates\MEOBeaconAnalysisForm.html" />
     <Content Include="templates\MEOInputAnalysisForm.html" />
     <Content Include="templates\MEOInputAnalysisReturn.html" />

@@ -259,6 +259,10 @@ var/
 
 static/output/
 
+static/*
+
+static/Apps/
+
 web.config
 web.debug.config
 
@@ -270,3 +274,4 @@ packages/
 
 *.txt
 *.kml
+/static/Apps
