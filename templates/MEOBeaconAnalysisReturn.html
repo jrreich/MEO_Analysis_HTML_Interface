@@ -32,11 +32,11 @@
                 <fieldset>
                     <legend>MEOLUT</legend>
                     <label for="3385">Hawaii</label>
-                    <input type="checkbox" name="MEOLUT_HI" value="3385" checked/><br />
+                    <input type="radio" name="MEOLUT" value="3385" /><br />
                     <label for="3669">Florida</label>
-                    <input type="checkbox" name="MEOLUT_FL" value="3669" checked/><br />
-                    <label for="2276">FMCC</label>
-                    <input type="checkbox" name="MEOLUT_FR" value="2276" /><br /> <!-- May need to come back and change-->
+                    <input type="radio" name="MEOLUT" value="3669" /><br />
+                    <label for="both">Both</label>
+                    <input type="radio" name="MEOLUT" value="both" /><br /> <!-- May need to come back and change-->
                 </fieldset>
                 <fieldset>
                     <legend>Date/Time</legend>
@@ -79,7 +79,7 @@
                 <fieldset>
                     <legend>Data Source File</legend>
                     <label for="mccdb"> Use USMCC DB</label>
-                    <input type="radio" name="inputsource" value="mccdb" checked/> <br />
+                    <input type="radio" name="inputsource" value="mccdb" /> <br />
                     <label for="excelfile">Input Excel File</label>
                     <input type="radio" class="fileinputneeded" name="inputsource" value="excelfile" /><br />
                     <label for="csvfile">Input CSV File (J2)</label>
@@ -90,15 +90,14 @@
                 <fieldset id="filters">
                     <legend>Data Filters</legend>
                     <label for="filter1"> Filter 1</label>
-                    <input type="checkbox" id="filter1check" name="filter1check" value="True" /> <br/>
-                    <select id="filter1" name="filter1">
-                        <option value="datatypename">DataType</option>
-                        <option value="dopname">DOP</option>
-                        <option value="ehename">ExpectedHorzError</option>
-                        <option value="numburstsname">NumBursts</option>
-                        <option value="numpacketsname">NumPackets</option>
-                        <option value="numsatsname">NumSatellites</option>
-                        <option value="cn0name">Average CN0</option>
+                    <input type="checkbox" id="filter1check" name="inputsource" value="filter1" /> <br/>
+                    <select id="filter1">
+                        <option value="DataType">DataType</option>
+                        <option value="DOP">DOP</option>
+                        <option value="ExpectedHorzError">ExpectedHorzError</option>
+                        <option value="NumBursts">NumBursts</option>
+                        <option value="NumPackets">NumPackets</option>
+                        <option value="NumSatellites">NumSatellites</option>
                     </select><br/>
                     <label for="filter1val" class="filter1s" id="filter1val">value</label><input type="radio" class="filter1s" name="filter1sel" id="filter1val" value="filter1value">
                     <label for="filter1range" class="filter1s" id="filter1ran">range</label><input type="radio" class="filter1s" name="filter1sel" id="filter1ran" value="filter1range">
@@ -108,15 +107,14 @@
                     <br />
 
                     <label for="filter2"> Filter 2</label>
-                    <input type="checkbox" id="filter2check" name="filter2check" value="True" /> <br />
-                    <select id="filter2" name="filter2">
-                        <option value="datatypename">DataType</option>
-                        <option value="dopname">DOP</option>
-                        <option value="ehename">ExpectedHorzError</option>
-                        <option value="numburstsname">NumBursts</option>
-                        <option value="numpacketsname">NumPackets</option>
-                        <option value="numsatsname">NumSatellites</option>
-                        <option value="cn0name">Average CN0</option>
+                    <input type="checkbox" id="filter2check" name="inputsource" value="filter2" /> <br />
+                    <select id="filter2">
+                        <option value="DataType">DataType</option>
+                        <option value="DOP">DOP</option>
+                        <option value="ExpectedHorzError">ExpectedHorzError</option>
+                        <option value="NumBursts">NumBursts</option>
+                        <option value="NumPackets">NumPackets</option>
+                        <option value="NumSatellites">NumSatellites</option>
                     </select><br />
                     <label for="filter2val" class="filter2s" id="filter2val">value</label><input type="radio" class="filter2s" name="filter2sel" id="filter2val" value="filter2value">
                     <label for="filter2range" class="filter2s" id="filter2ran">range</label><input type="radio" class="filter2s" name="filter2sel" id="filter2ran" value="filter2range">
@@ -126,15 +124,14 @@
                     <br />
 
                     <label for="filter3"> Filter 3</label>
-                    <input type="checkbox" id="filter3check" name="filter3check" value="True" /> <br />
-                    <select id="filter3" name="filter3">
-                        <option value="datatypename">DataType</option>
-                        <option value="dopname">DOP</option>
-                        <option value="ehename">ExpectedHorzError</option>
-                        <option value="numburstsname">NumBursts</option>
-                        <option value="numpacketsname">NumPackets</option>
-                        <option value="numsatsname">NumSatellites</option>
-                        <option value="cn0name">Average CN0</option>
+                    <input type="checkbox" id="filter3check" name="inputsource" value="filter3" /> <br />
+                    <select id="filter3">
+                        <option value="DataType">DataType</option>
+                        <option value="DOP">DOP</option>
+                        <option value="ExpectedHorzError">ExpectedHorzError</option>
+                        <option value="NumBursts">NumBursts</option>
+                        <option value="NumPackets">NumPackets</option>
+                        <option value="NumSatellites">NumSatellites</option>
                     </select><br />
                     <label for="filter3val" class="filter3s" id="filter3val">value</label><input type="radio" class="filter3s" name="filter3sel" id="filter3val" value="filter3value">
                     <label for="filter3range" class="filter3s" id="filter3ran">range</label><input type="radio" class="filter3s" name="filter3sel" id="filter3ran" value="filter3range">
@@ -147,7 +144,7 @@
                 <fieldset>
                     <legend>Options</legend>
                     <label for="KMLgen"> Generate KML file </label>
-                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="True"/><br/>
+                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="KMLgen"/><br/>
                     <label for="StatsOut" > Output Stats to File </label>
                     <input type="checkbox" name="StatsOut" value="True" /><br />
                     <label for="histcum" > Generate Histogram Cumulative Error Plot </label>
@@ -157,6 +154,14 @@
             </form><br />
             <article class="results">
                 <h3>Results</h3>
+                <table>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row.0 }}</td>
+                        <td>{{ row.1 }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </article>
         </section>
 
