@@ -19,6 +19,7 @@ OUTPUTFOLDER = os.path.join('static','output')
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
 
 Deploy_on = 'other'
+#Deploy_on = 'MCC'	
 
 if Deploy_on == 'MCC':
     servername = 'localhost' #for deploying on MCC
@@ -236,7 +237,6 @@ def MEOBeaconAnalysis():
             csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase) 
             if csvoutfile == None:
                 print 'csvoutfile was None'
-                print 'filelist =' + filelist
                 return render_template('MEOBeaconAnalysisReturn.html', data = filelist)
             rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
             csv_data = [ row for row in rdr ]

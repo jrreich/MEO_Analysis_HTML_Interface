@@ -1,13 +1,13 @@
-2017-07-23 23:01:53,529 INFO app root
-2017-07-23 23:01:53,529 INFO executed activate virtualenv
-2017-07-23 23:01:53,529 INFO executed path insert
-2017-07-23 23:01:53,530 INFO beacon decode as a test
-2017-07-23 23:01:56,042 INFO numpy pandas and itertools
-2017-07-23 23:01:56,584 INFO imported matplotlib
-2017-07-23 23:01:56,655 INFO imported math, sys, os and xlrd
-2017-07-23 23:01:56,655 INFO datetime and csv
-2017-07-23 23:01:56,747 INFO collections and simplekml
-2017-07-23 23:01:56,747 INFO re and beacon decode
-2017-07-23 23:01:56,749 INFO pypyodbc imported - all modules imported
-2017-07-23 23:01:56,776 INFO imported app
-2017-07-23 23:01:56,776 INFO imported application as app
+2017-07-24 13:31:50,352 INFO app root
+2017-07-24 13:31:50,358 INFO executed activate virtualenv
+2017-07-24 13:31:50,358 INFO executed path insert
+2017-07-24 13:31:50,365 INFO beacon decode as a test
+2017-07-24 13:31:54,684 INFO numpy pandas and itertools
+2017-07-24 13:31:55,671 INFO imported matplotlib
+2017-07-24 13:31:55,811 INFO imported math, sys, os and xlrd
+2017-07-24 13:31:55,811 INFO datetime and csv
+2017-07-24 13:31:56,007 INFO collections and simplekml
+2017-07-24 13:31:56,007 INFO re and beacon decode
+2017-07-24 13:31:56,007 INFO pypyodbc imported - all modules imported
+2017-07-24 13:31:56,059 INFO imported app
+2017-07-24 13:31:56,059 INFO imported application as app
