@@ -59,12 +59,12 @@
                     <input type="radio" name="UseBeaconID" value="FLref"/><br />
                     <label for="UseBeaconID">Use Beacon ID</label>
                     <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" /> <br />
-                    <label for="UseSiteID">Use Site ID</label>
+                    <label for="UseSiteID">Use Site Number</label>
                     <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" /> <br />
                     <input type="text" id="beaconIDinput" name="beaconID" placeholder="Beacon ID"> 
                     <input type="text" id="siteIDinput" name="siteID" placeholder="Site ID"> 
                     <input type="text" id="beaconIDinput" name="Location" placeholder="Location name">
-                    <input type="text" id="siteIDinput" name="Location" placeholder="Location name"> 
+                    <input type="text" id="siteIDinput" name="Location" placeholder="Site Number"> 
                 </fieldset>
                 <fieldset id="gtsource">
                     <legend>Ground Truth Source</legend>
@@ -100,8 +100,8 @@
                         <option value="numsatsname">NumSatellites</option>
                         <option value="cn0name">Average CN0</option>
                     </select><br/>
-                    <label for="filter1val" class="filter1s" id="filter1val">value</label><input type="radio" class="filter1s" name="filter1sel" id="filter1val" value="filter1value">
-                    <label for="filter1range" class="filter1s" id="filter1ran">range</label><input type="radio" class="filter1s" name="filter1sel" id="filter1ran" value="filter1range">
+                    <label for="filter1val" class="filter1s" id="filter1val">value</label><input type="radio" class="filter1s" name="filter1sel" id="filter1val" value="filter1val">
+                    <label for="filter1ran" class="filter1s" id="filter1ran">range</label><input type="radio" class="filter1s" name="filter1sel" id="filter1ran" value="filter1ran">
                     <input type="text" class="filter1s" id="valueinput" name="filter1value" placeholder="value">
                     <input type="text" class="filter1s" id="rangeinput" name="filter1rangelow" placeholder="low value">
                     <input type="text" class="filter1s" id="rangeinput" name="filter1rangehigh" placeholder="high value">
@@ -118,8 +118,8 @@
                         <option value="numsatsname">NumSatellites</option>
                         <option value="cn0name">Average CN0</option>
                     </select><br />
-                    <label for="filter2val" class="filter2s" id="filter2val">value</label><input type="radio" class="filter2s" name="filter2sel" id="filter2val" value="filter2value">
-                    <label for="filter2range" class="filter2s" id="filter2ran">range</label><input type="radio" class="filter2s" name="filter2sel" id="filter2ran" value="filter2range">
+                    <label for="filter2val" class="filter2s" id="filter2val">value</label><input type="radio" class="filter2s" name="filter2sel" id="filter2val" value="filter2val">
+                    <label for="filter2ran" class="filter2s" id="filter2ran">range</label><input type="radio" class="filter2s" name="filter2sel" id="filter2ran" value="filter2ran">
                     <input type="text" class="filter2s" id="valueinput" name="filter2value" placeholder="value">
                     <input type="text" class="filter2s" id="rangeinput" name="filter2rangelow" placeholder="low value">
                     <input type="text" class="filter2s" id="rangeinput" name="filter2rangehigh" placeholder="high value">
@@ -136,8 +136,8 @@
                         <option value="numsatsname">NumSatellites</option>
                         <option value="cn0name">Average CN0</option>
                     </select><br />
-                    <label for="filter3val" class="filter3s" id="filter3val">value</label><input type="radio" class="filter3s" name="filter3sel" id="filter3val" value="filter3value">
-                    <label for="filter3range" class="filter3s" id="filter3ran">range</label><input type="radio" class="filter3s" name="filter3sel" id="filter3ran" value="filter3range">
+                    <label for="filter3val" class="filter3s" id="filter3val">value</label><input type="radio" class="filter3s" name="filter3sel" id="filter3val" value="filter3val">
+                    <label for="filter3ran" class="filter3s" id="filter3ran">range</label><input type="radio" class="filter3s" name="filter3sel" id="filter3ran" value="filter3ran">
                     <input type="text" class="filter3s" id="valueinput" name="filter3value" placeholder="value">
                     <input type="text" class="filter3s" id="rangeinput" name="filter3rangelow" placeholder="low value">
                     <input type="text" class="filter3s" id="rangeinput" name="filter3rangehigh" placeholder="high value">
@@ -146,12 +146,27 @@
                 </fieldset>
                 <fieldset>
                     <legend>Options</legend>
+                    <label for="sol_to_use">What Solutions?</label>
+                    <select id="sol_to_use" name="sol_to_use">
+                        <option value="all_sols">All Solutions</option>
+                        <option value="window_sols">Last in Window</option>
+                    </select><br />
                     <label for="KMLgen"> Generate KML file </label>
                     <input type="checkbox" class="KMLneeded" name="KMLgen" value="True"/><br/>
-                    <label for="StatsOut" > Output Stats to File </label>
-                    <input type="checkbox" name="StatsOut" value="True" /><br />
+                    <label for="SolutionsOut" > Output Solutions to File </label>
+                    <input type="checkbox" name="SolutionsOut" value="True" /><br />
                     <label for="histcum" > Generate Histogram Cumulative Error Plot </label>
                     <input type="checkbox" name="histcum" value="True" /><br />
+                    <label for="histcum"> Vary a Value in Hist/Cumulative Plot </label>
+                    <input type="checkbox" name="plotvary" value='True' />
+                    <select id="plotvary" name="plotvaryby">
+                        <option value="dopname">DOP</option>
+                        <option value="ehename">ExpectedHorzError</option>
+                        <option value="numburstsname">NumBursts</option>
+                        <option value="numpacketsname">NumPackets</option>
+                        <option value="numsatsname">NumSatellites</option>
+                        <option value="cn0name">Average CN0</option>
+                    </select><br />
                 </fieldset>
                 <button type="submit"> Submit </button> <br />
             </form><br />

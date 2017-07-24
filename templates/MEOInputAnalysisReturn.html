@@ -32,9 +32,11 @@
                 <fieldset>
                     <legend>MEOLUT</legend>
                     <label for="3385">Hawaii</label>
-                    <input type="radio" name="MEOLUT" value="3385" /><br />
+                    <input type="checkbox" name="MEOLUT_HI" value="3385" checked /><br />
                     <label for="3669">Florida</label>
-                    <input type="radio" name="MEOLUT" value="3669" /><br />
+                    <input type="checkbox" name="MEOLUT_FL" value="3669" checked /><br />
+                    <label for="2276">FMCC</label>
+                    <input type="checkbox" name="MEOLUT_FR" value="2276" /><br /> <!-- May need to come back and change-->
                 </fieldset>
                 <fieldset>
                     <legend>Date/Time</legend>
@@ -92,8 +94,6 @@
                 <article>
                     {% for link, desc in linklist.iteritems() %}
                     <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
-
-                    
                 </article>
             </form>
             <article class="results">

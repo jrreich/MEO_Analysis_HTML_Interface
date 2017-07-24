@@ -32,11 +32,11 @@
                 <fieldset>
                     <legend>MEOLUT</legend>
                     <label for="3385">Hawaii</label>
-                    <input type="radio" name="MEOLUT" value="3385" /><br />
+                    <input type="checkbox" name="MEOLUT_HI" value="3385" checked /><br />
                     <label for="3669">Florida</label>
-                    <input type="radio" name="MEOLUT" value="3669" /><br />
-                    <label for="both">Both</label>
-                    <input type="radio" name="MEOLUT" value="both" /><br /> <!-- May need to come back and change-->
+                    <input type="checkbox" name="MEOLUT_FL" value="3669" checked /><br />
+                    <label for="2276">FMCC</label>
+                    <input type="checkbox" name="MEOLUT_FR" value="2276" /><br /> <!-- May need to come back and change-->
                 </fieldset>
                 <fieldset>
                     <legend>Date/Time</legend>
@@ -144,25 +144,46 @@
                 <fieldset>
                     <legend>Options</legend>
                     <label for="KMLgen"> Generate KML file </label>
-                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="KMLgen"/><br/>
-                    <label for="StatsOut" > Output Stats to File </label>
-                    <input type="checkbox" name="StatsOut" value="True" /><br />
-                    <label for="histcum" > Generate Histogram Cumulative Error Plot </label>
+                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="True" /><br />
+                    <label for="SolutionsOut"> Output Solutions to File </label>
+                    <input type="checkbox" name="SolutionsOut" value="True" /><br />
+                    <label for="histcum"> Generate Histogram Cumulative Error Plot </label>
                     <input type="checkbox" name="histcum" value="True" /><br />
+                    <label for="histcum"> Vary a Value in Hist/Cumulative Plot </label>
+                    <input type="checkbox" name="plotvary" value='True' />
+                    <select id="plotvary" name="plotvaryby">
+                        <option value="datatypename">DataType</option>
+                        <option value="dopname">DOP</option>
+                        <option value="ehename">ExpectedHorzError</option>
+                        <option value="numburstsname">NumBursts</option>
+                        <option value="numpacketsname">NumPackets</option>
+                        <option value="numsatsname">NumSatellites</option>
+                        <option value="cn0name">Average CN0</option>
+                    </select><br />
+                    {% for link, desc in linklist.iteritems() %}
+                    <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
                 </fieldset>
                 <button type="submit"> Submit </button> <br />
             </form><br />
+
             <article class="results">
                 <h3>Results</h3>
                 <table>
                     {% for row in data %}
                     <tr>
-                        <td>{{ row.0 }}</td>
-                        <td>{{ row.1 }}</td>
+                        {% for i in range(0, row|length) %}
+                        <td>{{ row[i] }}</td>
+                        {% endfor %}
                     </tr>
                     {% endfor %}
                 </table>
+                {% for filename in imglist %}
+                <a href="{{ filename }}">
+                    <img id="HistogramCumulativePlotResult" src="{{ filename }}" alt="Results png" title="results" />
+                </a>
+                {% endfor %}
             </article>
+
         </section>
 
     </main>

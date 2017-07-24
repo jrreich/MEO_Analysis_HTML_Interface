@@ -275,3 +275,4 @@ packages/
 *.txt
 *.kml
 /static/Apps
+/out_sat_stats_sum.csv
