@@ -52,6 +52,7 @@
     <Content Include="env\Lib\site-packages\burst_processor\__init__.pyc" />
     <Content Include="env\Lib\site-packages\MEOInput_Analysis\__init__.pyc" />
     <Content Include="requirements.txt" />
+    <Content Include="static\scripts\MEOBeaconAnalysis.js" />
     <Content Include="static\styles\mystylesheet.css" />
     <Content Include="static\styles\mystylesheet3.css" />
     <Content Include="templates\BeaconDecoded.html" />
@@ -59,7 +60,7 @@
     <Content Include="templates\index3.html" />
     <Content Include="templates\MapTest.html" />
     <Content Include="templates\MEOBeaconAnalysisForm.html" />
-    <Content Include="templates\MEOBeaconAnalysisReturn.html" />
+    <Content Include="templates\MEOBeaconAnalysisReturnNoData.html" />
     <Content Include="templates\MEOInputAnalysisForm.html" />
     <Content Include="templates\MEOInputAnalysisReturn.html" />
     <Content Include="templates\OpenSites.html" />
@@ -81,6 +82,7 @@
     <Folder Include="env\Lib\site-packages\burst_processor\" />
     <Folder Include="env\Lib\site-packages\MEOInput_Analysis\" />
     <Folder Include="static\" />
+    <Folder Include="static\scripts\" />
     <Folder Include="static\styles\" />
     <Folder Include="templates\" />
   </ItemGroup>

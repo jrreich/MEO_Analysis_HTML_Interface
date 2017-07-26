@@ -226,21 +226,18 @@ def MEOBeaconAnalysis():
         else:
             StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
             EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')	
-
-        if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
-            f = request.files['inputfile'] 
+        filesaved = False
+        if result['GTSource'] == 'GTFile':
+            f = request.files['gt_inputfile'] 
             filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
             f.save(filesaved)
-            if result['inputsource'] == 'excelfile':
-                MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
-        elif result['inputsource'] == 'mccdb':
-            csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase) 
-            if csvoutfile == None:
-                print 'csvoutfile was None'
-                return render_template('MEOBeaconAnalysisReturn.html', data = filelist)
-            rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
-            csv_data = [ row for row in rdr ]
-            return render_template('MEOBeaconAnalysisReturn.html', data=csv_data, imglist = imglist, linklist = filelist)
+        csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase, filesaved) 
+        if csvoutfile == None:
+            print 'csvoutfile was None'
+            return render_template('MEOBeaconAnalysisReturnNoData.html', result = result, StartTime = StartTime, EndTime = EndTime)
+        rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
+        csv_data = [ row for row in rdr ]
+        return render_template('MEOBeaconAnalysisReturn.html', data=csv_data, imglist = imglist, linklist = filelist)
 
     else: 
         return '<h2> Invalid Request </h2>'
