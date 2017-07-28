@@ -182,14 +182,15 @@ def opensites():
         if request.args.get('sitenum') is not None:
             RCC_KML = False
             Input_KML = False
-            bothfile = False
+            KMLfile = False
+            Mapfile = False
             sitenum = request.args.get('sitenum')
             if request.args.get('RCC_KML') is not None:
                 RCC_KML = request.args.get('RCC_KML')        
             if request.args.get('Input_KML') is not None:
                 Input_KML = request.args.get('Input_KML')  
             if request.args.get('Both_KML') is not None:
-                bothfile = MEOInput_Analysis.both_kml(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
+                KMLfile, Mapfile = MEOInput_Analysis.both_kml(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
             
             alertsitesum = MEOInput_Analysis.alertsitesum_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
             alertsitesols, Input_KMLfile = MEOInput_Analysis.alertsitesol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase, makeKML = Input_KML)
@@ -204,7 +205,8 @@ def opensites():
                 outsitesols = outsitesols,
                 RCC_KMLfile = RCC_KMLfile,
                 Input_KMLfile = Input_KMLfile,
-                Both_KMLfile = bothfile,
+                KMLfile = KMLfile,
+                Mapfile = Mapfile
                 )
         else:
             open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples

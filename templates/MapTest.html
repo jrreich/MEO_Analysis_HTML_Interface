@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-  <title>MapTest</title>
+  <title>Map Test (Dev)</title>
     <script type="text/javascript" src="{{ url_for('static', filename='Build/Cesium/Cesium.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Build/Cesium/Widgets/widgets.css') }}">
     <style>
@@ -25,16 +25,18 @@
 <body>
     <div id="cesiumContainer"></div>
     <script>
-    var viewer = new Cesium.Viewer('cesiumContainer');
-    /*
+    /*var viewer = new Cesium.Viewer('cesiumContainer'); */
+    
     var viewer = new Cesium.Viewer('cesiumContainer', {
-        imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
-            url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
-        }),
-        baseLayerPicker : false
-    });
-    */
-        var options = {
+    imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
+        url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
+    }),
+
+});
+    
+    
+    
+    var options = {
         camera : viewer.scene.camera,
         canvas : viewer.scene.canvas
         };

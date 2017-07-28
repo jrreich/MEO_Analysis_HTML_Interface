@@ -30,8 +30,9 @@
                 {% endif %}
                 <br /><input type="checkbox" name="Both_KML" value="True" />
                 <label for="KML">Generate KML with Both?</label>
-                {% if Both_KMLfile %}
-                <a href="{{ Both_KMLfile }}"> Input Locations and RCC Output, Site - {{ sitenum }}  </a>
+                {% if KMLfile %}
+                <a href="{{ KMLfile }}"> Input Locations and RCC Output, Site - {{ sitenum }}  </a>
+                <a href="{{ Mapfile }}"> MapIt Locations and RCC Output, Site - {{ sitenum }}  </a>
                 {% endif %}
                 
             </form>
