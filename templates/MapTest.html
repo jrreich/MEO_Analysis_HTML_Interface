@@ -26,16 +26,16 @@
     <div id="cesiumContainer"></div>
     <script>
     /*var viewer = new Cesium.Viewer('cesiumContainer'); */
-    
+
     var viewer = new Cesium.Viewer('cesiumContainer', {
     imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
         url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
     }),
 
 });
-    
-    
-    
+
+
+
     var options = {
         camera : viewer.scene.camera,
         canvas : viewer.scene.canvas
@@ -45,6 +45,16 @@
     viewer.dataSources.add(Cesium.KmlDataSource.load('{{KMLFILE}}',options));
     {% endif %}
 
+    {% if ZOOMTO %}
+    camera.setView({
+    destination : Cesium.Cartesian3.fromDegrees(longitude, latitude, height),
+    orientation: {
+        heading : 0.0,
+        pitch : -Cesium.Math.PI_OVER_TWO,
+        roll : 0.0
+        }
+    });
+    {% endif %}
     </script>
 </body>
 </html>
