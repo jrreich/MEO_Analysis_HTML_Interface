@@ -166,9 +166,13 @@
 
             <article class="results">
                 <h3>Results</h3>
-                <h1> No data found for {{ result.beaconID }} </h1>
+                {% if result.UseBeaconID == "SiteInput" %}
+                <h1> No data found for site - {{ result.siteID }} </h1>
                 <h1> Between {{ StartTime }} and {{ EndTime }}</h1>
-
+                {% else %}
+                <h1> No data found for beacon - {{ result.beaconID }} </h1>
+                <h1> Between {{ StartTime }} and {{ EndTime }}</h1>
+                {% endif %}
             </article>
 
         </section>
