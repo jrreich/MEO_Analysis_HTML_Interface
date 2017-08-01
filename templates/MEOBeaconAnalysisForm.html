@@ -62,9 +62,9 @@
                     <label for="UseSiteID">Use Site Number</label>
                     <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" /> <br />
                     <input type="text" id="beaconIDinput" name="beaconID" placeholder="Beacon ID"> 
-                    <input type="text" id="siteIDinput" name="siteID" placeholder="Site ID"> 
-                    <input type="text" id="beaconIDinput" name="Location" placeholder="Location name">
-                    <input type="text" id="siteIDinput" name="Location" placeholder="Site Number"> 
+                    <input type="text" id="siteIDinput" name="siteID" placeholder="Site Number"> 
+                    <input type="text" id="beaconIDinput" name="Location" placeholder="Location Name">
+                    <input type="text" id="siteLocationName" name="Location" placeholder="Location Name"> 
                 </fieldset>
                 <fieldset id="gtsource">
                     <legend>Ground Truth Source</legend>
@@ -178,6 +178,7 @@
         </section>
 
     </main>
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/jquery-3.2.1.js') }}"></script>"
     <script type="text/javascript" src="{{ url_for('static',filename='scripts/MEOBeaconAnalysis.js') }}"></script>
 </body>
 </html>

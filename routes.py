@@ -1,5 +1,5 @@
 from werkzeug.utils import secure_filename
-from flask import Flask, url_for, request, render_template; 
+from flask import Flask, url_for, request, render_template, jsonify; 
 #from app import app
 import beacon_decode as bcn
 from werkzeug.utils import secure_filename
@@ -250,3 +250,20 @@ def MapTest():
             return render_template('MapTest.html', KMLFILE = request.args.get('KML'))
         else: 
             return render_template('MapTest.html')
+
+
+@app.route('/api/sites/<int:sitenum>', methods=['GET','POST'])
+def sitereturn(sitenum):
+    print sitenum
+    if request.method == 'GET':
+        SiteData = MEOInput_Analysis.api_site_query(sitenum,servername, oppsdatabase)
+        try: 
+            data = SiteData
+            print 'got data'
+            print data
+        except IndexError:
+            abort(404)
+        print jsonify(data)
+        return jsonify(data)
+
+
