@@ -252,11 +252,11 @@ def MapTest():
             return render_template('MapTest.html')
 
 
-@app.route('/api/sites/<int:sitenum>', methods=['GET','POST'])
+@app.route('/api/sitesum/<int:sitenum>', methods=['GET','POST'])
 def sitereturn(sitenum):
     print sitenum
     if request.method == 'GET':
-        SiteData = MEOInput_Analysis.api_site_query(sitenum,servername, oppsdatabase)
+        SiteData = MEOInput_Analysis.api_site_sum_query(sitenum,servername, oppsdatabase)
         try: 
             data = SiteData
             print 'got data'
@@ -266,4 +266,13 @@ def sitereturn(sitenum):
         print jsonify(data)
         return jsonify(data)
 
-
+@app.route("/stream")
+def stream():
+    def eventStream():
+        while True:
+            # Poll data from the database
+            # and see if there's a new message
+            if len(messages) > len(previous_messages):
+                yield "data: {}\n\n".format(messages[len(messages)-1])
+    
+    return Response(eventStream(), mimetype="text/event-stream")

@@ -10,23 +10,20 @@ function submitpress() {
 
 $("#siteIDinput").blur(function() {
     var SiteNum = $("#siteIDinput").val();
-    SiteData = $.getJSON('/api/sites/' + SiteNum);
-    /*var SiteRequest = new XMLHttpRequest();
-    SiteRequest.open('GET', '/api/sites/'+ SiteNum);
-
-    SiteRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-1.json'); */
-    /*SiteRequest.onload = function() {
-        var SiteData = JSON.parse(SiteRequest.responseText);
-        console.log(SiteData[0]);
-        renderHTML(SiteData[0]); 
-    };
-
-    SiteRequest.send()
-    renderHTML(SiteData);*/
+    $.getJSON('/api/sites/' + SiteNum, {}, function (data) {
+		$('#StartTime').val(data.OpenTime)
+        var items = [];
+        $.each( data, function ( key, val) {
+            items.push ( key + " - " + val);
+        });
+        /*$('#userbeaconid').prop('checked','true')*/
+        $('#beaconIDinput').val(data.BcnId15)
+		console.log(data);
+    });
 });
 
 function renderHTML(data) {
-alert(data)
+alert(data['BcnId15'])
 
 }
 

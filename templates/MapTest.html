@@ -45,6 +45,10 @@
     viewer.dataSources.add(Cesium.KmlDataSource.load('{{KMLFILE}}',options));
     {% endif %}
 
+    {% if CZMLFILE %}
+    viewer.dataSources.add(Cesium.KmlDataSource.load('{{CZMLFILE}}',options));
+    {% endif %}
+
     {% if ZOOMTO %}
     camera.setView({
     destination : Cesium.Cartesian3.fromDegrees(longitude, latitude, height),
@@ -55,6 +59,15 @@
         }
     });
     {% endif %}
+
+
+
+
+
+    /*var dataSourceDisplay = new Cesium.DataSourceDisplay(cesiumWidget.scene);
+        dataSourceDisplay.getDataSources().add(czmlSource);
+        dataSourceDisplay.update(cesiumWidget.clock.currentTime);*/
     </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/NOAAczml.js') }}"></script>
 </body>
 </html>

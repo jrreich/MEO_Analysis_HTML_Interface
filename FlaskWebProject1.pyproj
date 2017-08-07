@@ -34,6 +34,7 @@
     <Compile Include="env\Lib\site-packages\burst_processor\xml_process_v7.py" />
     <Compile Include="env\Lib\site-packages\burst_processor\__init__.py" />
     <Compile Include="env\Lib\site-packages\MEOInput_Analysis\__init__.py" />
+    <Compile Include="env\Lib\site-packages\MEO_API\__int__.py" />
     <Compile Include="module1.py">
       <SubType>Code</SubType>
     </Compile>
@@ -53,6 +54,7 @@
     <Content Include="env\Lib\site-packages\MEOInput_Analysis\__init__.pyc" />
     <Content Include="requirements.txt" />
     <Content Include="static\scripts\MEOBeaconAnalysis.js" />
+    <Content Include="static\scripts\NOAAczml.js" />
     <Content Include="static\styles\mystylesheet.css" />
     <Content Include="static\styles\mystylesheet3.css" />
     <Content Include="templates\BeaconDecoded.html" />
@@ -81,6 +83,7 @@
     <Folder Include="env\Lib\site-packages\beacon_decode\" />
     <Folder Include="env\Lib\site-packages\burst_processor\" />
     <Folder Include="env\Lib\site-packages\MEOInput_Analysis\" />
+    <Folder Include="env\Lib\site-packages\MEO_API\" />
     <Folder Include="static\" />
     <Folder Include="static\scripts\" />
     <Folder Include="static\styles\" />
