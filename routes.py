@@ -230,9 +230,11 @@ def MEOBeaconAnalysis():
             EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')	
         filesaved = False
         if result['GTSource'] == 'GTFile':
+            print 'using file'
             f = request.files['gt_inputfile'] 
             filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
             f.save(filesaved)
+        print filesaved
         csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase, filesaved) 
         if csvoutfile == None:
             print 'csvoutfile was None'

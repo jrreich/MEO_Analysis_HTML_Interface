@@ -25,14 +25,17 @@
 <body>
     <div id="cesiumContainer"></div>
     <script>
-    /*var viewer = new Cesium.Viewer('cesiumContainer'); */
 
-    var viewer = new Cesium.Viewer('cesiumContainer', {
-    imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
-        url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
-    }),
+        Cesium.BingMapsApi.defaultKey = 'AroVSp3EEqOsbIrQmLLaavG0aGanIvBJ3iVmsayjLrmWFcU5KSCx1zCLE5AkByXq'; // For use in this application only. Do not reuse!
 
-});
+        /*var viewer = new Cesium.Viewer('cesiumContainer'); */
+
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+        imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
+            url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
+        }),
+
+    });
 
 
 

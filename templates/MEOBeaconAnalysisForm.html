@@ -42,7 +42,6 @@
                     <legend>Date/Time</legend>
                     <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" checked/>
                     <label for="realtime"> Real Time </label>                  
-                    <label id="rthours"> Number of Hours to Display <input type="number" name="realtimehours" value="24"/></label> <br />
                     <input type="radio" id="pasttime" name="RealPastTime" value="RT_no"> 
                     <label for="pasttime"> Past Time </label><br />
                     <label class="times"> Start Time <input type="datetime-local" name="StartTime" id="StartTime"/> </label>
@@ -63,7 +62,7 @@
                     <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" /> <br />
                     <input type="text" id="beaconIDinput" name="beaconID" placeholder="Beacon ID"> 
                     <input type="text" id="siteIDinput" name="siteID" placeholder="Site Number"> 
-                    <input type="text" id="beaconIDinput" name="Location" placeholder="Location Name">
+                    <input type="text" id="beaconIDinputname" name="Location" placeholder="Location Name">
                     <input type="text" id="siteLocationName" name="Location" placeholder="Location Name"> 
                 </fieldset>
                 <fieldset id="gtsource">
@@ -72,8 +71,8 @@
                     <input type="radio" id="gtlatlon" name="GTSource" value="GTLatLon" checked/><br />
                     <label for="GTFile"> Use File</label>
                     <input type="radio" id="gtfile" name="GTSource" value="GTFile" /><br />
-                    <input type="text" id="latloninput" name="beaconLat" placeholder="Ground Truth Latitude">
-                    <input type="text" id="latloninput" name="beaconLon" placeholder="Ground Truth Longitude">
+                    <input type="text" id="latinput" name="beaconLat" placeholder="Ground Truth Latitude">
+                    <input type="text" id="loninput" name="beaconLon" placeholder="Ground Truth Longitude">
                     <input type="file" class="fileinputbox" id="gtfileinput" name="gt_inputfile">
                 </fieldset>
                 <fieldset>
@@ -174,6 +173,8 @@
             </form><br />
             <article class="results">
                 <h3>Results</h3>
+                <button type="button" id="addEvents"> Events of interest</button>
+                <div id="events"> Events  </div> 
             </article>
         </section>
 
