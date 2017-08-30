@@ -12,9 +12,13 @@ var LUTsczml =
                  0,255,255,255
                 ]
             },
-            "horizontalOrigin":"CENTER",
+            "horizontalOrigin":"LEFT",
             "image":"/static/icons/NOAA_logo.svg.png",
             "scale":0.05,
+            "outlineWidth": 2,
+            "pixelOffset": {
+                "cartesian2": [ 0, 20 ]
+            },
         },
     },
     {"id" : "FL",
@@ -43,4 +47,5 @@ var LUTsczml =
 
 var czmlSource = new Cesium.CzmlDataSource();
 viewer.dataSources.add(czmlSource);
-czmlSource.load(LUTsczml);
+//czmlSource.load(LUTsczml);
+czmlSource.load('/stream')
