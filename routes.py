@@ -270,6 +270,8 @@ def sitereturn(sitenum):
 
 @app.route("/stream")
 def stream():
+    AllSiteData = MEOInput_Analysis.api_all_sites_sum_query(servername, oppsdatabase)
+    return jsonify(AllSiteData)
     def eventStream():
         while True:
             # Poll data from the database

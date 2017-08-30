@@ -16,8 +16,9 @@
     <PythonWsgiHandler>{StartupModule}.wsgi_app</PythonWsgiHandler>
     <Name>FlaskWebProject1</Name>
     <RootNamespace>FlaskWebProject1</RootNamespace>
-    <InterpreterId>MSBuild|{65639d92-8542-4f9f-93c1-3708d4328045}|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>{65639d92-8542-4f9f-93c1-3708d4328045}</InterpreterId>
     <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <InterpreterVersion>2.7</InterpreterVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
