@@ -3,31 +3,55 @@ var LUTsczml =
     "version" : "1.0"
     },
     {"id" : "NSOF",
-    "label":{"text":"NSOF"},
-        "position":{"cartographicDegrees":[-76.93677,38.850913,17]},
-        "description":"NOAA Satellite Operations Facility",
-        "billboard":{
-            "color":{
-                "rgba":[
-                 0,255,255,255
-                ]
-            },
-            "horizontalOrigin":"LEFT",
-            "image":"/static/icons/NOAA_logo.svg.png",
-            "scale":0.05,
-            "outlineWidth": 2,
-            "pixelOffset": {
-                "cartesian2": [ 0, 20 ]
-            },
+    "name" : "NSOF",
+    "label": {
+        "text":"NSOF",
+        "horizontalOrigin": "CENTER",
+        "pixelOffset": {
+            "cartesian2" : [0, -20]
         },
+        "fillColor": {
+            "rgba": [63, 191, 191, 255]
+        }
+    },
+    "position": {
+        "cartographicDegrees":[-76.93677,38.850913,17]
+    },
+    "description":"NOAA Satellite Operations Facility",
+    "billboard":{
+        "horizontalOrigin":"CENTER",
+        "image":"/static/icons/NOAA_svg.png",
+        "scale":0.07,
+        "outlineWidth": 2,
+        "outlineColor": {
+            "rgba":[255, 255, 255, 255] 
+        },           
+        "pixelOffset": {
+            "cartesian2": [ 0, 10 ]
+        }
+    }/* ,
+    "point": {
+        "color": {
+            "rgba":[63, 191, 191, 255]
+        },
+        "pixelSize" : 20
+    }*/
     },
     {"id" : "FL",
-    "label":{"text":"FLLUTs"},
-        "description":"Florida LEO/MEOLUTs",
-        "position":{"cartographicDegrees":[-80.383274,25.617562,0]},
-        "point": {
-            "color": { "rgba": [0,0,255,255] },
+    "name" : "FL",
+    "label": {
+        "text":"FLLUTs",
+        "horizontalOrigin": "CENTER",
+        "pixelOffset": {
+            "cartesian2" : [0, -20]
         }
+    },
+    "description":"Florida LEO/MEOLUTs",
+    "position":{"cartographicDegrees":[-80.383274,25.617562,0]},
+    "point": {
+        "color": { "rgba": [0,0,255,255] },
+        "pixelSize" : 20
+    }
     },
     {"id" : "HI",
     "label":{"text":"HILUTs"},
@@ -47,5 +71,8 @@ var LUTsczml =
 
 var czmlSource = new Cesium.CzmlDataSource();
 viewer.dataSources.add(czmlSource);
-//czmlSource.load(LUTsczml);
-czmlSource.load('/stream')
+
+var czmlStreamStartSource = new Cesium.CzmlDataSource();
+viewer.dataSources.add(czmlStreamStartSource);
+czmlSource.load(LUTsczml);
+czmlStreamStartSource.load('/stream')
