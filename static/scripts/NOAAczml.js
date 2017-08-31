@@ -21,7 +21,7 @@ var LUTsczml =
     "billboard":{
         "horizontalOrigin":"CENTER",
         "image":"/static/icons/NOAA_svg.png",
-        "scale":0.07,
+        "scale":0.06,
         "outlineWidth": 2,
         "outlineColor": {
             "rgba":[255, 255, 255, 255] 

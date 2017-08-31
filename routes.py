@@ -270,7 +270,7 @@ def sitereturn(sitenum):
 
 @app.route("/stream")
 def stream():
-    AllSiteData = MEOInput_Analysis.api_all_sites_sum_query(servername, oppsdatabase)
+    AllSiteData = MEOInput_Analysis.czml_all_sites_sum_query(servername, oppsdatabase)
     return jsonify(AllSiteData)
     def eventStream():
         while True:
@@ -280,3 +280,9 @@ def stream():
                 yield "data: {}\n\n".format(messages[len(messages)-1])
     
     return Response(eventStream(), mimetype="text/event-stream")
+
+@app.route("/api/czml/site")
+def czml_meo_input_by_site():
+    sitenum = 12899
+    MeoInput = MEOInput_Analysis.czml_site_meo_input(sitenum, servername, oppsdatabase)
+    return jsonify(MeoInput)
