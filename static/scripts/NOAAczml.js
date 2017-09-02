@@ -88,7 +88,8 @@ handler2.setInputAction(function(click) {
                 viewer.dataSources.add(czmlSite);
                 czmlSite.load('/api/czml/site/' + pickedObject.id._id).then(function() {
                     viewer.flyTo(czmlSite, {
-                        duration: 5
+                        duration: 5,
+                        offset: new Cesium.HeadingPitchRange(0, -Math.PI / 4, 150000)
                     });
                 });
                 if(pickedObject.id._name) {
