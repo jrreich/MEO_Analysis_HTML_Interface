@@ -71,8 +71,36 @@ var LUTsczml =
 
 var czmlSource = new Cesium.CzmlDataSource();
 viewer.dataSources.add(czmlSource);
+czmlSource.load(LUTsczml);
 
 var czmlStreamStartSource = new Cesium.CzmlDataSource();
 viewer.dataSources.add(czmlStreamStartSource);
-czmlSource.load(LUTsczml);
 czmlStreamStartSource.load('/stream')
+
+viewer.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
+var handler2 = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+handler2.setInputAction(function(click) {
+        event.preventDefault();//OR click.preventDefault();
+        var pickedObject = viewer.scene.pick(click.position);
+        if (Cesium.defined(pickedObject)) {
+                var czmlSite = new Cesium.CzmlDataSource();
+                viewer.dataSources.add(czmlSite);
+                czmlSite.load('/api/czml/site/' + pickedObject.id._id).then(function() {
+                    viewer.flyTo(czmlSite, {
+                        duration: 5
+                    });
+                });
+                if(pickedObject.id._name) {
+                        $('.cesium-viewer-infoBoxContainer').show();
+                        flyTo(pickedObject.id._id);
+                        console.log('showing something in the info box')
+                }
+        }
+}, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
+/*
+var czmlSite = new Cesium.CzmlDataSource();
+viewer.dataSources.add(czmlSite);
+czmlSite.load('/api/czml/site/' + sitenum)
+*/

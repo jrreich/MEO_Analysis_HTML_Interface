@@ -281,8 +281,7 @@ def stream():
     
     return Response(eventStream(), mimetype="text/event-stream")
 
-@app.route("/api/czml/site")
-def czml_meo_input_by_site():
-    sitenum = 12899
+@app.route("/api/czml/site/<int:sitenum>")
+def czml_meo_input_by_site(sitenum):
     MeoInput = MEOInput_Analysis.czml_site_meo_input(sitenum, servername, oppsdatabase)
     return jsonify(MeoInput)

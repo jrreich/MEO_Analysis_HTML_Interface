@@ -1,43 +1,13 @@
-2017-08-30 23:22:35,009 INFO app root
-2017-08-30 23:22:35,010 INFO executed activate virtualenv
-2017-08-30 23:22:35,010 INFO executed path insert
-2017-08-30 23:22:35,012 INFO beacon decode as a test
-2017-08-30 23:22:35,789 INFO numpy pandas and itertools
-2017-08-30 23:22:35,924 INFO imported matplotlib
-2017-08-30 23:22:35,931 INFO imported math, sys, os and xlrd
-2017-08-30 23:22:35,931 INFO datetime and csv
-2017-08-30 23:22:35,946 INFO collections and simplekml
-2017-08-30 23:22:35,946 INFO re and beacon decode
-2017-08-30 23:22:35,946 INFO pypyodbc imported - all modules imported
-2017-08-30 23:22:35,950 INFO imported app
-2017-08-30 23:22:35,951 INFO imported application as app
-2017-08-30 23:22:36,963 ERROR Exception on /stream [GET]
-Traceback (most recent call last):
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
-    response = self.full_dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 273, in stream
-    AllSiteData = MEOInput_Analysis.api_all_sites_sum_query(servername, oppsdatabase)
-AttributeError: 'module' object has no attribute 'api_all_sites_sum_query'
-2017-08-30 23:22:45,730 ERROR Exception on /stream [GET]
-Traceback (most recent call last):
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
-    response = self.full_dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 273, in stream
-    AllSiteData = MEOInput_Analysis.api_all_sites_sum_query(servername, oppsdatabase)
-AttributeError: 'module' object has no attribute 'api_all_sites_sum_query'
+2017-09-01 20:47:37,355 INFO app root
+2017-09-01 20:47:37,358 INFO executed activate virtualenv
+2017-09-01 20:47:37,358 INFO executed path insert
+2017-09-01 20:47:37,358 INFO beacon decode as a test
+2017-09-01 20:47:37,844 INFO numpy pandas and itertools
+2017-09-01 20:47:37,956 INFO imported matplotlib
+2017-09-01 20:47:37,963 INFO imported math, sys, os and xlrd
+2017-09-01 20:47:37,963 INFO datetime and csv
+2017-09-01 20:47:37,979 INFO collections and simplekml
+2017-09-01 20:47:37,979 INFO re and beacon decode
+2017-09-01 20:47:37,979 INFO pypyodbc imported - all modules imported
+2017-09-01 20:47:37,984 INFO imported app
+2017-09-01 20:47:37,984 INFO imported application as app
