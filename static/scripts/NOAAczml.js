@@ -100,8 +100,16 @@ handler2.setInputAction(function(click) {
         }
 }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
 
+
+var czmlSat = new Cesium.CzmlDataSource();
+viewer.dataSources.add(czmlSat);
+czmlSat.load('/api/czml/orbit/meo').then(function() {
+    viewer.zoomTo(czmlSat.entities._entities._array[0])
+});
+
 /*
-var czmlSite = new Cesium.CzmlDataSource();
-viewer.dataSources.add(czmlSite);
-czmlSite.load('/api/czml/site/' + sitenum)
+var czmlLeoSat = new Cesium.CzmlDataSource();
+viewer.dataSources.add(czmlLeoSat);
+czmlLeoSat.load('/api/czml/orbit/leo');
+console.log('leos loaded')
 */

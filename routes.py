@@ -285,3 +285,21 @@ def stream():
 def czml_meo_input_by_site(sitenum):
     MeoInput = MEOInput_Analysis.czml_site_meo_input(sitenum, servername, oppsdatabase)
     return jsonify(MeoInput)
+
+@app.route("/api/czml/orbit/meo")
+def czml_meo_sat_orbit():
+    #starttime = datetime.datetime(2017,8,21)
+    #endtime = datetime.datetime(2017,8, 22)
+    endtime = datetime.datetime.utcnow() + datetime.timedelta(days = 1)
+    starttime = endtime - datetime.timedelta(days = 1)
+    OrbitData = MEOInput_Analysis.czml_meo_orbit_all(starttime, endtime, servername, oppsdatabase ) #, satnum)
+    return jsonify(OrbitData)
+
+@app.route("/api/czml/orbit/leo")
+def czml_leo_sat_orbit():
+    #starttime = datetime.datetime(2017,8,19)
+    #endtime = datetime.datetime(2017,8, 22)
+    endtime = datetime.datetime.utcnow() + datetime.timedelta(days = 1)
+    starttime = endtime - datetime.timedelta(days = 1)
+    OrbitData = MEOInput_Analysis.czml_leo_orbit_all(starttime, endtime, servername, oppsdatabase ) #, satnum)
+    return jsonify(OrbitData)
