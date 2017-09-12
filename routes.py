@@ -291,7 +291,7 @@ def czml_meo_sat_orbit():
     #starttime = datetime.datetime(2017,8,21)
     #endtime = datetime.datetime(2017,8, 22)
     endtime = datetime.datetime.utcnow() + datetime.timedelta(days = 1)
-    starttime = endtime - datetime.timedelta(days = 1)
+    starttime = endtime - datetime.timedelta(days = 2)
     OrbitData = MEOInput_Analysis.czml_meo_orbit_all(starttime, endtime, servername, oppsdatabase ) #, satnum)
     return jsonify(OrbitData)
 
@@ -303,3 +303,12 @@ def czml_leo_sat_orbit():
     starttime = endtime - datetime.timedelta(days = 1)
     OrbitData = MEOInput_Analysis.czml_leo_orbit_all(starttime, endtime, servername, oppsdatabase ) #, satnum)
     return jsonify(OrbitData)
+
+@app.route("/api/czml/sched/meo")
+def czml_meo_schedule_all():
+    starttime = datetime.datetime(2017,8,19)
+    endtime = datetime.datetime(2017,8, 22)
+    #endtime = datetime.datetime.utcnow() + datetime.timedelta(days = 1)
+    #starttime = endtime - datetime.timedelta(days = 1)
+    MeoSchedData = MEOInput_Analysis.czml_meo_sched_all(starttime, endtime, servername, oppsdatabase ) #, antenna)
+    return jsonify(MeoSchedData)

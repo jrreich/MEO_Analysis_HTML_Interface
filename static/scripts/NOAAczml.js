@@ -108,6 +108,13 @@ czmlSat.load('/api/czml/orbit/meo').then(function() {
 });
 
 /*
+var clock1 = new Cesium.Clock({
+    multiplier: 1
+});
+viewer.clock = clock1
+*/
+
+/*
 var czmlLeoSat = new Cesium.CzmlDataSource();
 viewer.dataSources.add(czmlLeoSat);
 czmlLeoSat.load('/api/czml/orbit/leo');
