@@ -9,6 +9,7 @@ import datetime
 import csv
 import sys
 import os
+import sendsms as sms
 
 UPLOAD_FOLDER = os.path.join('var','uploads')
 
@@ -249,9 +250,9 @@ def MEOBeaconAnalysis():
 def MapTest():
     if request.method == 'GET':
         if request.args.get('KML') is not None:
-            return render_template('MapTest.html', KMLFILE = request.args.get('KML'))
+            return render_template('MapTest_v2.html', KMLFILE = request.args.get('KML'))
         else: 
-            return render_template('MapTest.html')
+            return render_template('MapTest_v2.html')
 
 
 @app.route('/api/sitesum/<int:sitenum>', methods=['GET','POST'])
@@ -312,3 +313,21 @@ def czml_meo_schedule_all():
     #starttime = endtime - datetime.timedelta(days = 1)
     MeoSchedData = MEOInput_Analysis.czml_meo_sched_all(starttime, endtime, servername, oppsdatabase ) #, antenna)
     return jsonify(MeoSchedData)
+
+@app.route('/messager', methods=['GET','POST'])
+def messager():
+    if request.method == 'GET':
+        # Send the user the form
+        return render_template('messager.html')
+    elif request.method == 'POST':
+        # read beacon ID and save it
+        phonenumber = request.form['phonenumber']        
+        messagetext = request.form['messagetext']
+        #decode and return it
+        #return results
+        sms.send_sms(phonenumber, messagetext)
+        return render_template('messagesent.html', \
+            phonenumber = phonenumber, \
+            messagetext = messagetext)
+    else: 
+        return '<h2> Invalid Request </h2>'

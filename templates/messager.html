@@ -17,19 +17,22 @@
         </div>
         <nav class="topnav">
             <a href="/" class="home">Home</a>
-            <a href="/beacon" class="active">Beacon Decode</a>
+            <a href="/beacon">Beacon Decode</a>
             <a href="/rawburst">Burst Analysis</a>
             <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
             <a href="/RealTimeMonitor">Real Time Monitoring</a>
             <a href="/SiteQuery">Site Query</a>
             <a href="/MEOBeaconAnalysis">MEOLUT Beacon Analysis</a>
-            <a href="/messager">Messaging Test</a>
+            <a href="/messager" class="active">Messaging Test</a>
         </nav>
-        <section class="content" id="inputbeacon">
-            <h2> Please enter beacon ID test</h2>
+        <section class="content" id="inputdata">
+            <h2> Please enter message info</h2>
             <form method="post">
-                <label for="beaconID">Beacon ID</label>
-                <input type="text" name="beaconID" />
+
+                <input type="text" name="phonenumber" />
+                <label for="phonenumber">Number (no dashes)</label>
+                <input type="text" name="messagetext" />
+                <label for="messagetext">Message to send</label>
                 <button type="submit"> Submit </button>
             </form>
         </section>

@@ -36,6 +36,9 @@
     <Compile Include="env\Lib\site-packages\burst_processor\__init__.py" />
     <Compile Include="env\Lib\site-packages\MEOInput_Analysis\__init__.py" />
     <Compile Include="env\Lib\site-packages\MEO_API\__int__.py" />
+    <Compile Include="env\Lib\site-packages\sendsms\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="module1.py">
       <SubType>Code</SubType>
     </Compile>
@@ -55,13 +58,14 @@
     <Content Include="env\Lib\site-packages\MEOInput_Analysis\__init__.pyc" />
     <Content Include="requirements.txt" />
     <Content Include="static\scripts\MEOBeaconAnalysis.js" />
-    <Content Include="static\scripts\NOAAczml.js" />
+    <Content Include="static\scripts\NOAAczml_2.js" />
     <Content Include="static\styles\mystylesheet.css" />
     <Content Include="static\styles\mystylesheet3.css" />
     <Content Include="templates\BeaconDecoded.html" />
+    <Content Include="templates\BeaconDecoder3.html" />
     <Content Include="templates\BurstAnalysisForm.html" />
     <Content Include="templates\index3.html" />
-    <Content Include="templates\MapTest.html" />
+    <Content Include="templates\MapTest_v2.html" />
     <Content Include="templates\MEOBeaconAnalysisForm.html" />
     <Content Include="templates\MEOBeaconAnalysisReturnNoData.html" />
     <Content Include="templates\MEOInputAnalysisForm.html" />
@@ -71,10 +75,11 @@
     <Content Include="templates\RealTimeMonitor.html" />
     <Content Include="templates\BadDecode.html" />
     <Content Include="static\styles\mystylesheet2.css" />
-    <Content Include="templates\BeaconDecoder3.html" />
+    <Content Include="templates\messager.html" />
     <Content Include="templates\BurstAnalysisReturn.html">
       <Publish>True</Publish>
     </Content>
+    <Content Include="templates\messagesent.html" />
     <Content Include="__init__.pyc" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +90,7 @@
     <Folder Include="env\Lib\site-packages\burst_processor\" />
     <Folder Include="env\Lib\site-packages\MEOInput_Analysis\" />
     <Folder Include="env\Lib\site-packages\MEO_API\" />
+    <Folder Include="env\Lib\site-packages\sendsms\" />
     <Folder Include="static\" />
     <Folder Include="static\scripts\" />
     <Folder Include="static\styles\" />

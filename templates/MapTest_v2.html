@@ -24,6 +24,18 @@
 </head>
 <body>
     <div id="cesiumContainer"></div>
+    <div class="buttonHolder">
+        SSC Number:	<input id="sscNumber" type="text" value="25544" />
+        <br />
+        Start Date: <input type="date" id="startDate" />
+        <br />
+        Path Color: <input type="text" id="pathColor" value="Red">
+        <br />
+        <p><input type="button" value="Add" onclick="app.addSatellite()" /> </p>
+        <p><input type="button" value="Site Satellite Pass" onclick="app.siteSatellitePass()" /> </p>
+        <p><input type="button" value="Flight Satellite Pass" onclick="app.flightSatellitePass()" /> </p> --> 
+
+    </div>
     <script>
 
         Cesium.BingMapsApi.defaultKey = 'AroVSp3EEqOsbIrQmLLaavG0aGanIvBJ3iVmsayjLrmWFcU5KSCx1zCLE5AkByXq'; // For use in this application only. Do not reuse!
@@ -35,7 +47,11 @@
                 url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer',
                 credit : 'testing credits'
             }),
-        baseLayerPicker : false
+            //Use standard Cesium terrain
+            terrainProvider : new Cesium.CesiumTerrainProvider({
+                url : 'https://assets.agi.com/stk-terrain/v1/tilesets/world/tiles'
+            }),
+            baseLayerPicker : false
 
     });
 
@@ -46,22 +62,6 @@
         canvas : viewer.scene.canvas
         };
 
-    Date.prototype.getJulian = function() {
-      return Math.floor((this / 86400000) - (this.getTimezoneOffset() / 1440) + 2440587.5);
-    }
-
-    /*var today = new Date(); //set any date
-    var juliannow = today.getJulian();
-
-        //var now = new Date().toISOString();
-    */
-    var juliannow = new Date().getTime()/86400000 + 2440587.5
-    viewer.clock.currentTime = juliannow;
-    alert(juliannow);
-    viewer.clock.multiplier = 1.0;
-
-    viewer.timeline.updateFromClock();
-    viewer.timeline.zoomTo(viewer.clock.startTime, viewer.clock.stopTime);
 
     {% if KMLFILE %}
     viewer.dataSources.add(Cesium.KmlDataSource.load('{{KMLFILE}}',options));
@@ -81,6 +81,7 @@
         }
     });
     {% endif %}
+
     viewer.extend(Cesium.viewerDragDropMixin);
     viewer.dropError.addEventListener(function(viewerArg, source, error) {
         window.alert('Error processing ' + source + ':' + error);

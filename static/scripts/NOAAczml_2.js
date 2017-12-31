@@ -1,8 +1,27 @@
 var app = (function () {
+    var viewer = {};
+    var _initCesium = function () {
+        viewer = new Cesium.Viewer('cesiumContainer', 
+		// Exercise for STK Terrain Server
+		/*{
+			baseLayerPicker : false,
+			terrainProvider : new Cesium.CesiumTerrainProvider({
+				url : '//assets.agi.com/stk-terrain/world'
+		})
+		}*/
+        );
+    };
+    
     function addCzmlDataSource(data) {
+        var czmlDataSource = Cesium.CzmlDataSource.load(data);
+        viewer.dataSources.add(czmlDataSource);
+    }
+    var _addDataSource = function () {
+        addCzmlDataSource(data) {
             var czmlDataSource = Cesium.CzmlDataSource.load(data);
             viewer.dataSources.add(czmlDataSource);
         };
+    };
     var LUTsczml =
         [{"id" : "document",
         "version" : "1.0"
@@ -124,6 +143,7 @@ var app = (function () {
     viewer.flyTo(centerAOR, 
         {offset : new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 20000000)}
     );
+    console.log(Cesium.Animation("cesiumContainer",
     /*
     viewer.flyTo(czmlSource.entities.getById('NSOF'), //This works 
         {offset : new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 20000000)}
@@ -143,4 +163,12 @@ var app = (function () {
     czmlLeoSat.load('/api/czml/orbit/leo');
     console.log('leos loaded')
     */
+    return {
+        initCesium: _initCesium,
+        addSatellite: _addSatellite,
+		//Exercise 2
+		siteSatellitePass: _getSiteSatellitePass,
+		//Exercise 3
+		flightSatellitePass: _getFlightSatellitePass
+    };
 })();
