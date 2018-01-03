@@ -23,19 +23,28 @@
     </style>
 </head>
 <body>
-    <div id="cesiumContainer"></div>
-    <div class="buttonHolder">
-        SSC Number:	<input id="sscNumber" type="text" value="25544" />
-        <br />
-        Start Date: <input type="date" id="startDate" />
-        <br />
-        Path Color: <input type="text" id="pathColor" value="Red">
-        <br />
-        <p><input type="button" value="Add" onclick="app.addSatellite()" /> </p>
-        <p><input type="button" value="Site Satellite Pass" onclick="app.siteSatellitePass()" /> </p>
-        <p><input type="button" value="Flight Satellite Pass" onclick="app.flightSatellitePass()" /> </p> --> 
+    <div id="cesiumContainer">
+       <!--
+        <div class="buttonHolder">
+            SSC Number:	<input id="sscNumber" type="text" value="25544" />
+            <br />
+            Start Date: <input type="date" id="startDate" />
+            <br />
+            Path Color: <input type="text" id="pathColor" value="Red">
+            <br />
+            <p><input type="button" value="Add" onclick="app.addSatellite()" /> </p>
+            <p><input type="button" value="Site Satellite Pass" onclick="app.siteSatellitePass()" /> </p>
+            <p><input type="button" value="Flight Satellite Pass" onclick="app.flightSatellitePass()" /> </p> 
 
+        </div>
+        -->
+        <!--
+        <div class="toolbar-left">
+            <button onclick="alert('You clicked!');">Click me!</button>
+        </div>
+        -->
     </div>
+
     <script>
 
         Cesium.BingMapsApi.defaultKey = 'AroVSp3EEqOsbIrQmLLaavG0aGanIvBJ3iVmsayjLrmWFcU5KSCx1zCLE5AkByXq'; // For use in this application only. Do not reuse!

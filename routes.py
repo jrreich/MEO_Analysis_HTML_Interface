@@ -250,9 +250,9 @@ def MEOBeaconAnalysis():
 def MapTest():
     if request.method == 'GET':
         if request.args.get('KML') is not None:
-            return render_template('MapTest_v2.html', KMLFILE = request.args.get('KML'))
+            return render_template('MapTest_v3.html', KMLFILE = request.args.get('KML'))
         else: 
-            return render_template('MapTest_v2.html')
+            return render_template('MapTest_v3.html')
 
 
 @app.route('/api/sitesum/<int:sitenum>', methods=['GET','POST'])

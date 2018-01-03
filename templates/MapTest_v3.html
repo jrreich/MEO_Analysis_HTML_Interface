@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  <!-- Tell IE to use the latest, best version. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Map Test v0.3 </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Build/Cesium/Widgets/widgets.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='Build/Cesium/Cesium.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/site.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/jquery-3.2.1.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/app.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/_run.js') }}"></script>
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+    <div class = "buttonHolder">
+    Site Number:  <input id="siteNumber" type="text" value="13172" />
+    <br /><p><input type="button" value="Add Site" onclick="app.addSite()" /> </p>
+    Date / Time: <input id="startDate" type="date" />
+        <p><input type="button" value="Real Time" onclick="app.realTime()" /> </p>
+
+    <p><input type="button" value="Flight Satellite Pass" onclick="app.flightSatellitePass()" /> </p> -->
+    </div>
+
+    <script>
+
+
+    {% if KMLFILE %}
+    viewer.dataSources.add(Cesium.KmlDataSource.load('{{KMLFILE}}',options));
+    {% endif %}
+
+    {% if CZMLFILE %}
+    viewer.dataSources.add(Cesium.KmlDataSource.load('{{CZMLFILE}}',options));
+    {% endif %}
+
+    {% if ZOOMTO %}
+    camera.setView({
+    destination : Cesium.Cartesian3.fromDegrees(longitude, latitude, height),
+    orientation: {
+        heading : 0.0,
+        pitch : -Cesium.Math.PI_OVER_TWO,
+        roll : 0.0
+        }
+    });
+    {% endif %}
+
+    </script>
+
+</body>
+</html>
