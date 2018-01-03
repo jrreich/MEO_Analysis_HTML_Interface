@@ -1,8 +1,9 @@
 ﻿$(function () {
-    console.log(app);
     app.initCesium();
 	$('#startDate')[0].valueAsDate = new Date();
     
+
+    app.homeView();
     
     var LUTsczml =
         [{"id" : "document",

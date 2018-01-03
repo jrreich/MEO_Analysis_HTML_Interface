@@ -18,12 +18,21 @@ var app = (function () {
             camera : viewer.scene.camera,
             canvas : viewer.scene.canvas
         };
-        
+        var centerAOR = viewer.entities.add({
+            id : 'USAOR_Center',
+            name : 'USAOR_Center',
+            label : 'center',
+            position : Cesium.Cartesian3.fromDegrees(-118,34),
+            point : {
+                show : 'False'
+            }
+        });
         viewer.extend(Cesium.viewerDragDropMixin);
         viewer.dropError.addEventListener(function(viewerArg, source, error) {
             window.alert('Error processing ' + source + ':' + error);
         });
     };
+
     var _realTime = function () {
         var currentTime = new Date();
         console.log(currentTime);
@@ -49,6 +58,12 @@ var app = (function () {
     var _addSite = function () {
         var siteNum = $('#siteNumber')[0];
         console.log(siteNum.value);
+        var czmlDataSource = Cesium.CzmlDataSource.load("/api/czml/site/"+siteNum.value);        
+        viewer.dataSources.add(czmlDataSource).then(function() {
+            viewer.flyTo(czmlDataSource, 
+                {offset : new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 200000)}
+            );        
+        /*
         $.ajax({
             url: "/api/czml/site/"+siteNum.value,
             type: "GET",
@@ -56,6 +71,7 @@ var app = (function () {
                 console.log(result);
 				if (result !== "") {
 					_addCzmlDataSource(result);
+                    viewer.flyTo(_czmlDataSource, options)
 				}
 				else{
 					alert("No Passes");
@@ -64,6 +80,7 @@ var app = (function () {
 			error: function(error){
 				alert(error.responseText);
 			}
+            */
         });
 
         //_addCzmlDataSource('/api/czml/site/'+siteNum.value);
@@ -73,11 +90,24 @@ var app = (function () {
         var czmlDataSource = Cesium.CzmlDataSource.load(data);
         viewer.dataSources.add(czmlDataSource);
     };
+
+    var _homeView = function () {
+        var centerAOR = viewer.entities.getById('USAOR_Center');
+        viewer.flyTo(centerAOR, 
+            {offset : new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 20000000)}
+        )
+    };
+    
+    var _setCurrentTime = function () {
+        viewer.clock.clockStep = Cesium.ClockStep.SYSTEM_CLOCK;
+    };    
         
     return {
         initCesium: _initCesium,
         realTime: _realTime,
         addSite: _addSite,
         addCzmlDataSource: _addCzmlDataSource,
+        homeView: _homeView,
+        setCurrentTime: _setCurrentTime
     };
 })();
