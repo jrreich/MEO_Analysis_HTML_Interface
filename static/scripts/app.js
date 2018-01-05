@@ -8,10 +8,14 @@ var app = (function () {
                 credit : 'testing credits'
             }),
             //Use standard Cesium terrain
+            /*
             terrainProvider : new Cesium.CesiumTerrainProvider({
                 url : 'https://assets.agi.com/stk-terrain/v1/tilesets/world/tiles'
             }),
+            */
+            /*
             baseLayerPicker : false
+            */
             });
         
         var options = {

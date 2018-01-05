@@ -9,7 +9,7 @@ import datetime
 import csv
 import sys
 import os
-import sendsms as sms
+#import sendsms as sms
 
 UPLOAD_FOLDER = os.path.join('var','uploads')
 
