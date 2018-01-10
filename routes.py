@@ -282,6 +282,13 @@ def stream():
     
     return Response(eventStream(), mimetype="text/event-stream")
 
+@app.route("/api/czml/meo/per/<int:sourceid>")
+def czml_meolut_ant_per(sourceid):
+    currentDateTime = datetime.datetime.utcnow()
+    bcnid = 'ADDC00202020201'
+    MeoPercent = MEOInput_Analysis.czml_meolut_ant_per(currentDateTime, bcnid, sourceid, servername, mcctestLGM)
+    return jsonify(MeoPercent)
+
 @app.route("/api/czml/site/<int:sitenum>")
 def czml_meo_input_by_site(sitenum):
     MeoInput = MEOInput_Analysis.czml_site_meo_input(sitenum, servername, oppsdatabase)
