@@ -12,11 +12,10 @@ var app = (function () {
             terrainProvider : new Cesium.CesiumTerrainProvider({
                 url : 'https://assets.agi.com/stk-terrain/v1/tilesets/world/tiles'
             }),
-            */
-            /*
             baseLayerPicker : false
             */
             });
+            
         
         var options = {
             camera : viewer.scene.camera,
@@ -39,12 +38,10 @@ var app = (function () {
 
     var _realTime = function () {
         var currentTime = new Date();
-        console.log(currentTime);
         $.ajax({
             url: "/stream",
             type: "GET",
             success: function (result,status){
-                console.log(result);
 				if (result !== "") {
 					_addCzmlDataSource(result);
 				}
@@ -61,7 +58,6 @@ var app = (function () {
     };
     var _addSite = function () {
         var siteNum = $('#siteNumber')[0];
-        console.log(siteNum.value);
         var czmlDataSource = Cesium.CzmlDataSource.load("/api/czml/site/"+siteNum.value);        
         viewer.dataSources.add(czmlDataSource).then(function() {
             viewer.flyTo(czmlDataSource, 
@@ -94,6 +90,11 @@ var app = (function () {
         var czmlDataSource = Cesium.CzmlDataSource.load(data);
         viewer.dataSources.add(czmlDataSource);
     };
+    
+    var _addKmlDataSource = function (data) {
+        var kmlDataSource = Cesium.KmlDataSource.load(data);
+        viewer.dataSources.add(kmlDataSource);
+    };
 
     var _homeView = function () {
         var centerAOR = viewer.entities.getById('USAOR_Center');
@@ -111,7 +112,8 @@ var app = (function () {
         realTime: _realTime,
         addSite: _addSite,
         addCzmlDataSource: _addCzmlDataSource,
+        addKmlDataSource: _addKmlDataSource,
         homeView: _homeView,
-        setCurrentTime: _setCurrentTime
+        setCurrentTime: _setCurrentTime        
     };
 })();

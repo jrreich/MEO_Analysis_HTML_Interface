@@ -29,25 +29,30 @@
 
     <script>
 
-
-    {% if KMLFILE %}
-    viewer.dataSources.add(Cesium.KmlDataSource.load('{{KMLFILE}}',options));
-    {% endif %}
-
-    {% if CZMLFILE %}
-    viewer.dataSources.add(Cesium.KmlDataSource.load('{{CZMLFILE}}',options));
-    {% endif %}
-
-    {% if ZOOMTO %}
-    camera.setView({
-    destination : Cesium.Cartesian3.fromDegrees(longitude, latitude, height),
-    orientation: {
-        heading : 0.0,
-        pitch : -Cesium.Math.PI_OVER_TWO,
-        roll : 0.0
-        }
+    $(document).ready(function() {     
+        
+        {% if KMLFILE %}
+        app.addKmlDataSource('{{KMLFILE}}'); //,options));
+        {% endif %}
+        
+        
+        {% if CZMLFILE %}
+        app.addCzmlDataSource('{{CZMLFILE}}') //,options));
+        {% endif %}
+        
+        /*
+        {% if ZOOMTO %}
+        camera.setView({
+        destination : Cesium.Cartesian3.fromDegrees(longitude, latitude, height),
+        orientation: {
+            heading : 0.0,
+            pitch : -Cesium.Math.PI_OVER_TWO,
+            roll : 0.0
+            }
+        });
+        {% endif %}
+        */
     });
-    {% endif %}
 
     </script>
 
