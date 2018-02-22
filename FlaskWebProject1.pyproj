@@ -60,6 +60,7 @@
     <Content Include="static\scripts\app.js" />
     <Content Include="static\scripts\MEOBeaconAnalysis.js" />
     <Content Include="static\scripts\NOAAczml_3.js" />
+    <Content Include="static\scripts\_run.js" />
     <Content Include="static\styles\mystylesheet.css" />
     <Content Include="static\styles\mystylesheet3.css" />
     <Content Include="static\styles\site.css" />

@@ -15,7 +15,12 @@ var app = (function () {
             baseLayerPicker : false
             */
             });
-            
+        
+        var entities = viewer.entities;
+        var realTimeSites = entities.add(new Cesium.Entity());
+        var lutSites = entities.add(new Cesium.Entity());
+        
+        console.log("lutSites" + lutSites)
         
         var options = {
             camera : viewer.scene.camera,
@@ -34,6 +39,10 @@ var app = (function () {
         viewer.dropError.addEventListener(function(viewerArg, source, error) {
             window.alert('Error processing ' + source + ':' + error);
         });
+
+        //return {
+        //viewer: viewer
+        //};
     };
 
     var _realTime = function () {
@@ -105,6 +114,13 @@ var app = (function () {
     
     var _setCurrentTime = function () {
         viewer.clock.clockStep = Cesium.ClockStep.SYSTEM_CLOCK;
+    };
+    
+    var _toggleLuts = function () {
+        console.log(viewer.lutSites);
+        console.log(viewer);  
+        viewer.lutSites.show = !viewer.lutSites.show
+        
     };    
         
     return {
@@ -114,6 +130,7 @@ var app = (function () {
         addCzmlDataSource: _addCzmlDataSource,
         addKmlDataSource: _addKmlDataSource,
         homeView: _homeView,
-        setCurrentTime: _setCurrentTime        
+        setCurrentTime: _setCurrentTime,
+        toggleLuts: _toggleLuts
     };
 })();

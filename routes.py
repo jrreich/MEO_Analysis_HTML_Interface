@@ -19,15 +19,20 @@ OUTPUTFOLDER = os.path.join('static','output')
 #OUTPUTFOLDER = r'C:/Users/reichj/Source/Repos/MEO_Analysis_HTML_Interface/static/output/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
 
-Deploy_on = 'other'
+Deploy_on = 'other1' # for deploying on RYZEN7 2018-02-21
 #Deploy_on = 'MCC'	
+#Deploy_on = 'other2'
 
 if Deploy_on == 'MCC':
     servername = 'localhost' #for deploying on MCC
     #oppsdatabase = 'mccoperationalRpt' #for deploying on operational MCC
     oppsdatabase = 'MccMeoLutMonitor' #for deploying on MCC - new db
     mcctestLGM = 'MccMeoLutMonitor' #for deploying on MCC - new db	
-else:
+elif Deploy_on == 'other1':
+    servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC - 2018 and on
+    oppsdatabase = 'MccMeoLutMonitor' # for deploying on REICHJ-PC
+    mcctestLGM = 'MccMeoLutMonitor' #should work for both MCC and REICHJ-PC
+else: 
     servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC
     oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
     mcctestLGM = 'MccTestLGM' #should work for both MCC and REICHJ-PC
@@ -223,13 +228,17 @@ def MEOBeaconAnalysis():
     elif request.method == 'POST':
         # read input
         result = request.form
+        print result
         if result.get('RealPastTime',False) == 'RT_yes':
+            print 'should be here'
             EndTime = datetime.datetime.utcnow()
-            StartTime = EndTime - datetime.timedelta(hours = float(result['realtimehours']))
+            StartTime = EndTime - datetime.timedelta(hours = float(168))
+            print 'check again'
         else:
             StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
             EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')	
         filesaved = False
+        print 'still here?'
         if result['GTSource'] == 'GTFile':
             print 'using file'
             f = request.files['gt_inputfile'] 
@@ -287,7 +296,7 @@ def czml_meolut_ant_per(sourceid):
     currentDateTime = datetime.datetime.utcnow()
     bcnid = 'ADDC00202020201'
     MeoPercent = MEOInput_Analysis.czml_meolut_ant_per(currentDateTime, bcnid, sourceid, servername, mcctestLGM)
-    return jsonify(MeoPercent)
+    return MeoPercent 
 
 @app.route("/api/czml/site/<int:sitenum>")
 def czml_meo_input_by_site(sitenum):

@@ -4,12 +4,13 @@
     
 
     app.homeView();
-    
+
     var LUTsczml =
         [{"id" : "document",
         "version" : "1.0"
         },
         {"id" : "NSOF",
+        "parent" : "lutSites",
         "name" : "NSOF",
         "label": {
             "text":"NSOF",
