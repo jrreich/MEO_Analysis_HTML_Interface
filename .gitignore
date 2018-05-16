@@ -259,16 +259,31 @@ var/
 
 static/output/
 
+!/static/icons/*
+
+static/Apps/
+
 web.config
 web.debug.config
 
 *.vsdx
-*.png
+
 *.txt
 
 packages/
 
 *.txt
 *.kml
-
-static/
+/static/Apps
+/out_sat_stats_sum.csv
+/static/ThirdParty
+/static/Source
+/static/Specs
+/static/server.js
+/static/README.md
+/static/package.json
+/static/LICENSE.md
+/static/index.html
+/static/gulpfile.js
+/static/favicon.ico
+/static/CHANGES.md

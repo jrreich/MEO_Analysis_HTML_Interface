@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  <!-- Tell IE to use the latest, best version. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Map Test (Dev)</title>
+    <script type="text/javascript" src="{{ url_for('static', filename='Build/Cesium/Cesium.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Build/Cesium/Widgets/widgets.css') }}">
+    <style>
+        /*@import url(../Build/Cesium/Widgets/widgets.css); */
+
+        html, body, #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="cesiumContainer">
+       <!--
+        <div class="buttonHolder">
+            SSC Number:	<input id="sscNumber" type="text" value="25544" />
+            <br />
+            Start Date: <input type="date" id="startDate" />
+            <br />
+            Path Color: <input type="text" id="pathColor" value="Red">
+            <br />
+            <p><input type="button" value="Add" onclick="app.addSatellite()" /> </p>
+            <p><input type="button" value="Site Satellite Pass" onclick="app.siteSatellitePass()" /> </p>
+            <p><input type="button" value="Flight Satellite Pass" onclick="app.flightSatellitePass()" /> </p> 
+
+        </div>
+        -->
+        <!--
+        <div class="toolbar-left">
+            <button onclick="alert('You clicked!');">Click me!</button>
+        </div>
+        -->
+    </div>
+
+    <script>
+
+        Cesium.BingMapsApi.defaultKey = 'AroVSp3EEqOsbIrQmLLaavG0aGanIvBJ3iVmsayjLrmWFcU5KSCx1zCLE5AkByXq'; // For use in this application only. Do not reuse!
+
+        /*var viewer = new Cesium.Viewer('cesiumContainer'); */
+
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+            imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
+                url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer',
+                credit : 'testing credits'
+            }),
+            //Use standard Cesium terrain
+            terrainProvider : new Cesium.CesiumTerrainProvider({
+                url : 'https://assets.agi.com/stk-terrain/v1/tilesets/world/tiles'
+            }),
+            baseLayerPicker : false
+
+    });
+
+
+
+    var options = {
+        camera : viewer.scene.camera,
+        canvas : viewer.scene.canvas
+        };
+
+
+    {% if KMLFILE %}
+    viewer.dataSources.add(Cesium.KmlDataSource.load('{{KMLFILE}}',options));
+    {% endif %}
+
+    {% if CZMLFILE %}
+    viewer.dataSources.add(Cesium.KmlDataSource.load('{{CZMLFILE}}',options));
+    {% endif %}
+
+    {% if ZOOMTO %}
+    camera.setView({
+    destination : Cesium.Cartesian3.fromDegrees(longitude, latitude, height),
+    orientation: {
+        heading : 0.0,
+        pitch : -Cesium.Math.PI_OVER_TWO,
+        roll : 0.0
+        }
+    });
+    {% endif %}
+
+    viewer.extend(Cesium.viewerDragDropMixin);
+    viewer.dropError.addEventListener(function(viewerArg, source, error) {
+        window.alert('Error processing ' + source + ':' + error);
+    });
+
+
+
+
+
+    /*var dataSourceDisplay = new Cesium.DataSourceDisplay(cesiumWidget.scene);
+        dataSourceDisplay.getDataSources().add(czmlSource);
+        dataSourceDisplay.update(cesiumWidget.clock.currentTime);*/
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/NOAAczml.js') }}"></script>
+</body>
+</html>

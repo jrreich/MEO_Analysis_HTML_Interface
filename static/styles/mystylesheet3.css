@@ -156,10 +156,6 @@ section h2{
     margin-left: 10px;
 }
 
-#RawAnalyzer .times {
-    display: none;
-}
-
 #pasttime:checked ~ .times {
     display: inline-block;
     margin-left:10px;
@@ -181,9 +177,7 @@ section h2{
     margin-left: 10px;
 }
 
-#MEOInputAnalysis .times {
-    display: none;
-}
+
 
 #pasttime:checked ~ .times {
     display: inline-block;
@@ -191,9 +185,7 @@ section h2{
 }
 
 
-#RawAnalyzer #beaconIDinput{
-    display: none;
-}
+
 
 #MEOInputAnalysis #userbeaconid:checked ~ #beaconIDinput {
     margin-left: 40px;
@@ -204,13 +196,7 @@ section h2{
     display: inline-block;
 }
 
-#MEOInputAnalysis #beaconIDinput{
-    display: none;
-}
 
-#MEOInputAnalysis #siteIDinput{
-    display: none;
-}
 
 
 #MEOInputAnalysis #fileinput {
@@ -302,9 +288,6 @@ fieldset#gtsource #latloninput {
     display: inline-block;
 }
 
-#MEOBeaconAnalysis #beaconIDinput {
-    display: none;
-}
 
 #MEOBeaconAnalysis #siteIDinput {
     display: none;
@@ -323,9 +306,6 @@ fieldset#gtsource #latloninput {
     margin-left: 10px;
 }
 
-#MEOBeaconAnalysis .times {
-    display: none;
-}
 
 #MEOBeaconAnalysis #pasttime:checked ~ .times {
     display: inline-block;

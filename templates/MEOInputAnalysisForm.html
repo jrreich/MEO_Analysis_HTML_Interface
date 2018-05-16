@@ -32,23 +32,22 @@
                 <fieldset>
                     <legend>MEOLUT</legend>
                     <label for="3385">Hawaii</label>
-                    <input type="radio" name="MEOLUT" value="3385" /><br />
+                    <input type="checkbox" name="MEOLUT_HI" value="3385" checked /><br />
                     <label for="3669">Florida</label>
-                    <input type="radio" name="MEOLUT" value="3669" /><br />
+                    <input type="checkbox" name="MEOLUT_FL" value="3669" checked /><br />
+                    <label for="2276">FMCC</label>
+                    <input type="checkbox" name="MEOLUT_FR" value="2276" /><br /> <!-- May need to come back and change-->
                 </fieldset>
                 <fieldset>
                     <legend>Date/Time</legend>
                     <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" />
                     <label for="realtime"> Real Time </label> 
-                    
-                    <label id="rthours"> Number of Hours to Display <input type="number" name="realtimehours" /></label> <br />
-                    
+                    <label id="rthours"> Number of Hours to Display <input type="number" name="realtimehours" /></label> <br 
                     <input type="radio" id="pasttime" name="RealPastTime" value="RT_no"> 
                     <label for="pasttime"> Past Time </label><br />
                     <label class="times"> Start Time <input type="datetime-local" name="StartTime" /> </label>
                     <br />
                     <label class="times" id="EndDate"> End Time <input type="datetime-local" name="EndTime" /><br /></label>
-                    
                 </fieldset>
                 <fieldset>
                     <legend>Beacon</legend>
@@ -58,14 +57,14 @@
                     <input type="radio" name="UseBeaconID" value="FLref"/><br />
                     <label for="UseBeaconID">Use Beacon ID</label>
                     <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" /> <br />
-                    <label for="UseSiteID">Use Site ID</label>
+                    <label for="UseSiteID">Use Site Number</label>
                     <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" /> <br />
                     <input type="text" id="beaconIDinput" name="beaconID" placeholder="Beacon ID"> 
                     <input type="text" id="siteIDinput" name="siteID" placeholder="Site ID"> 
                     <input type="text" id="beaconIDinput" name="beaconLat" placeholder="Ground Truth Latitude">
                     <input type="text" id="beaconIDinput" name="beaconLon" placeholder="Ground Truth Longitude"> 
                     <input type="text" id="beaconIDinput" name="Location" placeholder="Location name">
-                    <input type="text" id="siteIDinput" name="Location" placeholder="Location name"> 
+                    <input type="text" id="siteIDinput" name="Location" placeholder="Site Number"> 
                 </fieldset>
                 <fieldset>
                     <legend>Input File</legend>
