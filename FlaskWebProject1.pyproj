@@ -18,7 +18,6 @@
     <RootNamespace>FlaskWebProject1</RootNamespace>
     <InterpreterId>MSBuild|{65639d92-8542-4f9f-93c1-3708d4328045}|$(MSBuildProjectFullPath)</InterpreterId>
     <WebBrowserUrl>http://localhost</WebBrowserUrl>
-    <WebBrowserUrl>http://localhost</WebBrowserUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,10 +34,6 @@
     <Compile Include="env\Lib\site-packages\burst_processor\xml_process_v7.py" />
     <Compile Include="env\Lib\site-packages\burst_processor\__init__.py" />
     <Compile Include="env\Lib\site-packages\MEOInput_Analysis\__init__.py" />
-    <Compile Include="env\Lib\site-packages\MEO_API\__int__.py" />
-    <Compile Include="env\Lib\site-packages\sendsms\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="module1.py">
       <SubType>Code</SubType>
     </Compile>
@@ -57,20 +52,12 @@
     <Content Include="env\Lib\site-packages\burst_processor\__init__.pyc" />
     <Content Include="env\Lib\site-packages\MEOInput_Analysis\__init__.pyc" />
     <Content Include="requirements.txt" />
-    <Content Include="static\scripts\app.js" />
-    <Content Include="static\scripts\MEOBeaconAnalysis.js" />
-    <Content Include="static\scripts\NOAAczml_3.js" />
-    <Content Include="static\scripts\_run.js" />
     <Content Include="static\styles\mystylesheet.css" />
     <Content Include="static\styles\mystylesheet3.css" />
-    <Content Include="static\styles\site.css" />
     <Content Include="templates\BeaconDecoded.html" />
-    <Content Include="templates\BeaconDecoder3.html" />
-    <Content Include="templates\MeoDataCollection.html" />
+    <Content Include="templates\BurstAnalysisForm.html" />
     <Content Include="templates\index3.html" />
-    <Content Include="templates\MapTest_v3.html" />
     <Content Include="templates\MEOBeaconAnalysisForm.html" />
-    <Content Include="templates\MEOBeaconAnalysisReturnNoData.html" />
     <Content Include="templates\MEOInputAnalysisForm.html" />
     <Content Include="templates\MEOInputAnalysisReturn.html" />
     <Content Include="templates\OpenSites.html" />
@@ -78,11 +65,10 @@
     <Content Include="templates\RealTimeMonitor.html" />
     <Content Include="templates\BadDecode.html" />
     <Content Include="static\styles\mystylesheet2.css" />
-    <Content Include="templates\messager.html" />
+    <Content Include="templates\BeaconDecoder3.html" />
     <Content Include="templates\BurstAnalysisReturn.html">
       <Publish>True</Publish>
     </Content>
-    <Content Include="templates\messagesent.html" />
     <Content Include="__init__.pyc" />
   </ItemGroup>
   <ItemGroup>
@@ -92,10 +78,7 @@
     <Folder Include="env\Lib\site-packages\beacon_decode\" />
     <Folder Include="env\Lib\site-packages\burst_processor\" />
     <Folder Include="env\Lib\site-packages\MEOInput_Analysis\" />
-    <Folder Include="env\Lib\site-packages\MEO_API\" />
-    <Folder Include="env\Lib\site-packages\sendsms\" />
     <Folder Include="static\" />
-    <Folder Include="static\scripts\" />
     <Folder Include="static\styles\" />
     <Folder Include="templates\" />
   </ItemGroup>

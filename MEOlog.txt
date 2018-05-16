@@ -1,13 +1,117 @@
-2018-05-08 18:09:14,121 INFO app root
-2018-05-08 18:09:14,121 INFO executed activate virtualenv
-2018-05-08 18:09:14,121 INFO executed path insert
-2018-05-08 18:09:14,138 INFO beacon decode as a test
-2018-05-08 18:09:20,638 INFO numpy pandas and itertools
-2018-05-08 18:09:21,951 INFO imported matplotlib
-2018-05-08 18:09:22,108 INFO imported math, sys, os and xlrd
-2018-05-08 18:09:22,108 INFO datetime and csv
-2018-05-08 18:09:22,374 INFO collections and simplekml
-2018-05-08 18:09:22,374 INFO re and beacon decode
-2018-05-08 18:09:22,374 INFO pypyodbc imported - all modules imported
-2018-05-08 18:09:22,436 INFO imported app
-2018-05-08 18:09:22,436 INFO imported application as app
+2017-07-17 23:01:28,286 INFO app root
+2017-07-17 23:01:28,288 INFO executed activate virtualenv
+2017-07-17 23:01:28,288 INFO executed path insert
+2017-07-17 23:01:28,289 INFO beacon decode as a test
+2017-07-17 23:01:29,068 INFO numpy pandas and itertools
+2017-07-17 23:01:29,223 INFO imported matplotlib
+2017-07-17 23:01:29,232 INFO imported math, sys, os and xlrd
+2017-07-17 23:01:29,233 INFO datetime and csv
+2017-07-17 23:01:29,249 INFO collections and simplekml
+2017-07-17 23:01:29,249 INFO re and beacon decode
+2017-07-17 23:01:29,249 INFO pypyodbc imported - all modules imported
+2017-07-17 23:01:29,255 INFO imported app
+2017-07-17 23:01:29,255 INFO imported application as app
+2017-07-18 13:03:07,523 ERROR Exception on /MapTest [GET]
+Traceback (most recent call last):
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 255, in MapTest
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 133, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 851, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 812, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 774, in _load_template
+    cache_key = self.loader.get_source(self, name)[1]
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 57, in get_source
+    return self._get_source_fast(environment, template)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 85, in _get_source_fast
+    raise TemplateNotFound(template)
+TemplateNotFound: MapTest.html
+2017-07-18 13:03:10,500 ERROR Exception on /MapTest [GET]
+Traceback (most recent call last):
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 255, in MapTest
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 133, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 851, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 812, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 774, in _load_template
+    cache_key = self.loader.get_source(self, name)[1]
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 57, in get_source
+    return self._get_source_fast(environment, template)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 85, in _get_source_fast
+    raise TemplateNotFound(template)
+TemplateNotFound: MapTest.html
+2017-07-18 13:03:14,089 ERROR Exception on /MapTest [GET]
+Traceback (most recent call last):
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 255, in MapTest
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 133, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 851, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 812, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 774, in _load_template
+    cache_key = self.loader.get_source(self, name)[1]
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 57, in get_source
+    return self._get_source_fast(environment, template)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 85, in _get_source_fast
+    raise TemplateNotFound(template)
+TemplateNotFound: MapTest.html
+2017-07-18 13:03:24,496 ERROR Exception on /MapTest [GET]
+Traceback (most recent call last):
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 255, in MapTest
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 133, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 851, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 812, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\jinja2\environment.py", line 774, in _load_template
+    cache_key = self.loader.get_source(self, name)[1]
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 57, in get_source
+    return self._get_source_fast(environment, template)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\templating.py", line 85, in _get_source_fast
+    raise TemplateNotFound(template)
+TemplateNotFound: MapTest.html
