@@ -16,12 +16,6 @@ var app = (function () {
             */
             });
         
-        var entities = viewer.entities;
-        var realTimeSites = entities.add(new Cesium.Entity());
-        var lutSites = entities.add(new Cesium.Entity());
-        
-        console.log("lutSites" + lutSites)
-        
         var options = {
             camera : viewer.scene.camera,
             canvas : viewer.scene.canvas
@@ -96,7 +90,7 @@ var app = (function () {
     };
     
     var _addCzmlDataSource = function (data) {
-        var czmlDataSource = Cesium.CzmlDataSource.load(data);
+        czmlDataSource = new Cesium.CzmlDataSource.load(data);
         viewer.dataSources.add(czmlDataSource);
     };
     
@@ -116,12 +110,11 @@ var app = (function () {
         viewer.clock.clockStep = Cesium.ClockStep.SYSTEM_CLOCK;
     };
     
-    var _toggleLuts = function () {
-        console.log(viewer.lutSites);
-        console.log(viewer);  
-        viewer.lutSites.show = !viewer.lutSites.show
-        
-    };    
+    var _toggleLuts = function() {
+        var lutEntity = czmlDataSource.entities.getById('NSOF')
+        lutEntity.show = !lutEntity.show
+    };
+          
         
     return {
         initCesium: _initCesium,

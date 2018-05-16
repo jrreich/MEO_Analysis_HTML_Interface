@@ -1,4 +1,3 @@
-    var LUTsczml =
         [{"id" : "document",
         "version" : "1.0"
         },
@@ -29,14 +28,7 @@
             "pixelOffset": {
                 "cartesian2": [ 0, 10 ]
             }
-        }/* ,
-        "point": {
-            "color": {
-                "rgba":[63, 191, 191, 255]
-            },
-            "pixelSize" : 20
-        }*/
-        },
+        }},
         {"id" : "FL",
         "name" : "FL",
         "label": {
@@ -56,15 +48,15 @@
         {"id" : "HI",
         "label":{"text":"HILUTs"},
             "description":"Hawaii LEO/MEOLUTs",
-            "position":{"cartographicDegrees":[-158.001297,21.524410,0]},
+            "position":{"cartographicDegrees":[-158.001297,21.524410,0]}
         },
         {"id" : "AK",
         "label":{"text":"FCDAS"},
             "description":"Fairbanks Command and Data Acquisition Station",
-            "position":{"cartographicDegrees":[-147.515622,64.973725,0]},
+            "position":{"cartographicDegrees":[-147.515622,64.973725,0]}
         },
         {"id" : "GU",
         "label":{"text":"GULUTs"},
             "description":"Guam LEO LUTs",
-            "position":{"cartographicDegrees":[144.939074,13.578298,0]},
-        }];
+            "position":{"cartographicDegrees":[144.939074,13.578298,0]}
+        }]

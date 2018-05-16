@@ -1,32 +1,13 @@
-2018-02-21 23:56:37,667 INFO app root
-2018-02-21 23:56:37,668 INFO executed activate virtualenv
-2018-02-21 23:56:37,668 INFO executed path insert
-2018-02-21 23:56:37,668 INFO beacon decode as a test
-2018-02-21 23:56:38,183 INFO numpy pandas and itertools
-2018-02-21 23:56:38,295 INFO imported matplotlib
-2018-02-21 23:56:38,302 INFO imported math, sys, os and xlrd
-2018-02-21 23:56:38,302 INFO datetime and csv
-2018-02-21 23:56:38,318 INFO collections and simplekml
-2018-02-21 23:56:38,318 INFO re and beacon decode
-2018-02-21 23:56:38,318 INFO pypyodbc imported - all modules imported
-2018-02-21 23:56:38,325 INFO imported app
-2018-02-21 23:56:38,325 INFO imported application as app
-2018-02-21 23:56:41,171 ERROR Exception on /MEOBeaconAnalysis [POST]
-Traceback (most recent call last):
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
-    response = self.full_dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 248, in MEOBeaconAnalysis
-    csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase, filesaved)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\MEOInput_Analysis\__init__.py", line 1888, in MSSQL_beacon_analysis
-    plt1 = hist_cum_plot(df_filter,dflist,50,title, textstr1,legendhandles, filtertext)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\MEOInput_Analysis\__init__.py", line 1564, in hist_cum_plot
-    print df2
-UnboundLocalError: local variable 'df2' referenced before assignment
+2018-05-08 18:09:14,121 INFO app root
+2018-05-08 18:09:14,121 INFO executed activate virtualenv
+2018-05-08 18:09:14,121 INFO executed path insert
+2018-05-08 18:09:14,138 INFO beacon decode as a test
+2018-05-08 18:09:20,638 INFO numpy pandas and itertools
+2018-05-08 18:09:21,951 INFO imported matplotlib
+2018-05-08 18:09:22,108 INFO imported math, sys, os and xlrd
+2018-05-08 18:09:22,108 INFO datetime and csv
+2018-05-08 18:09:22,374 INFO collections and simplekml
+2018-05-08 18:09:22,374 INFO re and beacon decode
+2018-05-08 18:09:22,374 INFO pypyodbc imported - all modules imported
+2018-05-08 18:09:22,436 INFO imported app
+2018-05-08 18:09:22,436 INFO imported application as app

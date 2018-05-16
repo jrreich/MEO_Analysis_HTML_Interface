@@ -44,9 +44,9 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #server/Main
-@app.route('/')
+@app.route('/', methods =['GET'])
 def index():
-    """Renders a sample page."""
+    """Renders home page."""
     #createLink = "<a href = '" + url_for('beacon') + "'>Beacon Decoder</a>"; # url_for usings the function name to point to URL
     return render_template('index3.html')
 
@@ -103,6 +103,40 @@ def rawburst():
         elif result['inputsource'] == 'mccdb':
             filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
             return render_template('BurstAnalysisReturn.html', filelist=filelist )
+    else: 
+        return '<h2> Invalid Request </h2>'
+@app.route('/MEOData', methods=['GET','POST'])
+def meodata():
+    if request.method == 'GET':
+        # Send the user the form
+        return render_template('MeoDataCollection.html')
+    elif request.method == 'POST':
+        result = request.form
+        if result.get('beaconID', False):
+            beaconId = result['beaconID']
+        else:
+            beaconId = '%'
+        if result.get('EndTime', False):
+            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
+        else:
+            EndTime = datetime.datetime.utcnow()
+        if result.get('StartTime', False):
+            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
+        else:
+            StartTime = EndTime - datetime.timedelta(hours = float(168))
+        if 'MEOLUT' in result: 
+            MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
+        else:
+            MEOLUTList = ['%']
+        filelist = MEOInput_Analysis.api_MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) 
+        return render_template('MeoDataCollection.html', linklist = filelist)
+        #if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
+        #    f = request.files['inputfile'] 
+        #    filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
+        #    f.save(filesaved)
+        #elif result['inputsource'] == 'mccdb':
+        #    filelist = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
+        #    return render_template('BurstAnalysisReturn.html', filelist=filelist )
     else: 
         return '<h2> Invalid Request </h2>'
 
@@ -277,6 +311,11 @@ def sitereturn(sitenum):
             abort(404)
         print jsonify(data)
         return jsonify(data)
+
+@app.route('/api/J1', methods = ['POST'])
+def J1_json():
+    data = request.args.to_dict()
+    print data
 
 @app.route("/stream")
 def stream():

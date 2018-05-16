@@ -66,7 +66,7 @@
     <Content Include="static\styles\site.css" />
     <Content Include="templates\BeaconDecoded.html" />
     <Content Include="templates\BeaconDecoder3.html" />
-    <Content Include="templates\BurstAnalysisForm.html" />
+    <Content Include="templates\MeoDataCollection.html" />
     <Content Include="templates\index3.html" />
     <Content Include="templates\MapTest_v3.html" />
     <Content Include="templates\MEOBeaconAnalysisForm.html" />

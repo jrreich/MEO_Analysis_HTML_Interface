@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Collection (J1, J2, and J3)</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
+    <!--<link rel="stylesheet" type="text/css" href='styles/mystylesheet3.css'>-->
+
+</head>
+<body>
+    <main>
+        <div id="heading1">
+            <h1>
+                <a href="{{ url_for('index') }}">Analysis Tools</a>
+            </h1>
+        </div>
+        <nav class="topnav">
+            <a href="/" class="home">Home</a>
+            <a href="/beacon">Beacon Decode</a>
+            <a href="/rawburst">Burst Analysis</a>
+            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
+            <a href="/RealTimeMonitor">Real Time Monitoring</a>
+            <a href="/SiteQuery">Site Query</a>
+            <a href="/MEOBeaconAnalysis">MEOLUT Beacon Analysis</a>
+            <a href="/MapTest">Map (Dev)</a>
+            <a href="/MEOData" class="active">Get MEO data (J1,J2,J3)</a>
+            <a href="/messager">Messaging Test</a>
+        </nav>
+        <section class="content form" id="RawAnalyzer">
+            <form method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <legend>Input</legend>
+                    <input type="text" id="beaconIDinput" name="beaconID" placeholder="BeaconID"> 
+                    <label class="times"> Start Time <input type="datetime-local" name="StartTime" value ="2018-01-01T00:00" /> <br /></label>
+                    <label class="times"> End Time <input type="datetime-local" name="EndTime" /><br /></label><br />
+                    <label for="3385">Hawaii</label>
+                    <input type="checkbox" name="MEOLUT" value="3385" /><br />
+                    <label for="3669">Florida</label>
+                    <input type="checkbox" name="MEOLUT" value="3669" /><br />
+                 </fieldset>
+                <button type="submit"> Submit </button> <br />
+                <article>
+                    {% if linklist %}
+                        {% for link, desc in linklist.iteritems() %}
+                    <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
+                    {% endif %}
+                </article>
+            </form>
+            <article class="results">
+                <h3>Results</h3>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

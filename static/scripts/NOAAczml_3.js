@@ -87,7 +87,7 @@ var app = (function () {
             "position":{"cartographicDegrees":[144.939074,13.578298,0]},
         }];
 
-    alert('got here')
+    console.log(viewer)
     /*var czmlSource = new Cesium.CzmlDataSource();
     viewer.dataSources.add(czmlSource);
     czmlSource.load(LUTsczml);
