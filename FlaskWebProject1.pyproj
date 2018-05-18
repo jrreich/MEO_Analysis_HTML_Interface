@@ -58,6 +58,7 @@
     <Content Include="env\Lib\site-packages\MEOInput_Analysis\__init__.pyc" />
     <Content Include="requirements.txt" />
     <Content Include="static\scripts\app.js" />
+    <Content Include="static\scripts\MEODataCollection.js" />
     <Content Include="static\scripts\MEOBeaconAnalysis.js" />
     <Content Include="static\scripts\NOAAczml_3.js" />
     <Content Include="static\scripts\_run.js" />

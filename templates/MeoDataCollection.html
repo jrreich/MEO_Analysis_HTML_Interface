@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Data Collection (J1, J2, and J3)</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/jquery-3.2.1.js') }}"></script>"
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/MEODataCollection.js') }}"></script>
     <!--<link rel="stylesheet" type="text/css" href='styles/mystylesheet3.css'>-->
 
 </head>
@@ -32,18 +34,19 @@
             <form method="post" enctype="multipart/form-data">
                 <fieldset>
                     <legend>Input</legend>
-                    <input type="text" id="beaconIDinput" name="beaconID" placeholder="BeaconID"> 
-                    <label class="times"> Start Time <input type="datetime-local" name="StartTime" value ="2018-01-01T00:00" /> <br /></label>
-                    <label class="times"> End Time <input type="datetime-local" name="EndTime" /><br /></label><br />
+                    <input type="text" id="beaconIDinput" name="beaconID" placeholder="Beacon ID">
+                    <input type="text" id="siteIDinput" name="siteID" placeholder="Site ID">
+                    <label class="times"> Start Time <input type="datetime-local" id="StartTime" name="StartTime" value="2018-01-01T00:00" /> <br /></label>
+                    <label class="times"> End Time <input type="datetime-local" id="EndTime" name="EndTime" /><br /></label><br />
                     <label for="3385">Hawaii</label>
                     <input type="checkbox" name="MEOLUT" value="3385" /><br />
                     <label for="3669">Florida</label>
                     <input type="checkbox" name="MEOLUT" value="3669" /><br />
-                 </fieldset>
+                </fieldset>
                 <button type="submit"> Submit </button> <br />
                 <article>
                     {% if linklist %}
-                        {% for link, desc in linklist.iteritems() %}
+                    {% for link, desc in linklist.iteritems() %}
                     <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
                     {% endif %}
                 </article>
@@ -53,5 +56,6 @@
             </article>
         </section>
     </main>
+
 </body>
 </html>

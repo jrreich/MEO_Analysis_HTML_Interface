@@ -128,7 +128,7 @@ def meodata():
             MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
         else:
             MEOLUTList = ['%']
-        filelist = MEOInput_Analysis.api_MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) 
+        filelist = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) 
         return render_template('MeoDataCollection.html', linklist = filelist)
         #if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
         #    f = request.files['inputfile'] 
@@ -262,7 +262,6 @@ def MEOBeaconAnalysis():
     elif request.method == 'POST':
         # read input
         result = request.form
-        print result
         if result.get('RealPastTime',False) == 'RT_yes':
             print 'should be here'
             EndTime = datetime.datetime.utcnow()
@@ -272,7 +271,6 @@ def MEOBeaconAnalysis():
             StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
             EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')	
         filesaved = False
-        print 'still here?'
         if result['GTSource'] == 'GTFile':
             print 'using file'
             f = request.files['gt_inputfile'] 
@@ -300,20 +298,16 @@ def MapTest():
 
 @app.route('/api/sitesum/<int:sitenum>', methods=['GET','POST'])
 def sitereturn(sitenum):
-    print sitenum
     if request.method == 'GET':
         SiteData = MEOInput_Analysis.api_site_sum_query(sitenum,servername, oppsdatabase)
         try: 
             data = SiteData
-            print 'got data'
-            print data
         except IndexError:
             abort(404)
-        print jsonify(data)
         return jsonify(data)
 
-@app.route('/api/J1', methods = ['POST'])
-def J1_json():
+@app.route('/api/comp/', methods = ['POST'])
+def api_comp():
     data = request.args.to_dict()
     print data
 
