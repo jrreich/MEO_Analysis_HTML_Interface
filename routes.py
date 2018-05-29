@@ -306,10 +306,19 @@ def sitereturn(sitenum):
             abort(404)
         return jsonify(data)
 
-@app.route('/api/comp/', methods = ['POST'])
-def api_comp():
+@app.route('/api/comp/<int:sitenum>', methods = ['GET','POST'])
+def api_site(sitenum):
+    # can return any table where a sitenum is defined -- ie alertsitesol, alertsitesum, outsolution 
     data = request.args.to_dict()
-    print data
+    outdata = MEOInput_Analysis.api_comp(data, servername, oppsdatabase)
+    return outdata
+
+@app.route('/api/leogeo/sols', methods = ['GET','POST'])
+def api_leo_geo_sols():
+    # can return leo or geo solutions from lut406solution - available params are bcnid15, starttime, endtime, lut, sat
+    data = request.args.to_dict()
+    outdata = MEOInput_Analysis.api_leo_geo_sols(data, servername, oppsdatabase)
+    return outdata
 
 @app.route("/stream")
 def stream():
