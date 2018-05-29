@@ -127,7 +127,7 @@ def meodata():
         if 'MEOLUT' in result: 
             MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
         else:
-            MEOLUTList = ['%']
+            MEOLUTList = [None]
         filelist = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) 
         return render_template('MeoDataCollection.html', linklist = filelist)
         #if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
