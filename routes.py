@@ -23,6 +23,8 @@ Deploy_on = 'other1' # for deploying on RYZEN7 2018-02-21
 #Deploy_on = 'MCC'	
 #Deploy_on = 'other2'
 
+
+
 if Deploy_on == 'MCC':
     servername = 'localhost' #for deploying on MCC
     #oppsdatabase = 'mccoperationalRpt' #for deploying on operational MCC
@@ -36,7 +38,14 @@ else:
     servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC
     oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
     mcctestLGM = 'MccTestLGM' #should work for both MCC and REICHJ-PC
-														
+
+config_dict = {"UPLOAD_FOLDER": UPLOAD_FOLDER, 
+          "approot": approot,
+          "OUTPUTFOLDER": OUTPUTFOLDER,
+          "servername": servername,
+          "oppsdatabase": oppsdatabase,
+          "mcctestLGM": mcctestLGM}
+												
 app = Flask(__name__)
 
 def allowed_file(filename):
@@ -105,41 +114,6 @@ def rawburst():
             return render_template('BurstAnalysisReturn.html', filelist=filelist )
     else: 
         return '<h2> Invalid Request </h2>'
-@app.route('/MEOData', methods=['GET','POST'])
-def meodata():
-    if request.method == 'GET':
-        # Send the user the form
-        return render_template('MeoDataCollection.html')
-    elif request.method == 'POST':
-        result = request.form
-        if result.get('beaconID', False):
-            beaconId = result['beaconID']
-        else:
-            beaconId = '%'
-        if result.get('EndTime', False):
-            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
-        else:
-            EndTime = datetime.datetime.utcnow()
-        if result.get('StartTime', False):
-            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
-        else:
-            StartTime = EndTime - datetime.timedelta(hours = float(168))
-        if 'MEOLUT' in result: 
-            MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
-        else:
-            MEOLUTList = [None]
-        filelist = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) 
-        return render_template('MeoDataCollection.html', linklist = filelist)
-        #if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
-        #    f = request.files['inputfile'] 
-        #    filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
-        #    f.save(filesaved)
-        #elif result['inputsource'] == 'mccdb':
-        #    filelist = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
-        #    return render_template('BurstAnalysisReturn.html', filelist=filelist )
-    else: 
-        return '<h2> Invalid Request </h2>'
-
 @app.route('/MEOInputAnalysis', methods=['GET','POST'])
 def MEOInputAnalysis():
     if request.method == 'GET':
@@ -272,7 +246,6 @@ def MEOBeaconAnalysis():
             EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')	
         filesaved = False
         if result['GTSource'] == 'GTFile':
-            print 'using file'
             f = request.files['gt_inputfile'] 
             filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
             f.save(filesaved)
@@ -295,6 +268,46 @@ def MapTest():
         else: 
             return render_template('MapTest_v3.html')
 
+@app.route('/MEOData', methods=['GET','POST'])
+def meodata():
+    if request.method == 'GET':
+        # Send the user the form
+        return render_template('MeoDataCollection.html')
+    elif request.method == 'POST':
+        result = request.form
+        if result.get('beaconID', False):
+            beaconId = result['beaconID']
+        else:
+            beaconId = '%'
+        if result.get('EndTime', False):
+            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
+        else:
+            EndTime = datetime.datetime.utcnow()
+        if result.get('StartTime', False):
+            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
+        else:
+            StartTime = EndTime - datetime.timedelta(hours = float(168))
+        if 'MEOLUT' in result: 
+            MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
+        else:
+            MEOLUTList = [None]
+        print result
+        filesaved = False
+        if result.get('zipFile',False):
+            f = request.files['zip_inputfile'] 
+            filesaved = os.path.join(approot, UPLOAD_FOLDER, secure_filename(f.filename))
+            f.save(filesaved)
+        filelist = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
+        return render_template('MeoDataCollection.html', linklist = filelist)
+        #if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
+        #    f = request.files['inputfile'] 
+        #    filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
+        #    f.save(filesaved)
+        #elif result['inputsource'] == 'mccdb':
+        #    filelist = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
+        #    return render_template('BurstAnalysisReturn.html', filelist=filelist )
+    else: 
+        return '<h2> Invalid Request </h2>'
 
 @app.route('/api/sitesum/<int:sitenum>', methods=['GET','POST'])
 def sitereturn(sitenum):
