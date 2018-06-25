@@ -19,34 +19,27 @@
             </h1>
         </div>
         <nav class="topnav">
-            <a href="/" class="home">Home</a>
+            <a href="/" class="home active">Home</a>
             <a href="/beacon">Beacon Decode</a>
             <a href="/rawburst">Burst Analysis</a>
-            <a href="/MEOInputAnalysis" >MEOLUT Input Analysis</a>
+            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
             <a href="/RealTimeMonitor">Real Time Monitoring</a>
             <a href="/SiteQuery">Site Query</a>
             <a href="/MEOBeaconAnalysis" class="active">MEOLUT Beacon Analysis</a>
+            <a href="/MapTest">Map (Dev)</a>
+            <a href="/MEOData">Get MEO data (J1,J2,J3)</a>
+            <a href="/messager">Messaging Test</a>
         </nav>
         <section class="content form" id="MEOBeaconAnalysis">
             <form method="post" enctype="multipart/form-data">
                 <fieldset>
                     <legend>MEOLUT</legend>
                     <label for="3385">Hawaii</label>
-                    <input type="checkbox" name="MEOLUT_HI" value="3385" checked/><br />
+                    <input type="checkbox" name="MEOLUT" value="3385" checked /><br />
                     <label for="3669">Florida</label>
-                    <input type="checkbox" name="MEOLUT_FL" value="3669" checked/><br />
+                    <input type="checkbox" name="MEOLUT" value="3669" checked /><br />
                     <label for="2276">FMCC</label>
-                    <input type="checkbox" name="MEOLUT_FR" value="2276" /><br /> <!-- May need to come back and change-->
-                </fieldset>
-                <fieldset>
-                    <legend>Date/Time</legend>
-                    <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" checked/>
-                    <label for="realtime"> Real Time </label>                  
-                    <input type="radio" id="pasttime" name="RealPastTime" value="RT_no"> 
-                    <label for="pasttime"> Past Time </label><br />
-                    <label class="times"> Start Time <input type="datetime-local" name="StartTime" id="StartTime"/> </label>
-                    <br />
-                    <label class="times" id="EndDate"> End Time <input type="datetime-local" name="EndTime" id="EndTime"/><br /></label>
+                    <input type="checkbox" name="MEOLUT" value="2276" /><br /> <!-- May need to come back and change-->
                 </fieldset>
                 <fieldset>
                     <legend>Beacon</legend>
@@ -55,20 +48,30 @@
                     <label for="HIref">Hawaii Reference Beacon</label>
                     <input type="radio" name="UseBeaconID" value="HIref" /><br />
                     <label for="FLref">Florida Reference Beacon</label>
-                    <input type="radio" name="UseBeaconID" value="FLref"/><br />
+                    <input type="radio" name="UseBeaconID" value="FLref" /><br />
                     <label for="UseBeaconID">Use Beacon ID</label>
-                    <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" /> <br />
+                    <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" />
+                    <input type="text" id="beaconIDinput" name="beaconID" placeholder="Beacon ID"> <br />
                     <label for="UseSiteID">Use Site Number</label>
-                    <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" /> <br />
-                    <input type="text" id="beaconIDinput" name="beaconID" placeholder="Beacon ID"> 
-                    <input type="text" id="siteIDinput" name="siteID" placeholder="Site Number"> 
+                    <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" />
+                    <input type="text" id="siteIDinput" name="siteID" placeholder="Site Number"> <br />
                     <input type="text" id="beaconIDinputname" name="Location" placeholder="Location Name">
-                    <input type="text" id="siteLocationName" name="Location" placeholder="Location Name"> 
+                    <input type="text" id="siteLocationName" name="Location" placeholder="Location Name">
+                </fieldset>
+                <fieldset>
+                    <legend>Date/Time</legend>
+                    <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" checked />
+                    <label for="realtime"> Real Time </label>
+                    <input type="radio" id="pasttime" name="RealPastTime" value="RT_no">
+                    <label for="pasttime"> Past Time </label><br />
+                    <label class="times"> Start Time <input type="datetime-local" name="StartTime" id="StartTime" /> </label>
+                    <br />
+                    <label class="times" id="EndDate"> End Time <input type="datetime-local" name="EndTime" id="EndTime" /><br /></label>
                 </fieldset>
                 <fieldset id="gtsource">
                     <legend>Ground Truth Source</legend>
                     <label for="GTLatLon"> Input Lat, Lon</label>
-                    <input type="radio" id="gtlatlon" name="GTSource" value="GTLatLon" checked/><br />
+                    <input type="radio" id="gtlatlon" name="GTSource" value="GTLatLon" checked /><br />
                     <label for="GTFile"> Use File</label>
                     <input type="radio" id="gtfile" name="GTSource" value="GTFile" /><br />
                     <input type="text" id="latinput" name="beaconLat" placeholder="Ground Truth Latitude">
@@ -78,18 +81,18 @@
                 <fieldset>
                     <legend>Data Source File</legend>
                     <label for="mccdb"> Use USMCC DB</label>
-                    <input type="radio" name="inputsource" value="mccdb" checked/> <br />
+                    <input type="radio" name="inputsource" value="mccdb" checked /> <br />
                     <label for="excelfile">Input Excel File</label>
                     <input type="radio" class="fileinputneeded" name="inputsource" value="excelfile" /><br />
                     <label for="csvfile">Input CSV File (J2)</label>
                     <input type="radio" class="fileinputneeded" name="inputsource" value="csvfile" /><br />
-                    <input type="file" class="fileinputbox" id="fileinput" name="inputfile" >
+                    <input type="file" class="fileinputbox" id="fileinput" name="inputfile">
                     <br />
                 </fieldset>
                 <fieldset id="filters">
                     <legend>Data Filters</legend>
                     <label for="filter1"> Filter 1</label>
-                    <input type="checkbox" id="filter1check" name="filter1check" value="True" /> <br/>
+                    <input type="checkbox" id="filter1check" name="filter1check" value="True" /> <br />
                     <select id="filter1" name="filter1">
                         <option value="datatypename">DataType</option>
                         <option value="dopname">DOP</option>
@@ -98,7 +101,7 @@
                         <option value="numpacketsname">NumPackets</option>
                         <option value="numsatsname">NumSatellites</option>
                         <option value="cn0name">Average CN0</option>
-                    </select><br/>
+                    </select><br />
                     <label for="filter1val" class="filter1s" id="filter1val">value</label><input type="radio" class="filter1s" name="filter1sel" id="filter1val" value="filter1val">
                     <label for="filter1ran" class="filter1s" id="filter1ran">range</label><input type="radio" class="filter1s" name="filter1sel" id="filter1ran" value="filter1ran">
                     <input type="text" class="filter1s" id="valueinput" name="filter1value" placeholder="value">
@@ -151,12 +154,12 @@
                         <option value="window_sols">Last in Window</option>
                     </select><br />
                     <label for="KMLgen"> Generate KML file </label>
-                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="True" checked/><br/>
+                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="True" checked /><br />
                     <label for="ErrorLines"> Draw Error Lines in KML file </label>
                     <input type="checkbox" class="ErrorLines" name="ErrorLines" value="True" /><br />
-                    <label for="SolutionsOut" > Output Solutions to File </label>
+                    <label for="SolutionsOut"> Output Solutions to File </label>
                     <input type="checkbox" name="SolutionsOut" value="True" /><br />
-                    <label for="histcum" > Generate Histogram Cumulative Error Plot </label>
+                    <label for="histcum"> Generate Histogram Cumulative Error Plot </label>
                     <input type="checkbox" name="histcum" value="True" /><br />
                     <label for="histcum"> Vary a Value in Hist/Cumulative Plot </label>
                     <input type="checkbox" name="plotvary" value='True' />

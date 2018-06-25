@@ -236,21 +236,40 @@ def MEOBeaconAnalysis():
     elif request.method == 'POST':
         # read input
         result = request.form
+        print result
+        if result.get('beaconID', False):
+            beaconId = result['beaconID']
+        else:
+            beaconId = '%'
+        if 'MEOLUT' in result: 
+            MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
+        else:
+            MEOLUTList = [None]
+        print 'meo list '
+        print MEOLUTList
+        #first two are holdover from the /MEOData page - may need reworked. 
         if result.get('RealPastTime',False) == 'RT_yes':
-            print 'should be here'
             EndTime = datetime.datetime.utcnow()
             StartTime = EndTime - datetime.timedelta(hours = float(168))
-            print 'check again'
         else:
             StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
-            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')	
+            if result.get('EndTime',False):
+                EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
+            else: 
+                EndTime = datetime.datetime.utcnow()
         filesaved = False
+        filesaved_zip = False
+        if result.get('zipFile',False):
+            f = request.files['zip_inputfile'] 
+            filesaved_zip = os.path.join(approot, UPLOAD_FOLDER, secure_filename(f.filename))
+            f.save(filesaved_zip)
         if result['GTSource'] == 'GTFile':
             f = request.files['gt_inputfile'] 
             filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
             f.save(filesaved)
-        print filesaved
-        csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase, filesaved) 
+        filelist2 = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, config_dict, filesaved_zip) 
+        csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
+        filelist.update(filelist2)
         if csvoutfile == None:
             print 'csvoutfile was None'
             return render_template('MEOBeaconAnalysisReturnNoData.html', result = result, StartTime = StartTime, EndTime = EndTime)
@@ -312,6 +331,7 @@ def meodata():
 @app.route('/api/sitesum/<int:sitenum>', methods=['GET','POST'])
 def sitereturn(sitenum):
     if request.method == 'GET':
+        print sitenum
         SiteData = MEOInput_Analysis.api_site_sum_query(sitenum,servername, oppsdatabase)
         try: 
             data = SiteData
@@ -321,9 +341,11 @@ def sitereturn(sitenum):
 
 @app.route('/api/comp/<int:sitenum>', methods = ['GET','POST'])
 def api_site(sitenum):
-    # can return any table where a sitenum is defined -- ie alertsitesol, alertsitesum, outsolution 
-    data = request.args.to_dict()
-    outdata = MEOInput_Analysis.api_comp(data, servername, oppsdatabase)
+    # can return any table where a sitenum is defined -- ie alertsitesol, alertsitesum (default if not defined), outsolution 
+    input_data = request.args.to_dict()
+    
+    print input_data
+    outdata = MEOInput_Analysis.api_site(input_data, sitenum, servername, oppsdatabase)
     return outdata
 
 @app.route('/api/leogeo/sols', methods = ['GET','POST'])

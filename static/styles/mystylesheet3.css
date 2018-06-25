@@ -186,7 +186,7 @@ section h2{
 
 
 
-
+/*
 #MEOInputAnalysis #userbeaconid:checked ~ #beaconIDinput {
     margin-left: 40px;
     display: inline-block;
@@ -195,9 +195,7 @@ section h2{
     margin-left: 40px;
     display: inline-block;
 }
-
-
-
+*/
 
 #MEOInputAnalysis #fileinput {
     display:none;
@@ -278,6 +276,8 @@ fieldset#gtsource #latloninput {
     display: inline-block;
 }
 
+
+/*
 #MEOBeaconAnalysis #userbeaconid:checked ~ #beaconIDinput {
     margin-left: 40px;
     display: inline-block;
@@ -293,6 +293,7 @@ fieldset#gtsource #latloninput {
     display: none;
 }
 
+*/
 #MEOBeaconAnalysis input {
     display: inline-block;
 }
