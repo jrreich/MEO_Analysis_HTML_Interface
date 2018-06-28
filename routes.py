@@ -332,7 +332,7 @@ def meodata():
 def sitereturn(sitenum):
     if request.method == 'GET':
         print sitenum
-        SiteData = MEOInput_Analysis.api_site_sum_query(sitenum,servername, oppsdatabase)
+        SiteData = MEOInput_Analysis.api_site_sum_query(sitenum, config_dict)
         try: 
             data = SiteData
         except IndexError:
@@ -345,15 +345,38 @@ def api_site(sitenum):
     input_data = request.args.to_dict()
     
     print input_data
-    outdata = MEOInput_Analysis.api_site(input_data, sitenum, servername, oppsdatabase)
+    outdata = MEOInput_Analysis.api_site(input_data, config_dict, sitenum)
     return outdata
 
 @app.route('/api/leogeo/sols', methods = ['GET','POST'])
 def api_leo_geo_sols():
     # can return leo or geo solutions from lut406solution - available params are bcnid15, starttime, endtime, lut, sat
     data = request.args.to_dict()
-    outdata = MEOInput_Analysis.api_leo_geo_sols(data, servername, oppsdatabase)
+    outdata = MEOInput_Analysis.api_leo_geo_sols(data, config_dict)
     return outdata
+
+@app.route('/api/JSON/leogeo/sols', methods = ['GET','POST'])
+def api_leo_geo_sols():
+    # can return leo or geo solutions from lut406solution - available params are bcnid15, starttime, endtime, lut, sat
+    data = request.args.to_dict()
+    outdata = MEOInput_Analysis.api_JSON_leo_geo_sols(data, config_dict)
+    return outdata
+
+@app.route('/api/output/sols/<int:sitenum>', methods = ['GET'])
+def api_output_sols(sitenum):
+    data = request.args.to_dict()
+    columns, outdata = MEOInput_Analysis.api_output_sols(data, config_dict, sitenum)
+    columns = [columns]
+    for i in outdata:
+        columns.append(i)
+    return jsonify(columns)
+
+@app.route('/api/JSON/output/sols/<int:sitenum>', methods = ['GET'])
+def api_JSON_output_sols(sitenum):
+    data = request.args.to_dict()
+    outdata = MEOInput_Analysis.api_JSON_output_sols(data, config_dict, sitenum)
+    return outdata
+
 
 @app.route("/stream")
 def stream():

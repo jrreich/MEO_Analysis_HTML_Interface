@@ -1,32 +1,13 @@
-2018-06-25 00:00:48,263 INFO app root
-2018-06-25 00:00:48,266 INFO executed activate virtualenv
-2018-06-25 00:00:48,266 INFO executed path insert
-2018-06-25 00:00:48,266 INFO beacon decode as a test
-2018-06-25 00:00:48,740 INFO numpy pandas and itertools
-2018-06-25 00:00:48,851 INFO imported matplotlib
-2018-06-25 00:00:48,859 INFO imported math, sys, os and xlrd
-2018-06-25 00:00:48,859 INFO datetime and csv
-2018-06-25 00:00:48,874 INFO collections and simplekml
-2018-06-25 00:00:48,874 INFO re and beacon decode
-2018-06-25 00:00:48,874 INFO pypyodbc imported - all modules imported
-2018-06-25 00:00:48,881 INFO imported app
-2018-06-25 00:00:48,881 INFO imported application as app
-2018-06-25 00:00:54,131 ERROR Exception on /MEOBeaconAnalysis [POST]
-Traceback (most recent call last):
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
-    response = self.full_dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 271, in MEOBeaconAnalysis
-    csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\MEOInput_Analysis\__init__.py", line 1555, in MSSQL_beacon_analysis
-    BeaconQuery, BeaconID, Lat_GT, Long_GT, Location, MEO_dist = parse_results(result,MEOLUTList)
-  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\MEOInput_Analysis\__init__.py", line 704, in parse_results
-    MEO_dist.append(haversine([Lat_GT,Long_GT,MEOLUTLoc[MEO][0],MEOLUTLoc[MEO][1]]))
-KeyError: None
+2018-06-25 23:14:00,772 INFO app root
+2018-06-25 23:14:00,773 INFO executed activate virtualenv
+2018-06-25 23:14:00,773 INFO executed path insert
+2018-06-25 23:14:00,775 INFO beacon decode as a test
+2018-06-25 23:14:01,263 INFO numpy pandas and itertools
+2018-06-25 23:14:01,380 INFO imported matplotlib
+2018-06-25 23:14:01,387 INFO imported math, sys, os and xlrd
+2018-06-25 23:14:01,387 INFO datetime and csv
+2018-06-25 23:14:01,401 INFO collections and simplekml
+2018-06-25 23:14:01,401 INFO re and beacon decode
+2018-06-25 23:14:01,401 INFO pypyodbc imported - all modules imported
+2018-06-25 23:14:01,408 INFO imported app
+2018-06-25 23:14:01,410 INFO imported application as app
