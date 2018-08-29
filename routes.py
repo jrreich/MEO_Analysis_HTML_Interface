@@ -267,8 +267,11 @@ def MEOBeaconAnalysis():
             f = request.files['gt_inputfile'] 
             filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
             f.save(filesaved)
+        print 'start of MEOInput_Analysis calls - ' + str(datetime.datetime.utcnow()) 
         filelist2 = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, config_dict, filesaved_zip) 
+        print 'after of MEOInput_Analysis.MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
         csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
+        print 'after of MEOInput_Analysis.MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
         filelist.update(filelist2)
         if csvoutfile == None:
             print 'csvoutfile was None'
@@ -356,7 +359,7 @@ def api_leo_geo_sols():
     return outdata
 
 @app.route('/api/JSON/leogeo/sols', methods = ['GET','POST'])
-def api_leo_geo_sols():
+def api_JSON_leo_geo_sols():
     # can return leo or geo solutions from lut406solution - available params are bcnid15, starttime, endtime, lut, sat
     data = request.args.to_dict()
     outdata = MEOInput_Analysis.api_JSON_leo_geo_sols(data, config_dict)
