@@ -19,8 +19,8 @@ OUTPUTFOLDER = os.path.join('static','output')
 #OUTPUTFOLDER = r'C:/Users/reichj/Source/Repos/MEO_Analysis_HTML_Interface/static/output/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','db','zip'])
 
-Deploy_on = 'other1' # for deploying on RYZEN7 2018-02-21
-#Deploy_on = 'MCC'	
+#Deploy_on = 'other1' # for deploying on RYZEN7 2018-02-21
+Deploy_on = 'MCC'	
 #Deploy_on = 'other2'
 
 
