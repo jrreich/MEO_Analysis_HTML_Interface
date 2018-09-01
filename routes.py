@@ -345,6 +345,28 @@ def sitereturn(sitenum):
             abort(404)
         return jsonify(data)
 
+@app.route('/api/MEO/location_accuracy/<int:MEOLUT_ID>', methods=['GET'])
+def meolut_location_accuracy(MEOLUT_ID):
+    kwargs = {}
+    if 'EndTime' in request.args:
+        EndTime = datetime.datetime.strptime(request.args.get('EndTime'), '%Y-%m-%d %H:%M:%S')
+    else: EndTime = datetime.datetime.utcnow()
+    if 'hours' in request.args: hours = float(request.args.get('hours'))
+    else: hours = 0
+    minutes = hours*60
+    if 'days' in request.args: days = float(request.args.get('days'))
+    else: days = 0
+    minutes += days*24*60
+    if 'minutes' in request.args: 
+        minutes_to_add = float(request.args.get('minutes'))
+        minutes += minutes_to_add
+    if minutes == 0: minutes = 60
+    if request.args.get('StartTime') is None: StartTime = EndTime - datetime.timedelta(minutes = minutes)
+    beaconId = request.args.get('beaconId',None)
+    accuracy = MEOInput_Analysis.api_meo_location_accuracy(MEOLUT_ID, StartTime, EndTime, config_dict, beaconId = beaconId)
+    return jsonify([StartTime, EndTime, accuracy])
+
+
 @app.route('/api/comp/<int:sitenum>', methods = ['GET','POST'])
 def api_site(sitenum):
     # can return any table where a sitenum is defined -- ie alertsitesol, alertsitesum (default if not defined), outsolution 
