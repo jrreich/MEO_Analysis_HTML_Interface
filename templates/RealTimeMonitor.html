@@ -49,7 +49,7 @@
         <section class="content" >
             <article class="packets">
                 <h3>
-                    HI from {{BurstStartTime.strftime('%m/%d/%y %H:%M')}} to
+                    HI MEOLUT from {{BurstStartTime.strftime('%m/%d/%y %H:%M')}} to
                     {{ EndTime.strftime('%m/%d/%y %H:%M') }}
                 </h3>
                 <table>
@@ -80,6 +80,8 @@
                     </tr>
                     {% endfor %}
                 </table>
+            </article>
+            <article class="packets">
                 <h3>
                     FL MEOLUT from {{BurstStartTime.strftime('%m/%d/%y %H:%M')}} to
                     {{ EndTime.strftime('%m/%d/%y %H:%M') }}
@@ -98,8 +100,6 @@
                         <td class="ant_percent_table">{{ FL_location_accuracy.percent_less_than_5km }} </td>
                     </tr>
                 </table>
-            </article>
-            <article>
                 <table>
                     <tr>
                         <th>Antenna</th>
