@@ -366,6 +366,32 @@ def meolut_location_accuracy(MEOLUT_ID):
     accuracy = MEOInput_Analysis.api_meo_location_accuracy(MEOLUT_ID, StartTime, EndTime, config_dict, beaconId = beaconId)
     return jsonify([StartTime, EndTime, accuracy])
 
+@app.route('/api/MEO/packet_throughput/<int:MEOLUT_ID>', methods=['GET'])
+def meolut_packet_throughput(MEOLUT_ID):
+    kwargs = {}
+    if 'EndTime' in request.args:
+        EndTime = datetime.datetime.strptime(request.args.get('EndTime'), '%Y-%m-%d %H:%M:%S')
+    else: EndTime = datetime.datetime.utcnow()
+    if 'hours' in request.args: hours = float(request.args.get('hours'))
+    else: hours = 0
+    minutes = hours*60
+    if 'days' in request.args: days = float(request.args.get('days'))
+    else: days = 0
+    minutes += days*24*60
+    if 'minutes' in request.args: 
+        minutes_to_add = float(request.args.get('minutes'))
+        minutes += minutes_to_add
+    if minutes == 0: minutes = 60
+    if request.args.get('StartTime') is None: StartTime = EndTime - datetime.timedelta(minutes = minutes)
+    beaconId = request.args.get('beaconId',None)
+    packets = MEOInput_Analysis.api_meo_packet_throughput(MEOLUT_ID, StartTime, EndTime, config_dict, beaconId = beaconId)
+    if request.args.get('rep_rate',None):
+        for ant in packets:
+            print packets[ant]
+            packets[ant]['percent'] = float(packets[ant]['count'])*50/60/minutes 
+    print packets
+    return jsonify([StartTime, EndTime, packets])
+
 
 @app.route('/api/comp/<int:sitenum>', methods = ['GET','POST'])
 def api_site(sitenum):
