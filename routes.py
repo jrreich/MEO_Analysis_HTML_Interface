@@ -9,13 +9,13 @@ import datetime
 import csv
 import sys
 import os
+import urllib, json
+from requests import get 
 #import sendsms as sms
 
 UPLOAD_FOLDER = os.path.join('var','uploads')
 computer_name = os.environ['COMPUTERNAME']
 approot = os.path.dirname(__file__)
-
-
 
 OUTPUTFOLDER = os.path.join('static','output')
 #OUTPUTFOLDER = r'C:/Users/reichj/Source/Repos/MEO_Analysis_HTML_Interface/static/output/'
@@ -166,17 +166,17 @@ def realtimemonitor():
             burstwindow = float(request.args.get('burstwindow'))
         else:
             burstwindow = 60
-        #StartTime = datetime.datetime(2017,1,9,14,0)
-        EndTime = datetime.datetime.utcnow() #.strftime('%Y-%m-%d %H:%M:%S.%f')[:-4]
-        #print EndTime
-        #s = t.strftime('%Y-%m-%d %H:%M:%S.%f')
-        #return s[:-3]
-        #EndTime = datetime.datetime(2017,1,9,16,0)
+        EndTime = datetime.datetime.utcnow()
         StartTime = EndTime - datetime.timedelta(days=float(days)) 
         BurstStartTime = EndTime - datetime.timedelta(minutes=burstwindow)
         alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime, servername,oppsdatabase) #, sql_login = 'yes')
         statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime, servername,oppsdatabase)  #, sql_login = 'yes')
-        packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, servername,mcctestLGM)  #, sql_login = 'yes')
+        #packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, servername,mcctestLGM)  #, sql_login = 'yes')
+        HI_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3385, _external = True)).content)
+        HI_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3385, rep_rate = 50, beaconId = 'AA5FC0000000001', _external = True)).content)
+        FL_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3669, _external = True)).content)
+        FL_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3669, rep_rate = 50, beaconId = 'ADDC00202020201', _external = True)).content)
+        #response = urllib.urlopen(HI_url)
         open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
@@ -185,7 +185,10 @@ def realtimemonitor():
             numalarms = numalarms,
             statusHI = statusHI, 
             statusFL = statusFL,
-            packetpercent = packetpercent,
+            HI_packet_percent = HI_packet_percent,
+            HI_location_accuracy = HI_location_accuracy,
+            FL_packet_percent = FL_packet_percent,
+            FL_location_accuracy = FL_location_accuracy,
             StartTime = StartTime,
             EndTime = EndTime,
             BurstStartTime = BurstStartTime,
@@ -316,7 +319,6 @@ def meodata():
             MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
         else:
             MEOLUTList = [None]
-        print result
         filesaved = False
         if result.get('zipFile',False):
             f = request.files['zip_inputfile'] 
@@ -337,7 +339,6 @@ def meodata():
 @app.route('/api/sitesum/<int:sitenum>', methods=['GET','POST'])
 def sitereturn(sitenum):
     if request.method == 'GET':
-        print sitenum
         SiteData = MEOInput_Analysis.api_site_sum_query(sitenum, config_dict)
         try: 
             data = SiteData
@@ -363,8 +364,10 @@ def meolut_location_accuracy(MEOLUT_ID):
     if minutes == 0: minutes = 60
     if request.args.get('StartTime') is None: StartTime = EndTime - datetime.timedelta(minutes = minutes)
     beaconId = request.args.get('beaconId',None)
-    accuracy = MEOInput_Analysis.api_meo_location_accuracy(MEOLUT_ID, StartTime, EndTime, config_dict, beaconId = beaconId)
-    return jsonify([StartTime, EndTime, accuracy])
+    output = MEOInput_Analysis.api_meo_location_accuracy(MEOLUT_ID, StartTime, EndTime, config_dict, beaconId = beaconId)
+    output['StartTime'] = StartTime
+    output['EndTime'] = EndTime
+    return jsonify(output)
 
 @app.route('/api/MEO/packet_throughput/<int:MEOLUT_ID>', methods=['GET'])
 def meolut_packet_throughput(MEOLUT_ID):
@@ -383,22 +386,20 @@ def meolut_packet_throughput(MEOLUT_ID):
         minutes += minutes_to_add
     if minutes == 0: minutes = 60
     if request.args.get('StartTime') is None: StartTime = EndTime - datetime.timedelta(minutes = minutes)
+    rep_rate = request.args.get('rep_rate',None)
     beaconId = request.args.get('beaconId',None)
-    packets = MEOInput_Analysis.api_meo_packet_throughput(MEOLUT_ID, StartTime, EndTime, config_dict, beaconId = beaconId)
-    if request.args.get('rep_rate',None):
-        for ant in packets:
-            print packets[ant]
-            packets[ant]['percent'] = float(packets[ant]['count'])*50/60/minutes 
+    packets = MEOInput_Analysis.api_meo_packet_throughput(MEOLUT_ID, StartTime, EndTime, config_dict, 
+                                                          beaconId = beaconId, rep_rate = rep_rate, minutes = minutes)
     print packets
-    return jsonify([StartTime, EndTime, packets])
+    packets['StartTime'] = StartTime
+    packets['EndTime'] = EndTime
+    return jsonify(packets)
 
 
 @app.route('/api/comp/<int:sitenum>', methods = ['GET','POST'])
 def api_site(sitenum):
     # can return any table where a sitenum is defined -- ie alertsitesol, alertsitesum (default if not defined), outsolution 
     input_data = request.args.to_dict()
-    
-    print input_data
     outdata = MEOInput_Analysis.api_site(input_data, config_dict, sitenum)
     return outdata
 

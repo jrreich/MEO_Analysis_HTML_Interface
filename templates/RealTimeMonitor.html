@@ -5,7 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Real Time MEOLUT Monitoring</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}"> 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/jquery-3.2.1.js') }}"></script>"
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/RealTime.js') }}"></script>
     <!--<link rel="stylesheet" type="text/css" href='/styles/mystylesheet3.css'>-->
     <!--<script language="javascript">
     document.getElementById('EndDate').value = new Date().toDateInputValue();
@@ -47,23 +49,69 @@
         <section class="content" >
             <article class="packets">
                 <h3>
-                    Packet percents from {{BurstStartTime.strftime('%m/%d/%y %H:%M:%S')}} to
-                    {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }}
+                    HI from {{BurstStartTime.strftime('%m/%d/%y %H:%M')}} to
+                    {{ EndTime.strftime('%m/%d/%y %H:%M') }}
                 </h3>
                 <table>
                     <tr>
-                        <th>MEO</th>
+                        <th>Num of Reference Locations</th>
+                        <th> Average </th>
+                        <th> 90th % </th>
+                        <th> % < 5km </th>
+                    </tr>
+                    <tr>
+                        <td>{{ HI_location_accuracy.num_of_locations }}</td>
+                        <td>{{ HI_location_accuracy.mean }} </td>
+                        <td>{{ HI_location_accuracy.p90 }} </td>
+                        <td class="ant_percent_table">{{ HI_location_accuracy.percent_less_than_5km }} </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
                         <th>Antenna</th>
+                        <th>Burst Count</th>
                         <th>Percent</th>
                     </tr>
-                    {% for MEO, dict in packetpercent.iteritems() %}
-                    {% for ant, percent in dict.iteritems() %}
+                    {% for key, val in HI_packet_percent.antenna.iteritems() %}
                     <tr>
-                        <td>{{ MEO }} - </td>
-                        <td>{{ ant }}</td>
-                        <td>{{ percent }} </td>
+                        <td>{{ key }}</td>
+                        <td>{{ val.count }} </td>
+                        <td class="ant_percent_table">{{ val.percent }} </td>
                     </tr>
                     {% endfor %}
+                </table>
+                <h3>
+                    FL MEOLUT from {{BurstStartTime.strftime('%m/%d/%y %H:%M')}} to
+                    {{ EndTime.strftime('%m/%d/%y %H:%M') }}
+                </h3>
+                <table>
+                    <tr>
+                        <th>Num of Reference Locations</th>
+                        <th> Average </th>
+                        <th> 90th % </th>
+                        <th> % < 5km </th>
+                    </tr>
+                    <tr>
+                        <td>{{ FL_location_accuracy.num_of_locations }}</td>
+                        <td>{{ FL_location_accuracy.mean }} </td>
+                        <td>{{ FL_location_accuracy.p90 }} </td>
+                        <td class="ant_percent_table">{{ FL_location_accuracy.percent_less_than_5km }} </td>
+                    </tr>
+                </table>
+            </article>
+            <article>
+                <table>
+                    <tr>
+                        <th>Antenna</th>
+                        <th>Burst Count</th>
+                        <th>Percent</th>
+                    </tr>
+                    {% for key, val in FL_packet_percent.antenna.iteritems() %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ val.count }} </td>
+                        <td class="ant_percent_table">{{ val.percent }} </td>
+                    </tr>
                     {% endfor %}
                 </table>
             </article>

@@ -294,6 +294,19 @@ fieldset#gtsource #latloninput {
 }
 
 */
+
+.low-perf {
+    background: red;
+}
+
+.medium-perf {
+    background: yellow;
+}
+
+.high-perf {
+    background: green;
+}
+
 #MEOBeaconAnalysis input {
     display: inline-block;
 }
