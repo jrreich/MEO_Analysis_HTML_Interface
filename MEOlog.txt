@@ -1,117 +1,53 @@
-2018-09-03 19:53:45,792 INFO app root
-2018-09-03 19:53:45,795 INFO executed activate virtualenv
-2018-09-03 19:53:45,795 INFO executed path insert
-2018-09-03 19:53:45,796 INFO beacon decode as a test
-2018-09-03 19:53:46,286 INFO numpy pandas and itertools
-2018-09-03 19:53:46,403 INFO imported matplotlib
-2018-09-03 19:53:46,411 INFO imported math, sys, os and xlrd
-2018-09-03 19:53:46,411 INFO datetime and csv
-2018-09-03 19:53:46,426 INFO collections and simplekml
-2018-09-03 19:53:46,427 INFO re and beacon decode
-2018-09-03 19:53:46,427 INFO pypyodbc imported - all modules imported
-2018-09-03 19:53:46,559 INFO imported app
-2018-09-03 19:53:46,559 INFO imported application as app
-2018-09-03 19:53:48,885 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:53:49,490 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:53:49,492 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:53:50,052 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:53:50,055 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:53:50,602 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:53:50,605 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:53:51,201 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:54:07,971 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:08,500 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:54:08,502 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:09,075 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:54:09,076 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:09,651 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:54:09,654 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:10,207 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:54:23,102 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:23,759 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:54:23,760 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:24,302 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:54:24,302 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:24,895 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:54:24,898 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:25,447 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:54:48,740 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:49,326 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:54:49,328 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:49,890 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:54:49,891 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:50,464 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:54:50,467 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:51,023 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:54:57,289 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:57,836 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:54:57,838 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:58,381 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:54:58,381 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:58,915 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:54:58,917 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:54:59,479 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:55:23,434 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:55:24,073 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:55:24,075 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:55:24,632 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:55:24,634 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:55:25,167 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:55:25,170 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:55:25,697 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:55:31,253 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:55:31,816 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:55:31,819 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:55:32,328 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:55:32,331 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:55:32,905 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:55:32,907 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:55:33,464 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:55:59,608 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:00,174 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:56:00,177 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:00,756 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:56:00,759 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:01,257 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:56:01,260 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:01,839 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:56:05,233 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:05,737 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:56:05,740 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:06,298 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:56:06,299 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:06,885 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:56:06,887 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:07,391 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:56:34,480 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:35,082 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:56:35,084 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:35,588 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:56:35,591 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:36,128 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:56:36,131 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:36,717 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:56:39,289 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:39,851 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:56:39,854 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:40,447 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:56:40,447 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:41,009 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:56:41,012 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:56:41,579 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:57:09,881 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:57:10,430 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:57:10,433 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:57:10,989 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:57:10,990 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:57:11,565 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:57:11,566 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:57:12,092 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
-2018-09-03 19:57:13,882 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:57:14,483 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385 HTTP/1.1" 200 113
-2018-09-03 19:57:14,486 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:57:15,039 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
-2018-09-03 19:57:15,042 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:57:15,585 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669 HTTP/1.1" 200 113
-2018-09-03 19:57:15,588 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2018-09-03 19:57:16,184 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
+2018-09-03 21:03:43,900 INFO app root
+2018-09-03 21:03:43,901 INFO executed activate virtualenv
+2018-09-03 21:03:43,901 INFO executed path insert
+2018-09-03 21:03:43,903 INFO beacon decode as a test
+2018-09-03 21:03:44,411 INFO numpy pandas and itertools
+2018-09-03 21:03:44,525 INFO imported matplotlib
+2018-09-03 21:03:44,532 INFO imported math, sys, os and xlrd
+2018-09-03 21:03:44,532 INFO datetime and csv
+2018-09-03 21:03:44,546 INFO collections and simplekml
+2018-09-03 21:03:44,548 INFO re and beacon decode
+2018-09-03 21:03:44,548 INFO pypyodbc imported - all modules imported
+2018-09-03 21:03:44,681 INFO imported app
+2018-09-03 21:03:44,681 INFO imported application as app
+2018-09-03 21:03:47,443 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:03:48,042 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385?verify=False HTTP/1.1" 200 113
+2018-09-03 21:03:48,045 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:03:48,575 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?verify=False&rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
+2018-09-03 21:03:48,576 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:03:49,168 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669?verify=False HTTP/1.1" 200 113
+2018-09-03 21:03:49,171 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:03:49,719 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?verify=False&rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
+2018-09-03 21:04:21,520 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:04:22,085 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385?verify=False HTTP/1.1" 200 113
+2018-09-03 21:04:22,088 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:04:22,634 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?verify=False&rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
+2018-09-03 21:04:22,637 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:04:23,157 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669?verify=False HTTP/1.1" 200 113
+2018-09-03 21:04:23,158 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:04:23,732 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?verify=False&rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
+2018-09-03 21:04:33,094 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:04:33,635 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385?verify=False HTTP/1.1" 200 113
+2018-09-03 21:04:33,638 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:04:34,211 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?verify=False&rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
+2018-09-03 21:04:34,213 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:04:34,789 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669?verify=False HTTP/1.1" 200 113
+2018-09-03 21:04:34,790 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:04:35,318 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?verify=False&rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
+2018-09-03 21:05:07,145 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:05:07,743 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385?verify=False HTTP/1.1" 200 113
+2018-09-03 21:05:07,744 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:05:08,283 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?verify=False&rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
+2018-09-03 21:05:08,286 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:05:08,844 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669?verify=False HTTP/1.1" 200 113
+2018-09-03 21:05:08,845 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:05:09,426 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?verify=False&rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
+2018-09-03 21:05:41,200 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:05:41,744 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3385?verify=False HTTP/1.1" 200 113
+2018-09-03 21:05:41,746 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:05:42,302 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3385?verify=False&rep_rate=50&beaconId=AA5FC0000000001 HTTP/1.1" 200 592
+2018-09-03 21:05:42,303 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:05:42,841 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/3669?verify=False HTTP/1.1" 200 113
+2018-09-03 21:05:42,842 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2018-09-03 21:05:43,382 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/packet_throughput/3669?verify=False&rep_rate=50&beaconId=ADDC00202020201 HTTP/1.1" 200 592
