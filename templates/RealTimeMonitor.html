@@ -61,9 +61,9 @@
                     </tr>
                     <tr>
                         <td>{{ HI_location_accuracy.num_of_locations }}</td>
-                        <td>{{ HI_location_accuracy.mean }} </td>
-                        <td>{{ HI_location_accuracy.p90 }} </td>
-                        <td class="ant_percent_table">{{ HI_location_accuracy.percent_less_than_5km }} </td>
+                        <td>{{ '%0.2f'| format(HI_location_accuracy.mean|float) }} </td>
+                        <td>{{ '%0.2f'| format(HI_location_accuracy.p90*100|float)}} </td> 
+                        <td class="ant_percent_table">{{ '%0.2f'| format(HI_location_accuracy.percent_less_than_5km*100|float) }} </td>
                     </tr>
                 </table>
                 <table>
@@ -76,7 +76,7 @@
                     <tr>
                         <td>{{ key }}</td>
                         <td>{{ val.count }} </td>
-                        <td class="ant_percent_table">{{ val.percent }} </td>
+                        <td class="ant_percent_table">{{' %0.2f'| format(val.percent*100) }} </td>
                     </tr>
                     {% endfor %}
                 </table>
@@ -95,9 +95,9 @@
                     </tr>
                     <tr>
                         <td>{{ FL_location_accuracy.num_of_locations }}</td>
-                        <td>{{ FL_location_accuracy.mean }} </td>
-                        <td>{{ FL_location_accuracy.p90 }} </td>
-                        <td class="ant_percent_table">{{ FL_location_accuracy.percent_less_than_5km }} </td>
+                        <td>{{ '%0.2f'| format(FL_location_accuracy.mean|float) }} </td>
+                        <td>{{ '%0.2f'| format(FL_location_accuracy.p90|float)}} </td>
+                        <td class="ant_percent_table">{{ '%0.2f'| format(FL_location_accuracy.percent_less_than_5km*100|float) }} </td>
                     </tr>
                 </table>
                 <table>
@@ -110,7 +110,7 @@
                     <tr>
                         <td>{{ key }}</td>
                         <td>{{ val.count }} </td>
-                        <td class="ant_percent_table">{{ val.percent }} </td>
+                        <td class="ant_percent_table">{{'%0.2f'| format(val.percent*100) }} </td>
                     </tr>
                     {% endfor %}
                 </table>

@@ -5,14 +5,18 @@ $(document).ready(function () {
         var green;
 
         if (content === 0) {
-            $(this).css('background-color', '#00FF00');
+            $(this).css('background-color', '#666666');
         } else {
-            if (content > 0.5) {
-                red = 255;
-                green = parseInt(-2 * 255 * content + (2 * 255));
-            } else {
+            if (content > 0.8) {
                 green = 255;
-                red = parseInt(2 * 255 * content);
+                red = 0;
+            } else if (content > 0.5) {
+                red = 255;
+                green = parseInt(2 * 255 * content);
+            } else {
+                red = 255;
+                green = 0;
+
             }
             var rgbColor = 'rgb(' + red + ',' + green + ', 0)';
             $(this).css('background-color', rgbColor);

@@ -176,6 +176,7 @@ def realtimemonitor():
         HI_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3385, rep_rate = 50, beaconId = 'AA5FC0000000001', _external = True),verify = False).content)
         FL_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3669, _external = True), verify = False).content)
         FL_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3669, rep_rate = 50, beaconId = 'ADDC00202020201', _external = True), verify = False).content)
+        print HI_location_accuracy
         #response = urllib.urlopen(HI_url)
         open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
         return render_template('RealTimeMonitor.html', 
