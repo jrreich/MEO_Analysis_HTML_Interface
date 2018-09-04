@@ -7,10 +7,10 @@ $(document).ready(function () {
         if (content === 0) {
             $(this).css('background-color', '#666666');
         } else {
-            if (content > 0.8) {
+            if (content > 80) {
                 green = 255;
                 red = 0;
-            } else if (content > 0.5) {
+            } else if (content > 50) {
                 red = 255;
                 green = parseInt(2 * 255 * content);
             } else {
