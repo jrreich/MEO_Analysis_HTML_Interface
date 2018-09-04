@@ -12,7 +12,7 @@ $(document).ready(function () {
                 red = 0;
             } else if (content > 50) {
                 red = 255;
-                green = parseInt(2 * 255 * content);
+                green = parseInt(2 * 255 * content/100);
             } else {
                 red = 255;
                 green = 0;
