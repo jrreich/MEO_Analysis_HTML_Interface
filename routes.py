@@ -26,6 +26,7 @@ if computer_name == 'RYZEN7':
 else: Deploy_on = 'MCC'	
 #Deploy_on = 'other2'
 
+TimeLog = True
 
 
 if Deploy_on == 'MCC':
@@ -153,6 +154,7 @@ def MEOInputAnalysis():
 
 @app.route('/RealTimeMonitor')
 def realtimemonitor():
+    startofscript = datetime.datetime.utcnow()
     if request.method == 'GET':
         if request.args.get('days') <> None:
             days = request.args.get('days')
@@ -170,14 +172,30 @@ def realtimemonitor():
         StartTime = EndTime - datetime.timedelta(days=float(days)) 
         BurstStartTime = EndTime - datetime.timedelta(minutes=burstwindow)
         alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime, servername,oppsdatabase) #, sql_login = 'yes')
+        if TimeLog:
+            print '1 - MEO Alarms'
+            print datetime.datetime.utcnow() - startofscript 
         statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime, servername,oppsdatabase)  #, sql_login = 'yes')
+        if TimeLog:
+            print '2 - MEO Status'
+            print datetime.datetime.utcnow() - startofscript 
         #packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, servername,mcctestLGM)  #, sql_login = 'yes')
         HI_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3385, _external = True),verify = False).content)
+        if TimeLog:
+            print '3 - HI loc accuracy'
+            print datetime.datetime.utcnow() - startofscript         
         HI_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3385, rep_rate = 50, beaconId = 'AA5FC0000000001', _external = True),verify = False).content)
+        if TimeLog:
+            print '4 - HI packet percent'
+            print datetime.datetime.utcnow() - startofscript      
         FL_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3669, _external = True), verify = False).content)
+        if TimeLog:
+            print '5 - FL loc accuracy '
+            print datetime.datetime.utcnow() - startofscript        
         FL_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3669, rep_rate = 50, beaconId = 'ADDC00202020201', _external = True), verify = False).content)
-        print HI_location_accuracy
-        #response = urllib.urlopen(HI_url)
+        if TimeLog:
+            print '6 - FL packet percent'
+            print datetime.datetime.utcnow() - startofscript  
         open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
         return render_template('RealTimeMonitor.html', 
             alarmlist=alarmlist, 
@@ -391,7 +409,13 @@ def meolut_packet_throughput(MEOLUT_ID):
     beaconId = request.args.get('beaconId',None)
     packets = MEOInput_Analysis.api_meo_packet_throughput(MEOLUT_ID, StartTime, EndTime, config_dict, 
                                                           beaconId = beaconId, rep_rate = rep_rate, minutes = minutes)
-    print packets
+    #print 'packets in api function'
+    #print packets
+    #print 'packets[antenna].items in api fuction'
+    #print packets['antenna'].items()
+    #packets['antenna'] = json.loads(json.dumps(packets['antenna']), object_pairs_hook=OrderedDict)
+    #print 'packets on the way out of api'
+    #print packets
     packets['StartTime'] = StartTime
     packets['EndTime'] = EndTime
     return jsonify(packets)

@@ -72,7 +72,7 @@
                         <th>Burst Count</th>
                         <th>Percent</th>
                     </tr>
-                    {% for key, val in HI_packet_percent.antenna.iteritems() %}
+                    {% for key, val in HI_packet_percent.antenna|dictsort %}
                     <tr>
                         <td>{{ key }}</td>
                         <td>{{ val.count }} </td>
@@ -106,11 +106,11 @@
                         <th>Burst Count</th>
                         <th>Percent</th>
                     </tr>
-                    {% for key, val in FL_packet_percent.antenna.iteritems() %}
+                    {% for key, val in FL_packet_percent['antenna']|dictsort %}
                     <tr>
                         <td>{{ key }}</td>
                         <td>{{ val.count }} </td>
-                        <td class="ant_percent_table">{{'%0.2f'| format(val.percent*100) }} </td>
+                        <td class="ant_percent_table">{{'%0.2f'|format(val.percent*100) }} </td>
                     </tr>
                     {% endfor %}
                 </table>
