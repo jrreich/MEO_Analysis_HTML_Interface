@@ -6,7 +6,7 @@ var app = (function () {
             imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
                 url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer',
                 credit : 'testing credits'
-            })
+            }),
             //Use standard Cesium terrain
             /*
             terrainProvider : new Cesium.CesiumTerrainProvider({
@@ -61,9 +61,9 @@ var app = (function () {
     };
     var _addSite = function () {
         var siteNum = $('#siteNumber')[0];
-        var czmlDataSource = Cesium.CzmlDataSource.load("/api/czml/site/"+siteNum.value);        
-        viewer.dataSources.add(czmlDataSource).then(function() {
-            viewer.flyTo(czmlDataSource, 
+        var _czmlDataSource = Cesium.CzmlDataSource.load("/api/czml/site/"+siteNum.value);        
+        viewer.dataSources.add(_czmlDataSource).then(function() {
+            viewer.flyTo(_czmlDataSource, 
                 {offset : new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 200000)}
             );        
         /*
@@ -90,12 +90,15 @@ var app = (function () {
     };
     
     var _addCzmlDataSource = function (data) {
-        czmlDataSource = new Cesium.CzmlDataSource.load(data);
-        viewer.dataSources.add(czmlDataSource);
-	};
+        var _czmlDataSource = new Cesium.CzmlDataSource.load(data);
+        viewer.dataSources.add(_czmlDataSource);
+        return {
+            czmlDataSource: _czmlDataSource
+        };
+    };
     
     var _addKmlDataSource = function (data) {
-        kmlDataSource = Cesium.KmlDataSource.load(data);
+        var kmlDataSource = Cesium.KmlDataSource.load(data);
         viewer.dataSources.add(kmlDataSource);
     };
 
@@ -113,8 +116,7 @@ var app = (function () {
     var _toggleLuts = function() {
         alert('button works');
         alert(czmlDataSource);
-        alert(viewer.entities);
-        var lutEntity = viewer.entities.getById('NSOF');
+        var lutEntity = czmlDataSource.entities.getById('NSOF');
         alert(lutEntity);
         lutEntity.show = !lutEntity.show;
     };
@@ -128,6 +130,6 @@ var app = (function () {
         addKmlDataSource: _addKmlDataSource,
         homeView: _homeView,
         setCurrentTime: _setCurrentTime,
-        toggleLuts: _toggleLuts,
+        toggleLuts: _toggleLuts
     };
 })();
