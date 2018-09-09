@@ -3,10 +3,15 @@ var app = (function () {
     var _initCesium = function () {
         Cesium.BingMapsApi.defaultKey = 'AroVSp3EEqOsbIrQmLLaavG0aGanIvBJ3iVmsayjLrmWFcU5KSCx1zCLE5AkByXq'; // For use in this application only. Do not reuse!
         viewer = new Cesium.Viewer('cesiumContainer', {
-            imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
-                url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer',
-                credit : 'testing credits'
+            imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+                url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer',
+                credit: 'testing credits'
             })
+        });
+        czmlDataSource = new Cesium.CzmlDataSource();
+        viewer.dataSources.add(czmlDataSource);
+        kmlDataSource = new Cesium.KmlDataSource();
+        viewer.dataSources.add(kmlDataSource);
             //Use standard Cesium terrain
             /*
             terrainProvider : new Cesium.CesiumTerrainProvider({
@@ -14,7 +19,7 @@ var app = (function () {
             }),
             baseLayerPicker : false
             */
-            });
+           
         
         var options = {
             camera : viewer.scene.camera,
@@ -44,28 +49,51 @@ var app = (function () {
         $.ajax({
             url: "/stream",
             type: "GET",
-            success: function (result,status){
-				if (result !== "") {
-					_addCzmlDataSource(result);
-				}
-				else{
-					alert("No Passes");
-				}
-			},
-			error: function(error){
-				alert(error.responseText);
-			}
+            success: function (result, status) {
+                if (result !== "") {
+                    _addCzmlDataSource(result);
+                }
+                else {
+                    alert("No Passes");
+                }
+            },
+            error: function (error) {
+                alert(error.responseText);
+            }
         });
-
-        //_addCzmlDataSource('/api/czml/site/'+siteNum.value);
+        if ($("#realtimesites").length < 1) {
+            //$('<br />').appendTo('#buttonHolder');
+            $('<input />', {
+                type: 'checkbox', id: 'realtimesites', name: 'realtimesites', checked: 'True'
+            })
+                .change(function () {
+                    var sitechanged = $(this).prop('name');
+                    _toggleEntity(sitechanged);
+                })
+                .insertBefore('#realTimeSiteButton');
+        };
     };
+
+        
+        //_addCzmldataSource('/api/czml/site/'+siteNum.value);
     var _addSite = function () {
         var siteNum = $('#siteNumber')[0];
-        var czmlDataSource = Cesium.CzmlDataSource.load("/api/czml/site/"+siteNum.value);        
-        viewer.dataSources.add(czmlDataSource).then(function() {
-            viewer.flyTo(czmlDataSource, 
-                {offset : new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 200000)}
-            );        
+        //czmlSiteDataSource = new Cesium.CzmlDataSource();
+        //viewer.dataSources.add(czmlSiteDataSource);
+        //czmlSiteDataSource.load("/api/czml/site/" + siteNum.value);     
+        _addCzmlDataSource("/api/czml/site/" + siteNum.value);
+        $('<br />').appendTo('#siteButtonHolder');
+        $('<input />', { type: 'checkbox', id: siteNum.value, name: siteNum.value, checked: 'True' })
+            .change(function () {
+                var sitechanged = $(this).prop('name');
+                _toggleEntity(sitechanged);
+            })
+            .appendTo('#siteButtonHolder');
+        $('<label />', { for: siteNum.value, text: siteNum.value }).appendTo('#siteButtonHolder');
+        viewer.flyTo(czmlDataSource.entities.getById(siteNum.value),
+                { offset: new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 200000) }
+        );
+        };        
         /*
         $.ajax({
             url: "/api/czml/site/"+siteNum.value,
@@ -84,19 +112,20 @@ var app = (function () {
 				alert(error.responseText);
 			}
             */
-        });
 
         //_addCzmlDataSource('/api/czml/site/'+siteNum.value);
-    };
     
     var _addCzmlDataSource = function (data) {
-        czmlDataSource = new Cesium.CzmlDataSource.load(data);
-        viewer.dataSources.add(czmlDataSource);
+        viewer.dataSources.add(czmlDataSource.process(data));
 	};
     
     var _addKmlDataSource = function (data) {
-        kmlDataSource = Cesium.KmlDataSource.load(data);
-        viewer.dataSources.add(kmlDataSource);
+        alert(baseUrl + data);
+        viewer.dataSources.add(kmlDataSource.load(baseUrl + data),
+            {
+                camera: viewer.scene.camera,
+                canvas: viewer.scene.canvas
+            });
     };
 
     var _homeView = function () {
@@ -110,14 +139,21 @@ var app = (function () {
         viewer.clock.clockStep = Cesium.ClockStep.SYSTEM_CLOCK;
     };
     
-    var _toggleLuts = function() {
-        alert('button works');
-        alert(czmlDataSource);
-        alert(viewer.entities);
-        var lutEntity = viewer.entities.getById('NSOF');
-        alert(lutEntity);
-        lutEntity.show = !lutEntity.show;
+    var _toggleEntity = function (id) {
+        var entity = czmlDataSource.entities.getById(id);
+
+        //alert(lutEntity.id);
+        //var testLutEntity = viewer.dataSources.entities.getById('NSOF');
+        //alert(testLutEntity.name);
+        entity.show = !entity.show;
     };
+
+    var _updateLuts = function () {
+        $.getJSON(baseUrl + "api/MEO/location_accuracy/3669", function (data) {
+        })
+            .done(function (data) {
+            });
+    };   
           
         
     return {
@@ -128,6 +164,7 @@ var app = (function () {
         addKmlDataSource: _addKmlDataSource,
         homeView: _homeView,
         setCurrentTime: _setCurrentTime,
-        toggleLuts: _toggleLuts,
+        toggleEntity: _toggleEntity,
+        updateLuts: _updateLuts
     };
 })();

@@ -29,8 +29,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script type="text/javascript" src="{{ url_for('static', filename='Build/Cesium/Cesium.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/site.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='scripts/jquery-3.2.1.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='scripts/app.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='scripts/_run.js') }}"></script>
+
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -41,28 +40,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- End Google Tag Manager (noscript) -->
     <div id="cesiumContainer"></div>
     <div class="buttonHolder">
-        Site Number:  <input id="siteNumber" type="text" />
-        <p><input type="button" value="Add Site" onclick="app.addSite()" /> </p>
-        <br />
+        <div id="siteButtonHolder">
+            Site Number:  <input id="siteNumber" type="text" />
+            <input type="button" value="Add Site" onclick="app.addSite()" /><br />
+        </div>
+        <div id="otherButtonHolder">
         <!--Date / Time: <input id="startDate" type="date" />-->
-        <input type="button" value="Real Time Sites" onclick="app.realTime()" /> <br />
-        <!--<input type="button" value="Toggle Luts" onclick="app.toggleLuts()" /> <br />-->
-        <input type="button" value="Time Set to current" onclick="app.setCurrentTime()" />
+            <input type="button" id="realTimeSiteButton" value="Real Time Sites" onclick="app.realTime()" /> <br />
+            <input type="button" value="Toggle Luts" onclick="app.toggleEntity('FL')" /> <br />
+            <input type="button" value="Time Set to current" onclick="app.setCurrentTime()" />
+        </div>
     </div>
-
+    <script type="text/javascript">
+    //$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        baseUrl = "{{ url_for('index',_external = True) }}";
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/app.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/_run.js') }}"></script>
     <script>
 
-    $(document).ready(function() {     
-        
+    $(document).ready(function() {
+
         {% if KMLFILE %}
         app.addKmlDataSource('{{KMLFILE}}'); //,options));
         {% endif %}
-        
-        
+
+
         {% if CZMLFILE %}
         app.addCzmlDataSource('{{CZMLFILE}}') //,options));
         {% endif %}
-        
+
         /*
         {% if ZOOMTO %}
         camera.setView({
