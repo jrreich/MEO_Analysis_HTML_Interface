@@ -71,7 +71,7 @@ var app = (function () {
                     _toggleEntity(sitechanged);
                 })
                 .insertBefore('#realTimeSiteButton');
-        };
+        }
     };
 
         
@@ -81,19 +81,24 @@ var app = (function () {
         //czmlSiteDataSource = new Cesium.CzmlDataSource();
         //viewer.dataSources.add(czmlSiteDataSource);
         //czmlSiteDataSource.load("/api/czml/site/" + siteNum.value);     
-        _addCzmlDataSource("/api/czml/site/" + siteNum.value);
-        $('<br />').appendTo('#siteButtonHolder');
-        $('<input />', { type: 'checkbox', id: siteNum.value, name: siteNum.value, checked: 'True' })
-            .change(function () {
-                var sitechanged = $(this).prop('name');
-                _toggleEntity(sitechanged);
-            })
-            .appendTo('#siteButtonHolder');
-        $('<label />', { for: siteNum.value, text: siteNum.value }).appendTo('#siteButtonHolder');
+        if (!$('#' + siteNum.value).length) {
+            _addCzmlDataSource("/api/czml/site/" + siteNum.value);
+            $('<br />').appendTo('#siteButtonHolder');
+            $('<input />', { type: 'checkbox', id: siteNum.value, name: siteNum.value, checked: 'True' })
+                .change(function () {
+                    var sitechanged = $(this).prop('name');
+                    _toggleEntity(sitechanged);
+                })
+                .appendTo('#siteButtonHolder');
+            $('<label />', { for: siteNum.value, text: siteNum.value }).appendTo('#siteButtonHolder');
+        }
         viewer.flyTo(czmlDataSource.entities.getById(siteNum.value),
-                { offset: new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 200000) }
+            { offset: new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 200000) }
         );
-        };        
+        viewer.selectedEntity = czmlDataSource.entities.getById(siteNum.value);
+        $('.cesium-viewer-infoBoxContainer').show();
+    };
+        
         /*
         $.ajax({
             url: "/api/czml/site/"+siteNum.value,
@@ -139,13 +144,23 @@ var app = (function () {
         viewer.clock.clockStep = Cesium.ClockStep.SYSTEM_CLOCK;
     };
     
-    var _toggleEntity = function (id) {
-        var entity = czmlDataSource.entities.getById(id);
+    var _toggleEntity = function (id_list) {
+        var entity;
+        if (Array.isArray(id_list)) {
+            for (i = 0; i < id_list.length; i++) {
 
-        //alert(lutEntity.id);
-        //var testLutEntity = viewer.dataSources.entities.getById('NSOF');
-        //alert(testLutEntity.name);
-        entity.show = !entity.show;
+                entity = czmlDataSource.entities.getById(id_list[i]);
+
+                //alert(lutEntity.id);
+                //var testLutEntity = viewer.dataSources.entities.getById('NSOF');
+                //alert(testLutEntity.name);
+                entity.show = !entity.show;
+            }
+        }
+        else {
+            entity = czmlDataSource.entities.getById(id_list);
+            entity.show = !entity.show;
+        }
     };
 
     var _updateLuts = function () {
@@ -154,8 +169,76 @@ var app = (function () {
             .done(function (data) {
             });
     };   
-          
-        
+
+    var _showLatLon = function () {
+        // Mouse over the globe to see the cartographic position
+        var handler;
+        var scene = viewer.scene;
+        var entity = viewer.entities.add({
+            label: {
+                show: false,
+                showBackground: true,
+                font: '14px monospace',
+                horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
+                verticalOrigin: Cesium.VerticalOrigin.TOP,
+                pixelOffset: new Cesium.Cartesian2(15, 0)
+            }
+        });
+        handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+        handler.setInputAction(function (movement) {
+            var cartesian = viewer.camera.pickEllipsoid(movement.endPosition, scene.globe.ellipsoid);
+            if (cartesian) {
+                var cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+                var longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(4);
+                var latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(4);
+
+                entity.position = cartesian;
+                entity.label.show = true;
+                entity.label.text =
+                    'Lon: ' + ('   ' + longitudeString).slice(-9) + '\u00B0' +
+                    '\nLat: ' + ('   ' + latitudeString).slice(-9) + '\u00B0';
+            } else {
+                entity.label.show = false;
+            }
+        }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+    };
+
+    var _doubleClickSelect = function () {
+        viewer.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
+        var handler2 = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+        handler2.setInputAction(function (click) {
+            event.preventDefault();//OR click.preventDefault();
+            var pickedObject = viewer.scene.pick(click.position);
+            if (Cesium.defined(pickedObject)) {
+                
+                //var czmlSite = new Cesium.CzmlDataSource();
+                //viewer.dataSources.add(czmlSite);
+                var pickedId = pickedObject.id._id;
+                $("#siteNumber").val(pickedId);
+                _addSite();
+                //czmlSite.load('/api/czml/site/' + pickedObject.id._id).then(function () {
+                //    viewer.flyTo(czmlSite, {
+                //       duration: 5,
+                //        offset: new Cesium.HeadingPitchRange(0, -Math.PI / 4, 150000)
+                //    });
+                //});
+                //if (pickedObject.id._name) {
+                //   $('.cesium-viewer-infoBoxContainer').show();
+                //    flyTo(pickedObject.id._id);
+                //    console.log('showing something in the info box')
+                //}
+            }
+        }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+    };
+
+    var _handleKeyPress = function (e) {
+        var key = e.keyCode || e.which;
+        if (key === 13) {
+            _addSite();
+        }
+    };
+
     return {
         initCesium: _initCesium,
         realTime: _realTime,
@@ -165,6 +248,9 @@ var app = (function () {
         homeView: _homeView,
         setCurrentTime: _setCurrentTime,
         toggleEntity: _toggleEntity,
-        updateLuts: _updateLuts
+        updateLuts: _updateLuts,
+        showLatLon: _showLatLon,
+        handleKeyPress: _handleKeyPress,
+        doubleClickSelect: _doubleClickSelect
     };
 })();

@@ -41,15 +41,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div id="cesiumContainer"></div>
     <div class="buttonHolder">
         <div id="siteButtonHolder">
-            Site Number:  <input id="siteNumber" type="text" />
+            Site Number:  <input id="siteNumber" type="text" onkeypress="app.handleKeyPress(event)"/>
             <input type="button" value="Add Site" onclick="app.addSite()" /><br />
         </div>
         <div id="otherButtonHolder">
-        <!--Date / Time: <input id="startDate" type="date" />-->
+            <!--Date / Time: <input id="startDate" type="date" />-->
             <input type="button" id="realTimeSiteButton" value="Real Time Sites" onclick="app.realTime()" /> <br />
-            <input type="button" value="Toggle Luts" onclick="app.toggleEntity('FL')" /> <br />
+            <!--<input type="button" value="Toggle Luts" onclick="app.toggleEntity(['FL','GU','NSOF','AK','HI'])" /> <br /> -->
+            <input type="button" value="Toggle Luts" onclick="app.toggleEntity('lutSites')" /> <br /> 
             <input type="button" value="Time Set to current" onclick="app.setCurrentTime()" />
         </div>
+    </div>
+    <div class="toolHolder">
+        <input type="button" value="Show Lat/Lon on Mouse" onclick="app.showLatLon()" /> <br />
+        <input type="button" value="Double Click Select" onclick="app.doubleClickSelect()" /> <br />
     </div>
     <script type="text/javascript">
     //$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};

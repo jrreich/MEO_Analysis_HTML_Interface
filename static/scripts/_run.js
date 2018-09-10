@@ -1,8 +1,7 @@
 ﻿$(function () {
     app.initCesium();
     //$('#startDate')[0].valueAsDate = new Date();
-
-    app.homeView();
+    //app.homeView();
 
     var NSOFczml =
         [{
@@ -54,6 +53,7 @@
         },
         {
             "id": "FL",
+            "parent": "lutSites",
             "name": "FL",
             "label": {
                 "text": "FLLUTs",
@@ -71,24 +71,26 @@
         },
         {
             "id": "HI",
+            "parent": "lutSites",
             "label": { "text": "HILUTs" },
             "description": "Hawaii LEO/MEOLUTs",
             "position": { "cartographicDegrees": [-158.001297, 21.524410, 0] }
         },
         {
             "id": "AK",
+            "parent": "lutSites",
             "label": { "text": "FCDAS" },
             "description": "Fairbanks Command and Data Acquisition Station",
             "position": { "cartographicDegrees": [-147.515622, 64.973725, 0] }
         },
         {
             "id": "GU",
+            "parent": "lutSites",
             "label": { "text": "GULUTs" },
             "description": "Guam LEO LUTs",
             "position": { "cartographicDegrees": [144.939074, 13.578298, 0] }
         }];
     app.addCzmlDataSource(NSOFczml);
-    alert('loaded NSOF');
     app.addCzmlDataSource(LUTsczml);
     app.updateLuts();
 });

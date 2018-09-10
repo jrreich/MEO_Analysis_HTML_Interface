@@ -18,6 +18,18 @@
     color: grey;
 }
 
+.toolHolder {
+    position: absolute;
+    bottom: 40px;
+    right: 5px;
+    padding: 7px;
+    background-color: rgba(42, 42, 42, 0.8);
+    border: 2px solid grey;
+    border-radius: 7px;
+    vertical-align: middle;
+    color: grey;
+}
+
 .uiButton {
     position: relative;
     z-index: 2;
