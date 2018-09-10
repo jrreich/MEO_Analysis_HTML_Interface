@@ -26,7 +26,7 @@ if computer_name == 'RYZEN7':
 else: Deploy_on = 'MCC'	
 #Deploy_on = 'other2'
 
-TimeLog = True
+TimeLog = False
 
 
 if Deploy_on == 'MCC':
@@ -169,8 +169,11 @@ def realtimemonitor():
         else:
             burstwindow = 60
         EndTime = datetime.datetime.utcnow()
+        EndTime_str = EndTime.strftime('%Y-%m-%d %H:%M:%S')
         StartTime = EndTime - datetime.timedelta(days=float(days)) 
+        StartTime_str = StartTime.strftime('%Y-%m-%d %H:%M:%S')
         BurstStartTime = EndTime - datetime.timedelta(minutes=burstwindow)
+        BurstStartTime_str = BurstStartTime.strftime('%Y-%m-%d %H:%M:%S')
         alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime, servername,oppsdatabase) #, sql_login = 'yes')
         if TimeLog:
             print '1 - MEO Alarms'
@@ -179,20 +182,33 @@ def realtimemonitor():
         if TimeLog:
             print '2 - MEO Status'
             print datetime.datetime.utcnow() - startofscript 
-        #packetpercent = MEOInput_Analysis.MEOLUT_percent(BurstStartTime, EndTime, servername,mcctestLGM)  #, sql_login = 'yes')
-        HI_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3385, _external = True),verify = False).content)
+        HI_location_accuracy = MEOInput_Analysis.api_meo_location_accuracy(3385, BurstStartTime, EndTime, config_dict)
+        #HI_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3385, _external = True, 
+        #                                              StartTime = BurstStartTime_str, EndTime = EndTime_str),verify = False).content)
+        print HI_location_accuracy
         if TimeLog:
             print '3 - HI loc accuracy'
             print datetime.datetime.utcnow() - startofscript         
-        HI_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3385, rep_rate = 50, beaconId = 'AA5FC0000000001', _external = True),verify = False).content)
+        HI_packet_percent = MEOInput_Analysis.api_meo_packet_throughput(3385, BurstStartTime, EndTime, config_dict, 
+                                                          beaconId = 'AA5FC0000000001', rep_rate = 50, minutes = burstwindow)
+        #HI_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3385, rep_rate = 50, 
+        #                                           StartTime = BurstStartTime_str, EndTime = EndTime_str, beaconId = 'AA5FC0000000001', 
+        #                                           _external = True),verify = False).content)
         if TimeLog:
             print '4 - HI packet percent'
             print datetime.datetime.utcnow() - startofscript      
-        FL_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3669, _external = True), verify = False).content)
+        FL_location_accuracy = MEOInput_Analysis.api_meo_location_accuracy(3669, BurstStartTime, EndTime, config_dict)
+        #FL_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3669, _external = True,
+        #                                              StartTime = BurstStartTime_str, EndTime = EndTime_str), verify = False).content)
         if TimeLog:
             print '5 - FL loc accuracy '
-            print datetime.datetime.utcnow() - startofscript        
-        FL_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3669, rep_rate = 50, beaconId = 'ADDC00202020201', _external = True), verify = False).content)
+            print datetime.datetime.utcnow() - startofscript
+        FL_packet_percent = MEOInput_Analysis.api_meo_packet_throughput(3669, BurstStartTime, EndTime, config_dict, 
+                                                          beaconId = 'ADDC00202020201', rep_rate = 50, minutes = burstwindow)
+        #FL_url = url_for('meolut_packet_throughput', MEOLUT_ID = 3669, rep_rate = 50, 
+        #                                           beaconId = 'ADDC00202020201', _external = True, 
+        #                                           StartTime = BurstStartTime_str, EndTime = EndTime_str)
+        #FL_packet_percent = json.loads(get(FL_url, verify = False).content)
         if TimeLog:
             print '6 - FL packet percent'
             print datetime.datetime.utcnow() - startofscript  
@@ -255,6 +271,7 @@ def opensites():
                 ) 
 
 @app.route('/MEOBeaconAnalysis', methods=['GET','POST'])
+
 def MEOBeaconAnalysis():
     if request.method == 'GET':
         return render_template('MEOBeaconAnalysisForm.html')
@@ -307,10 +324,11 @@ def MEOBeaconAnalysis():
 
     else: 
         return '<h2> Invalid Request </h2>'
+
 @app.route('/MapTest', methods=['GET','POST'])
 def MapTest():
     if request.method == 'GET':
-        if request.args.get('KML') is not None:
+        if request.args.get('KML', None):
             return render_template('MapTest_v3.html', KMLFILE = request.args.get('KML'))
         else: 
             return render_template('MapTest_v3.html')
@@ -345,13 +363,6 @@ def meodata():
             f.save(filesaved)
         filelist = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
         return render_template('MeoDataCollection.html', linklist = filelist)
-        #if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
-        #    f = request.files['inputfile'] 
-        #    filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
-        #    f.save(filesaved)
-        #elif result['inputsource'] == 'mccdb':
-        #    filelist = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
-        #    return render_template('BurstAnalysisReturn.html', filelist=filelist )
     else: 
         return '<h2> Invalid Request </h2>'
 
@@ -383,6 +394,7 @@ def meolut_location_accuracy(MEOLUT_ID):
     if minutes == 0: minutes = 60
     if request.args.get('StartTime') is None: StartTime = EndTime - datetime.timedelta(minutes = minutes)
     beaconId = request.args.get('beaconId',None)
+    print MEOLUT_ID, StartTime, EndTime, beaconId
     output = MEOInput_Analysis.api_meo_location_accuracy(MEOLUT_ID, StartTime, EndTime, config_dict, beaconId = beaconId)
     output['StartTime'] = StartTime
     output['EndTime'] = EndTime
@@ -404,7 +416,10 @@ def meolut_packet_throughput(MEOLUT_ID):
         minutes_to_add = float(request.args.get('minutes'))
         minutes += minutes_to_add
     if minutes == 0: minutes = 60
-    if request.args.get('StartTime') is None: StartTime = EndTime - datetime.timedelta(minutes = minutes)
+    if 'StartTime' in request.args: 
+        StartTime = datetime.datetime.strptime(request.args.get('StartTime'), '%Y-%m-%d %H:%M:%S')
+    else: 
+        StartTime = EndTime - datetime.timedelta(minutes = minutes)
     rep_rate = request.args.get('rep_rate',None)
     beaconId = request.args.get('beaconId',None)
     packets = MEOInput_Analysis.api_meo_packet_throughput(MEOLUT_ID, StartTime, EndTime, config_dict, 

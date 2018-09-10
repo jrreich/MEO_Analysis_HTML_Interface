@@ -126,11 +126,7 @@ var app = (function () {
     
     var _addKmlDataSource = function (data) {
         alert(baseUrl + data);
-        viewer.dataSources.add(kmlDataSource.load(baseUrl + data),
-            {
-                camera: viewer.scene.camera,
-                canvas: viewer.scene.canvas
-            });
+        viewer.dataSources.add(kmlDataSource.process(baseUrl + data));
     };
 
     var _homeView = function () {
