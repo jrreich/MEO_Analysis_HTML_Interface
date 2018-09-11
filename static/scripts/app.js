@@ -8,6 +8,7 @@ var app = (function () {
                 credit: 'testing credits'
             })
         });
+        //viewer.extend(Cesium.viewerDragDropMixin);
         czmlDataSource = new Cesium.CzmlDataSource();
         viewer.dataSources.add(czmlDataSource);
         kmlDataSource = new Cesium.KmlDataSource();
@@ -73,7 +74,32 @@ var app = (function () {
                 .insertBefore('#realTimeSiteButton');
         }
     };
-
+    var _addMeoSats = function () {
+        _addCzmlDataSource(baseUrl + "api/czml/meo/orbit");
+        if ($("#meoSats").length < 1) {
+            $('<input />', {
+                type: 'checkbox', id: 'meoSats', name: 'meoSats', checked: 'True'
+            })
+                .change(function () {
+                    var sitechanged = $(this).prop('name');
+                    _toggleEntity(sitechanged);
+                })
+                .insertBefore('#meoSatButton');
+        }
+    };
+    var _addMeoPer = function (meo) {
+        _addCzmlDataSource(baseUrl + "api/czml/meo/per/" + meo);
+        if ($("#meoPer").length < 1) {
+            $('<input />', {
+                type: 'checkbox', id: 'meoPer', name: 'meoPer-'+meo, checked: 'True'
+            })
+                .change(function () {
+                    var sitechanged = $(this).prop('name');
+                    _toggleEntity(sitechanged);
+                })
+                .insertBefore('#meoPerButton');
+        }
+    };
         
         //_addCzmldataSource('/api/czml/site/'+siteNum.value);
     var _addSite = function () {
@@ -244,6 +270,8 @@ var app = (function () {
         homeView: _homeView,
         setCurrentTime: _setCurrentTime,
         toggleEntity: _toggleEntity,
+        addMeoSats: _addMeoSats,
+        addMeoPer: _addMeoPer,
         updateLuts: _updateLuts,
         showLatLon: _showLatLon,
         handleKeyPress: _handleKeyPress,

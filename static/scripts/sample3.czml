@@ -1,0 +1,340 @@
+[
+  {
+    "id": "document", 
+    "name": "MEOLUT Antenna Percentages", 
+    "version": "1.0"
+  }, 
+  {
+    "cylinder": {
+      "bottomRadius": 1000.0, 
+      "length": 400000.0, 
+      "material": {
+        "solidColor": {
+          "color": {
+            "rgba": [
+              0, 
+              255, 
+              0, 
+              128
+            ]
+          }
+        }
+      }, 
+      "outline": "true", 
+      "outlineColor": {
+        "rgba": [
+          0, 
+          0, 
+          0, 
+          255
+        ]
+      }, 
+      "topRadius": 1000.0
+    }, 
+    "id": "3669-1", 
+    "name": "3669-1 percent", 
+    "position": {
+      "cartographicDegrees": [
+        -80.383376, 
+        25.617661, 
+        0
+      ]
+    }
+  }, 
+  {
+    "cylinder": {
+      "bottomRadius": 1000.0, 
+      "length": 400000.0, 
+      "material": {
+        "solidColor": {
+          "color": {
+            "rgba": [
+              0, 
+              255, 
+              0, 
+              128
+            ]
+          }
+        }
+      }, 
+      "outline": "true", 
+      "outlineColor": {
+        "rgba": [
+          0, 
+          0, 
+          0, 
+          255
+        ]
+      }, 
+      "topRadius": 1000.0
+    }, 
+    "id": "3669-2", 
+    "name": "3669-2 percent", 
+    "position": {
+      "cartographicDegrees": [
+        -80.383177, 
+        25.617754, 
+        0
+      ]
+    }
+  }, 
+  {
+    "cylinder": {
+      "bottomRadius": 1000.0, 
+      "length": 400000.0, 
+      "material": {
+        "solidColor": {
+          "color": {
+            "rgba": [
+              0, 
+              255, 
+              0, 
+              128
+            ]
+          }
+        }
+      }, 
+      "outline": "true", 
+      "outlineColor": {
+        "rgba": [
+          0, 
+          0, 
+          0, 
+          255
+        ]
+      }, 
+      "topRadius": 1000.0
+    }, 
+    "id": "3669-3", 
+    "name": "3669-3 percent", 
+    "position": {
+      "cartographicDegrees": [
+        -80.382956, 
+        25.617641, 
+        0
+      ]
+    }
+  }, 
+  {
+    "cylinder": {
+      "bottomRadius": 1000.0, 
+      "length": 400000.0, 
+      "material": {
+        "solidColor": {
+          "color": {
+            "rgba": [
+              0, 
+              255, 
+              0, 
+              128
+            ]
+          }
+        }
+      }, 
+      "outline": "true", 
+      "outlineColor": {
+        "rgba": [
+          0, 
+          0, 
+          0, 
+          255
+        ]
+      }, 
+      "topRadius": 1000.0
+    }, 
+    "id": "3669-4", 
+    "name": "3669-4 percent", 
+    "position": {
+      "cartographicDegrees": [
+        -80.382982, 
+        25.617425, 
+        0
+      ]
+    }
+  }, 
+  {
+    "cylinder": {
+      "bottomRadius": 1000.0, 
+      "length": 400000.0, 
+      "material": {
+        "solidColor": {
+          "color": {
+            "rgba": [
+              0, 
+              255, 
+              0, 
+              128
+            ]
+          }
+        }
+      }, 
+      "outline": "true", 
+      "outlineColor": {
+        "rgba": [
+          0, 
+          0, 
+          0, 
+          255
+        ]
+      }, 
+      "topRadius": 1000.0
+    }, 
+    "id": "3669-5", 
+    "name": "3669-5 percent", 
+    "position": {
+      "cartographicDegrees": [
+        -80.383185, 
+        25.617309, 
+        0
+      ]
+    }
+  }, 
+  {
+    "cylinder": {
+      "bottomRadius": 1000.0, 
+      "length": 400000.0, 
+      "material": {
+        "solidColor": {
+          "color": {
+            "rgba": [
+              0, 
+              255, 
+              0, 
+              128
+            ]
+          }
+        }
+      }, 
+      "outline": "true", 
+      "outlineColor": {
+        "rgba": [
+          0, 
+          0, 
+          0, 
+          255
+        ]
+      }, 
+      "topRadius": 1000.0
+    }, 
+    "id": "3669-6", 
+    "name": "3669-6 percent", 
+    "position": {
+      "cartographicDegrees": [
+        -80.383412, 
+        25.61744, 
+        0
+      ]
+    }
+  }, 
+  {
+    "cylinder": {
+      "bottomRadius": 1000.0, 
+      "length": 400000.0, 
+      "material": {
+        "solidColor": {
+          "color": {
+            "rgba": [
+              0, 
+              255, 
+              0, 
+              128
+            ]
+          }
+        }
+      }, 
+      "outline": "true", 
+      "outlineColor": {
+        "rgba": [
+          0, 
+          0, 
+          0, 
+          255
+        ]
+      }, 
+      "topRadius": 1000.0
+    }, 
+    "id": "3669-7", 
+    "name": "3669-7 percent", 
+    "position": {
+      "cartographicDegrees": [
+        -80.38347, 
+        25.617234, 
+        0
+      ]
+    }
+  }, 
+  {
+    "cylinder": {
+      "bottomRadius": 1000.0, 
+      "length": 400000.0, 
+      "material": {
+        "solidColor": {
+          "color": {
+            "rgba": [
+              0, 
+              255, 
+              0, 
+              128
+            ]
+          }
+        }
+      }, 
+      "outline": "true", 
+      "outlineColor": {
+        "rgba": [
+          0, 
+          0, 
+          0, 
+          255
+        ]
+      }, 
+      "topRadius": 1000.0
+    }, 
+    "id": "3669-8", 
+    "name": "3669-8 percent", 
+    "position": {
+      "cartographicDegrees": [
+        -80.383013, 
+        25.617224, 
+        0
+      ]
+    }
+  }, 
+  {
+    "cylinder": {
+      "bottomRadius": 1000.0, 
+      "length": 400000.0, 
+      "material": {
+        "solidColor": {
+          "color": {
+            "rgba": [
+              0, 
+              255, 
+              0, 
+              128
+            ]
+          }
+        }
+      }, 
+      "outline": "true", 
+      "outlineColor": {
+        "rgba": [
+          0, 
+          0, 
+          0, 
+          255
+        ]
+      }, 
+      "topRadius": 1000.0
+    }, 
+    "id": "3669-9", 
+    "name": "3669-9 percent", 
+    "position": {
+      "cartographicDegrees": [
+        -76.936823, 
+        38.852473, 
+        0
+      ]
+    }
+  }
+]

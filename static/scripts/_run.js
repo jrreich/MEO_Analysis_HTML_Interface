@@ -23,7 +23,7 @@
                 }
             },
             "position": {
-                "cartographicDegrees": [-76.93677, 38.850913, 17]
+                "cartographicDegrees": [-76.9367, 38.8520, 10]
             },
             "description": "NOAA Satellite Operations Facility",
             "billboard": {
@@ -92,5 +92,6 @@
         }];
     app.addCzmlDataSource(NSOFczml);
     app.addCzmlDataSource(LUTsczml);
-    app.updateLuts();
+    app.updateLuts(); //have this add LUT percentages? 
+    //add LEOLUT last passes 
 });

@@ -1,8 +1,8 @@
 from werkzeug.utils import secure_filename
+from werkzeug.routing import BaseConverter, ValidationError
 from flask import Flask, url_for, request, render_template, jsonify; 
 #from app import app
 import beacon_decode as bcn
-from werkzeug.utils import secure_filename
 import pypyodbc
 import MEOInput_Analysis
 import datetime
@@ -55,6 +55,18 @@ app = Flask(__name__)
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+class DateConverter(BaseConverter):
+    """Extracts a ISO8601 date from the path and validates it."""
+    regex = r'\d{4}-\d{2}-\d{2}'
+    def to_python(self, value):
+        try:
+            return datetime.datetime.strptime(value, '%Y-%m-%d')
+        except ValueError:
+            raise ValidationError()
+    def to_url(self, value):
+        return value.strftime('%Y-%m-%d')
+app.url_map.converters['date'] = DateConverter
 
 #server/Main
 @app.route('/', methods =['GET'])
@@ -486,28 +498,41 @@ def stream():
     
     return Response(eventStream(), mimetype="text/event-stream")
 
-@app.route("/api/czml/meo/per/<int:sourceid>")
-def czml_meolut_ant_per(sourceid):
-    currentDateTime = datetime.datetime.utcnow()
-    bcnid = 'ADDC00202020201'
-    MeoPercent = MEOInput_Analysis.czml_meolut_ant_per(currentDateTime, bcnid, sourceid, servername, mcctestLGM)
-    return MeoPercent 
-
 @app.route("/api/czml/site/<int:sitenum>")
 def czml_meo_input_by_site(sitenum):
     MeoInput = MEOInput_Analysis.czml_site_meo_input(sitenum, servername, oppsdatabase)
     return jsonify(MeoInput)
 
-@app.route("/api/czml/orbit/meo")
-def czml_meo_sat_orbit():
-    #starttime = datetime.datetime(2017,8,21)
-    #endtime = datetime.datetime(2017,8, 22)
-    endtime = datetime.datetime.utcnow() + datetime.timedelta(days = 1)
-    starttime = endtime - datetime.timedelta(days = 2)
+@app.route("/api/czml/meo/orbit/<date:input_date>")
+def czml_meo_sat_orbit_date(input_date):
+    endtime = input_date + datetime.timedelta(days = 1)
+    starttime = input_date - datetime.timedelta(days = 1)
+    print type(endtime)
+    print endtime.isoformat()
     OrbitData = MEOInput_Analysis.czml_meo_orbit_all(starttime, endtime, servername, oppsdatabase ) #, satnum)
     return jsonify(OrbitData)
 
-@app.route("/api/czml/orbit/leo")
+@app.route("/api/czml/meo/orbit")
+def czml_meo_sat_orbit_now():
+    endtime = datetime.datetime.utcnow()
+    starttime = endtime - datetime.timedelta(days = 2)
+    print endtime
+    OrbitData = MEOInput_Analysis.czml_meo_orbit_all(starttime, endtime, servername, oppsdatabase ) #, satnum)
+    return jsonify(OrbitData)
+
+@app.route("/api/czml/meo/per/<int:sourceId>")
+def czml_meolut_ant_per(sourceId):
+    EndTime = datetime.datetime.utcnow()
+    num_hours = 4 
+    StartTime = EndTime - datetime.timedelta(hours = num_hours)
+    if sourceId == 3669: beaconId = 'ADDC00202020201'
+    if sourceId == 3885: beaconId = 'AA5FC0000000001'
+    packet_percent = MEOInput_Analysis.api_meo_packet_throughput(sourceId, StartTime, EndTime, config_dict, 
+                                                          beaconId = beaconId, rep_rate = 50, minutes = num_hours*60)
+    meo_czml = MEOInput_Analysis.czml_meo_ant_per(packet_percent, StartTime, EndTime,)
+    return jsonify(meo_czml)
+
+@app.route("/api/czml/leo/orbit")
 def czml_leo_sat_orbit():
     #starttime = datetime.datetime(2017,8,19)
     #endtime = datetime.datetime(2017,8, 22)
@@ -516,7 +541,7 @@ def czml_leo_sat_orbit():
     OrbitData = MEOInput_Analysis.czml_leo_orbit_all(starttime, endtime, servername, oppsdatabase ) #, satnum)
     return jsonify(OrbitData)
 
-@app.route("/api/czml/sched/meo")
+@app.route("/api/czml/meo/sched")
 def czml_meo_schedule_all():
     starttime = datetime.datetime(2017,8,19)
     endtime = datetime.datetime(2017,8, 22)
