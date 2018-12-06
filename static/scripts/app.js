@@ -81,11 +81,13 @@ var app = (function () {
             window.alert('Error processing ' + source + ':' + error);
         });
 
-        //return {
-        //viewer: viewer
-        //};
+
     };
 
+    var _reset = function () {
+        czmlDataSource.entities.removeAll();
+        kmlDataSource.entities.removeAll();
+    };
     var _realTime = function () {
         var currentTime = new Date();
         $.ajax({
@@ -128,18 +130,20 @@ var app = (function () {
                 .insertBefore('#meoSatButton');
         }
     };
-    var _addMeoPer = function (meo) {
-        _addCzmlDataSource(baseUrl + "api/czml/meo/per/" + meo);
-        if ($("#meoPer").length < 1) {
-            $('<input />', {
-                type: 'checkbox', id: 'meoPer', name: 'meoPer-'+meo, checked: 'True'
-            })
-                .change(function () {
-                    var sitechanged = $(this).prop('name');
-                    _toggleEntity(sitechanged);
+    var _addMeoPer = function (meolist) {
+        $.each(meolist, function (ind, meo) {
+            _addCzmlDataSource(baseUrl + "api/czml/meo/per/" + meo);
+            if ($("#meoPer").length < 1) {
+                $('<input />', {
+                    type: 'checkbox', id: 'meoPer', name: 'meoPer-' + meo, checked: 'True'
                 })
-                .insertBefore('#meoPerButton');
-        }
+                    .change(function () {
+                        var sitechanged = $(this).prop('name');
+                        _toggleEntity(sitechanged);
+                    })
+                    .insertBefore('#meoPerButton');
+            }
+        });
     };
         
         //_addCzmldataSource('/api/czml/site/'+siteNum.value);
@@ -304,6 +308,7 @@ var app = (function () {
 
     return {
         initCesium: _initCesium,
+        reset: _reset,
         realTime: _realTime,
         addSite: _addSite,
         addCzmlDataSource: _addCzmlDataSource,

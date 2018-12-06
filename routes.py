@@ -109,8 +109,6 @@ def rawburst():
             #MEOLUT_list = [x.strip() for x in MEOLUT_in.split(',')] 
         else:
             MEOLUTList = ['%']
-        #print 'MEOLUTList - ' 
-        #print MEOLUTList 
         if result['StartTime']:
             StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
         else:
@@ -197,7 +195,6 @@ def realtimemonitor():
         HI_location_accuracy = MEOInput_Analysis.api_meo_location_accuracy(3385, BurstStartTime, EndTime, config_dict)
         #HI_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3385, _external = True, 
         #                                              StartTime = BurstStartTime_str, EndTime = EndTime_str),verify = False).content)
-        print HI_location_accuracy
         if TimeLog:
             print '3 - HI loc accuracy'
             print datetime.datetime.utcnow() - startofscript         
@@ -290,7 +287,6 @@ def MEOBeaconAnalysis():
     elif request.method == 'POST':
         # read input
         result = request.form
-        print result
         if result.get('beaconID', False):
             beaconId = result['beaconID']
         else:
@@ -299,8 +295,6 @@ def MEOBeaconAnalysis():
             MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
         else:
             MEOLUTList = [None]
-        print 'meo list '
-        print MEOLUTList
         #first two are holdover from the /MEOData page - may need reworked. 
         if result.get('RealPastTime',False) == 'RT_yes':
             EndTime = datetime.datetime.utcnow()
@@ -321,11 +315,11 @@ def MEOBeaconAnalysis():
             f = request.files['gt_inputfile'] 
             filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
             f.save(filesaved)
-        print 'start of MEOInput_Analysis calls - ' + str(datetime.datetime.utcnow()) 
+        if TimeLog: print 'start of MEOInput_Analysis calls - ' + str(datetime.datetime.utcnow()) 
         filelist2 = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, config_dict, filesaved_zip) 
-        print 'after of MEOInput_Analysis.MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
+        if TimeLog: print 'after of MEOInput_Analysis.MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
         csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
-        print 'after of MEOInput_Analysis.MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
+        if TimeLog: print 'after of MEOInput_Analysis.MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
         filelist.update(filelist2)
         if csvoutfile == None:
             print 'csvoutfile was None'
@@ -406,7 +400,6 @@ def meolut_location_accuracy(MEOLUT_ID):
     if minutes == 0: minutes = 60
     if request.args.get('StartTime') is None: StartTime = EndTime - datetime.timedelta(minutes = minutes)
     beaconId = request.args.get('beaconId',None)
-    print MEOLUT_ID, StartTime, EndTime, beaconId
     output = MEOInput_Analysis.api_meo_location_accuracy(MEOLUT_ID, StartTime, EndTime, config_dict, beaconId = beaconId)
     output['StartTime'] = StartTime
     output['EndTime'] = EndTime
@@ -435,14 +428,7 @@ def meolut_packet_throughput(MEOLUT_ID):
     rep_rate = request.args.get('rep_rate',None)
     beaconId = request.args.get('beaconId',None)
     packets = MEOInput_Analysis.api_meo_packet_throughput(MEOLUT_ID, StartTime, EndTime, config_dict, 
-                                                          beaconId = beaconId, rep_rate = rep_rate, minutes = minutes)
-    #print 'packets in api function'
-    #print packets
-    #print 'packets[antenna].items in api fuction'
-    #print packets['antenna'].items()
-    #packets['antenna'] = json.loads(json.dumps(packets['antenna']), object_pairs_hook=OrderedDict)
-    #print 'packets on the way out of api'
-    #print packets
+                                                          rep_rate = rep_rate, minutes = minutes, beaconId = beaconId)
     packets['StartTime'] = StartTime
     packets['EndTime'] = EndTime
     return jsonify(packets)
@@ -507,17 +493,14 @@ def czml_meo_input_by_site(sitenum):
 def czml_meo_sat_orbit_date(input_date):
     endtime = input_date + datetime.timedelta(days = 1)
     starttime = input_date - datetime.timedelta(days = 1)
-    print type(endtime)
-    print endtime.isoformat()
-    OrbitData = MEOInput_Analysis.czml_meo_orbit_all(starttime, endtime, servername, oppsdatabase ) #, satnum)
+    OrbitData = MEOInput_Analysis.czml_meo_orbit_all(starttime, endtime, config_dict) #, satnum)
     return jsonify(OrbitData)
 
 @app.route("/api/czml/meo/orbit")
 def czml_meo_sat_orbit_now():
     endtime = datetime.datetime.utcnow()
     starttime = endtime - datetime.timedelta(days = 2)
-    print endtime
-    OrbitData = MEOInput_Analysis.czml_meo_orbit_all(starttime, endtime, servername, oppsdatabase ) #, satnum)
+    OrbitData = MEOInput_Analysis.czml_meo_orbit_all(starttime, endtime, config_dict) #, satnum)
     return jsonify(OrbitData)
 
 @app.route("/api/czml/meo/per/<int:sourceId>")
@@ -525,10 +508,10 @@ def czml_meolut_ant_per(sourceId):
     EndTime = datetime.datetime.utcnow()
     num_hours = 4 
     StartTime = EndTime - datetime.timedelta(hours = num_hours)
-    if sourceId == 3669: beaconId = 'ADDC00202020201'
-    if sourceId == 3885: beaconId = 'AA5FC0000000001'
+    if sourceId == 3669: beaconId =  'ADDC00202020201'
+    if sourceId == 3385: beaconId =  'AA5FC0000000001'
     packet_percent = MEOInput_Analysis.api_meo_packet_throughput(sourceId, StartTime, EndTime, config_dict, 
-                                                          beaconId = beaconId, rep_rate = 50, minutes = num_hours*60)
+                                                          rep_rate = 50, minutes = num_hours*60, beaconId = beaconId)
     meo_czml = MEOInput_Analysis.czml_meo_ant_per(packet_percent, StartTime, EndTime,)
     return jsonify(meo_czml)
 

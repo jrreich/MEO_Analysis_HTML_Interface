@@ -47,11 +47,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
         <div id="otherButtonHolder">
             <!--Date / Time: <input id="startDate" type="date" />-->
+            <input type="button" id="reset" value="Remove all entities" onclick="app.reset()" /> <br />
             <input type="button" id="realTimeSiteButton" value="Real Time Sites" onclick="app.realTime()" /> <br />
             <!--<input type="button" value="Toggle Luts" onclick="app.toggleEntity(['FL','GU','NSOF','AK','HI'])" /> <br /> -->
             <input type="button" value="Toggle Luts" onclick="app.toggleEntity('lutSites')" /> <br />
             <input type="button" id="meoSatButton" value="MEO Sats" onclick="app.addMeoSats()" /> <br />
-            <input type="button" id="meoPerButton" value="MEO Antennas" onclick="app.addMeoPer(3669)" /> <br />
+            <input type="button" id="meoPerButton" value="MEO Antennas" onclick="app.addMeoPer([3669, 3385])" /> <br />
             <input type="button" value="Time Set to current" onclick="app.setCurrentTime()" />
         </div>
     </div>

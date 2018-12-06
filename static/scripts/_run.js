@@ -94,4 +94,36 @@
     app.addCzmlDataSource(LUTsczml);
     app.updateLuts(); //have this add LUT percentages? 
     //add LEOLUT last passes 
+
+
+    //var wmsSource = new Cesium.WebMapServiceImageryProvider({
+    //    url: "https://idpgis.ncep.noaa.gov/arcgis/services/radar/radar_base_reflectivity_time/ImageServer/WMSServer",
+    //    layers: "0",
+    //    parameters: {
+    //        transparent: "true",
+    //        format: "image/png"
+    //    }
+    //});
+    //viewer.imageryLayers.addImageryProvider(wmsSource);
+
+    //var wmsWarningsSource = new Cesium.WebMapServiceImageryProvider({
+    //    url: "https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/WMSServer",
+    //    layers: "0",
+    //    parameters: {
+    //        transparent: "true",
+    //        format: "image/png"
+    //    }
+    //});
+    //viewer.imageryLayers.addImageryProvider(wmsWarningsSource);
+
+    var noaaSource = new Cesium.WebMapServiceImageryProvider({
+        url: "https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WmsServer",
+        layers: "0",
+        parameters: {
+            transparent: "true",
+            format: "image/png"
+        }
+    });
+    viewer.imageryLayers.addImageryProvider(noaaSource);
+    
 });
