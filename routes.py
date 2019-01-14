@@ -439,7 +439,7 @@ def api_site(sitenum):
     # can return any table where a sitenum is defined -- ie alertsitesol, alertsitesum (default if not defined), outsolution 
     input_data = request.args.to_dict()
     outdata = MEOInput_Analysis.api_site(input_data, config_dict, sitenum)
-    return outdata
+    return jsonify(outdata)
 
 @app.route('/api/leogeo/sols', methods = ['GET','POST'])
 def api_leo_geo_sols():
