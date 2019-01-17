@@ -13,10 +13,10 @@ $(function () {
         $.getJSON('/api/sitesum/' + SiteNum, {}, function (data) {
             var sd = new Date(data.OpenTime);
             var ed = new Date(data.TimeLast);
-            console.log(data.Closed)
             $('#beaconIDinput').val(data.BcnId15);
             $('#StartTime').val(sd.toISOString().slice(0, 16));
             $('#pasttime').prop('checked', true);
+            $('#usersiteid').prop('checked', true);
             if (data.Closed == "Y") {
                 $('#EndTime').val(ed.toISOString().slice(0, 16));
             };

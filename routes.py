@@ -9,7 +9,8 @@ import datetime
 import csv
 import sys
 import os
-import urllib, json
+import json
+import requests 
 from requests import get 
 #import sendsms as sms
 
@@ -26,18 +27,20 @@ if computer_name == 'RYZEN7':
 else: Deploy_on = 'MCC'	
 #Deploy_on = 'other2'
 
-TimeLog = False
+TimeLog = True
 
 
 if Deploy_on == 'MCC':
     servername = 'localhost' #for deploying on MCC
     #oppsdatabase = 'mccoperationalRpt' #for deploying on operational MCC
     oppsdatabase = 'MccMeoLutMonitor' #for deploying on MCC - new db
-    mcctestLGM = 'MccMeoLutMonitor' #for deploying on MCC - new db	
+    mcctestLGM = 'MccMeoLutMonitor' #for deploying on MCC - new db
+    urlbase = 'https://sar-reportsrv'
 elif Deploy_on == 'other1':
     servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC - 2018 and on
     oppsdatabase = 'MccMeoLutMonitor' # for deploying on REICHJ-PC
     mcctestLGM = 'MccMeoLutMonitor' #should work for both MCC and REICHJ-PC
+    urlbase = "http://jrreich.myftp.org/"
 else: 
     servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC
     oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
@@ -173,7 +176,7 @@ def realtimemonitor():
         if request.args.get('refreshtimer') <> None:
             refreshtimer = float(request.args.get('refreshtimer'))
         else:
-            refreshtimer = 30
+            refreshtimer = 300
         if request.args.get('burstwindow') <> None:
             burstwindow = float(request.args.get('burstwindow'))
         else:
@@ -287,10 +290,7 @@ def MEOBeaconAnalysis():
     elif request.method == 'POST':
         # read input
         result = request.form
-        if result.get('beaconID', False):
-            beaconId = result['beaconID']
-        else:
-            beaconId = '%'
+
         if 'MEOLUT' in result: 
             MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
         else:
@@ -316,7 +316,7 @@ def MEOBeaconAnalysis():
             filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
             f.save(filesaved)
         if TimeLog: print 'start of MEOInput_Analysis calls - ' + str(datetime.datetime.utcnow()) 
-        filelist2 = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, config_dict, filesaved_zip) 
+        filelist2 = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved_zip) 
         if TimeLog: print 'after of MEOInput_Analysis.MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
         csvoutfile, imglist, filelist = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
         if TimeLog: print 'after of MEOInput_Analysis.MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
@@ -434,11 +434,12 @@ def meolut_packet_throughput(MEOLUT_ID):
     return jsonify(packets)
 
 
-@app.route('/api/comp/<int:sitenum>', methods = ['GET','POST'])
-def api_site(sitenum):
-    # can return any table where a sitenum is defined -- ie alertsitesol, alertsitesum (default if not defined), outsolution 
+@app.route('/api/site/<table>/<int:sitenum>', methods = ['GET','POST'])
+def api_site(table, sitenum):
+    # can return any table where a sitenum is defined -- ie alertsitesol, (default if not defined), alertsitesum , outsolution 
     input_data = request.args.to_dict()
-    outdata = MEOInput_Analysis.api_site(input_data, config_dict, sitenum)
+    outdata = MEOInput_Analysis.api_site(config_dict, sitenum, table)
+    #print outdata[0]
     return jsonify(outdata)
 
 @app.route('/api/leogeo/sols', methods = ['GET','POST'])
@@ -454,6 +455,22 @@ def api_JSON_leo_geo_sols():
     data = request.args.to_dict()
     outdata = MEOInput_Analysis.api_JSON_leo_geo_sols(data, config_dict)
     return outdata
+
+@app.route('/api/comp/<int:sitenum>', methods = ['GET','POST'])
+def api_comp_sols(sitenum):
+    # returns all composite locations for a site
+    url = urlbase + "api/site/alertsitesol/{}".format(sitenum)
+    print(url)
+    composite_columns = ['alertsitenum','gentime', 'addtime','complat','complon','altitude','matchdistance', 
+                         'enclat','enclon', 'encmatchdistance', 'inputdatatype',  'alertmsgstate', 'bcnid15', 'bcnid30', 
+                        'sourceid', 'sourcename', 'sat','satelliteids','numbursts','numpackets','numsatellites','dop',
+                        'sourceantennaids', 'indlocweight', 'indencdistance']
+    data = (requests.get(url)).json()
+    out_dict = {}
+    for row in data:
+        if row['complat'] != "NULL":
+            out_dict[row['alertsitesolid']] = {x:row[x] for x in composite_columns}
+    return jsonify(out_dict)
 
 @app.route('/api/output/sols/<int:sitenum>', methods = ['GET'])
 def api_output_sols(sitenum):

@@ -137,42 +137,47 @@ section h2{
 
 
 
-#RawAnalyzer label{
-    display:inline-block;
-    padding: 5px 0 0 20px;
-
-}
-
-#RawAnalyzer input{
-    display: inline-block;
-}
-
-#RawAnalyzer #rthours {
+.form #rthours {
     display: none;
 }
 
-#realtime:checked ~ #rthours {
+.form #realtime:checked ~ #rthours {
     display: inline-block;
     margin-left: 10px;
 }
 
-#pasttime:checked ~ .times {
+.form .times {
+    display: none;
+}
+
+.form #pasttime:checked ~ .times {
     display: inline-block;
     margin-left:10px;
 }
 
+.form .inputfield {
+    display: none;
+}
+
+.form #userbeaconid:checked ~ .inputfield {
+    display: inline-block;
+    margin-left: 10px;
+}
+.form #usersiteid:checked ~ .inputfield {
+    display: inline-block;
+    margin-left: 10px;
+}
 
 
-
-#MEOInputAnalysis input{
+/*#MEOInputAnalysis input{
     display: inline-block;
 }
 
 #MEOInputAnalysis #rthours {
     display: none;
-}
+}*/
 
-#realtime:checked ~ #rthours {
+/*#realtime:checked ~ #rthours {
     display: inline-block;
     margin-left: 10px;
 }
@@ -182,7 +187,7 @@ section h2{
 #pasttime:checked ~ .times {
     display: inline-block;
     margin-left:10px;
-}
+}*/
 
 
 
@@ -307,7 +312,7 @@ fieldset#gtsource #latloninput {
     background: green;
 }
 
-#MEOBeaconAnalysis input {
+/*#MEOBeaconAnalysis input {
     display: inline-block;
 }
 
@@ -324,7 +329,7 @@ fieldset#gtsource #latloninput {
 #MEOBeaconAnalysis #pasttime:checked ~ .times {
     display: inline-block;
     margin-left: 10px;
-}
+}*/
 
 #MEOBeaconAnalysis #fileinput {
     display: none;
