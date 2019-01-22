@@ -152,21 +152,38 @@ var app = (function () {
         //czmlSiteDataSource = new Cesium.CzmlDataSource();
         //viewer.dataSources.add(czmlSiteDataSource);
         //czmlSiteDataSource.load("/api/czml/site/" + siteNum.value);     
-        if (!$('#' + siteNum.value).length) {
-            _addCzmlDataSource("/api/czml/site/" + siteNum.value);
+        if (!$('#leo' + siteNum.value).length) {
+            //Add MEO Input Locations
+            //_addCzmlDataSource("/api/czml/site/" + siteNum.value);
+
+            //Add LEO Locations
+            _addCzmlDataSource("/api/czml/site/leo/" + siteNum.value);
             $('<br />').appendTo('#siteButtonHolder');
-            $('<input />', { type: 'checkbox', id: siteNum.value, name: siteNum.value, checked: 'True' })
+            $('<input />', { type: 'checkbox', id: 'leo' + siteNum.value, name: 'leo' + siteNum.value, checked: 'True' })
                 .change(function () {
                     var sitechanged = $(this).prop('name');
                     _toggleEntity(sitechanged);
                 })
                 .appendTo('#siteButtonHolder');
-            $('<label />', { for: siteNum.value, text: siteNum.value }).appendTo('#siteButtonHolder');
+            $('<label />', { for: 'leo'+ siteNum.value, text: '  leo -'+siteNum.value }).appendTo('#siteButtonHolder');
         }
-        viewer.flyTo(czmlDataSource.entities.getById(siteNum.value),
+        if (!$('#comp' + siteNum.value).length) {
+            _addCzmlDataSource("/api/czml/site/comp/" + siteNum.value);
+            //Add Composite Locations
+            $('<br />').appendTo('#siteButtonHolder');
+            $('<input />', { type: 'checkbox', id: 'comp' + siteNum.value, name: 'comp' + siteNum.value, checked: 'True' })
+                .change(function () {
+                    var sitechanged = $(this).prop('name');
+                    _toggleEntity(sitechanged);
+                })
+                .appendTo('#siteButtonHolder');
+            $('<label />', { for: 'comp'+siteNum.value, text: 'comp -' + siteNum.value }).appendTo('#siteButtonHolder');
+
+        }
+        viewer.flyTo(czmlDataSource.entities.getById('comp'+siteNum.value),
             { offset: new Cesium.HeadingPitchRange(0, (-Math.PI / 2), 200000) }
         );
-        viewer.selectedEntity = czmlDataSource.entities.getById(siteNum.value);
+        viewer.selectedEntity = czmlDataSource.entities.getById('comp'+siteNum.value);
         $('.cesium-viewer-infoBoxContainer').show();
     };
         

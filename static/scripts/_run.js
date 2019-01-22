@@ -124,6 +124,6 @@
             format: "image/png"
         }
     });
-    viewer.imageryLayers.addImageryProvider(noaaSource);
+    //viewer.imageryLayers.addImageryProvider(noaaSource);
     
 });

@@ -12,9 +12,19 @@
             <a href="{{ url_for('index') }}">Analysis Tools</a>
         </h1>
     </div>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+    <script>
+            $(function () {
+                $("#nav-placeholder").load("{{ url_for('static', filename = 'templates/navbar.html') }}", function () {
+                    $("#beaconDecodeHome").addClass("active");
+                    $("#home").removeClass("active");
+                });
+            });
+    </script>
     <h2>Beacon ID {{ beaconID}}did not decode</h2>
     <!--
-        
+
     -->
 </body>
 </html>

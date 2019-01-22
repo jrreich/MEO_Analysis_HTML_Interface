@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Burst Analysis</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
-    <!--<link rel="stylesheet" type="text/css" href='styles/mystylesheet3.css'>-->
+    <script type="application/javascript" src="{{ url_for('static', filename='scripts/jquery-3.2.1.js') }}"></script>
 
 </head>
 <body>
@@ -16,15 +16,16 @@
                 <a href="{{ url_for('index') }}">Analysis Tools</a>
             </h1>
         </div>
-        <nav class="topnav">
-            <a href="/" class="home">Home</a>
-            <a href="/beacon">Beacon Decode</a>
-            <a href="/rawburst" class="active">Burst Analysis</a>
-            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
-            <a href="/RealTimeMonitor">Real Time Monitoring</a>
-            <a href="/SiteQuery">Site Query</a>
-            <a href="/MEOBeaconAnalysis">MEOLUT Beacon Analysis</a>
-        </nav>
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
+        <script>
+            $(function () {
+                $("#nav-placeholder").load("{{ url_for('static', filename = 'templates/navbar.html') }}", function () {
+                    $("#burstAnalysisHome").addClass("active");
+                    $("#home").removeClass("active");
+                });
+            });
+        </script>
         <section class="content" id="MEOInputAnalysis">
             <form method="post" enctype="multipart/form-data">
                 <fieldset>
@@ -86,7 +87,7 @@
                 {% for filename in filelist %}
                 <a href="{{ filename }}">
                     <img id="BurstResult" src="{{ filename }}" alt="Results png" title="results" />
-                </a>         
+                </a>
                 {% endfor %}
             </article>
         </section>

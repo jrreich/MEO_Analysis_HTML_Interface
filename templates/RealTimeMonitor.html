@@ -35,18 +35,17 @@
                 <a href="{{ url_for('index') }}">Real Time Monitoring - {{EndTime.strftime('%m/%d/%y %H:%M:%S')}}</a>
             </h1>
         </div>
-
-
-        <nav class="topnav">
-            <a href="/" class="home">Home</a>
-            <a href="/beacon">Beacon Decode</a>
-            <a href="/rawburst">Burst Analysis</a>
-            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
-            <a href="/RealTimeMonitor" class="active">Real Time Monitoring</a>
-            <a href="/SiteQuery">Site Query</a>
-            <a href="/MEOBeaconAnalysis">MEOLUT Beacon Analysis</a>
-        </nav>
-        <section class="content" >
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
+        <script>
+            $(function () {
+                $("#nav-placeholder").load("{{ url_for('static', filename = 'templates/navbar.html') }}", function () {
+                    $("#realTimeMonitorHome").addClass("active");
+                    $("#home").removeClass("active");
+                });
+            });
+        </script>
+        <section class="content">
             <article class="packets">
                 <h3>
                     HI MEOLUT from {{BurstStartTime.strftime('%m/%d/%y %H:%M')}} to
@@ -62,7 +61,7 @@
                     <tr>
                         <td>{{ HI_location_accuracy.num_of_locations }}</td>
                         <td>{{ '%0.2f'| format(HI_location_accuracy.mean|float) }} </td>
-                        <td>{{ '%0.2f'| format(HI_location_accuracy.p90|float)}} </td> 
+                        <td>{{ '%0.2f'| format(HI_location_accuracy.p90|float)}} </td>
                         <td class="ant_percent_table">{{ '%0.2f'| format(HI_location_accuracy.percent_less_than_5km*100|float) }} </td>
                     </tr>
                 </table>
@@ -128,15 +127,15 @@
                     {% for alarm in alarmlist %}
                     <tr>
                         <td>{{alarm.alarmid}}</td>
-                        <td>{{alarm.meolutname}}</td>    
+                        <td>{{alarm.meolutname}}</td>
                         <td> {{alarm.alarmtext}} </td>
                         <td>{{alarm.openat}}</td>
                         <td>{{alarm.stillopen}}</td>
                     </tr>
                     {% endfor %}
-                </table> 
-                    
-            </article> 
+                </table>
+
+            </article>
             <article class="status" id="HI">
                 <h3>Hawaii Status as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }} </h3>
                 <table>

@@ -4,27 +4,33 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/javascript" src="{{ url_for('static', filename='scripts/jquery-3.2.1.js') }}"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118635979-1"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', 'UA-118635979-1');
+        gtag('config', 'UA-118635979-1');
     </script>
     <!-- Google Tag Manager -->
     <script>
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-54WJ7FT');</script>
+        (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-54WJ7FT');
+    </script>
     <!-- End Google Tag Manager -->
     <title>SARSAT Analysis App</title>
-    <link rel="stylesheet" type="text/css" href='styles/mystylesheet3.css'> 
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
-    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
+    <script type="text/javascript">
+        baseUrl = "{{ url_for('index',_external = True) }}";
+    </script>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -39,18 +45,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <a href="{{ url_for('index') }}">Analysis Tools</a>
             </h1>
         </div>
-        <nav class="topnav">
-            <a href="/" class="home active">Home</a>
-            <a href="/beacon">Beacon Decode</a>
-            <a href="/rawburst">Burst Analysis</a>
-            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
-            <a href="/RealTimeMonitor">Real Time Monitoring</a>
-            <a href="/SiteQuery">Site Query</a>
-			<a href="/MEOBeaconAnalysis">MEOLUT Beacon Analysis</a>
-            <a href="/MapTest">Map (Dev)</a>
-            <a href="/MEOData">Get MEO data (J1,J2,J3)</a>
-            <a href="/messager">Messaging Test</a>
-        </nav>
+
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
+        <script>
+            $(function () {
+                $("#nav-placeholder").load("{{ url_for('static', filename = 'templates/navbar.html') }}");
+            });
+        </script>
         <section class="content">
             <h2> Welcome to the LUT Analysis Tools</h2>
             <p>Select from the toolbar above to start analyzing</p>

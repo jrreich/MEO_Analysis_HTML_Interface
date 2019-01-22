@@ -66,12 +66,14 @@
     <Content Include="static\styles\mystylesheet.css" />
     <Content Include="static\styles\mystylesheet3.css" />
     <Content Include="static\styles\site.css" />
+    <Content Include="static\templates\navbar.html" />
     <Content Include="templates\BeaconDecoded.html" />
-    <Content Include="templates\BeaconDecoder3.html" />
+    <Content Include="templates\BeaconDecode.html" />
     <Content Include="templates\BurstAnalysisForm.html" />
+    <Content Include="templates\MEOBeaconAnalysisReturn.html" />
     <Content Include="templates\MeoDataCollection.html" />
-    <Content Include="templates\index3.html" />
-    <Content Include="templates\MapTest_v3.html" />
+    <Content Include="templates\index.html" />
+    <Content Include="templates\Cesium_Map.html" />
     <Content Include="templates\MEOBeaconAnalysisForm.html" />
     <Content Include="templates\MEOBeaconAnalysisReturnNoData.html" />
     <Content Include="templates\MEOInputAnalysisForm.html" />
@@ -100,6 +102,7 @@
     <Folder Include="static\" />
     <Folder Include="static\scripts\" />
     <Folder Include="static\styles\" />
+    <Folder Include="static\templates\" />
     <Folder Include="templates\" />
   </ItemGroup>
   <ItemGroup>

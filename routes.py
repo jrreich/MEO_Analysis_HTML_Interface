@@ -11,12 +11,16 @@ import sys
 import os
 import json
 import requests 
-from requests import get 
+from requests import get
 #import sendsms as sms
+
+#os.environ['NO_PROXY'] = 'localhost'
 
 UPLOAD_FOLDER = os.path.join('var','uploads')
 computer_name = os.environ['COMPUTERNAME']
 approot = os.path.dirname(__file__)
+
+
 
 OUTPUTFOLDER = os.path.join('static','output')
 #OUTPUTFOLDER = r'C:/Users/reichj/Source/Repos/MEO_Analysis_HTML_Interface/static/output/'
@@ -29,18 +33,17 @@ else: Deploy_on = 'MCC'
 
 TimeLog = True
 
-
 if Deploy_on == 'MCC':
     servername = 'localhost' #for deploying on MCC
     #oppsdatabase = 'mccoperationalRpt' #for deploying on operational MCC
     oppsdatabase = 'MccMeoLutMonitor' #for deploying on MCC - new db
     mcctestLGM = 'MccMeoLutMonitor' #for deploying on MCC - new db
-    urlbase = 'https://sar-reportsrv'
+    #urlbase = 'https://sar-reportsrv'
 elif Deploy_on == 'other1':
     servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC - 2018 and on
     oppsdatabase = 'MccMeoLutMonitor' # for deploying on REICHJ-PC
     mcctestLGM = 'MccMeoLutMonitor' #should work for both MCC and REICHJ-PC
-    urlbase = "http://jrreich.myftp.org/"
+    #urlbase = "http://jrreich.myftp.org/"
 else: 
     servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC
     oppsdatabase = 'mccoperational' # for deploying on REICHJ-PC
@@ -76,13 +79,14 @@ app.url_map.converters['date'] = DateConverter
 def index():
     """Renders home page."""
     #createLink = "<a href = '" + url_for('beacon') + "'>Beacon Decoder</a>"; # url_for usings the function name to point to URL
-    return render_template('index3.html')
+    return render_template('index.html')
+
 
 @app.route('/beacon', methods=['GET','POST'])
 def beacon():
     if request.method == 'GET':
         # Send the user the form
-        return render_template('BeaconDecoder3.html')
+        return render_template('BeaconDecode.html')
     elif request.method == 'POST':
         # read beacon ID and save it
         beaconID = request.form['beaconID']        
@@ -331,13 +335,13 @@ def MEOBeaconAnalysis():
     else: 
         return '<h2> Invalid Request </h2>'
 
-@app.route('/MapTest', methods=['GET','POST'])
-def MapTest():
+@app.route('/Map', methods=['GET','POST'])
+def SarsatMap():
     if request.method == 'GET':
         if request.args.get('KML', None):
-            return render_template('MapTest_v3.html', KMLFILE = request.args.get('KML'))
+            return render_template('Cesium_Map.html', KMLFILE = request.args.get('KML'))
         else: 
-            return render_template('MapTest_v3.html')
+            return render_template('Cesium_Map.html')
 
 @app.route('/MEOData', methods=['GET','POST'])
 def meodata():
@@ -438,6 +442,9 @@ def meolut_packet_throughput(MEOLUT_ID):
 def api_site(table, sitenum):
     # can return any table where a sitenum is defined -- ie alertsitesol, (default if not defined), alertsitesum , outsolution 
     input_data = request.args.to_dict()
+    if table not in ['alertsitesol', 'alertsitesum' , 'outsolution', 'leo','meo','enc']:
+        raise TypeError("table must be type 'alertsitesol', 'alertsitesum', 'outsolution', 'leo','meo' or 'enc' not {}".format(table))
+        return render_templat('error.html',404) 
     outdata = MEOInput_Analysis.api_site(config_dict, sitenum, table)
     #print outdata[0]
     return jsonify(outdata)
@@ -456,21 +463,29 @@ def api_JSON_leo_geo_sols():
     outdata = MEOInput_Analysis.api_JSON_leo_geo_sols(data, config_dict)
     return outdata
 
-@app.route('/api/comp/<int:sitenum>', methods = ['GET','POST'])
-def api_comp_sols(sitenum):
-    # returns all composite locations for a site
+@app.route('/api/<type>/<int:sitenum>', methods = ['GET','POST'])
+def api_comp_sols(type, sitenum):
+    # returns all type (leo, meo, comp, enc) of locations for a site
+    urlbase = url_for('index', _external = True)
     url = urlbase + "api/site/alertsitesol/{}".format(sitenum)
-    print(url)
     composite_columns = ['alertsitenum','gentime', 'addtime','complat','complon','altitude','matchdistance', 
                          'enclat','enclon', 'encmatchdistance', 'inputdatatype',  'alertmsgstate', 'bcnid15', 'bcnid30', 
                         'sourceid', 'sourcename', 'sat','satelliteids','numbursts','numpackets','numsatellites','dop',
-                        'sourceantennaids', 'indlocweight', 'indencdistance']
-    data = (requests.get(url)).json()
+                        'sourceantennaids', 'indlocweight', 'indencdistance','rcvtime']
+    leo_columns = ['alertsitenum','gentime', 'addtime','a_lat','a_lon','tca','complat','complon','altitude','matchdistance', 
+                         'enclat','enclon', 'encmatchdistance', 'inputdatatype',  'alertmsgstate', 'bcnid15', 'bcnid30', 
+                        'sourceid', 'sourcename', 'sat', 'orbit', 'points', 'a_prob', 'indlocweight', 'indencdistance', 'rcvtime']
+    data = requests.get(url).json()
     out_dict = {}
     for row in data:
-        if row['complat'] != "NULL":
-            out_dict[row['alertsitesolid']] = {x:row[x] for x in composite_columns}
+        if type == 'comp' or type == 'all':
+            if row['complat'] != "null":
+                out_dict[row['alertsitesolid']] = {x:row[x] for x in composite_columns}
+        if type == 'leo' or type == 'all':
+            if row['a_lat'] != "null":
+                out_dict[row['alertsitesolid']] = {x:row[x] for x in leo_columns}
     return jsonify(out_dict)
+    #return leo_columns
 
 @app.route('/api/output/sols/<int:sitenum>', methods = ['GET'])
 def api_output_sols(sitenum):
@@ -501,10 +516,25 @@ def stream():
     
     return Response(eventStream(), mimetype="text/event-stream")
 
-@app.route("/api/czml/site/<int:sitenum>")
+#Generate and return CZML file of MEOLUT input solutions by sitenum)
+@app.route("/api/czml/meo/site/<int:sitenum>")
 def czml_meo_input_by_site(sitenum):
     MeoInput = MEOInput_Analysis.czml_site_meo_input(sitenum, servername, oppsdatabase)
     return jsonify(MeoInput)
+
+#Generate and return CZML file of Composite/MEO/LEO locations by sitenum
+
+@app.route("/api/czml/site/<type>/<int:sitenum>")
+def czml_alert_site(type, sitenum):
+    urlbase = url_for('index', _external = True)
+    url = urlbase + "api/"+type+"/{}".format(sitenum)
+    print '/api/czml/site/<type>/<int:sitenum'
+    print 'pointing to > '
+    print url
+    data = requests.get(url).json()
+    outczml = MEOInput_Analysis.czml_alert_site(type, sitenum, data) 
+    return jsonify(outczml)
+
 
 @app.route("/api/czml/meo/orbit/<date:input_date>")
 def czml_meo_sat_orbit_date(input_date):
@@ -549,6 +579,9 @@ def czml_meo_schedule_all():
     #starttime = endtime - datetime.timedelta(days = 1)
     MeoSchedData = MEOInput_Analysis.czml_meo_sched_all(starttime, endtime, servername, oppsdatabase ) #, antenna)
     return jsonify(MeoSchedData)
+
+
+
 
 @app.route('/messager', methods=['GET','POST'])
 def messager():

@@ -5,8 +5,13 @@ It contains the definition of routes and views for the application.
 
 from flask import Flask
 from werkzeug.contrib.fixers import ProxyFix
+#from flask_cors import CORS
+
 
 app = Flask(__name__)
+
+#enable CORS - need to install flask_cors first
+#CORS(app)
 
 #app.wsgi_app = ProxyFix(app.wsgi_app)
 
@@ -15,18 +20,23 @@ app = Flask(__name__)
 
 
 
+
 #import all of our routes
-from routes import *
+#from routes import *
 
 
 # Launching server
 if __name__ == '__main__':
-    import os
-    HOST = os.environ.get('SERVER_HOST', 'localhost')
-    try:
-        PORT = int(os.environ.get('SERVER_PORT', '8000'))
-    except ValueError:
-        PORT = 8000
-    app.run(HOST, PORT)
+    print 'running on localhost port 8081 huh'
+    #import os
+    #HOST = os.environ.get('SERVER_HOST', 'localhost')
+    #print HOST
+    #try:
+    #    PORT = int(os.environ.get('SERVER_PORT', '8000'))
+    #except ValueError:
+    #    PORT = 8000
+    #print PORT
+    #app.run(HOST, PORT, threaded = True)
+    app.run(port = 8081, threaded = True, debug = True)
     #app.run(host='127.0.0.1',port=8000)
 

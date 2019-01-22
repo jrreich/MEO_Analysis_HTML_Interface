@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Messaging Test</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
+    <title>Beacon Decode</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}"> 
     <script type="application/javascript" src="{{ url_for('static', filename='scripts/jquery-3.2.1.js') }}"></script>
 </head>
 <body>
@@ -20,15 +20,18 @@
         <script>
             $(function () {
                 $("#nav-placeholder").load("{{ url_for('static', filename = 'templates/navbar.html') }}", function () {
-                    $("#messagerHome").addClass("active");
+                    $("#beaconDecodeHome").addClass("active");
                     $("#home").removeClass("active");
                 });
             });
         </script>
-        <section class="content" id="inputdata">
-            <h2> Message Sent </h2>
-            <h3> Sent message "{{ messagetext }}" to {{ phonenumber }} </h3>
-            <h3> from the number (313) 228-3868</h3>
+        <section class="content" id="inputbeacon">
+            <h2> Please enter beacon ID test</h2>
+            <form method="post">
+                <label for="beaconID">Beacon ID</label>
+                <input type="text" name="beaconID" />
+                <button type="submit"> Submit </button>
+            </form>
         </section>
 
     </main>

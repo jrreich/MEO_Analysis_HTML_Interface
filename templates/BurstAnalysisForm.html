@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Raw Burst Analysis</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
-    <!--<link rel="stylesheet" type="text/css" href='styles/mystylesheet3.css'>-->
+    <script type="application/javascript" src="{{ url_for('static', filename='scripts/jquery-3.2.1.js') }}"></script>
 
 </head>
 <body>
@@ -16,15 +16,16 @@
                 <a href="{{ url_for('index') }}">Analysis Tools</a>
             </h1>
         </div>
-        <nav class="topnav">
-            <a href="/" class="home">Home</a>
-            <a href="/beacon">Beacon Decode</a>
-            <a href="/rawburst" class="active">Burst Analysis</a>
-            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
-            <a href="/RealTimeMonitor">Real Time Monitoring</a>
-            <a href="/SiteQuery">Site Query</a>
-            <a href="/MEOBeaconAnalysis">MEOLUT Beacon Analysis</a>
-        </nav>
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
+        <script>
+            $(function () {
+                $("#nav-placeholder").load("{{ url_for('static', filename = 'templates/navbar.html') }}", function () {
+                    $("#burstAnalysisHome").addClass("active");
+                    $("#home").removeClass("active");
+                });
+            });
+        </script>
         <section class="content form" id="RawAnalyzer">
             <form method="post" enctype="multipart/form-data">
                 <fieldset>
@@ -32,7 +33,7 @@
                     <label for="3385">Hawaii</label>
                     <input type="checkbox" name="MEOLUT" value="3385" checked /><br />
                     <label for="3669">Florida</label>
-                    <input type="checkbox" name="MEOLUT" value="3669" checked/><br />
+                    <input type="checkbox" name="MEOLUT" value="3669" checked /><br />
                 </fieldset>
                 <fieldset>
                     <legend>Date/Time</legend>
@@ -40,7 +41,7 @@
                     <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" checked />
                     <label for="pasttime"> Past Time </label>
                     <input type="radio" id="pasttime" name="RealPastTime" value="RT_no"> <br />
-                    <label id="rthours"> Number of Hours to Display <input type="number" name="realtimehours" value="4" /></label> 
+                    <label id="rthours"> Number of Hours to Display <input type="number" name="realtimehours" value="4" /></label>
                     <label class="times"> Start Time <input type="datetime-local" name="StartTime" /> </label><br />
                     <label class="times"> End Time <input type="datetime-local" name="EndTime" /><br /></label>
 
@@ -52,22 +53,22 @@
                     <label for="HIref">Hawaii Reference Beacon</label>
                     <input type="radio" name="UseBeaconID" value="HIref" /><br />
                     <label for="FLref">Florida Reference Beacon</label>
-                    <input type="radio" name="UseBeaconID" value="FLref"/><br />
+                    <input type="radio" name="UseBeaconID" value="FLref" /><br />
                     <label for="UseBeaconID">Use Beacon ID</label>
-                    <input type="radio" id ="userbeaconid" name="UseBeaconID" value="UserInput"/> <br />
-                    <input type="text" id="beaconIDinput" name="beaconID" placeholder="BeaconID"> 
+                    <input type="radio" id="userbeaconid" name="UseBeaconID" value="UserInput" /> <br />
+                    <input type="text" id="beaconIDinput" name="beaconID" placeholder="BeaconID">
                 </fieldset>
                 <fieldset>
                     <legend>Input File</legend>
                     <label for="mccdb"> Use USMCC DB</label>
-                    <input type="radio" id="mccdb" name="inputsource" value="mccdb" checked/> <br />
+                    <input type="radio" id="mccdb" name="inputsource" value="mccdb" checked /> <br />
                     <!--<label for="xmlfile">Input XML File</label>
-                    <input type="radio" class="fileinputneeded" name="inputsource" value="xmlfile" /><br />
-                    <label for="zipfile">Input ZIP File</label>
-                    <input type="radio" class="fileinputneeded" name="inputsource" value="zipfile" /><br />
-                    <label for="sqldbfile">Input SQL lite DB</label>
-                    <input type="radio" class="fileinputneeded" name="inputsource" value="sqldbfile" /> <br />
-                    <input type="file" id="fileinput" name="inputfile" >-->
+                <input type="radio" class="fileinputneeded" name="inputsource" value="xmlfile" /><br />
+                <label for="zipfile">Input ZIP File</label>
+                <input type="radio" class="fileinputneeded" name="inputsource" value="zipfile" /><br />
+                <label for="sqldbfile">Input SQL lite DB</label>
+                <input type="radio" class="fileinputneeded" name="inputsource" value="sqldbfile" /> <br />
+                <input type="file" id="fileinput" name="inputfile" >-->
                     <br />
                 </fieldset>
                 <fieldset>
@@ -75,7 +76,7 @@
                     <label for="ploton"> Show Plots </label>
                     <input type="radio" id="ploton" name="plotoptions" value="plotyes" checked /> <br />
                     <label for="percenton"> Show Percentage </label>
-                    <input type="radio" id="percenton" name="plotoptions" value="percentyes" checked /> 
+                    <input type="radio" id="percenton" name="plotoptions" value="percentyes" checked />
                     <label for="percenton"> (only accurate for reference beacons) </label>
                 </fieldset>
                 <button type="submit"> Submit </button> <br />

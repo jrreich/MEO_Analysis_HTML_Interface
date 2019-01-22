@@ -6,27 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Open Sites</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">
-    <!--<link rel="stylesheet" type="text/css" href='/styles/mystylesheet3.css'>-->
-    <!--<script language="javascript">
-    document.getElementById('EndDate').value = new Date().toDateInputValue();
-    </script> -->
+    <script type="application/javascript" src="{{ url_for('static', filename='scripts/jquery-3.2.1.js') }}"></script>
 </head>
 <body>
     <main>
         <aside id="sitequeryoptions">
             <form action="SiteQuery" method="get">
                 <label for="sitenum">Alert Site Number</label>
-                <input id="sitenum" name="sitenum" type="text" value="{{ sitenum }}" style="display:inline-block" /> 
+                <input id="sitenum" name="sitenum" type="text" value="{{ sitenum }}" style="display:inline-block" />
                 <input type="submit" style="display:inline-block" /> <br />
                 <input type="checkbox" name="RCC_KML" value="True" />
                 <label for="KML">Generate Output RCC KML?</label>
                 {% if RCC_KMLfile %}
-                <a href="{{ RCC_KMLfile }}"> Output to RCC Locations, Site - {{ sitenum }}  </a> 
+                <a href="{{ RCC_KMLfile }}"> Output to RCC Locations, Site - {{ sitenum }}  </a>
                 {% endif %}
                 <br /><input type="checkbox" name="Input_KML" value="True" />
                 <label for="KML">Generate Input KML?</label>
                 {% if Input_KMLfile %}
-                <a href="{{ Input_KMLfile }}"> Input Locations, Site - {{ sitenum }}  </a> 
+                <a href="{{ Input_KMLfile }}"> Input Locations, Site - {{ sitenum }}  </a>
                 {% endif %}
                 <br /><input type="checkbox" name="Both_KML" value="True" />
                 <label for="KML">Generate KML with Both?</label>
@@ -34,7 +31,7 @@
                 <a href="{{ KMLfile }}"> Input Locations and RCC Output, Site - {{ sitenum }}  </a>
                 <a href="{{ Mapfile }}"> MapIt Locations and RCC Output, Site - {{ sitenum }}  </a>
                 {% endif %}
-                
+
             </form>
         </aside>
         <div id="heading1">
@@ -42,15 +39,16 @@
                 <a href="{{ url_for('index') }}">Analysis Tools</a>
             </h1>
         </div>
-        <nav class="topnav">
-            <a href="/" class="home">Home</a>
-            <a href="/beacon">Beacon Decode</a>
-            <a href="/rawburst">Burst Analysis</a>
-            <a href="/MEOInputAnalysis">MEOLUT Input Analysis</a>
-            <a href="/RealTimeMonitor">Real Time Monitoring</a>
-            <a href="/SiteQuery" class="active">Site Query</a>
-            <a href="/MEOBeaconAnalysis">MEOLUT Beacon Analysis</a>
-        </nav>
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
+        <script>
+            $(function () {
+                $("#nav-placeholder").load("{{ url_for('static', filename = 'templates/navbar.html') }}", function () {
+                    $("#siteQueryHome").addClass("active");
+                    $("#home").removeClass("active");
+                });
+            });
+        </script>
         <section class="content">
             <article id="alertsitesum">
                 <h3> Alert Site Summary for {{ sitenum }}</h3>
@@ -93,7 +91,7 @@
                 <h3> Output (to RCC) Solutions for {{ sitenum }}</h3>
                 <table>
                     <tr>
-                        <th>AddTime</th>  
+                        <th>AddTime</th>
                         <th>AlertSiteSolId</th>
                         <th>TimeFirst</th>
                         <th>TimeLast</th>
@@ -146,14 +144,14 @@
                     {% endfor %}
                 </table>
             </article>
-            <article id ="alertsitesol">
+            <article id="alertsitesol">
                 <h3> Alert Site Solutions for {{ sitenum }}</h3>
                 <table>
                     <tr>
                         <th>alertsitesolid</th>
                         <th>inputdatatype</th>
-                        <th>bcnid15</th> 
-                        <th>framesync</th> 
+                        <th>bcnid15</th>
+                        <th>framesync</th>
                         <th>complat</th>
                         <th>complon</th>
                         <th>sitfunc</th>

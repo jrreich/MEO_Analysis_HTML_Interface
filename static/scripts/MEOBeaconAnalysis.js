@@ -1,10 +1,10 @@
 $(function () {
     function submitpress() {
         if (document.getElementById('MEO').checked == true) {
-            alert('HI checked')
+            alert('HI checked');
         }
         else {
-            alert('not checked')
+            alert('not checked');
         }
     }
 
@@ -22,10 +22,10 @@ $(function () {
             };
 
         });
-            
 
 
-            /*$('#userbeaconid').prop('checked','true')*/
+
+        /*$('#userbeaconid').prop('checked','true')*/
 
     });
 
@@ -135,6 +135,6 @@ $(function () {
     };
 
 
-})
+});
     
 
