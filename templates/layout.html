@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+
+    <meta name="description" content="SARSAT Web App">
+    <meta name="author" content="Jesse Reich">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" id="bootstrap-css">
+    <link rel="shortcut icon" type="image/x-icon" href="static/icons/favicon.ico"/>    <script> src="{{ url_for('static',filename = 'js/bootstrap.min.js') }}"</script>
+    <script src="{{ url_for('static', filename='scripts/jquery-3.3.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/vue/vue.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/vue/axios.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" id="bootstrap-css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.dataTables.min.css') }}" >
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/navbar2.css') }}">
+    <!--Clock from https://www.plus2net.com/javascript_tutorial/clock.php-->
+    <script type="text/javascript"> 
+        function display_c(){
+        var refresh=1000; // Refresh rate in milli seconds
+        mytime=setTimeout('display_ct()',refresh)
+        }
+        
+        function display_ct() {
+            var x = new Date();
+            var x1=x.toUTCString();// changing the display to UTC string
+            document.getElementById('ct').innerHTML = x1;
+            tt = display_c();
+         }
+    </script>
+  </head>
+  <body onload=display_ct();>
+    <nav class="navbar navbar-expand navbar-dark bg-primary"> 
+        <div class="collapse navbar-collapse" id="navbarsExample02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"> <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a> </li>
+                <li class="nav-item"> <a class="nav-link" href="/feedback">Feedback</a> </li>
+                <li class="nav-item nav-link"> <span id='ct'></span></li>
+
+            </ul>
+            {% block navbar %}
+            {% endblock %}
+            <form class="form-inline my-2 my-md-0"> </form>
+            <a href="#menu-toggle" id="menu-toggle" class="navbar-brand"><span class="navbar-toggler-icon"></span></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+        </div>
+    </nav>
+    <div id="wrapper" class="toggled">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav"></ul>
+            </div> <!-- /#sidebar-wrapper -->
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div id="content">{% block content %}{% endblock %}</div>
+                </div>
+            </div> <!-- /#page-content-wrapper -->
+        </div> <!-- /#wrapper -->
+        <!-- Bootstrap core JavaScript -->
+        <script> src="{{ url_for('static',filename = 'js/bootstrap.bundle.min.js') }}"</script><!-- Menu Toggle Script -->
+        <!--Load the navbar -->
+        <script>
+            $(function () {
+                $(".sidebar-nav").load("{{ url_for('static', filename = 'templates/navbar.html') }}");
+            });
+        </script>
+        <script>
+          $(function(){
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+
+            $(window).resize(function(e) {
+              if($(window).width()<=768){
+                $("#wrapper").removeClass("toggled");
+              }else{
+                $("#wrapper").addClass("toggled");
+              }
+            });
+          });
+           
+        </script>
+        
+
+    <div id="footer">
+      {% block footer %}
+      {% endblock %}
+    </div>
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+{% extends "layout.html" %}
+{% block title %} Real Time Monitoring {% endblock %}
+
+{% block head %}
+{{ super() }}
+
+<script type="text/javascript" src="{{ url_for('static',filename='scripts/RealTime.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/floating-labels.css') }}">
+{% endblock %}
+
+<body>
+
+    {% block navbar %}
+    <div class="container mx-auto col-lg">
+        <div class="row">
+            <form class='form-inline' action="RealTimeMonitor" method="get">
+                <div class="form-label-group">
+                    <input class="form-control form-realtime" id="refreshtimer" name="refreshtimer" type="number" placeholder="Refresh Time (sec)" value="{{ refreshtimer }}" />
+                    <label for="refreshtimer">Refresh Time (sec)</label>
+                </div>
+                <div class="form-label-group">
+                    <input class="form-control form-realtime" id="burstwindow" name="burstwindow" type="text" placeholder="Time Window" value="{{burstwindow}}" />
+                    <label for="burstwindow">Time Window (mins)</label>
+                    <button class="btn btn-outline-success" type="submit">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+    {% endblock %}
+    {% block content %}
+
+    <script type="text/javascript">
+        setInterval(function () {
+            location.reload();
+        }, "{{refreshtimer}}" * 1000);
+    </script>
+    <div class="page-header">
+        <h5 class="text-center">Real Time Monitoring - {{EndTime.strftime('%m/%d/%y %H:%M:%S')}}</h5>
+    </div>
+
+    <div class="row container">
+        <div class="col table-meo">
+            <h5>HI MEOLUT</h5>
+            <h6>
+                {{BurstStartTime.strftime('%m/%d/%y %H:%M')}} to {{ EndTime.strftime('%m/%d/%y %H:%M') }}
+            </h6>
+            <table class="table table-sm">
+                <tr>
+                    <th>Num of Ref Locations</th>
+                    <th>Average </th>
+                    <th>90th % </th>
+                    <th>% <5km </th>
+                </tr>
+                <tr>
+                    <td>{{ HI_location_accuracy.num_of_locations }}</td>
+                    <td>{{ '%0.2f'| format(HI_location_accuracy.mean|float) }} </td>
+                    <td>{{ '%0.2f'| format(HI_location_accuracy.p90|float)}} </td>
+                    <td class="ant_percent_table">{{ '%0.2f'| format(HI_location_accuracy.percent_less_than_5km*100|float) }} </td>
+                </tr>
+            </table>
+            <table class="table table-sm">
+                <tr>
+                    <th>Antenna</th>
+                    <th>Burst Count</th>
+                    <th>Percent</th>
+                </tr>
+                {% for key, val in HI_packet_percent.antenna|dictsort %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ val.count }} </td>
+                    <td class="ant_percent_table">{{' %0.2f'| format(val.percent*100) }} </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col table-meo">
+            <h5>FL MEOLUT </h5>
+            <h6>{{BurstStartTime.strftime('%m/%d/%y %H:%M')}} to {{ EndTime.strftime('%m/%d/%y %H:%M') }}</h6>
+            <table class="table table-sm">
+                <tr>
+                    <th>Num of Reference Locations</th>
+                    <th> Average </th>
+                    <th> 90th % </th>
+                    <th> % < 5km </th>
+                </tr>
+                <tr>
+                    <td>{{ FL_location_accuracy.num_of_locations }}</td>
+                    <td>{{ '%0.2f'| format(FL_location_accuracy.mean|float) }} </td>
+                    <td>{{ '%0.2f'| format(FL_location_accuracy.p90|float)}} </td>
+                    <td class="ant_percent_table">{{ '%0.2f'| format(FL_location_accuracy.percent_less_than_5km*100|float) }} </td>
+                </tr>
+            </table>
+            <table class="table table-sm">
+                <tr>
+                    <th>Antenna</th>
+                    <th>Burst Count</th>
+                    <th>Percent</th>
+                </tr>
+                {% for key, val in FL_packet_percent['antenna']|dictsort %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ val.count }} </td>
+                    <td class="ant_percent_table">{{'%0.2f'|format(val.percent*100) }} </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col col-meo-alarms">
+            <div class="table-meo">
+                <h6>There are {{ numalarms}} alarms as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }}</h6>
+                <table class="table table-sm RealTimeMonitoring" id="openalarms">
+                    <tr>
+                        <th>AlarmID</th>
+                        <th>MEOLUT</th>
+                        <th>Alarm</th>
+                        <th>Open at</th>
+                        <th>Still open as of</th>
+                    </tr>
+                    {% for alarm in alarmlist %}
+                    <tr>
+                        <td>{{alarm.alarmid}}</td>
+                        <td>{{alarm.meolutname}}</td>
+                        <td> {{alarm.alarmtext}} </td>
+                        <td>{{alarm.openat}}</td>
+                        <td>{{alarm.stillopen}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="table-meo">
+                <h6>Recent Closed Alarms</h6>
+                <table class="table-sm display" id="closedalarms">
+                    <tr>
+                        <th>AlarmID</th>
+                        <th>MEOLUT</th>
+                        <th>Alarm</th>
+                        <th>Open at</th>
+                        <th>Closed at</th>
+                    </tr>
+                    {% for alarm in closedalarms %}
+                    <tr>
+                        <td>{{alarm.alarmid}}</td>
+                        <td>{{alarm.meolutname}}</td>
+                        <td> {{alarm.alarmtext}} </td>
+                        <td>{{alarm.openat}}</td>
+                        <td>{{alarm.closedate}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col table-meo" id="HI">
+                <h3>Hawaii Status as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }} </h3>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Status</th>
+                        <th>MsgTime</th>
+                    </tr>
+                    {% for component in statusHI %}
+                    <tr>
+                        <td>{{component.component}}</td>
+                        <td>{{component.status}}</td>
+                        <td> {{component.msgtime}} </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+            <div class="col table-meo status" id="FL">
+                <h3>Florida Status as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }} </h3>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Status</th>
+                        <th>MsgTime</th>
+                    </tr>
+                    {% for component in statusFL %}
+                    <tr>
+                        <td>{{component.component}}</td>
+                        <td>{{component.status}}</td>
+                        <td> {{component.msgtime}} </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col " id="opensitemon">
+            <h3> {{ num_sites }} Open Sites </h3>
+            <table id="opensite_table" class="display">
+                <thead>
+                    <tr>
+                        <th>AlertSiteNum</th>
+                        <th>Beacon ID</th>
+                        <th>Country Code Name</th>
+                        <th>Comp Lat</th>
+                        <th>Comp Lon</th>
+                        <th>Open Time</th>
+                        <th>Last Update</th>
+                        <th>Num LEO/GEO Sol</th>
+                        <th>Num MEO Sol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in open_site_list %}
+                    <tr>
+                        <td><a href="/SiteQuery?sitenum={{ row.0 }}">{{ row.0 }}</a></td>
+                        <td>{{ row.1 }}</td>
+                        <td>{{ row.2 }}</td>
+                        <td>{{ row.3 }}</td>
+                        <td>{{ row.4 }}</td>
+                        <td>{{ row.5.strftime('%m/%d/%y %H:%M:%S') }}</td>
+                        <td>{{ row.6.strftime('%m/%d/%y %H:%M:%S') }}</td>
+                        <td>{{ row.9 }}</td>
+                        <td>{{ row.10 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#opensite_table').DataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        });
+        //$('#closedalarms').DataTable({
+        //    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        //});
+        $('a.toggle-vis').on('click', function (e) {
+            e.preventDefault();
+
+            // Get the column API object
+            var column = table.column($(this).attr('data-column'));
+
+            // Toggle the visibility
+            column.visible(!column.visible());
+        });
+    });
+</script>
+{% endblock %}

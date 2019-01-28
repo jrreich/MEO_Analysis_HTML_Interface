@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %} Beacon Decode {% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="jumbo">
+    <h1 class="display-4">SARSAT Web App</h1>
+    <p class="lead">User guide soon to come!</p>
+
+
+</div>
+
+{% endblock %}

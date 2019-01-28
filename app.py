@@ -22,21 +22,21 @@ app = Flask(__name__)
 
 
 #import all of our routes
-#from routes import *
-
+from routes import *
 
 # Launching server
 if __name__ == '__main__':
     print 'running on localhost port 8081 huh'
     #import os
-    #HOST = os.environ.get('SERVER_HOST', 'localhost')
-    #print HOST
+    HOST = os.environ.get('SERVER_HOST', 'localhost')
+    print HOST
     #try:
     #    PORT = int(os.environ.get('SERVER_PORT', '8000'))
     #except ValueError:
-    #    PORT = 8000
+    PORT = 8081
+    app.debug = True
     #print PORT
-    #app.run(HOST, PORT, threaded = True)
-    app.run(port = 8081, threaded = True, debug = True)
+    app.run(HOST, PORT, threaded = True)
+    #app.run(port = 8081, threaded = True, debug = True)
     #app.run(host='127.0.0.1',port=8000)
 

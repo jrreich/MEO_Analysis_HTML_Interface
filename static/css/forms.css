@@ -1,0 +1,13 @@
+#form-container {
+    width: 300px;
+}
+
+.start-hidden {
+    display: none;
+}
+
+
+.beaconinputfield {
+    display: none;
+    float: right;
+}

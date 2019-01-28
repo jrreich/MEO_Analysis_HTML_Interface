@@ -1,0 +1,213 @@
+﻿{% extends "layout.html" %}
+{% block title %} Site Query{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+<main>
+        <aside id="sitequeryoptions">
+            <form action="SiteQuery" method="get">
+                <label for="sitenum">Alert Site Number</label>
+                <input id="sitenum" name="sitenum" type="text" value="{{ sitenum }}" style="display:inline-block" />
+                <input type="submit" style="display:inline-block" /> <br />
+                <input type="checkbox" name="RCC_KML" value="True" />
+                <label for="KML">Generate Output RCC KML?</label>
+                {% if RCC_KMLfile %}
+                <a href="{{ RCC_KMLfile }}"> Output to RCC Locations, Site - {{ sitenum }}  </a>
+                {% endif %}
+                <br /><input type="checkbox" name="Input_KML" value="True" />
+                <label for="KML">Generate Input KML?</label>
+                {% if Input_KMLfile %}
+                <a href="{{ Input_KMLfile }}"> Input Locations, Site - {{ sitenum }}  </a>
+                {% endif %}
+                <br /><input type="checkbox" name="Both_KML" value="True" />
+                <label for="KML">Generate KML with Both?</label>
+                {% if KMLfile %}
+                <a href="{{ KMLfile }}"> Input Locations and RCC Output, Site - {{ sitenum }}  </a>
+                <a href="{{ Mapfile }}"> MapIt Locations and RCC Output, Site - {{ sitenum }}  </a>
+                {% endif %}
+
+            </form>
+        </aside>
+
+        <section class="content">
+            <article>
+                <h3> Alert Site Summary for {{ sitenum }}</h3>
+                <table id="alertsitesum_table" class="display">
+                    <thead>
+                        <tr>
+                            <th>AlertSiteNum</th>
+                            <th>Beacon ID</th>
+                            <th>Country Code Name</th>
+                            <th>Comp Lat</th>
+                            <th>Comp Lon</th>
+                            <th>Open Time</th>
+                            <th>Last Update</th>
+                            <th>Num Passes</th>
+                            <th>Num Sol</th>
+                            <th>Num LEO/GEO Sol</th>
+                            <th>Num MEO Sol</th>
+                            <th>Num Doppler Sol</th>
+                            <th>Num DOA Sol</th>
+                        </tr>
+                    </thead>
+                    {% for row in alertsitesum %}
+                    <tr>
+                        <td>{{ row.0 }}</td>
+                        <td>{{ row.1 }}</td>
+                        <td>{{ row.2 }}</td>
+                        <td>{{ row.3 }}</td>
+                        <td>{{ row.4 }}</td>
+                        <td>{{ row.5 }}</td>
+                        <td>{{ row.6 }}</td>
+                        <td>{{ row.7 }}</td>
+                        <td>{{ row.8 }}</td>
+                        <td>{{ row.9 }}</td>
+                        <td>{{ row.10 }}</td>
+                        <td>{{ row.11 }}</td>
+                        <td>{{ row.12 }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </article>
+            <article id="outsol">
+                <h3> Output (to RCC) Solutions for {{ sitenum }}</h3>
+                <table id="outsol_table" class="display">
+                    <thead>
+                        <tr>
+                            <th>AddTime</th>
+                            <th>AlertSiteSolId</th>
+                            <th>TimeFirst</th>
+                            <th>TimeLast</th>
+                            <th>Tca</th>
+                            <th>MsgName</th>
+                            <th>SolReal</th>
+                            <th>EncReal</th>
+                            <th>AlertMsgState</th>
+                            <th>ComSiteName</th>
+                            <th>DestMcc</th>
+                            <th>PrevSarNameList</th>
+                            <th>CurSarNameList</th>
+                            <th>SourceId</th>
+                            <th>SourceId2</th>
+                            <th>EncLat</th>
+                            <th>EncLon</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>A_Lat</th>
+                            <th>A_Lon</th>
+                            <th>B_Lat</th>
+                            <th>B_Lon</th>
+                        </tr>
+                    </thead>
+                    {% for row in outsitesols %}
+                    <tr>
+                        <td>{{ row.0 }}</td>
+                        <td>{{ row.1 }}</td>
+                        <td>{{ row.2 }}</td>
+                        <td>{{ row.3 }}</td>
+                        <td>{{ row.4 }}</td>
+                        <td>{{ row.5 }}</td>
+                        <td>{{ row.6 }}</td>
+                        <td>{{ row.7 }}</td>
+                        <td>{{ row.8 }}</td>
+                        <td>{{ row.9 }}</td>
+                        <td>{{ row.10 }}</td>
+                        <td>{{ row.11 }}</td>
+                        <td>{{ row.12 }}</td>
+                        <td>{{ row.13 }}</td>
+                        <td>{{ row.14 }}</td>
+                        <td>{{ row.15 }}</td>
+                        <td>{{ row.16 }}</td>
+                        <td>{{ row.17 }}</td>
+                        <td>{{ row.18 }}</td>
+                        <td>{{ row.19 }}</td>
+                        <td>{{ row.20 }}</td>
+                        <td>{{ row.21 }}</td>
+                        <td>{{ row.22 }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </article>
+            <article id="alertsitesol">
+                <h3> Alert Site Solutions for {{ sitenum }}</h3>
+                <table id="alertsitesol_table" class="display">
+                    <thead>
+                        <tr>
+                            <th>alertsitesolid</th>
+                            <th>inputdatatype</th>
+                            <th>bcnid15</th>
+                            <th>framesync</th>
+                            <th>complat</th>
+                            <th>complon</th>
+                            <th>sitfunc</th>
+                            <th>gentime</th>
+                            <th>addtime</th>
+                            <th>sourceid</th>
+                            <th>sourcename</th>
+                            <th>sourcemccname</th>
+                            <th>numbursts</th>
+                            <th>numpackets</th>
+                            <th>numsatellites</th>
+                            <th>dop</th>
+                            <th>latitude</th>
+                            <th>longitude</th>
+                            <th>a_lat</th>
+                            <th>a_lon</th>
+                            <th>MatchDistance</th>
+                            <th>AlertMsgState</th>
+                            <th>ExpectedHorzError</th>
+                        </tr>
+                    </thead>
+                    {% for row in alertsitesols %}
+                    <tr>
+                        <td>{{ row.0 }}</td>
+                        <td>{{ row.1 }}</td>
+                        <td>{{ row.2 }}</td>
+                        <td>{{ row.3 }}</td>
+                        <td>{{ row.4 }}</td>
+                        <td>{{ row.5 }}</td>
+                        <td>{{ row.6 }}</td>
+                        <td>{{ row.7 }}</td>
+                        <td>{{ row.8 }}</td>
+                        <td>{{ row.9 }}</td>
+                        <td>{{ row.10 }}</td>
+                        <td>{{ row.11 }}</td>
+                        <td>{{ row.12 }}</td>
+                        <td>{{ row.13 }}</td>
+                        <td>{{ row.14 }}</td>
+                        <td>{{ row.15 }}</td>
+                        <td>{{ row.16 }}</td>
+                        <td>{{ row.17 }}</td>
+                        <td>{{ row.18 }}</td>
+                        <td>{{ row.19 }}</td>
+                        <td>{{ row.20 }}</td>
+                        <td>{{ row.21 }}</td>
+                        <td>{{ row.22 }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </article>
+        </section>
+    </main>
+{% endblock %}
+{% block footer %}
+<script>
+$(document).ready(function() {
+    $('#alertsitesum_table').DataTable( {
+        scrollY: "98%",
+    } );
+    $('#outsol_table').DataTable( {
+        scrollY: "98%",
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+    $('#alertsitesol_table').DataTable( {
+        scrollY: "98%",
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+} );
+</script>
+{% endblock %}

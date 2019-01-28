@@ -58,6 +58,7 @@
     <Content Include="env\Lib\site-packages\MEOInput_Analysis\__init__.pyc" />
     <Content Include="requirements.txt" />
     <Content Include="static\scripts\app.js" />
+    <Content Include="static\scripts\forms.js" />
     <Content Include="static\scripts\MEODataCollection.js" />
     <Content Include="static\scripts\MEOBeaconAnalysis.js" />
     <Content Include="static\scripts\NOAAczml_3.js" />
@@ -67,9 +68,11 @@
     <Content Include="static\styles\mystylesheet3.css" />
     <Content Include="static\styles\site.css" />
     <Content Include="static\templates\navbar.html" />
+    <Content Include="templates\indexvue.html" />
     <Content Include="templates\BeaconDecoded.html" />
     <Content Include="templates\BeaconDecode.html" />
     <Content Include="templates\BurstAnalysisForm.html" />
+    <Content Include="templates\layout.html" />
     <Content Include="templates\MEOBeaconAnalysisReturn.html" />
     <Content Include="templates\MeoDataCollection.html" />
     <Content Include="templates\index.html" />
@@ -77,8 +80,10 @@
     <Content Include="templates\MEOBeaconAnalysisForm.html" />
     <Content Include="templates\MEOBeaconAnalysisReturnNoData.html" />
     <Content Include="templates\MEOInputAnalysisForm.html" />
+    <Content Include="templates\MEOInputAnalysisForm1.html" />
     <Content Include="templates\MEOInputAnalysisReturn.html" />
     <Content Include="templates\OpenSites.html" />
+    <Content Include="templates\RealTimeMonitor1.html" />
     <Content Include="templates\SiteQuery.html" />
     <Content Include="templates\RealTimeMonitor.html" />
     <Content Include="templates\BadDecode.html" />

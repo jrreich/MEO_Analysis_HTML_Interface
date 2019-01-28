@@ -1,0 +1,20 @@
+{% extends "MEOBeaconAnalysisForm1.html" %}
+{% block title %} Beacon Analysis Results {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block results %}
+<article class="results">
+    <h3>Results</h3>
+    {% if result.UseBeaconID == "SiteInput" %}
+    <h1> No data found for site - {{ result.siteID }} </h1>
+    <h1> Between {{ StartTime }} and {{ EndTime }}</h1>
+    {% else %}
+    <h1> No data found for beacon - {{ result.beaconID }} </h1>
+    <h1> Between {{ StartTime }} and {{ EndTime }}</h1>
+    {% endif %}
+</article>
+{% endblock %}

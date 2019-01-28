@@ -1,0 +1,18 @@
+﻿{% extends "layout.html" %}
+{% block title %} Beacon Analysis {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+<section class="content" id="inputbeacon">
+    <h2> Please enter beacon ID test</h2>
+    <form method="post">
+        <label for="beaconID">Beacon ID</label>
+        <input type="text" name="beaconID" />
+        <button type="submit"> Submit </button>
+    </form>
+</section>
+{% endblock %}

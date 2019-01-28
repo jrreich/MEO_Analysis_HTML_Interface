@@ -37,29 +37,23 @@
         </div>
         <!--Navigation bar-->
         <div id="nav-placeholder"></div>
-        <script>
-            $(function () {
-                $("#nav-placeholder").load("{{ url_for('static', filename = 'templates/navbar.html') }}", function () {
-                    $("#realTimeMonitorHome").addClass("active");
-                    $("#home").removeClass("active");
-                });
-            });
-        </script>
         <section class="content">
             <article class="packets">
                 <h3>
                     HI MEOLUT from {{BurstStartTime.strftime('%m/%d/%y %H:%M')}} to
                     {{ EndTime.strftime('%m/%d/%y %H:%M') }}
                 </h3>
-                <table>
+                <table class="table table-borderer">
                     <tr>
-                        <th>Num of Reference Locations</th>
-                        <th> Average </th>
+                        <th>Num of Ref Locations</th>
+                        <th> % of Ref Locations </th>
+                        <th> Average Error </th>
                         <th> 90th % </th>
                         <th> % < 5km </th>
                     </tr>
                     <tr>
                         <td>{{ HI_location_accuracy.num_of_locations }}</td>
+                        <td class="ant_percent_table">{{ '%0.2f'| format(HI_location_accuracy.percent_locations|float) }} </td>
                         <td>{{ '%0.2f'| format(HI_location_accuracy.mean|float) }} </td>
                         <td>{{ '%0.2f'| format(HI_location_accuracy.p90|float)}} </td>
                         <td class="ant_percent_table">{{ '%0.2f'| format(HI_location_accuracy.percent_less_than_5km*100|float) }} </td>
@@ -87,13 +81,15 @@
                 </h3>
                 <table>
                     <tr>
-                        <th>Num of Reference Locations</th>
-                        <th> Average </th>
+                        <th>Num of Ref Locations</th>
+                        <th> % of Ref Locations </th>
+                        <th> Average Error </th>
                         <th> 90th % </th>
                         <th> % < 5km </th>
                     </tr>
                     <tr>
                         <td>{{ FL_location_accuracy.num_of_locations }}</td>
+                        <td class="ant_percent_table">{{ '%0.2f'| format(FL_location_accuracy.percent_locations|float) }} </td>
                         <td>{{ '%0.2f'| format(FL_location_accuracy.mean|float) }} </td>
                         <td>{{ '%0.2f'| format(FL_location_accuracy.p90|float)}} </td>
                         <td class="ant_percent_table">{{ '%0.2f'| format(FL_location_accuracy.percent_less_than_5km*100|float) }} </td>

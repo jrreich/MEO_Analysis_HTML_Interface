@@ -1,0 +1,35 @@
+
+{% extends "layout.html" %}
+{% block title %} API {% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+{% block content %}
+<table id="api_table"  class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="AlertSiteNum: activate to sort column ascending" style="width: 30px;">Route</th>
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="AlertSiteNum: activate to sort column ascending" style="width: 30px;">Function</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for route, attributes in api_dict.items() %}
+        <tr>
+            <td><a href="{{ route }}">{{ route }}</a></td>
+            <td>{{ attributes.functionName }} </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{% block footer %}
+<script>
+    $(document).ready(function() {
+        $('#api_table').DataTable( {
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        });
+    } );
+</script>
+{% endblock %}

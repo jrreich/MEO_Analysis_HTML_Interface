@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %} Beacon Decode {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+<div id="app3">
+    [[info]]
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='scripts/vue_app.js') }}"></script>
+{% endblock %}

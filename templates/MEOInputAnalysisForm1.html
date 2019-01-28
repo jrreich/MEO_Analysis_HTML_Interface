@@ -1,0 +1,173 @@
+{% extends "layout.html" %}
+{% block title %} MEOLUT Input Analysis {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+  <div class="row">
+      <div id="form-container">
+          <form method="post" enctype="multipart/form-data">
+              <fieldset class="form-group">
+                  <div class="row">
+                      <legend class="col-form-label pt-0">MEOLUT</legend>
+                  </div>
+                  <div class="col-sm-8">
+                      <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="MEOLUT_HI" value="3385" checked />
+                          <label for="3385" class="form-check-label">
+                              Hawaii
+                          </label>
+                      </div>
+                      <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="MEOLUT_FL" value="3669" checked />
+                          <label for="3385" class="form-check-label">
+                              Florida
+                          </label>
+                      </div>
+                      <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="MEOLUT_FR" value="2276" />
+                          <label for="2276" class="form-check-label">
+                              France (2276)
+                          </label>
+                      </div>
+                  </div>
+              </fieldset>
+              <fieldset class="form-group">
+                  <div class="row">
+                      <legend class="col-form-label pt-0">
+                          Date/Time
+                      </legend>
+                  </div>
+                    <div class="form-check ">
+                        <input type="radio" id="realtime" class="form-check-input hoursRadio" name="RealPastTime" value="RT_yes" checked />
+                        <label for="realtime" class="form-check-label">
+                            Real Time
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="pasttime" class="form-check-input hoursRadio" name="RealPastTime" value="RT_no" />
+                        <label for="realtime" class="form-check-label">
+                            Past Time
+                        </label>
+                    </div>
+                  <div class="col-sm-6">
+                      <div id="rthoursinput" >
+                          <input type="number" class="form-control" name="realtimehours" aria-describedby="rthours" />
+                          <small id="rthours" class="form-text text-muted" name="realtimehours">
+                              Number of Hours to Display
+                          </small>
+                      </div>
+                      <div id="pasttimeinput" class="start-hidden">
+                          <input type="datetime-local" name="StartTime" />
+                          <small class="form-text text-muted pasttimeinput"> Start Time</small>
+                          <input type="datetime-local" name="EndTime" />
+                          <small class="form-text text-muted pasttimeinput"> End Time</small>
+                      </div>
+                  </div>
+              </fieldset>
+              <fieldset class="form-group">
+                  <div class="row">
+                      <legend class="col-form-label pt-0">
+                          Beacon or Site
+                      </legend>
+                  </div>
+                  <div class="row">
+                      <div class="form-check">
+                          <input type="radio" name="UseBeaconID" value="HIref" />
+                          <label for="HIref" class="form-check-label">Hawaii Ref Beacon</label>
+                      </div>
+                      <div class="form-check">
+                          <input type="radio" name="UseBeaconID" value="FLref" />
+                          <label for="FLref" class="form-check-label">Florida Ref Beacon</label>
+                      </div>
+                      <div class="form-check">
+                          <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" />
+                          <label for="UseBeaconID" class="form-check-label">Use Beacon ID</label>
+                      </div>
+                      <div class="form-check">
+                          <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" />
+                          <label for="UseSiteID" class="form-check-label">Use Site Number</label>
+                      </div>
+                  </div>
+
+                  <div class="row col-12">
+                      <input type="text" class="form-control form-control-sm beaconinputfield beaconfield col-12" id="beaconIDinput" name="beaconID" placeholder="Beacon ID">
+                      <input type="text" class="form-control form-control-sm beaconinputfield sitefield col-12" id="siteIDinput" name="siteID" placeholder="Site ID">
+                      <input type="text" class="form-control form-control-sm beaconinputfield posfield col-6" name="beaconLat" placeholder="Ground Truth Latitude">
+                      <input type="text" class="form-control form-control-sm beaconinputfield posfield col-6" name="beaconLon" placeholder="Ground Truth Longitude">
+                      <input type="text" class="form-control form-control-sm beaconinputfield sitefield beaconfield col-12" id="siteLocationName" name="Location" placeholder="Location Name">
+                  </div>
+              </fieldset>
+              <fieldset class="form-group">
+                  <div class="row">
+                      <legend class="col-form-label pt-0">
+                          Input Data
+                      </legend>
+                  </div>
+                  <div class="row">
+                      <div class="form-check col-12">
+                          <input type="radio" class="fileinputradio" name="inputsource" value="mccdb" />
+                          <label class="form-check-label" for="mccdb"> Use USMCC DB</label>
+                      </div>
+                      <div class="form-check col-12">
+                          <input type="radio" class="fileinputneeded fileinputradio" name="inputsource" value="excelfile" />
+                          <label class="form-check-label" for="excelfile">Input Excel File</label>
+                      </div>
+                      <div class="form-check col-12">
+                          <input type="radio" class="fileinputneeded fileinputradio" name="inputsource" value="csvfile" />
+                          <label class="form-check-label" for="csvfile">Input CSV File</label>
+                      </div>
+                      <div class="form-check col-12">
+                          <input type="radio" id="fileInputRadio" class="fileinputneeded fileinputradio" name="inputsource" value="sqldbfile" />
+                          <label class="form-check-label" for="sqldbfile">Input SQL lite DB (not working)</label>
+                          <input type="file" class="form-control-file start-hidden" id="fileinput" name="inputfile">
+                      </div>
+                  </div>
+              </fieldset>
+              <fieldset>
+                  <div class="row">
+                      <legend class="col-form-label pt-0">
+                          Options
+                      </legend>
+                  </div>
+                  <div class="row">
+                      <div class="form-check col-12">
+                          <input type="checkbox" name="KMLgen" value="KMLgen" />
+                          <label class="form-check-label" for="KMLgen"> Generate KML file </label>
+                      </div>
+                      <div class="form-check col-12">
+                          <input type="checkbox" name="SingleBurstGen" value="SingleBurstGen" />
+                          <label class="form-check-label" for="SingleBurstGen"> Single Burst Loctions in KML ? </label>
+                      </div>
+                      <div class="form-check col-12">
+                          <input type="checkbox" name="EncLocGen" value="EncLocGen" />
+                          <label class="form-check-label" for="EncLocGen"> Encoded Loctions in KML ? </label>
+                      </div>
+                      <div class="form-check col-12">
+                          <input type="checkbox" name="LEOGen" value="LEOGen" />
+                          <label class="form-check-label" for="LEOGen"> LEO Loctions in KML ? </label>
+                      </div>
+                      <div class="form-check col-12">
+                          <input type="checkbox" name="OutputSolution" value="OutputSolution" />
+                          <label class="form-check-label" for="OutputSolution"> Output (to RCC) Solutions in KML ? </label>
+                      </div>
+                  </div>
+              </fieldset><br />
+              <div class="row">
+                  <button type="submit"> Submit </button>
+              </div>
+          </form>
+      </div>
+      <article class="results">
+          <h3>Results</h3>
+      </article>
+  </div>
+
+{% endblock %}
+{% block footer %}
+<script src="{{ url_for('static', filename='scripts/forms.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" >
+{% endblock %}
