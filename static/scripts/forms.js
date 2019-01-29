@@ -93,6 +93,15 @@ $(document).ready(function () {
         $('.plotvaryby-group').toggle();
     });
 
+    //Show Jdata selection
+    $('#Jdata').change(function () {
+        if ($('#Jdata').is(':checked')) {
+            $('.Jdata-group').slideDown('fast');
+        } else {
+            $('.Jdata-group').hide();
+        }
+    });
+
 
 
     $("#siteIDinput").blur(function () {

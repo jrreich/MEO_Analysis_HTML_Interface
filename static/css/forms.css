@@ -16,9 +16,6 @@
     float: right;
 }
 
-.filter-range-val-container {
-    width: 200px
-}
 
 @media (min-width: 576px) {
 .container {

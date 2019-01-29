@@ -243,48 +243,89 @@
                 </div>
             </fieldset>
             <fieldset>
-                    <div class="row">
-                        <legend class="col-form-label pt-0">
-                            Options
-                        </legend>
-                    </div>
-                    <div class="row">
-                        <div class="form-check col-12">
-                            <input type="checkbox" name="KMLgen" value="True" />
-                            <label class="form-check-label" for="KMLgen"> Generate KML file </label>
-                        </div>
-                        <div class="form-check col-12">
-                            <input type="checkbox" name="ErrorLines" value="True" />
-                            <label class="form-check-label" for="ErrorLines"> Draw Error Lines in KML file </label>
-                        </div>
-                        <div class="form-check col-12">
-                            <input type="checkbox" name="SolutionsOut" value="True" />
-                            <label class="form-check-label" for="SolutionsOut"> Output Solutions to File </label>
-                        </div>
-                        <div class="form-check col-12">
-                            <input type="checkbox" name="histcum" value="True" />
-                            <label class="form-check-label" for="histcum">Show Histo Cumulative Error Plot </label>
-                        </div>
-                        <div class="form-check col-12">
-                            <input type="checkbox" id="plotvary" name="plotvary" value="True" />
-                            <label class="form-check-label" for="plotvary"> Vary a Value in Hist/Cumulative Plot </label>
-                        </div>
-                        <div class="form-group plotvaryby-group start-hidden">
-                            <label for="plotvaryby">Vary by:</label>
-                            <select class="form-control" id="plotvaryby" name="plotvaryby">
-                                <option value="dopname">DOP</option>
-                                <option value="ehename">ExpectedHorzError</option>
-                                <option value="numburstsname">NumBursts</option>
-                                <option value="numpacketsname">NumPackets</option>
-                                <option value="numsatsname">NumSatellites</option>
-                                <option value="cn0name">Average CN0</option>
-                            </select>
-                        </div>
-                    </div>
-                </fieldset><br />
                 <div class="row">
-                    <button class="btn btn-primary btn-block" type="submit"> Submit </button>
+                    <legend class="col-form-label pt-0">
+                        Data Options
+                    </legend>
                 </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="SolutionsOut" value="True" />
+                        <label class="form-check-label" for="SolutionsOut"> Get RCC Output Sol to File </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="AllSiteSols" value="True" />
+                        <label class="form-check-label" for="AllSiteSols"> Get all alertsite sols </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" id="Jdata" name="Jdata" value="True" />
+                        <label class="form-check-label" for="Jdata"> Get J1,J2,J3 data </label>
+                    </div>
+                    <div class="col-12 start-hidden form-group Jdata-group">
+                        <div class="form-check">
+                            <input type="checkbox" name="J1data" value="True" checked> 
+                            <label for="J1data" class="form-check-label">J1 data (raw bursts)</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="J2data" value="True" checked> 
+                            <label for="J2data" class="form-check-label">J2 data (MEO solutions)</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="J3data" value="True" checked> 
+                            <label for="J3data" class="form-check-label">J3 data (MEO schedule)</label>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Histogram Options
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="histcum" value="True" />
+                        <label class="form-check-label" for="histcum">Show Histo Cumulative Error Plot </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" id="plotvary" name="plotvary" value="True" />
+                        <label class="form-check-label" for="plotvary"> Vary a Value in Hist/Cumulative Plot </label>
+                    </div>
+                    <div class="form-group plotvaryby-group start-hidden">
+                        <label for="plotvaryby">Vary by:</label>
+                        <select class="form-control" id="plotvaryby" name="plotvaryby">
+                            <option value="dopname">DOP</option>
+                            <option value="ehename">ExpectedHorzError</option>
+                            <option value="numburstsname">NumBursts</option>
+                            <option value="numpacketsname">NumPackets</option>
+                            <option value="numsatsname">NumSatellites</option>
+                            <option value="cn0name">Average CN0</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        KML Options
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="KMLgen" value="True" />
+                        <label class="form-check-label" for="KMLgen"> Generate KML file </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="ErrorLines" value="True" />
+                        <label class="form-check-label" for="ErrorLines"> Draw Error Lines in KML file </label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row">
+                <button class="btn btn-primary btn-block" type="submit"> Submit </button>
+            </div>
         </form>
         <div class="col">
             {% if output_data is defined %}
