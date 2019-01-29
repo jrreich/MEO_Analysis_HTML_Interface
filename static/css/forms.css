@@ -1,5 +1,9 @@
-#form-container {
+.form-container {
     width: 300px;
+}
+
+.left-nav-container {
+    padding-left: 0px;
 }
 
 .start-hidden {
@@ -10,4 +14,15 @@
 .beaconinputfield {
     display: none;
     float: right;
+}
+
+.filter-range-val-container {
+    width: 200px
+}
+
+@media (min-width: 576px) {
+.container {
+    max-width: inherit;
+}
+
 }

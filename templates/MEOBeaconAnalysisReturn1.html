@@ -1,7 +1,4 @@
-﻿{% extends "MEOBeaconAnalysisForm1.html" %}
-
-{% block results %} 
-<div class="results">
+﻿<div class="results">
     <h3>Results</h3>
         {% for link, desc in linklist.iteritems() %}
         <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
@@ -18,4 +15,3 @@
                 <img class="img-fluid" id="HistogramCumulativePlotResult" src="{{ filename }}" alt="Results png" title="results" />
             {% endfor %}
 </div>
-{% endblock %}

@@ -7,158 +7,345 @@
   </style>
 {% endblock %}
 {% block content %}
-<div class="content form" id="MEOBeaconAnalysis">
-    <div class="row">
-        <div class="form-container">
-            <form class= "col-sm- flex-column method="post" enctype="multipart/form-data">
-                <fieldset>
-                    <legend>MEOLUT</legend>
-                    <label for="3385">Hawaii</label>
-                    <input type="checkbox" name="MEOLUT" value="3385" checked /><br />
-                    <label for="3669">Florida</label>
-                    <input type="checkbox" name="MEOLUT" value="3669" checked /><br />
-                    <label for="2276">FMCC</label>
-                    <input type="checkbox" name="MEOLUT" value="2276" /><br />
-                </fieldset>
-                <fieldset>
-                    <legend>Beacon</legend>
-                    <label for="REFref">Reference Beacon Analysis</label>
-                    <input type="radio" name="UseBeaconID" value="REFref" checked /><br />
-                    <label for="HIref">Hawaii Reference Beacon</label>
-                    <input type="radio" name="UseBeaconID" value="HIref" /><br />
-                    <label for="FLref">Florida Reference Beacon</label>
-                    <input type="radio" name="UseBeaconID" value="FLref" /><br />
-                    <label for="UseBeaconID">Use Beacon ID</label>
-                    <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" /> <br />
-                    <label for="UseSiteID">Use Site Number</label>
-                    <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" />
-                    <input type="text" class="inputfield" id="beaconIDinput" name="beaconID" placeholder="Beacon ID">
-                    <input type="text" class="inputfield" id="siteIDinput" name="siteID" placeholder="Site Number"> <br />
-                    <input type="text" class="inputfield" id="siteLocationName" name="Location" placeholder="Location Name">
-                </fieldset>
-                <fieldset>
-                    <legend>Date/Time</legend>
-                    <label for="realtime"> Real Time </label>
-                    <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" checked />
-                    <label for="pasttime"> Past Time </label>
-                    <input type="radio" id="pasttime" name="RealPastTime" value="RT_no"> <br />
-                    <label id="rthours"> Number of Hours <input type="number" name="realtimehours" value="4" /></label>
-                    <label class="times"> Start Time <input type="datetime-local" name="StartTime" id="StartTime" /> </label> <br />
-                    <label class="times"> End Time <input type="datetime-local" name="EndTime" id="EndTime" /><br /></label>
-                </fieldset>
-                <fieldset id="gtsource">
-                    <legend>Ground Truth Source</legend>
-                    <label for="GTLatLon"> Input Lat, Lon</label>
-                    <input type="radio" id="gtlatlon" name="GTSource" value="GTLatLon" checked /><br />
-                    <label for="GTFile"> Use File</label>
-                    <input type="radio" id="gtfile" name="GTSource" value="GTFile" /><br />
-                    <input type="text" id="latinput" name="beaconLat" placeholder="Ground Truth Latitude">
-                    <input type="text" id="loninput" name="beaconLon" placeholder="Ground Truth Longitude">
-                    <input type="file" class="fileinputbox" id="gtfileinput" name="gt_inputfile">
-                </fieldset>
-                <fieldset>
-                    <legend>Data Source File</legend>
-                    <label for="mccdb"> Use USMCC DB</label>
-                    <input type="radio" name="inputsource" value="mccdb" checked /> <br />
-                    <label for="excelfile">Input Excel File</label>
-                    <input type="radio" class="fileinputneeded" name="inputsource" value="excelfile" /><br />
-                    <label for="csvfile">Input CSV File (J2)</label>
-                    <input type="radio" class="fileinputneeded" name="inputsource" value="csvfile" /><br />
-                    <input type="file" class="fileinputbox" id="fileinput" name="inputfile">
-                    <br />
-                </fieldset>
-                <fieldset id="filters">
-                    <legend>Data Filters</legend>
-                    <label for="filter1"> Filter 1</label>
-                    <input type="checkbox" id="filter1check" name="filter1check" value="True" /> <br />
-                    <select id="filter1" name="filter1">
-                        <option value="datatypename">DataType</option>
-                        <option value="dopname">DOP</option>
-                        <option value="ehename">ExpectedHorzError</option>
-                        <option value="numburstsname">NumBursts</option>
-                        <option value="numpacketsname">NumPackets</option>
-                        <option value="numsatsname">NumSatellites</option>
-                        <option value="cn0name">Average CN0</option>
-                    </select><br />
-                    <label for="filter1val" class="filter1s" id="filter1val">value</label><input type="radio" class="filter1s" name="filter1sel" id="filter1val" value="filter1val">
-                    <label for="filter1ran" class="filter1s" id="filter1ran">range</label><input type="radio" class="filter1s" name="filter1sel" id="filter1ran" value="filter1ran">
-                    <input type="text" class="filter1s" id="valueinput" name="filter1value" placeholder="value">
-                    <input type="text" class="filter1s" id="rangeinput" name="filter1rangelow" placeholder="low value">
-                    <input type="text" class="filter1s" id="rangeinput" name="filter1rangehigh" placeholder="high value">
-                    <br />
+<div class="row">
+    <div class="form-container">
+        <form class= "col-sm- flex-column method="post" enctype="multipart/form-data">
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">MEOLUT</legend>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="MEOLUT" value="3385" checked />
+                        <label for="3385" class="form-check-label">
+                            Hawaii
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="MEOLUT" value="3669" checked />
+                        <label for="3385" class="form-check-label">
+                            Florida
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="MEOLUT" value="2276" />
+                        <label for="2276" class="form-check-label">
+                            France (2276)
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Date/Time
+                    </legend>
+                </div>
+                    <div class="form-check ">
+                        <input type="radio" id="realtime" class="form-check-input hoursRadio" name="RealPastTime" value="RT_yes" checked />
+                        <label for="realtime" class="form-check-label">
+                            Real Time
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="pasttime" class="form-check-input hoursRadio" name="RealPastTime" value="RT_no" />
+                        <label for="realtime" class="form-check-label">
+                            Past Time
+                        </label>
+                    </div>
+                <div class="col-sm-6">
+                    <div id="rthoursinput" >
+                        <input type="number" class="form-control" name="realtimehours" aria-describedby="rthours" />
+                        <small id="rthours" class="form-text text-muted" name="realtimehours">
+                            Number of Hours to Display
+                        </small>
+                    </div>
+                    <div id="pasttimeinput" class="start-hidden">
+                        <input type="datetime-local" id="StartTime" name="StartTime" />
+                        <small class="form-text text-muted pasttimeinput"> Start Time</small>
+                        <input type="datetime-local" id="EndTime" name="EndTime" />
+                        <small class="form-text text-muted pasttimeinput"> End Time</small>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Beacon or Site
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <input type="radio" name="UseBeaconID" value="HIref" checked />
+                        <label for="HIref" class="form-check-label">Hawaii Ref Beacon</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="UseBeaconID" value="FLref" />
+                        <label for="FLref" class="form-check-label">Florida Ref Beacon</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" />
+                        <label for="UseBeaconID" class="form-check-label">Use Beacon ID</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" />
+                        <label for="UseSiteID" class="form-check-label">Use Site Number</label>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <input type="text" class="form-control form-control-sm beaconinputfield beaconfield col-12" id="beaconIDinput" name="beaconID" placeholder="Beacon ID">
+                    <input type="text" class="form-control form-control-sm beaconinputfield sitefield col-12" id="siteIDinput" name="siteID" placeholder="Site ID">
 
-                    <label for="filter2"> Filter 2</label>
-                    <input type="checkbox" id="filter2check" name="filter2check" value="True" /> <br />
-                    <select id="filter2" name="filter2">
-                        <option value="datatypename">DataType</option>
-                        <option value="dopname">DOP</option>
-                        <option value="ehename">ExpectedHorzError</option>
-                        <option value="numburstsname">NumBursts</option>
-                        <option value="numpacketsname">NumPackets</option>
-                        <option value="numsatsname">NumSatellites</option>
-                        <option value="cn0name">Average CN0</option>
-                    </select><br />
-                    <label for="filter2val" class="filter2s" id="filter2val">value</label><input type="radio" class="filter2s" name="filter2sel" id="filter2val" value="filter2val">
-                    <label for="filter2ran" class="filter2s" id="filter2ran">range</label><input type="radio" class="filter2s" name="filter2sel" id="filter2ran" value="filter2ran">
-                    <input type="text" class="filter2s" id="valueinput" name="filter2value" placeholder="value">
-                    <input type="text" class="filter2s" id="rangeinput" name="filter2rangelow" placeholder="low value">
-                    <input type="text" class="filter2s" id="rangeinput" name="filter2rangehigh" placeholder="high value">
-                    <br />
-
-                    <label for="filter3"> Filter 3</label>
-                    <input type="checkbox" id="filter3check" name="filter3check" value="True" /> <br />
-                    <select id="filter3" name="filter3">
-                        <option value="datatypename">DataType</option>
-                        <option value="dopname">DOP</option>
-                        <option value="ehename">ExpectedHorzError</option>
-                        <option value="numburstsname">NumBursts</option>
-                        <option value="numpacketsname">NumPackets</option>
-                        <option value="numsatsname">NumSatellites</option>
-                        <option value="cn0name">Average CN0</option>
-                    </select><br />
-                    <label for="filter3val" class="filter3s" id="filter3val">value</label><input type="radio" class="filter3s" name="filter3sel" id="filter3val" value="filter3val">
-                    <label for="filter3ran" class="filter3s" id="filter3ran">range</label><input type="radio" class="filter3s" name="filter3sel" id="filter3ran" value="filter3ran">
-                    <input type="text" class="filter3s" id="valueinput" name="filter3value" placeholder="value">
-                    <input type="text" class="filter3s" id="rangeinput" name="filter3rangelow" placeholder="low value">
-                    <input type="text" class="filter3s" id="rangeinput" name="filter3rangehigh" placeholder="high value">
-                    <br />
-
-                </fieldset>
-                <fieldset>
-                    <legend>Options</legend>
-                    <label for="sol_to_use">What Solutions?</label>
-                    <select id="sol_to_use" name="sol_to_use">
-                        <option value="all_sols">All Solutions</option>
-                        <option value="window_sols">Last in Window</option>
-                    </select><br />
-                    <label for="KMLgen"> Generate KML file </label>
-                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="True" checked /><br />
-                    <label for="ErrorLines"> Draw Error Lines in KML file </label>
-                    <input type="checkbox" class="ErrorLines" name="ErrorLines" value="True" /><br />
-                    <label for="SolutionsOut"> Output Solutions to File </label>
-                    <input type="checkbox" name="SolutionsOut" value="True" /><br />
-                    <label for="histcum"> Generate Histogram Cumulative Error Plot </label>
-                    <input type="checkbox" name="histcum" value="True" /><br />
-                    <label for="histcum"> Vary a Value in Hist/Cumulative Plot </label>
-                    <input type="checkbox" name="plotvary" value='True' />
-                    <select id="plotvary" name="plotvaryby">
-                        <option value="dopname">DOP</option>
-                        <option value="ehename">ExpectedHorzError</option>
-                        <option value="numburstsname">NumBursts</option>
-                        <option value="numpacketsname">NumPackets</option>
-                        <option value="numsatsname">NumSatellites</option>
-                        <option value="cn0name">Average CN0</option>
-                    </select><br />
-                </fieldset>
-                <button type="submit" id="submit_button"> Submit </button> <br />
-            </form><br />
+                    <input type="text" class="form-control form-control-sm beaconinputfield sitefield beaconfield col-12" id="siteLocationName" name="Location" placeholder="Location Name">
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">Ground Truth Source</legend>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <input type="radio" id="gtlatlon" name="GTSource" value="GTLatLon" checked />
+                        <label for="GTLatLon" class="form-check-label"> Input Lat, Lon</label><br/>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="gtfile" name="GTSource" value="GTFile" />
+                        <label for="GTFile" class="form-check-label"> Use File</label>
+                    </div>
+                    <div class="row col-12">
+                        <input type="text" class="form-control form-control-sm beaconinputfield posfield col-6" id='beaconLat' name="beaconLat" placeholder="Ground Truth Latitude">
+                        <input type="text" class="form-control form-control-sm beaconinputfield posfield col-6" id='beaconLon' name="beaconLon" placeholder="Ground Truth Longitude">
+                        <input type="file" class="form-control-file form-control-sm" id="gtfileinput" name="gt_inputfile">
+                    </div>
+                </div>  
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Data Source
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="radio" class="fileinputradio" name="inputsource" value="mccdb" checked/>
+                        <label class="form-check-label" for="mccdb"> Use USMCC DB</label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="radio" class="fileinputneeded fileinputradio" name="inputsource" value="excelfile" />
+                        <label class="form-check-label" for="excelfile">Input Excel File</label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="radio" class="fileinputneeded fileinputradio" name="inputsource" value="csvfile" />
+                        <label class="form-check-label" for="csvfile">Input CSV File</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Data Filters        
+                    </legend>
+                </div>
+                <div class="form-check">
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="filter1check" name="filter1check" value="True" />Filter 1 </label>
+                    </div>
+                </div>
+                <div class="col-sm-6 start-hidden form-group filter1group">
+                    <div class="form-group">
+                        <label for="filter1">Filter 1</label>
+                        <select class="form-control" id="filter1" name="filter1">
+                            <option value="datatypename">DataType</option>
+                            <option value="dopname">DOP</option>
+                            <option value="ehename">ExpectedHorzError</option>
+                            <option value="numburstsname">NumBursts</option>
+                            <option value="numpacketsname">NumPackets</option>
+                            <option value="numsatsname">NumSatellites</option>
+                            <option value="cn0name">Average CN0</option>
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="filter1s" name="filter1sel" id="filter1val" value="filter1val" checked> 
+                        <label for="filter1val" class="filter1s form-check-label" id="filter1val">value</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="filter1s" name="filter1sel" id="filter1ran" value="filter1ran">
+                        <label for="filter1ran" class="filter1s form-check-label" id="filter1ran">range</label>
+                    </div>
+                    <div class="row filter1-val-range-group">
+                        <input type="text" class="filter1-val-group form-control" id="valueinput" name="filter1value" placeholder="value">
+                        <input type="text" class="filter1-range-group form-control start-hidden" id="rangeinput" name="filter1rangelow" placeholder="low value">
+                        <input type="text" class="filter1-range-group form-control start-hidden" id="rangeinput" name="filter1rangehigh" placeholder="high value">
+                    </div>
+                </div>
+                <div class="form-check">
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="filter2check" name="filter2check" value="True" />Filter 2 </label>
+                    </div>
+                </div>
+                <div class="col-sm-6 start-hidden form-group filter2group">
+                    <div class="form-group">
+                        <select class="form-control" id="filter2" name="filter2">
+                            <option value="datatypename">DataType</option>
+                            <option value="dopname">DOP</option>
+                            <option value="ehename">ExpectedHorzError</option>
+                            <option value="numburstsname">NumBursts</option>
+                            <option value="numpacketsname">NumPackets</option>
+                            <option value="numsatsname">NumSatellites</option>
+                            <option value="cn0name">Average CN0</option>
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="filter2s" name="filter2sel" id="filter2val" value="filter2val" checked> 
+                        <label for="filter2val" class="filter2s form-check-label" id="filter2val">value</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="filter2s" name="filter2sel" id="filter2ran" value="filter2ran">
+                        <label for="filter2ran" class="filter2s form-check-label" id="filter2ran">range</label>
+                    </div>
+                    <div class="row filter2-val-range-group">
+                        <input type="text" class="filter2-val-group form-control" id="valueinput" name="filter2value" placeholder="value">
+                        <input type="text" class="filter2-range-group form-control start-hidden" id="rangeinput" name="filter2rangelow" placeholder="low value">
+                        <input type="text" class="filter2-range-group form-control start-hidden" id="rangeinput" name="filter2rangehigh" placeholder="high value">
+                    </div>
+                </div>
+                <div class="form-check">
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="filter3check" name="filter3check" value="True" />Filter 3 </label>
+                    </div>
+                </div>
+                <div class="col-sm-6 start-hidden form-group filter3group">
+                    <div class="form-group">
+                        <label for="filter3">Filter 3</label>
+                        <select class="form-control" id="filter3" name="filter3">
+                            <option value="datatypename">DataType</option>
+                            <option value="dopname">DOP</option>
+                            <option value="ehename">ExpectedHorzError</option>
+                            <option value="numburstsname">NumBursts</option>
+                            <option value="numpacketsname">NumPackets</option>
+                            <option value="numsatsname">NumSatellites</option>
+                            <option value="cn0name">Average CN0</option>
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="filter3s" name="filter3sel" id="filter3val" value="filter3val" checked> 
+                        <label for="filter3val" class="filter3s form-check-label" id="filter3val">value</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="filter3s" name="filter3sel" id="filter3ran" value="filter3ran">
+                        <label for="filter3ran" class="filter3s form-check-label" id="filter3ran">range</label>
+                    </div>
+                    <div class="row filter3-val-range-group">
+                        <input type="text" class="filter3-val-group form-control" id="valueinput" name="filter3value" placeholder="value">
+                        <input type="text" class="filter3-range-group form-control start-hidden" id="rangeinput" name="filter3rangelow" placeholder="low value">
+                        <input type="text" class="filter3-range-group form-control start-hidden" id="rangeinput" name="filter3rangehigh" placeholder="high value">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                    <div class="row">
+                        <legend class="col-form-label pt-0">
+                            Options
+                        </legend>
+                    </div>
+                    <div class="row">
+                        <div class="form-check col-12">
+                            <input type="checkbox" name="KMLgen" value="True" />
+                            <label class="form-check-label" for="KMLgen"> Generate KML file </label>
+                        </div>
+                        <div class="form-check col-12">
+                            <input type="checkbox" name="ErrorLines" value="True" />
+                            <label class="form-check-label" for="ErrorLines"> Draw Error Lines in KML file </label>
+                        </div>
+                        <div class="form-check col-12">
+                            <input type="checkbox" name="SolutionsOut" value="True" />
+                            <label class="form-check-label" for="SolutionsOut"> Output Solutions to File </label>
+                        </div>
+                        <div class="form-check col-12">
+                            <input type="checkbox" name="histcum" value="True" />
+                            <label class="form-check-label" for="histcum">Show Histo Cumulative Error Plot </label>
+                        </div>
+                        <div class="form-check col-12">
+                            <input type="checkbox" id="plotvary" name="plotvary" value="True" />
+                            <label class="form-check-label" for="plotvary"> Vary a Value in Hist/Cumulative Plot </label>
+                        </div>
+                        <div class="form-group plotvaryby-group start-hidden">
+                            <label for="plotvaryby">Vary by:</label>
+                            <select class="form-control" id="plotvaryby" name="plotvaryby">
+                                <option value="dopname">DOP</option>
+                                <option value="ehename">ExpectedHorzError</option>
+                                <option value="numburstsname">NumBursts</option>
+                                <option value="numpacketsname">NumPackets</option>
+                                <option value="numsatsname">NumSatellites</option>
+                                <option value="cn0name">Average CN0</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset><br />
+                <div class="row">
+                    <button class="btn btn-primary btn-block" type="submit"> Submit </button>
+                </div>
+        </form>
+        <div class="col">
+            {% if output_data is defined %}
+                {% if output_data.linklist %}
+                    {% for link, desc in output_data.linklist.iteritems() %}
+                        <a href="{{ link }}">{{ desc }}  </a> <br />
+                    {% else %}
+                        <h5> No links to display </h5>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
         </div>
-    {% endblock %}
-    {% block results %}
-    {% endblock %}
     </div>
+    <div class="col">
+    {% if output_data is defined %}
+        <div class="results jumbotron">
+            <h3 class="display-4">Results</h3>
+            <h5>MEOLUT: {{ output_data.MEOLUTList }}</h5>
+            <h5>BeaconID: {{ output_data.beaconID }} </h5>
+            <h5>SiteID: {{ output_data.siteID }}
+            <h5>Between {{ output_data.StartTime.strftime('%m/%d/%y %H:%M') }} and {{ output_data.EndTime.strftime('%m/%d/%y %H:%M') }}</h5>
+            <h5>Using {{ output_data.BeaconType }} to collect data </h5> 
+            {% if output_data.SummaryData %}
+            <hr class="my-4">
+        <div class="row">
+            <table class="display">
+                {% for row in data %}
+                <tr>
+                    {% for i in range(0, row|length) %}
+                    <td>{{ row[i] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+
+            {% else %}
+                {% if output_data.BeaconType == "SiteInput" %}
+                    <h5> No location summary to display for site - {{ output_data.siteID }}  </h5>
+                    {% else %}
+                    <h5> No location summary to display for beacon - {{ output_data.beaconID }}  </h5>
+                {% endif %}
+            {% endif %}
+        {% if output_data.imglist %}
+            {% for filename in output_data.imglist %}
+                <img class="img-fluid" id="HistogramCumulativePlotResult" src="{{ filename }}" alt="Results png" title="results" />
+            {% else %}
+                <h5> No Histogram to display </h5> 
+            {% endfor %}
+            
+        {% endif %}
+
+        </div>
+    </div>
+    {% endif %}
+    </div>
+
+
 </div>
+{% endblock content %}
 
 {% block footer %}
+<script src="{{ url_for('static', filename='scripts/forms.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" >
-{% endblock %}
+{% endblock footer %}

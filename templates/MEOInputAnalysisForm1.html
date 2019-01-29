@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
   <div class="row">
-      <div id="form-container" class="form-container">
+      <div class="form-container">
           <form method="post" enctype="multipart/form-data">
               <fieldset class="form-group">
                   <div class="row">
@@ -16,19 +16,19 @@
                   </div>
                   <div class="col-sm-8">
                       <div class="form-check">
-                          <input type="checkbox" class="form-check-input" name="MEOLUT_HI" value="3385" checked />
+                          <input type="checkbox" class="form-check-input" name="MEOLUT" value="3385" checked />
                           <label for="3385" class="form-check-label">
                               Hawaii
                           </label>
                       </div>
                       <div class="form-check">
-                          <input type="checkbox" class="form-check-input" name="MEOLUT_FL" value="3669" checked />
+                          <input type="checkbox" class="form-check-input" name="MEOLUT" value="3669" checked />
                           <label for="3385" class="form-check-label">
                               Florida
                           </label>
                       </div>
                       <div class="form-check">
-                          <input type="checkbox" class="form-check-input" name="MEOLUT_FR" value="2276" />
+                          <input type="checkbox" class="form-check-input" name="MEOLUT" value="2276" />
                           <label for="2276" class="form-check-label">
                               France (2276)
                           </label>
@@ -76,7 +76,7 @@
                   </div>
                   <div class="row">
                       <div class="form-check">
-                          <input type="radio" name="UseBeaconID" value="HIref" />
+                          <input type="radio" name="UseBeaconID" value="HIref" checked />
                           <label for="HIref" class="form-check-label">Hawaii Ref Beacon</label>
                       </div>
                       <div class="form-check">
@@ -104,12 +104,12 @@
               <fieldset class="form-group">
                   <div class="row">
                       <legend class="col-form-label pt-0">
-                          Input Data
+                          Data Source
                       </legend>
                   </div>
                   <div class="row">
                       <div class="form-check col-12">
-                          <input type="radio" class="fileinputradio" name="inputsource" value="mccdb" />
+                          <input type="radio" class="fileinputradio" name="inputsource" value="mccdb" checked/>
                           <label class="form-check-label" for="mccdb"> Use USMCC DB</label>
                       </div>
                       <div class="form-check col-12">
@@ -119,11 +119,6 @@
                       <div class="form-check col-12">
                           <input type="radio" class="fileinputneeded fileinputradio" name="inputsource" value="csvfile" />
                           <label class="form-check-label" for="csvfile">Input CSV File</label>
-                      </div>
-                      <div class="form-check col-12">
-                          <input type="radio" id="fileInputRadio" class="fileinputneeded fileinputradio" name="inputsource" value="sqldbfile" />
-                          <label class="form-check-label" for="sqldbfile">Input SQL lite DB (not working)</label>
-                          <input type="file" class="form-control-file start-hidden" id="fileinput" name="inputfile">
                       </div>
                   </div>
               </fieldset>
@@ -161,20 +156,36 @@
               </div>
           </form>
     </div>
-    <div class="results">
-        <h3>Results</h3>
-        {% for link, desc in linklist.iteritems() %}
-        <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
-            <table>
-                {% for row in data %}
-                <tr>
-                    <td>{{ row.0 }}</td>
-                    <td>{{ row.1 }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-  </div>
+    {% if output_data is defined %}
+        <div class="results">
+            <h3>Results</h3>
+            <h5>MEOLUT: {{ output_data.MEOLUTList }}</h5>
+            <h5>BeaconID: {{ output_data.BeaconID }} </h5>
+            {% if linklist is defined %}
+            {% for link, desc in linklist.iteritems() %}
+            <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
+                <table>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row.0 }}</td>
+                        <td>{{ row.1 }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+            <!-- Returning no data -->
+            {% if NODATA is defined %}
+                {% if result.UseBeaconID == "SiteInput" %}
+                <h5> No data found for site - {{ result.siteID }} </h5>
+                <h5> Between {{ StartTime.strftime('%m/%d/%y %H:%M') }} and {{ EndTime.strftime('%m/%d/%y %H:%M') }}</h5>
+                {% else %}
+                <h5> No data found for beacon - {{ data.Beacon }} </h5>
+                <h5> Between {{ StartTime.strftime('%m/%d/%y %H:%M') }} and {{ EndTime.strftime('%m/%d/%y %H:%M') }}</h5>
+                {% endif %}
+            {% endif %}
+    {% endif %}
+</div>
 
 {% endblock %}
 {% block footer %}
