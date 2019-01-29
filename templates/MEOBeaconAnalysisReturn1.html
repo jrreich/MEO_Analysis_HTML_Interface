@@ -1,18 +1,21 @@
-﻿{% extends "layout.html" %}
-{% block title %} Beacon Analysis {% endblock %}
-{% block head %}
-  {{ super() }}
-  <style type="text/css">
-    .important { color: #336699; }
-  </style>
-{% endblock %}
-{% block content %}
-<section class="content" id="inputbeacon">
-    <h2> Please enter beacon ID test</h2>
-    <form method="post">
-        <label for="beaconID">Beacon ID</label>
-        <input type="text" name="beaconID" />
-        <button type="submit"> Submit </button>
-    </form>
-</section>
+﻿{% extends "MEOBeaconAnalysisForm1.html" %}
+
+{% block results %} 
+<div class="results">
+    <h3>Results</h3>
+        {% for link, desc in linklist.iteritems() %}
+        <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
+        <table class='display'>
+            {% for row in data %}
+            <tr>
+                {% for i in range(0, row|length) %}
+                <td>{{ row[i] }}</td>
+                {% endfor %}
+            </tr>
+                {% endfor %}
+        </table>
+            {% for filename in imglist %}
+                <img class="img-fluid" id="HistogramCumulativePlotResult" src="{{ filename }}" alt="Results png" title="results" />
+            {% endfor %}
+</div>
 {% endblock %}

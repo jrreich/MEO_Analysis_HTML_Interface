@@ -1,63 +1,39 @@
-﻿<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %} SARSAT USMCC Web App {% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="jumbo">
+    <h1 class="display-4">SARSAT USMCC Web App</h1>
+    <p class="lead">User guide soon to come!</p>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="application/javascript" src="{{ url_for('static', filename='scripts/jquery-3.2.1.js') }}"></script>
-    <link rel="stylesheet" href="./static/css/bootstrap.min.css" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118635979-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    <p>
+    <p>The tool is a web application that can be accessed through Chrome or other internet browser that enables a real time view of MEOLUT or USMCC performance and status. Note – Chrome should be used as Internet Explorer will not render the site properly due to not allowing CSS </p>
+    <p>The tool is accessible on the MCC Lan going to <a href="/">https://sar-reportsrv/</a> in Chrome and then clicking on Real Time Monitoring, or you can go directly to it <a id="realTimeMonitorHome" href="/RealTimeMonitor"> https://sar-reportsrv/RealTimeMonitor </a><p> 
+    <p>The web app works by querying a database (MccMeoLutMonitor) on the server (//sar-reportsrv). Currently, the Controller should focus on one area – The area circled in red above which is blown up below.</a>
+    <ol> 
+        <li> When first going to the page, it may take 5 to 20 seconds to load. This is normal as it is pulling a lot of data from the database. 
+        </li>
+        <li> The page will refresh automatically. The default refresh rate is 300 seconds or 5 minutes. If you’d like to change this, enter a number of seconds (greater than 30 seconds would probably be best) and click submit. The field “Burst Percentage Window (minutes)” is how much data for to look at. Default is 60 minutes. Feel free to change this as well but should probably be between 30 – 720 minutes. 
+        </li>
+        <li> For now, monitor:
+            <ol type="a">
+                <li> The cell with the heading “% < 5km”. This is the percentage of reference beacon solutions from the MEOLUT that are less than 5 km in error. This should be 90% or above. If it slips below 75% contact McMurdo. 
+                </li>
+                <li> The Num or Reference Locations – This is the number of locations the MEOLUT provided for its collocated reference beacon. For a “Burst Percentage Window” of 60 minutes, the number should be 30 – 50. For 120 min, it should be 60 or greater, etc.
+                </li>
+                <li> Antenna Percentages – The percentage of bursts each antenna received from the collocated reference beacon. If it slips into the red, notify McMurdo. You may/should also have a DBProxy alarm as well. 
+                    <ul>
+                        <li> If antenna detection percentage drops below 50%, chech the CAC. If any errors are present, follow the SOP for those errors. </li>
+                        <li> If no errors are present, notify McMurdo only if the detection percentage drops below 10% </li>                        
+                    </ul>
+                </li>
+            </ol>
+        </li>
+        <li> <strong> Note: If the collocated reference beacon isn't transmitting, the metrics above will not be accurate</strong>
+    </ol>
+    <img class="img-fluid" id="realtimemonitor_screenshot1" src="{{ url_for('static', filename="/images/realtimemonitor_screenshot1.png") }}" alt="realtimemonitor_screenshot1" title="realtimemonitor_screenshot1" />
+</div>
 
-        gtag('config', 'UA-118635979-1');
-    </script>
-    <!-- Google Tag Manager -->
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-54WJ7FT');
-    </script>
-    <!-- End Google Tag Manager -->
-    <title>SARSAT Analysis App</title>
-    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mystylesheet3.css') }}">-->
-    <script type="text/javascript">
-        baseUrl = "{{ url_for('index',_external = True) }}";
-    </script>
-</head>
-<body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54WJ7FT"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <main>
-        <div id="heading1">
-            <h1>
-                <a href="{{ url_for('index') }}">Analysis Tools</a>
-            </h1>
-        </div>
-
-        <!--Navigation bar-->
-        <div id="nav-placeholder"></div>
-        <script>
-            $(function () {
-                $("#nav-placeholder").load("{{ url_for('static', filename = 'templates/navbar.html') }}");
-            });
-        </script>
-        <section class="content">
-            <h2> Welcome to the LUT Analysis Tools</h2>
-            <p>Select from the toolbar above to start analyzing</p>
-        </section>
-    </main>
-</body>
-</html>
+{% endblock %}

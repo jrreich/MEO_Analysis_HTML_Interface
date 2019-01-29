@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
   <div class="row">
-      <div id="form-container">
+      <div id="form-container" class="form-container">
           <form method="post" enctype="multipart/form-data">
               <fieldset class="form-group">
                   <div class="row">
@@ -160,10 +160,20 @@
                   <button type="submit"> Submit </button>
               </div>
           </form>
-      </div>
-      <article class="results">
-          <h3>Results</h3>
-      </article>
+    </div>
+    <div class="results">
+        <h3>Results</h3>
+        {% for link, desc in linklist.iteritems() %}
+        <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
+            <table>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.0 }}</td>
+                    <td>{{ row.1 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
   </div>
 
 {% endblock %}

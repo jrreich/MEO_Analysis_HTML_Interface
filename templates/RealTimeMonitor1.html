@@ -58,7 +58,7 @@
                     <td>{{ HI_location_accuracy.num_of_locations }}</td>
                     <td>{{ '%0.2f'| format(HI_location_accuracy.mean|float) }} </td>
                     <td>{{ '%0.2f'| format(HI_location_accuracy.p90|float)}} </td>
-                    <td class="ant_percent_table">{{ '%0.2f'| format(HI_location_accuracy.percent_less_than_5km*100|float) }} </td>
+                    <td class="ant_percent_table">{{ '%0.2f'| format(HI_location_accuracy.percent_less_than_5km|float) }} </td>
                 </tr>
             </table>
             <table class="table table-sm">
@@ -71,7 +71,7 @@
                 <tr>
                     <td>{{ key }}</td>
                     <td>{{ val.count }} </td>
-                    <td class="ant_percent_table">{{' %0.2f'| format(val.percent*100) }} </td>
+                    <td class="ant_percent_table">{{' %0.2f'| format(val.percent) }} </td>
                 </tr>
                 {% endfor %}
             </table>
@@ -90,7 +90,7 @@
                     <td>{{ FL_location_accuracy.num_of_locations }}</td>
                     <td>{{ '%0.2f'| format(FL_location_accuracy.mean|float) }} </td>
                     <td>{{ '%0.2f'| format(FL_location_accuracy.p90|float)}} </td>
-                    <td class="ant_percent_table">{{ '%0.2f'| format(FL_location_accuracy.percent_less_than_5km*100|float) }} </td>
+                    <td class="ant_percent_table">{{ '%0.2f'| format(FL_location_accuracy.percent_less_than_5km|float) }} </td>
                 </tr>
             </table>
             <table class="table table-sm">
@@ -103,7 +103,7 @@
                 <tr>
                     <td>{{ key }}</td>
                     <td>{{ val.count }} </td>
-                    <td class="ant_percent_table">{{'%0.2f'|format(val.percent*100) }} </td>
+                    <td class="ant_percent_table">{{'%0.2f'|format(val.percent) }} </td>
                 </tr>
                 {% endfor %}
             </table>
@@ -132,23 +132,27 @@
             </div>
             <div class="table-meo">
                 <h6>Recent Closed Alarms</h6>
-                <table class="table-sm display" id="closedalarms">
-                    <tr>
-                        <th>AlarmID</th>
-                        <th>MEOLUT</th>
-                        <th>Alarm</th>
-                        <th>Open at</th>
-                        <th>Closed at</th>
-                    </tr>
+                <table class="table-sm" id="closedalarms">
+                    <thead>
+                        <tr>
+                            <th>AlarmID</th>
+                            <th>MEOLUT</th>
+                            <th>Alarm</th>
+                            <th>Open at</th>
+                            <th>Closed at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     {% for alarm in closedalarms %}
-                    <tr>
-                        <td>{{alarm.alarmid}}</td>
-                        <td>{{alarm.meolutname}}</td>
-                        <td> {{alarm.alarmtext}} </td>
-                        <td>{{alarm.openat}}</td>
-                        <td>{{alarm.closedate}}</td>
-                    </tr>
-                    {% endfor %}
+                        <tr>
+                            <td>{{alarm.alarmid}}</td>
+                            <td>{{alarm.meolutname}}</td>
+                            <td> {{alarm.alarmtext}} </td>
+                            <td>{{alarm.openat}}</td>
+                            <td>{{alarm.closedate}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -157,13 +161,15 @@
         <div class="row">
             <div class="col table-meo" id="HI">
                 <h3>Hawaii Status as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }} </h3>
-                <table>
-                    <tr>
-                        <th>Component</th>
-                        <th>Status</th>
-                        <th>MsgTime</th>
-                    </tr>
+                <table class="display">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Status</th>
+                            <th>MsgTime</th>
+                        </tr>
                     {% for component in statusHI %}
+                    </thead>
                     <tr>
                         <td>{{component.component}}</td>
                         <td>{{component.status}}</td>
@@ -175,13 +181,15 @@
             </div>
             <div class="col table-meo status" id="FL">
                 <h3>Florida Status as of {{ EndTime.strftime('%m/%d/%y %H:%M:%S') }} </h3>
-                <table>
-                    <tr>
-                        <th>Component</th>
-                        <th>Status</th>
-                        <th>MsgTime</th>
-                    </tr>
+                <table class="display">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Status</th>
+                            <th>MsgTime</th>
+                        </tr>
                     {% for component in statusFL %}
+                    </thead>
                     <tr>
                         <td>{{component.component}}</td>
                         <td>{{component.status}}</td>
@@ -236,9 +244,10 @@
         $('#opensite_table').DataTable({
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         });
-        //$('#closedalarms').DataTable({
-        //    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-        //});
+        $('#closedalarms').DataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        });
+        
         $('a.toggle-vis').on('click', function (e) {
             e.preventDefault();
 

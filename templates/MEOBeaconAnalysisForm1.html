@@ -7,159 +7,158 @@
   </style>
 {% endblock %}
 {% block content %}
-<section class="content form" id="MEOBeaconAnalysis">
-    <form class= "col-sm- flex-column method="post" enctype="multipart/form-data">
-        <fieldset>
-            <legend>MEOLUT</legend>
-            <label for="3385">Hawaii</label>
-            <input type="checkbox" name="MEOLUT" value="3385" checked /><br />
-            <label for="3669">Florida</label>
-            <input type="checkbox" name="MEOLUT" value="3669" checked /><br />
-            <label for="2276">FMCC</label>
-            <input type="checkbox" name="MEOLUT" value="2276" /><br />
-        </fieldset>
-        <fieldset>
-            <legend>Beacon</legend>
-            <label for="REFref">Reference Beacon Analysis</label>
-            <input type="radio" name="UseBeaconID" value="REFref" checked /><br />
-            <label for="HIref">Hawaii Reference Beacon</label>
-            <input type="radio" name="UseBeaconID" value="HIref" /><br />
-            <label for="FLref">Florida Reference Beacon</label>
-            <input type="radio" name="UseBeaconID" value="FLref" /><br />
-            <label for="UseBeaconID">Use Beacon ID</label>
-            <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" /> <br />
-            <label for="UseSiteID">Use Site Number</label>
-            <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" />
-            <input type="text" class="inputfield" id="beaconIDinput" name="beaconID" placeholder="Beacon ID">
-            <input type="text" class="inputfield" id="siteIDinput" name="siteID" placeholder="Site Number"> <br />
-            <input type="text" class="inputfield" id="siteLocationName" name="Location" placeholder="Location Name">
-        </fieldset>
-        <fieldset>
-            <legend>Date/Time</legend>
-            <label for="realtime"> Real Time </label>
-            <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" checked />
-            <label for="pasttime"> Past Time </label>
-            <input type="radio" id="pasttime" name="RealPastTime" value="RT_no"> <br />
-            <label id="rthours"> Number of Hours <input type="number" name="realtimehours" value="4" /></label>
-            <label class="times"> Start Time <input type="datetime-local" name="StartTime" id="StartTime" /> </label> <br />
-            <label class="times"> End Time <input type="datetime-local" name="EndTime" id="EndTime" /><br /></label>
-        </fieldset>
-        <fieldset id="gtsource">
-            <legend>Ground Truth Source</legend>
-            <label for="GTLatLon"> Input Lat, Lon</label>
-            <input type="radio" id="gtlatlon" name="GTSource" value="GTLatLon" checked /><br />
-            <label for="GTFile"> Use File</label>
-            <input type="radio" id="gtfile" name="GTSource" value="GTFile" /><br />
-            <input type="text" id="latinput" name="beaconLat" placeholder="Ground Truth Latitude">
-            <input type="text" id="loninput" name="beaconLon" placeholder="Ground Truth Longitude">
-            <input type="file" class="fileinputbox" id="gtfileinput" name="gt_inputfile">
-        </fieldset>
-        <fieldset>
-            <legend>Data Source File</legend>
-            <label for="mccdb"> Use USMCC DB</label>
-            <input type="radio" name="inputsource" value="mccdb" checked /> <br />
-            <label for="excelfile">Input Excel File</label>
-            <input type="radio" class="fileinputneeded" name="inputsource" value="excelfile" /><br />
-            <label for="csvfile">Input CSV File (J2)</label>
-            <input type="radio" class="fileinputneeded" name="inputsource" value="csvfile" /><br />
-            <input type="file" class="fileinputbox" id="fileinput" name="inputfile">
-            <br />
-        </fieldset>
-        <fieldset id="filters">
-            <legend>Data Filters</legend>
-            <label for="filter1"> Filter 1</label>
-            <input type="checkbox" id="filter1check" name="filter1check" value="True" /> <br />
-            <select id="filter1" name="filter1">
-                <option value="datatypename">DataType</option>
-                <option value="dopname">DOP</option>
-                <option value="ehename">ExpectedHorzError</option>
-                <option value="numburstsname">NumBursts</option>
-                <option value="numpacketsname">NumPackets</option>
-                <option value="numsatsname">NumSatellites</option>
-                <option value="cn0name">Average CN0</option>
-            </select><br />
-            <label for="filter1val" class="filter1s" id="filter1val">value</label><input type="radio" class="filter1s" name="filter1sel" id="filter1val" value="filter1val">
-            <label for="filter1ran" class="filter1s" id="filter1ran">range</label><input type="radio" class="filter1s" name="filter1sel" id="filter1ran" value="filter1ran">
-            <input type="text" class="filter1s" id="valueinput" name="filter1value" placeholder="value">
-            <input type="text" class="filter1s" id="rangeinput" name="filter1rangelow" placeholder="low value">
-            <input type="text" class="filter1s" id="rangeinput" name="filter1rangehigh" placeholder="high value">
-            <br />
+<div class="content form" id="MEOBeaconAnalysis">
+    <div class="row">
+        <div class="form-container">
+            <form class= "col-sm- flex-column method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <legend>MEOLUT</legend>
+                    <label for="3385">Hawaii</label>
+                    <input type="checkbox" name="MEOLUT" value="3385" checked /><br />
+                    <label for="3669">Florida</label>
+                    <input type="checkbox" name="MEOLUT" value="3669" checked /><br />
+                    <label for="2276">FMCC</label>
+                    <input type="checkbox" name="MEOLUT" value="2276" /><br />
+                </fieldset>
+                <fieldset>
+                    <legend>Beacon</legend>
+                    <label for="REFref">Reference Beacon Analysis</label>
+                    <input type="radio" name="UseBeaconID" value="REFref" checked /><br />
+                    <label for="HIref">Hawaii Reference Beacon</label>
+                    <input type="radio" name="UseBeaconID" value="HIref" /><br />
+                    <label for="FLref">Florida Reference Beacon</label>
+                    <input type="radio" name="UseBeaconID" value="FLref" /><br />
+                    <label for="UseBeaconID">Use Beacon ID</label>
+                    <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" /> <br />
+                    <label for="UseSiteID">Use Site Number</label>
+                    <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" />
+                    <input type="text" class="inputfield" id="beaconIDinput" name="beaconID" placeholder="Beacon ID">
+                    <input type="text" class="inputfield" id="siteIDinput" name="siteID" placeholder="Site Number"> <br />
+                    <input type="text" class="inputfield" id="siteLocationName" name="Location" placeholder="Location Name">
+                </fieldset>
+                <fieldset>
+                    <legend>Date/Time</legend>
+                    <label for="realtime"> Real Time </label>
+                    <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" checked />
+                    <label for="pasttime"> Past Time </label>
+                    <input type="radio" id="pasttime" name="RealPastTime" value="RT_no"> <br />
+                    <label id="rthours"> Number of Hours <input type="number" name="realtimehours" value="4" /></label>
+                    <label class="times"> Start Time <input type="datetime-local" name="StartTime" id="StartTime" /> </label> <br />
+                    <label class="times"> End Time <input type="datetime-local" name="EndTime" id="EndTime" /><br /></label>
+                </fieldset>
+                <fieldset id="gtsource">
+                    <legend>Ground Truth Source</legend>
+                    <label for="GTLatLon"> Input Lat, Lon</label>
+                    <input type="radio" id="gtlatlon" name="GTSource" value="GTLatLon" checked /><br />
+                    <label for="GTFile"> Use File</label>
+                    <input type="radio" id="gtfile" name="GTSource" value="GTFile" /><br />
+                    <input type="text" id="latinput" name="beaconLat" placeholder="Ground Truth Latitude">
+                    <input type="text" id="loninput" name="beaconLon" placeholder="Ground Truth Longitude">
+                    <input type="file" class="fileinputbox" id="gtfileinput" name="gt_inputfile">
+                </fieldset>
+                <fieldset>
+                    <legend>Data Source File</legend>
+                    <label for="mccdb"> Use USMCC DB</label>
+                    <input type="radio" name="inputsource" value="mccdb" checked /> <br />
+                    <label for="excelfile">Input Excel File</label>
+                    <input type="radio" class="fileinputneeded" name="inputsource" value="excelfile" /><br />
+                    <label for="csvfile">Input CSV File (J2)</label>
+                    <input type="radio" class="fileinputneeded" name="inputsource" value="csvfile" /><br />
+                    <input type="file" class="fileinputbox" id="fileinput" name="inputfile">
+                    <br />
+                </fieldset>
+                <fieldset id="filters">
+                    <legend>Data Filters</legend>
+                    <label for="filter1"> Filter 1</label>
+                    <input type="checkbox" id="filter1check" name="filter1check" value="True" /> <br />
+                    <select id="filter1" name="filter1">
+                        <option value="datatypename">DataType</option>
+                        <option value="dopname">DOP</option>
+                        <option value="ehename">ExpectedHorzError</option>
+                        <option value="numburstsname">NumBursts</option>
+                        <option value="numpacketsname">NumPackets</option>
+                        <option value="numsatsname">NumSatellites</option>
+                        <option value="cn0name">Average CN0</option>
+                    </select><br />
+                    <label for="filter1val" class="filter1s" id="filter1val">value</label><input type="radio" class="filter1s" name="filter1sel" id="filter1val" value="filter1val">
+                    <label for="filter1ran" class="filter1s" id="filter1ran">range</label><input type="radio" class="filter1s" name="filter1sel" id="filter1ran" value="filter1ran">
+                    <input type="text" class="filter1s" id="valueinput" name="filter1value" placeholder="value">
+                    <input type="text" class="filter1s" id="rangeinput" name="filter1rangelow" placeholder="low value">
+                    <input type="text" class="filter1s" id="rangeinput" name="filter1rangehigh" placeholder="high value">
+                    <br />
 
-            <label for="filter2"> Filter 2</label>
-            <input type="checkbox" id="filter2check" name="filter2check" value="True" /> <br />
-            <select id="filter2" name="filter2">
-                <option value="datatypename">DataType</option>
-                <option value="dopname">DOP</option>
-                <option value="ehename">ExpectedHorzError</option>
-                <option value="numburstsname">NumBursts</option>
-                <option value="numpacketsname">NumPackets</option>
-                <option value="numsatsname">NumSatellites</option>
-                <option value="cn0name">Average CN0</option>
-            </select><br />
-            <label for="filter2val" class="filter2s" id="filter2val">value</label><input type="radio" class="filter2s" name="filter2sel" id="filter2val" value="filter2val">
-            <label for="filter2ran" class="filter2s" id="filter2ran">range</label><input type="radio" class="filter2s" name="filter2sel" id="filter2ran" value="filter2ran">
-            <input type="text" class="filter2s" id="valueinput" name="filter2value" placeholder="value">
-            <input type="text" class="filter2s" id="rangeinput" name="filter2rangelow" placeholder="low value">
-            <input type="text" class="filter2s" id="rangeinput" name="filter2rangehigh" placeholder="high value">
-            <br />
+                    <label for="filter2"> Filter 2</label>
+                    <input type="checkbox" id="filter2check" name="filter2check" value="True" /> <br />
+                    <select id="filter2" name="filter2">
+                        <option value="datatypename">DataType</option>
+                        <option value="dopname">DOP</option>
+                        <option value="ehename">ExpectedHorzError</option>
+                        <option value="numburstsname">NumBursts</option>
+                        <option value="numpacketsname">NumPackets</option>
+                        <option value="numsatsname">NumSatellites</option>
+                        <option value="cn0name">Average CN0</option>
+                    </select><br />
+                    <label for="filter2val" class="filter2s" id="filter2val">value</label><input type="radio" class="filter2s" name="filter2sel" id="filter2val" value="filter2val">
+                    <label for="filter2ran" class="filter2s" id="filter2ran">range</label><input type="radio" class="filter2s" name="filter2sel" id="filter2ran" value="filter2ran">
+                    <input type="text" class="filter2s" id="valueinput" name="filter2value" placeholder="value">
+                    <input type="text" class="filter2s" id="rangeinput" name="filter2rangelow" placeholder="low value">
+                    <input type="text" class="filter2s" id="rangeinput" name="filter2rangehigh" placeholder="high value">
+                    <br />
 
-            <label for="filter3"> Filter 3</label>
-            <input type="checkbox" id="filter3check" name="filter3check" value="True" /> <br />
-            <select id="filter3" name="filter3">
-                <option value="datatypename">DataType</option>
-                <option value="dopname">DOP</option>
-                <option value="ehename">ExpectedHorzError</option>
-                <option value="numburstsname">NumBursts</option>
-                <option value="numpacketsname">NumPackets</option>
-                <option value="numsatsname">NumSatellites</option>
-                <option value="cn0name">Average CN0</option>
-            </select><br />
-            <label for="filter3val" class="filter3s" id="filter3val">value</label><input type="radio" class="filter3s" name="filter3sel" id="filter3val" value="filter3val">
-            <label for="filter3ran" class="filter3s" id="filter3ran">range</label><input type="radio" class="filter3s" name="filter3sel" id="filter3ran" value="filter3ran">
-            <input type="text" class="filter3s" id="valueinput" name="filter3value" placeholder="value">
-            <input type="text" class="filter3s" id="rangeinput" name="filter3rangelow" placeholder="low value">
-            <input type="text" class="filter3s" id="rangeinput" name="filter3rangehigh" placeholder="high value">
-            <br />
+                    <label for="filter3"> Filter 3</label>
+                    <input type="checkbox" id="filter3check" name="filter3check" value="True" /> <br />
+                    <select id="filter3" name="filter3">
+                        <option value="datatypename">DataType</option>
+                        <option value="dopname">DOP</option>
+                        <option value="ehename">ExpectedHorzError</option>
+                        <option value="numburstsname">NumBursts</option>
+                        <option value="numpacketsname">NumPackets</option>
+                        <option value="numsatsname">NumSatellites</option>
+                        <option value="cn0name">Average CN0</option>
+                    </select><br />
+                    <label for="filter3val" class="filter3s" id="filter3val">value</label><input type="radio" class="filter3s" name="filter3sel" id="filter3val" value="filter3val">
+                    <label for="filter3ran" class="filter3s" id="filter3ran">range</label><input type="radio" class="filter3s" name="filter3sel" id="filter3ran" value="filter3ran">
+                    <input type="text" class="filter3s" id="valueinput" name="filter3value" placeholder="value">
+                    <input type="text" class="filter3s" id="rangeinput" name="filter3rangelow" placeholder="low value">
+                    <input type="text" class="filter3s" id="rangeinput" name="filter3rangehigh" placeholder="high value">
+                    <br />
 
-        </fieldset>
-        <fieldset>
-            <legend>Options</legend>
-            <label for="sol_to_use">What Solutions?</label>
-            <select id="sol_to_use" name="sol_to_use">
-                <option value="all_sols">All Solutions</option>
-                <option value="window_sols">Last in Window</option>
-            </select><br />
-            <label for="KMLgen"> Generate KML file </label>
-            <input type="checkbox" class="KMLneeded" name="KMLgen" value="True" checked /><br />
-            <label for="ErrorLines"> Draw Error Lines in KML file </label>
-            <input type="checkbox" class="ErrorLines" name="ErrorLines" value="True" /><br />
-            <label for="SolutionsOut"> Output Solutions to File </label>
-            <input type="checkbox" name="SolutionsOut" value="True" /><br />
-            <label for="histcum"> Generate Histogram Cumulative Error Plot </label>
-            <input type="checkbox" name="histcum" value="True" /><br />
-            <label for="histcum"> Vary a Value in Hist/Cumulative Plot </label>
-            <input type="checkbox" name="plotvary" value='True' />
-            <select id="plotvary" name="plotvaryby">
-                <option value="dopname">DOP</option>
-                <option value="ehename">ExpectedHorzError</option>
-                <option value="numburstsname">NumBursts</option>
-                <option value="numpacketsname">NumPackets</option>
-                <option value="numsatsname">NumSatellites</option>
-                <option value="cn0name">Average CN0</option>
-            </select><br />
-        </fieldset>
-        <button type="submit" id="submit_button"> Submit </button> <br />
-    </form><br />
-    <article class="results">
-        <h3>Results</h3>
-        <button type="button" id="addEvents"> Events of interest</button>
-        <div id="events"> Events  </div>
-        {% block results %}
-        <p>testing</p>
-        {% endblock %}
-    </article>
-</section>
-{% endblock %}
+                </fieldset>
+                <fieldset>
+                    <legend>Options</legend>
+                    <label for="sol_to_use">What Solutions?</label>
+                    <select id="sol_to_use" name="sol_to_use">
+                        <option value="all_sols">All Solutions</option>
+                        <option value="window_sols">Last in Window</option>
+                    </select><br />
+                    <label for="KMLgen"> Generate KML file </label>
+                    <input type="checkbox" class="KMLneeded" name="KMLgen" value="True" checked /><br />
+                    <label for="ErrorLines"> Draw Error Lines in KML file </label>
+                    <input type="checkbox" class="ErrorLines" name="ErrorLines" value="True" /><br />
+                    <label for="SolutionsOut"> Output Solutions to File </label>
+                    <input type="checkbox" name="SolutionsOut" value="True" /><br />
+                    <label for="histcum"> Generate Histogram Cumulative Error Plot </label>
+                    <input type="checkbox" name="histcum" value="True" /><br />
+                    <label for="histcum"> Vary a Value in Hist/Cumulative Plot </label>
+                    <input type="checkbox" name="plotvary" value='True' />
+                    <select id="plotvary" name="plotvaryby">
+                        <option value="dopname">DOP</option>
+                        <option value="ehename">ExpectedHorzError</option>
+                        <option value="numburstsname">NumBursts</option>
+                        <option value="numpacketsname">NumPackets</option>
+                        <option value="numsatsname">NumSatellites</option>
+                        <option value="cn0name">Average CN0</option>
+                    </select><br />
+                </fieldset>
+                <button type="submit" id="submit_button"> Submit </button> <br />
+            </form><br />
+        </div>
+    {% endblock %}
+    {% block results %}
+    {% endblock %}
+    </div>
+</div>
+
 {% block footer %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" >
 {% endblock %}

@@ -85,9 +85,8 @@
             <article class="results">
                 <h3>Results</h3>
                 {% for filename in filelist %}
-                <a href="{{ filename }}">
-                    <img id="BurstResult" src="{{ filename }}" alt="Results png" title="results" />
-                </a>
+                <img class="img-fluid" id="BurstResult" src="{{ filename }}" alt="Results png" title="results" />
+                
                 {% endfor %}
             </article>
         </section>

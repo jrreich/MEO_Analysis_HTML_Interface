@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
-{% block title %} Beacon Decode {% endblock %}
+{% block title %} Burst Analysis {% endblock %}
 {% block head %}
   {{ super() }}
-  <style type="text/css">
-    .important { color: #336699; }
-  </style>
 {% endblock %}
 {% block content %}
-<section class="content" id="inputbeacon">
-        <h2> Please enter beacon ID test</h2>
-        <form method="post">
-            <label for="beaconID">Beacon ID</label>
-            <input type="text" name="beaconID" />
-            <button type="submit"> Submit </button>
-        </form>
-    </section>
+            <article class="results">
+                <h5 class="text-center">Results</h5>
+                <h6 class="text-center"> From {{StartTime.strftime('%m/%d/%y %H:%M:%S')}} to {{EndTime.strftime('%m/%d/%y %H:%M:%S')}}</h6>
+                
+                <h6 class="text-center"> MEOLUTs:  {% for MEO in MEOLUTList %} {{ MEO }}, {% endfor %} </h6>
+                
+                {% for filename in filelist %}
+                <img class="img-fluid" id="BurstResult" src="{{ filename }}" alt="Results png" title="results" />
+                
+                {% endfor %}
+            </article>
 {% endblock %}

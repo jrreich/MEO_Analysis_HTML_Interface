@@ -100,7 +100,7 @@ def getRoutes():
 def index():
     """Renders home page."""
     #createLink = "<a href = '" + url_for('beacon') + "'>Beacon Decoder</a>"; # url_for usings the function name to point to URL
-    return render_template('indexvue.html')
+    return render_template('index.html')
 
 @app.route("/vue")
 def vue_test_page():
@@ -110,7 +110,7 @@ def vue_test_page():
 def api():
     urlbase = url_for('index', _external = True)
     url = urlbase + "site-map"
-    data = requests.get(url).json()
+    data = requests.get(url,verify=False).json()
     return render_template('api.html', api_dict = data)
 
 @app.route("/UTCtime")
@@ -171,42 +171,112 @@ def rawburst():
                 #MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
         elif result['inputsource'] == 'mccdb':
             filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
-            return render_template('BurstAnalysisReturn1.html', filelist=filelist )
+            return render_template('BurstAnalysisReturn1.html', filelist=filelist, MEOLUTList=MEOLUTList, StartTime=StartTime, EndTime=EndTime )
     else: 
         return '<h2> Invalid Request </h2>'
 @app.route('/MEOInputAnalysis', methods=['GET','POST'])
 def MEOInputAnalysis():
     if request.method == 'GET':
-        # Send the user the form
-        return render_template('MEOInputAnalysisForm1.html')
+        result = request.args
+        print 'in get of MEOInputAnalysis'
+        
+        if len(result)==0: return render_template('MEOInputAnalysisForm1.html')
     elif request.method == 'POST':
         # read input
         result = request.form
-        if result.get('RealPastTime',False) == 'RT_yes':
-            EndTime = datetime.datetime.utcnow()
-            StartTime = EndTime - datetime.timedelta(hours = float(result['realtimehours']))
-        elif result.get('StartTime',False) <> '':
-            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
-            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
-        else:
-            EndTime = datetime.datetime.utcnow()
-            StartTime = EndTime - datetime.timedelta(days = 7)
-        if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
-            f = request.files['inputfile'] 
-            filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
-            f.save(filesaved)
-            if result['inputsource'] == 'excelfile':
-                MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
-        elif result['inputsource'] == 'mccdb':
-            csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, StartTime, EndTime, OUTPUTFOLDER, approot, servername, oppsdatabase) 
-            if csvoutfile == None:
-                return render_template('MEOInputAnalysisReturnNone.html', data = filelist)
-            rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
-            csv_data = [ row for row in rdr ]
-            return render_template('MEOInputAnalysisReturn1.html', data=csv_data, linklist = filelist)
-
+        print 'in post of MEOInputAnalysis'
     else: 
         return '<h2> Invalid Request </h2>'
+    print 'length of result = '     
+    print len(result)
+    print result
+    if 'MEOLUT' in result: 
+        MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
+    else:
+        MEOLUTList = [None]
+    print MEOLUTList
+    if result.get('RealPastTime',False) == 'RT_yes':
+        EndTime = datetime.datetime.utcnow()
+        StartTime = EndTime - datetime.timedelta(hours = float(result['realtimehours']))
+    elif result.get('StartTime',False) <> '':
+        StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
+        EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
+    else:
+        EndTime = datetime.datetime.utcnow()
+        StartTime = EndTime - datetime.timedelta(days = 7)
+    if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
+        f = request.files['inputfile'] 
+        filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
+        f.save(filesaved)
+        if result['inputsource'] == 'excelfile':
+            MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
+    elif result['inputsource'] == 'mccdb':
+        csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUTList, StartTime, EndTime, config_dict) 
+        if csvoutfile == None:
+            return render_template('MEOInputAnalysisReturnNone.html', data = filelist)
+        rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
+        csv_data = [ row for row in rdr ]
+        return render_template('MEOInputAnalysisForm1.html', data=csv_data, linklist = filelist)
+
+@app.route('/MEOBeaconAnalysis', methods=['GET','POST'])
+def MEOBeaconAnalysis():
+    if request.method == 'GET':
+        result = request.args
+        if len(result)==0: return render_template('MEOBeaconAnalysisForm1.html')
+    elif request.method == 'POST':
+        # read input
+        print "in get of MEOBeaconAnalysis" 
+        result = request.form
+    else: 
+        return '<h2> Invalid Request </h2>'
+        
+        
+    print result
+    print 'length of result = ' 
+    print len(result) 
+    ### get inputs for MSSQL_beacon_analysis
+    if 'MEOLUT' in result: 
+        MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
+    else:
+        MEOLUTList = [None]
+    print MEOLUTList
+    if result.get('RealPastTime',False) == 'RT_yes':
+        EndTime = datetime.datetime.utcnow()
+        StartTime = EndTime - datetime.timedelta(hours = float(168))
+    else:
+        StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
+        if result.get('EndTime',False):
+            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
+        else: 
+            EndTime = datetime.datetime.utcnow()
+    filesaved = False
+    filesaved_zip = False
+    if result.get('zipFile',False):
+        f = request.files['zip_inputfile'] 
+        filesaved_zip = os.path.join(approot, UPLOAD_FOLDER, secure_filename(f.filename))
+        f.save(filesaved_zip)
+    if result['GTSource'] == 'GTFile':
+        f = request.files['gt_inputfile'] 
+        filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
+        f.save(filesaved)
+    
+    #Calling appropriate functions
+    if TimeLog: print 'start of MEOInput_Analysis calls - ' + str(datetime.datetime.utcnow()) 
+    filelist1_dict = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved_zip) 
+    if TimeLog: print 'after of MEOInput_Analysis.MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
+    csvoutfile, imglist, filelist_dict = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
+    if TimeLog: print 'after of MEOBeaconInput_Analysis.MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
+    
+    #Rendering Templates
+    if csvoutfile == None:
+        print 'csvoutfile was None'
+        return render_template('MEOBeaconAnalysisReturnNoData1.html', result = result, StartTime = StartTime, EndTime = EndTime)
+    if filelist_dict is not None:
+        filelist_dict.update(filelist1_dict)
+    rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
+    csv_data = [ row for row in rdr ]
+    return render_template('MEOBeaconAnalysisReturn1.html', data=csv_data, imglist = imglist, linklist = filelist_dict)
+
 
 @app.route('/RealTimeMonitor')
 def realtimemonitor():
@@ -328,56 +398,6 @@ def opensites():
                 num_sites = len(open_site_list),
                 ) 
 
-@app.route('/MEOBeaconAnalysis', methods=['GET','POST'])
-
-def MEOBeaconAnalysis():
-    if request.method == 'GET':
-        return render_template('MEOBeaconAnalysisForm1.html')
-    elif request.method == 'POST':
-        # read input
-        result = request.form
-
-        if 'MEOLUT' in result: 
-            MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
-        else:
-            MEOLUTList = [None]
-        #first two are holdover from the /MEOData page - may need reworked. 
-        if result.get('RealPastTime',False) == 'RT_yes':
-            EndTime = datetime.datetime.utcnow()
-            StartTime = EndTime - datetime.timedelta(hours = float(168))
-        else:
-            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
-            if result.get('EndTime',False):
-                EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
-            else: 
-                EndTime = datetime.datetime.utcnow()
-        filesaved = False
-        filesaved_zip = False
-        if result.get('zipFile',False):
-            f = request.files['zip_inputfile'] 
-            filesaved_zip = os.path.join(approot, UPLOAD_FOLDER, secure_filename(f.filename))
-            f.save(filesaved_zip)
-        if result['GTSource'] == 'GTFile':
-            f = request.files['gt_inputfile'] 
-            filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
-            f.save(filesaved)
-        if TimeLog: print 'start of MEOInput_Analysis calls - ' + str(datetime.datetime.utcnow()) 
-        filelist1_dict = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved_zip) 
-        if TimeLog: print 'after of MEOInput_Analysis.MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
-        csvoutfile, imglist, filelist_dict = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
-        if TimeLog: print 'after of MEOInput_Analysis.MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
-        
-        if csvoutfile == None:
-            print 'csvoutfile was None'
-            return render_template('MEOBeaconAnalysisReturnNoData1.html', result = result, StartTime = StartTime, EndTime = EndTime)
-        if filelist_dict is not None:
-            filelist_dict.update(filelist1_dict)
-        rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
-        csv_data = [ row for row in rdr ]
-        return render_template('MEOBeaconAnalysisReturn1.html', data=csv_data, imglist = imglist, linklist = filelist_dict)
-
-    else: 
-        return '<h2> Invalid Request </h2>'
 
 @app.route('/Map', methods=['GET','POST'])
 def SarsatMap():
@@ -536,7 +556,7 @@ def api_comp_sols(type, sitenum):
     leo_columns = ['alertsitenum','gentime', 'addtime','a_lat','a_lon','tca','complat','complon','altitude','matchdistance', 
                          'enclat','enclon', 'encmatchdistance', 'inputdatatype',  'alertmsgstate', 'bcnid15', 'bcnid30', 
                         'sourceid', 'sourcename', 'sat', 'orbit', 'points', 'a_prob', 'indlocweight', 'indencdistance', 'rcvtime']
-    data = requests.get(url).json()
+    data = requests.get(url,verify=False).json()
     out_dict = {}
     for row in data:
         if type == 'comp' or type == 'all':
@@ -592,7 +612,7 @@ def czml_alert_site(type, sitenum):
     print '/api/czml/site/<type>/<int:sitenum'
     print 'pointing to > '
     print url
-    data = requests.get(url).json()
+    data = requests.get(url,verify=False).json()
     outczml = MEOInput_Analysis.czml_alert_site(type, sitenum, data) 
     return jsonify(outczml)
 
