@@ -262,6 +262,7 @@ def MEOBeaconAnalysis():
         sum_data = [ row for row in rdr ]
     if filelist1_dict is not None: fileout_dict.update(filelist1_dict)
     if filelist_dict is not None: fileout_dict.update(filelist_dict)
+    if csvoutfile is not None: fileout_dict.update({csvoutfile:'Summary Stats'})
     output_data = {'StartTime': StartTime,
                 'EndTime': EndTime,
                 'beaconID': beacon_out,
