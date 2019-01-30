@@ -86,7 +86,6 @@ def arg_processor(result):
         EndTime = datetime.datetime.utcnow()
         if result.get('realtimehours',False):
             StartTime = EndTime - datetime.timedelta(hours = float(result.get('realtimehours')))
-            print 'hin here'
         else: StartTime = EndTime - datetime.timedelta(days = float(1))
     else:
         StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
@@ -96,8 +95,6 @@ def arg_processor(result):
             EndTime = datetime.datetime.utcnow()
     filesaved = False
     filesaved_zip = False
-    print 'here'
-    print StartTime, EndTime
     if result.get('zipFile',False):
         f = request.files['zip_inputfile'] 
         filesaved_zip = os.path.join(approot, UPLOAD_FOLDER, secure_filename(f.filename))
@@ -215,8 +212,6 @@ def MEOInputAnalysis():
         return '<h2> Invalid Request </h2>'
 
     MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip = arg_processor(result)
-    print MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip
-    print result
     if not result.get('inputsource'): result['inputsource']  = 'mccdb'
     if result.get('inputsource') in ["excelfile", "zipfile", "sqldbfile"]:
         f = request.files['inputfile'] 
@@ -225,9 +220,9 @@ def MEOInputAnalysis():
         if result.get('inputsource') == 'excelfile':
             MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
     elif result.get('inputsource') == 'mccdb':
-        csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUTList, StartTime, EndTime, config_dict) 
-        print 'filelist'
-        print filelist
+        if TimeLog: print 'Starting MSSQL_analysis - ' + str(datetime.datetime.utcnow()) 
+        csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUTList, StartTime, EndTime, config_dict)
+        if TimeLog: print 'Finished MSSQL_analysis - ' + str(datetime.datetime.utcnow())  
         if csvoutfile == None:
             return render_template('MEOInputAnalysisForm1.html', NODATA = True, result=result, StartTime = StartTime, EndTime = EndTime, data = filelist)
         rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
@@ -249,12 +244,13 @@ def MEOBeaconAnalysis():
     fileout_dict = {}
     filelist1_dict = None
     #Calling appropriate functions
-    if TimeLog: print 'start of MEOBeacon_Analysis calls - ' + str(datetime.datetime.utcnow()) 
+    if TimeLog: print 'Starting Analysis calls - ' + str(datetime.datetime.utcnow()) 
     if result.get('Jdata',False) or result.get('AllSiteSols', False):
+        if TimeLog: print '  Starting MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
         filelist1_dict, beacon_out = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved_zip) 
-    if TimeLog: print 'after of MEOBeacon_Analysis.MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
-    csvoutfile, imglist, filelist_dict = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
-    if TimeLog: print 'after of MEOBeaconInput_Analysis.MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
+    if TimeLog: print '  Starting MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
+    beacon_out, csvoutfile, imglist, filelist_dict = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
+    if TimeLog: print '  Done MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
     
     #Creating Summary Table if available
     if csvoutfile == None: 

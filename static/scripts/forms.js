@@ -19,15 +19,18 @@ $(document).ready(function () {
     $('input[name = "UseBeaconID"]:radio').change(function () {
         if ($('input#userbeaconid').is(':checked')) {
             $('.beaconinputfield').hide(0);
+            $('#ref-beacon-group').hide(0);
             $('.beaconfield').slideDown('fast');
             $('.posfield').slideDown('fast');
             
         } else if ($('input#usersiteid').is(':checked')) {
             $('.beaconinputfield').hide(0);
+            $('#ref-beacon-group').hide(0);
             $('.sitefield').slideDown('fast');
             $('.posfield').slideDown('fast');
         } else {
             $('.beaconinputfield').hide(0);
+            $('#ref-beacon-group').slideDown('fast');
         }
     });
     //Toggle on file input

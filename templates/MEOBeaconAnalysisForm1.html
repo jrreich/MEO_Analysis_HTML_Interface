@@ -76,12 +76,24 @@
                 </div>
                 <div class="row">
                     <div class="form-check">
-                        <input type="radio" name="UseBeaconID" value="HIref" checked />
-                        <label for="HIref" class="form-check-label">Hawaii Ref Beacon</label>
+                        <input type="radio" name="UseBeaconID" value="UseRefBeacon" checked />
+                        <label for="UseRefBeacon" class="form-check-label">Reference Beacon</label>
                     </div>
-                    <div class="form-check">
-                        <input type="radio" name="UseBeaconID" value="FLref" />
-                        <label for="FLref" class="form-check-label">Florida Ref Beacon</label>
+                    <div class="form-group" id="ref-beacon-group">
+                        <select class="form-control" name="refbeacon">
+                            <option value="Florida-1">Florida-1</option>
+                            <option value="Hawaii-1">Hawaii-1</option>
+                            <option value="California">California</option>
+                            <option value="NASA_Goddard">NASA_Goddard</option>
+                            <option value="ToulouseMeoQMS">ToulouseMeoQMS</option>
+                            <option value="Ottawa">Ottawa</option>
+                            <option value="ToulouseOrb">ToulouseOrb</option>
+                            <option value="McMurdo">McMurdo</option>
+                            <option value="SpitsbergenMeoQMS">SpitsbergenMeoQMS</option> 
+                            <option value="Edmonton">Edmonton</option>
+                            <option value="MaspalomasMeoQMS">MaspalomasMeoQMS</option> 
+                            <option value="ToulouseTCAL">ToulouseTCAL</option>
+                        </select>
                     </div>
                     <div class="form-check">
                         <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" />
@@ -153,7 +165,6 @@
                 </div>
                 <div class="col-sm-6 start-hidden form-group filter1group">
                     <div class="form-group">
-                        <label for="filter1">Filter 1</label>
                         <select class="form-control" id="filter1" name="filter1">
                             <option value="datatypename">DataType</option>
                             <option value="dopname">DOP</option>
@@ -216,7 +227,6 @@
                 </div>
                 <div class="col-sm-6 start-hidden form-group filter3group">
                     <div class="form-group">
-                        <label for="filter3">Filter 3</label>
                         <select class="form-control" id="filter3" name="filter3">
                             <option value="datatypename">DataType</option>
                             <option value="dopname">DOP</option>

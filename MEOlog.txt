@@ -1,17 +1,13 @@
-2019-01-29 17:19:00,188 INFO app root
-2019-01-29 17:19:00,190 INFO executed activate virtualenv
-2019-01-29 17:19:00,190 INFO executed path insert
-2019-01-29 17:19:00,191 INFO beacon decode as a test
-2019-01-29 17:19:00,727 INFO numpy pandas and itertools
-2019-01-29 17:19:00,849 INFO imported matplotlib
-2019-01-29 17:19:00,858 INFO imported math, sys, os and xlrd
-2019-01-29 17:19:00,858 INFO datetime and csv
-2019-01-29 17:19:00,874 INFO collections and simplekml
-2019-01-29 17:19:00,874 INFO re and beacon decode
-2019-01-29 17:19:00,874 INFO pypyodbc imported - all modules imported
-2019-01-29 17:19:01,006 INFO imported app
-2019-01-29 17:19:01,006 INFO imported application as app
-2019-01-29 17:19:33,375 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2019-01-29 17:19:34,308 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/real_time_packet_stats/3385 HTTP/1.1" 200 1196
-2019-01-29 17:19:34,969 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2019-01-29 17:19:35,885 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/real_time_packet_stats/3669 HTTP/1.1" 200 1193
+2019-01-30 09:31:46,976 INFO app root
+2019-01-30 09:31:46,977 INFO executed activate virtualenv
+2019-01-30 09:31:46,977 INFO executed path insert
+2019-01-30 09:31:46,979 INFO beacon decode as a test
+2019-01-30 09:31:48,487 INFO numpy pandas and itertools
+2019-01-30 09:31:48,683 INFO imported matplotlib
+2019-01-30 09:31:48,691 INFO imported math, sys, os and xlrd
+2019-01-30 09:31:48,693 INFO datetime and csv
+2019-01-30 09:31:48,707 INFO collections and simplekml
+2019-01-30 09:31:48,709 INFO re and beacon decode
+2019-01-30 09:31:48,709 INFO pypyodbc imported - all modules imported
+2019-01-30 09:31:49,532 INFO imported app
+2019-01-30 09:31:49,532 INFO imported application as app
