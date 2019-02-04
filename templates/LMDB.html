@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block title %} LEOLUT Monitoring DB {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<h3> LMDB from {{ arg_dict['StartTime'] }} to {{ arg_dict['EndTime'] }} </h3>
+    <table id="lmdb_table"  class="display" style="width:100%">
+        <thead>
+            <tr>
+                {% for item in json_data[0] %}
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in json_data[1:] %}
+            <tr>
+                {% for val in item %}
+                <td>{{ val }} </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                {% for item in json_data[0] %}
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+                {% endfor %}
+            </tr>
+        </tfootd>
+    </table>
+{% endblock %}
+{% block footer %}
+<script src="{{ url_for('static', filename='js/dataTables.fixedHeader.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.fixedColumns.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.colVis.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons.flash.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons.print.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#lmdb_table thead tr').clone(true).appendTo( '#lmdb_table thead' );
+    $('#lmdb_table thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#lmdb_table').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true,
+        autoWidth: true,
+        scrollX: true,
+        scrollY: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'columnsToggle', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+
+    } );
+    $('#lmdb_table thead input').width('100px')
+} );
+</script>
+{% endblock %}

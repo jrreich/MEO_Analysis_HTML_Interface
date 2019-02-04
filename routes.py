@@ -77,34 +77,6 @@ class DateConverter(BaseConverter):
         return value.strftime('%Y-%m-%d')
 app.url_map.converters['date'] = DateConverter
 
-def arg_processor(result):
-    if 'MEOLUT' in result: 
-        MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
-    else:
-        MEOLUTList = [None]
-    if result.get('RealPastTime',False) == 'RT_yes':
-        EndTime = datetime.datetime.utcnow()
-        if result.get('realtimehours',False):
-            StartTime = EndTime - datetime.timedelta(hours = float(result.get('realtimehours')))
-        else: StartTime = EndTime - datetime.timedelta(days = float(1))
-    else:
-        StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
-        if result.get('EndTime',False):
-            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
-        else: 
-            EndTime = datetime.datetime.utcnow()
-    filesaved = False
-    filesaved_zip = False
-    if result.get('zipFile',False):
-        f = request.files['zip_inputfile'] 
-        filesaved_zip = os.path.join(approot, UPLOAD_FOLDER, secure_filename(f.filename))
-        f.save(filesaved_zip)
-    if result.get('GTSource') == 'GTFile':
-        f = request.files['gt_inputfile'] 
-        filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
-        f.save(filesaved)
-    return MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip
-
 #Function and route to get list of all routes:
 def has_no_empty_params(rule):
     defaults = rule.defaults if rule.defaults is not None else ()
@@ -173,30 +145,29 @@ def beacon():
     else: 
         return '<h2> Invalid Request </h2>'
 
-@app.route('/rawburst', methods=['GET','POST'])
+@app.route('/rawburst', methods=['GET'])
 def rawburst():
-    print request.method
-    if request.method == 'GET':
-        # Send the user the form
-        return render_template('BurstAnalysisForm1.html')
-    elif request.method == 'POST':
-        # read input
-        result = request.form
-    else: 
-        return '<h2> Invalid Request </h2>'
-    MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip = arg_processor(result)
-    print MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip
-    if not MEOLUTList: MEOLUTList = ['%']
-
-    if result['inputsource'] in ["excelfile", "zipfile", "sqldbfile"]:
-        f = request.files['inputfile'] 
+    arg_dict = {} 
+    arg_dict.update(request.args)
+    if len(request.args)==0: return render_template('BurstAnalysisForm1.html')
+    arg_dict = url_arg_processor(request.args, 4)
+    #MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip, output_format = arg_processor(result)
+    for key, val in arg_dict.iteritems():
+        print key, val 
+    #print MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip
+    if not arg_dict.get('MEOLUTList'): arg_dict['MEOLUTList'] = ['%']  ## probably not needed
+    if arg_dict.get('inputsource') in ["excelfile", "zipfile", "sqldbfile"]:
+        """f = request.files['inputfile']   # < - Will need to do POST to do this 
         filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
         f.save(filesaved)
         #if result['inputsource'] == 'excelfile':
             #MEOInput_Analysis.xlx_analysis(UPLOAD_FOLDER, secure_filename(f.filename), MEOLUT, StartTime, EndTime, result)
-    elif result['inputsource'] == 'mccdb':
-        filelist = MEOInput_Analysis.MSSQL_burst(result, MEOLUTList, StartTime, EndTime, OUTPUTFOLDER, approot, servername, mcctestLGM) #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
-        return render_template('BurstAnalysisForm1.html', filelist=filelist, MEOLUTList=MEOLUTList, StartTime=StartTime, EndTime=EndTime )
+        """
+        return jsonify('File uploads not currently supported')
+    else: 
+        arg_dict.get('inputsource') == 'mccdb'
+        filelist = MEOInput_Analysis.MSSQL_burst(arg_dict, config_dict) #,sql_login = 'yes') # sql_login uses FreeTDS and sql login rather than windows auth - used for linux
+        return render_template('BurstAnalysisForm1.html', filelist=filelist, MEOLUTList=arg_dict['MEOLUTList'], StartTime=arg_dict['StartTime'], EndTime=arg_dict['EndTime'] )
 
 @app.route('/MEOInputAnalysis', methods=['GET','POST'])
 def MEOInputAnalysis():
@@ -210,44 +181,41 @@ def MEOInputAnalysis():
 
     else: 
         return '<h2> Invalid Request </h2>'
-
-    MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip = arg_processor(result)
+    arg_dict = url_arg_processor(result)
+    MEOLUTList, StartTime, EndTime = arg_dict['MEOLUTList'], arg_dict['StartTime'], arg_dict['EndTime']
     if not result.get('inputsource'): result['inputsource']  = 'mccdb'
+    """
     if result.get('inputsource') in ["excelfile", "zipfile", "sqldbfile"]:
         f = request.files['inputfile'] 
         filesaved = os.path.join(approot, UPLOAD_FOLDER,secure_filename(f.filename))
         f.save(filesaved)
         if result.get('inputsource') == 'excelfile':
-            MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUT, StartTime, EndTime, result) # need to add approot if this will be functional on apache
-    elif result.get('inputsource') == 'mccdb':
-        if TimeLog: print 'Starting MSSQL_analysis - ' + str(datetime.datetime.utcnow()) 
-        csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUTList, StartTime, EndTime, config_dict)
-        if TimeLog: print 'Finished MSSQL_analysis - ' + str(datetime.datetime.utcnow())  
-        if csvoutfile == None:
-            return render_template('MEOInputAnalysisForm1.html', NODATA = True, result=result, StartTime = StartTime, EndTime = EndTime, data = filelist)
-        rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
-        csv_data = [ row for row in rdr ]
-        return render_template('MEOInputAnalysisForm1.html', data=csv_data, linklist = filelist)
+            MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUTList, StartTime, EndTime, result) # need to add approot if this will be functional on apache
+    """
+    #elif result.get('inputsource') == 'mccdb':
+    if TimeLog: print 'Starting MSSQL_analysis - ' + str(datetime.datetime.utcnow()) 
+    csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUTList, StartTime, EndTime, config_dict)
+    if TimeLog: print 'Finished MSSQL_analysis - ' + str(datetime.datetime.utcnow())  
+    if csvoutfile == None:
+        return render_template('MEOInputAnalysisForm1.html', NODATA = True, result=result, StartTime = StartTime, EndTime = EndTime, data = filelist)
+    rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
+    csv_data = [ row for row in rdr ]
+    return render_template('MEOInputAnalysisForm1.html', data=csv_data,  linklist = filelist)
 
-@app.route('/MEOBeaconAnalysis', methods=['GET','POST'])
+@app.route('/MEOBeaconAnalysis', methods=['GET'])
 def MEOBeaconAnalysis():
-    if request.method == 'GET':
-        result = request.args
-        if len(result)==0: return render_template('MEOBeaconAnalysisForm1.html')
-    elif request.method == 'POST':
-        result = request.format
-    else: 
-        return '<h2> Invalid Request </h2>'
+    result = request.args
+    if len(result)==0: return render_template('MEOBeaconAnalysisForm1.html')
     ### get inputs for MSSQL_beacon_analysis
-    MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip = arg_processor(result)
-
+    arg_dict = url_arg_processor(result)
+    MEOLUTList, StartTime, EndTime, filesaved = arg_dict['MEOLUTList'], arg_dict['StartTime'], arg_dict['EndTime'], arg_dict.get('filesaved')
     fileout_dict = {}
     filelist1_dict = None
     #Calling appropriate functions
     if TimeLog: print 'Starting Analysis calls - ' + str(datetime.datetime.utcnow()) 
     if result.get('Jdata',False) or result.get('AllSiteSols', False):
         if TimeLog: print '  Starting MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
-        filelist1_dict, beacon_out = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved_zip) 
+        filelist1_dict, beacon_out = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict) 
     if TimeLog: print '  Starting MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
     beacon_out, csvoutfile, imglist, filelist_dict = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
     if TimeLog: print '  Done MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
@@ -289,8 +257,6 @@ def realtimemonitor():
     else:
         days = 4
     if request.args.get('refreshtimer', None):
-        print request.args.get('refreshtimer')
-        print type(request.args.get('refreshtimer'))
         refreshtimer = float(request.args.get('refreshtimer'))
     else:
         refreshtimer = 300
@@ -350,10 +316,6 @@ def realtimemonitor():
             FL_packet_percent['antenna'][i]['count'] = int(FL_packet_percent['ant'+str(i)+'burstcount'])
             FL_packet_percent['antenna'][i]['percent'] = float(FL_packet_percent['ant'+str(i)+'burstpercent']) 
 
-            #for key, val in FL_packet_percent.iteritems():
-            #    if key.find('ant'+str(i)+):
-            #        FL_packet_percent['antenna'][i]['percent'] = val  
-
     else:
         FL_packet_percent = MEOInput_Analysis.api_meo_packet_throughput(3669, BurstStartTime, EndTime, config_dict, 
                                                         beaconId = 'ADDC00202020201', rep_rate = 50, minutes = burstwindow)
@@ -364,8 +326,10 @@ def realtimemonitor():
     if TimeLog:
         print '6 - FL packet percent'
         print datetime.datetime.utcnow() - startofscript  
-    open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)
-    # list of tuples
+    #open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)
+   
+    open_site_list =  requests.get(urlbase + "api/sitesum",verify=False, params = {'open_closed':'all_open'}).json()
+    num_sites = len(open_site_list)-1
     return render_template('RealTimeMonitor1.html', 
         alarmlist=alarmlist, 
         closedalarms = closedalarms, 
@@ -382,10 +346,13 @@ def realtimemonitor():
         BurstStartTime = BurstStartTime,
         refreshtimer = refreshtimer,
         burstwindow = burstwindow,
+        num_sites = num_sites
         )
 
+
 @app.route('/SiteQuery')
-def opensites():
+def site_query():
+    urlbase = url_for('index', _external = True)
     if request.method == 'GET':
         if request.args.get('sitenum') is not None:
             RCC_KML = False
@@ -403,8 +370,6 @@ def opensites():
             alertsitesum = MEOInput_Analysis.alertsitesum_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase)
             alertsitesols, Input_KMLfile = MEOInput_Analysis.alertsitesol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase, makeKML = Input_KML)
             outsitesols, RCC_KMLfile = MEOInput_Analysis.outsol_query(sitenum,OUTPUTFOLDER,approot,servername,oppsdatabase, makeKML=RCC_KML)
-            
-
 
             return render_template('SiteQuery1.html',
                 sitenum = sitenum,
@@ -418,9 +383,16 @@ def opensites():
                 )
         else:
             open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)  # list of tuples
+            open_site_list =  requests.get(urlbase + "api/sitesum",verify=False, params = {'open_closed':'all_open'}).json()
+            all_site_list = requests.get(urlbase + "api/sitesum",verify=False).json()
+
+            if all_site_list == "None": no_all_sites = True
             return render_template('OpenSites1.html',
                 open_site_list = open_site_list,
-                num_sites = len(open_site_list),
+                num_open_sites = len(open_site_list)-1,
+                all_site_list = all_site_list,
+                num_all_sites = len(all_site_list)-1,
+                no_all_sites = no_all_sites
                 ) 
 
 
@@ -429,58 +401,130 @@ def SarsatMap():
     if request.method == 'GET':
         if request.args.get('KML', None):
             return render_template('Cesium_Map.html', KMLFILE = request.args.get('KML'))
+        if request.args.get('CZML',None): 
+            return render_template('Cesium_Map.html', CZMLFILE = request.args.get('CZML'))
         else: 
             return render_template('Cesium_Map.html')
 
-@app.route('/MEOData', methods=['GET','POST'])
-def meodata():
-    if request.method == 'GET':
-        # Send the user the form
-        return render_template('MeoDataCollection.html')
-    elif request.method == 'POST':
-        result = request.form
-        if result.get('beaconID', False):
-            beaconId = result['beaconID']
-        else:
-            beaconId = '%'
-        if result.get('EndTime', False):
-            EndTime = datetime.datetime.strptime(result['EndTime'],'%Y-%m-%dT%H:%M')
-        else:
-            EndTime = datetime.datetime.utcnow()
-        if result.get('StartTime', False):
-            StartTime = datetime.datetime.strptime(result['StartTime'],'%Y-%m-%dT%H:%M')
-        else:
-            StartTime = EndTime - datetime.timedelta(hours = float(168))
-        if 'MEOLUT' in result: 
-            MEOLUTList = [int(x) for x in result.getlist('MEOLUT')]
-        else:
-            MEOLUTList = [None]
-        filesaved = False
-        if result.get('zipFile',False):
-            f = request.files['zip_inputfile'] 
-            filesaved = os.path.join(approot, UPLOAD_FOLDER, secure_filename(f.filename))
-            f.save(filesaved)
-        filelist = MEOInput_Analysis.MeoDataCollection(beaconId, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
-        return render_template('MeoDataCollection.html', linklist = filelist)
-    else: 
-        return '<h2> Invalid Request </h2>'
+@app.route('/MEOSchedule', methods=['GET'])
+def meo_schedule():
+    """/api/MEO/schedule?MEOLUT=3385&StartTime=2019-01-21 01:00:00&EndTime=2019-01-21 02:00:00
+    """
+    arg_dict = url_arg_processor(request.args)
+    arg_dict['output_format'] = 'data_list'
+    urlbase = url_for('index', _external = True)
+    out_request = requests.get(urlbase + 'api/MEO/schedule', params = arg_dict, verify=False)
+    if out_request != "None":
+        arg_dict['no_data'] = True
+    return render_template('MEOSchedule.html', arg_dict=arg_dict, json_data = out_request.json())
+
+@app.route('/LMDB/CF')
+def dc():
+    arg_dict = url_arg_processor(request.args,7*24)
+    urlbase = url_for('index', _external = True)
+    url = urlbase + "api/LEO/LMDB"
+    json_data = requests.get(url,verify=False, params = {'StartTime': arg_dict['StartTime'], 'EndTime': arg_dict['EndTime'], 'output_format':'json'})
+    NODATA = None
+    if json_data.json() == "None":
+        NODATA = True 
+    return render_template('LMDB_CrossFilter.html', json_data_url=json_data.url, json_obj = json_data.json(), NODATA = NODATA, arg_dict = arg_dict, num_passes = len(json_data.json()))
+
+@app.route('/LMDB', methods=['GET'])
+def lmdb():
+    """/LMDB?StartTime=2019-01-21 01:00:00&EndTime=2019-01-21 02:00:00&LEOLUT=AK1
+    """
+    arg_dict = url_arg_processor(request.args,5*24)
+    arg_dict['output_format'] = 'data_list'
+    arg_dict.pop('MEOLUTList',None)
+    arg_dict.pop('minutes',None)
+    arg_dict.pop('rep_rate', None)
+    for key, val in arg_dict.iteritems():
+        print key, val
+    urlbase = url_for('index', _external = True)
+    out_request = requests.get(urlbase + 'api/LEO/LMDB', params = arg_dict, verify=False)
+    print out_request.url
+    if out_request:
+        return render_template('LMDB.html', arg_dict=arg_dict, json_data = out_request.json())
+    return jsonify("No data")
+
 
 @app.route('/api/sites', methods=['GET'])
 def api_sites(sites_type):
-
     result = request.args
+
+@app.route('/api/sitesum', methods=['GET','POST'])
+def sitereturn():
+    """ Returns site summaries, arg_dict keys open_closed = [open, closed, all_open], StartTime, EndTime, sitenum  
+    Note: if sitenum is set all other inputs are ignored, if all_open is set all other inputs are ignored """
+    input_dict = {}
+    input_dict.update(request.args)
+    if not request.args: input_dict.update({'days':5})
+    arg_dict = url_arg_processor(input_dict)
+    if request.args.get('open_closed', False): arg_dict['open_closed'] =  request.args.get('open_closed')
+    else: arg_dict['open_closed'] =  'all'
+    if request.args.get('sitenum', False): arg_dict['sitenum'] = request.args.get('sitenum')
+    arg_dict.pop('MEOLUTList',None)
+    arg_dict.pop('minutes',None)
+    outdata = MEOInput_Analysis.api_site_sum_query(arg_dict, config_dict)
+    if outdata: return jsonify(outdata)
+    else: return jsonify('None')
+
+def url_arg_processor(url_args, default_hours = 24):
     
+    out_dict = {}
+    out_dict.update(dict((key,val) for key, val in url_args.iteritems()))
+    # Determine End Time for RealTime
+    if url_args.get('RealPastTime') == "RT_yes":
+        EndTime = datetime.datetime.utcnow()  
+        if url_args.get('EndTime',False): 
+            if url_args.get('EndTime').find("T") != -1: EndTime = datetime.datetime.strptime(url_args['EndTime'],'%Y-%m-%dT%H:%M')
+            else: EndTime = datetime.datetime.strptime(url_args['EndTime'],'%Y-%m-%d %H:%M:%S') 
+    # Determine End Time for past time
+    else:
+        if url_args.get('EndTime',False): 
+            if url_args.get('EndTime').find("T") != -1: EndTime = datetime.datetime.strptime(url_args['EndTime'],'%Y-%m-%dT%H:%M')
+            else: EndTime = datetime.datetime.strptime(url_args['EndTime'],'%Y-%m-%d %H:%M:%S')
+        else: EndTime = datetime.datetime.utcnow().replace(microsecond=0)
 
 
-@app.route('/api/sitesum/<int:sitenum>', methods=['GET','POST'])
-def sitereturn(sitenum):
-    if request.method == 'GET':
-        SiteData = MEOInput_Analysis.api_site_sum_query(sitenum, config_dict)
-        try: 
-            data = SiteData
-        except IndexError:
-            abort(404)
-        return jsonify(data)
+    # Determine StartTime 
+    if url_args.get('realtimehours'): hours = float(url_args.get('realtimehours'))
+    else: hours = 0
+    minutes = hours*60
+    if url_args.get('days'): days = float(url_args.get('days'))
+    else: days = 0
+    minutes += days*24*60
+    if url_args.get('minutes'): 
+        minutes += float(url_args.get('minutes'))
+    if minutes == 0: minutes = default_hours*60
+    StartTime = EndTime - datetime.timedelta(minutes = minutes)
+    
+    if url_args.get('StartTime'): 
+        if url_args.get('StartTime').find("T") != -1: 
+            StartTime = datetime.datetime.strptime(url_args['StartTime'],'%Y-%m-%dT%H:%M')
+        else: StartTime = datetime.datetime.strptime(url_args['StartTime'],'%Y-%m-%d %H:%M:%S')
+
+    if url_args.get('MEOLUT'): 
+        MEOLUTList = [int(x) for x in url_args.getlist('MEOLUT')]
+    else:
+        MEOLUTList = [3669, 3385]
+    if url_args.get('output_format') == 'json':
+        output_format = 'json'
+    elif url_args.get('output_format') == 'csv':
+        output_format = 'csv'
+    else:
+        output_format = 'data_list'
+    
+    rep_rate = url_args.get('rep_rate',None)
+    beaconId = url_args.get('beaconId',None)
+    out_dict.update({'EndTime': EndTime,
+                'StartTime': StartTime,
+                'rep_rate': rep_rate,
+                'beaconId': beaconId,
+                'MEOLUTList': MEOLUTList,
+                'minutes': minutes,
+                'output_format': output_format})
+    return out_dict
 
 @app.route('/api/MEO/location_accuracy/<int:MEOLUT_ID>', methods=['GET'])
 def meolut_location_accuracy(MEOLUT_ID):
@@ -491,28 +535,31 @@ def meolut_location_accuracy(MEOLUT_ID):
     /api/MEO/location_accuracy/3385?StartTime=2019-01-21 01:00:00&EndTime=2019-01-21 02:00:00
     '''
     kwargs = {}
-    if 'EndTime' in request.args:
-        EndTime = datetime.datetime.strptime(request.args.get('EndTime'), '%Y-%m-%d %H:%M:%S')
-    else: EndTime = datetime.datetime.utcnow()
-    if 'hours' in request.args: hours = float(request.args.get('hours'))
-    else: hours = 0
-    minutes = hours*60
-    if 'days' in request.args: days = float(request.args.get('days'))
-    else: days = 0
-    minutes += days*24*60
-    if 'minutes' in request.args: 
-        minutes_to_add = float(request.args.get('minutes'))
-        minutes += minutes_to_add
-    if minutes == 0: minutes = 60
-    if 'StartTime' in request.args:
-        StartTime = datetime.datetime.strptime(request.args.get('StartTime'), '%Y-%m-%d %H:%M:%S')
-    if request.args.get('StartTime') is None: StartTime = EndTime - datetime.timedelta(minutes = minutes)
-    beaconId = request.args.get('beaconId',None)
+    arg_dict = url_arg_processor(request.args)
+    for key, val in arg_dict.iteritems():
+        print key, val
     #StartTime = datetime.datetime(2019,01,21,01,00)
     #EndTime = datetime.datetime(2019,01,21,02,00)
-    output = MEOInput_Analysis.api_meo_location_accuracy(MEOLUT_ID, StartTime, EndTime, config_dict, beaconId = beaconId)
-    output[MEOLUT_ID]['StartTime'] = StartTime
-    output[MEOLUT_ID]['EndTime'] = EndTime
+    output = MEOInput_Analysis.api_meo_location_accuracy(MEOLUT_ID, arg_dict['StartTime'], arg_dict['EndTime'], config_dict, beaconId = arg_dict['beaconId'])
+    output[MEOLUT_ID]['StartTime'] = arg_dict['StartTime']
+    output[MEOLUT_ID]['EndTime'] = arg_dict['EndTime']
+    return jsonify(output)
+
+@app.route('/api/MEO/reference_location_accuracy/<int:MEOLUT_ID>', methods=['GET'])
+def meolut_referenece_location_accuracy(MEOLUT_ID):
+    '''
+    Get Location stats per MEOLUT. Optional args StartTime, EndTime, hours, days, minutes
+    If no args are supplied, uses current time as StartTime and 60 minutes 
+    Example of using args: 
+    /api/MEO/location_accuracy/3385?StartTime=2019-01-21 01:00:00&EndTime=2019-01-21 02:00:00
+    '''
+    kwargs = {}
+    arg_dict = url_arg_processor(request.args)
+    for key, val in arg_dict.iteritems():
+        print key, val
+    #StartTime = datetime.datetime(2019,01,21,01,00)
+    #EndTime = datetime.datetime(2019,01,21,02,00)
+    output = MEOInput_Analysis.api_meo_ref_beacon_accuracy(MEOLUT_ID, arg_dict['StartTime'], arg_dict['EndTime'], arg_dict,config_dict)
     return jsonify(output)
 
 @app.route('/api/MEO/real_time_packet_stats/<int:MEOLUT_ID>', methods=['GET'])
@@ -533,30 +580,36 @@ def meolut_packet_throughput(MEOLUT_ID):
     /api/MEO/location_accuracy/3385?StartTime=2019-01-21 01:00:00&EndTime=2019-01-21 02:00:00
     '''
     kwargs = {}
-    if 'EndTime' in request.args:
-        EndTime = datetime.datetime.strptime(request.args.get('EndTime'), '%Y-%m-%d %H:%M:%S')
-    else: EndTime = datetime.datetime.utcnow()
-    if 'hours' in request.args: hours = float(request.args.get('hours'))
-    else: hours = 0
-    minutes = hours*60
-    if 'days' in request.args: days = float(request.args.get('days'))
-    else: days = 0
-    minutes += days*24*60
-    if 'minutes' in request.args: 
-        minutes_to_add = float(request.args.get('minutes'))
-        minutes += minutes_to_add
-    if minutes == 0: minutes = 60
-    if 'StartTime' in request.args: 
-        StartTime = datetime.datetime.strptime(request.args.get('StartTime'), '%Y-%m-%d %H:%M:%S')
-    else: 
-        StartTime = EndTime - datetime.timedelta(minutes = minutes)
-    rep_rate = request.args.get('rep_rate',None)
-    beaconId = request.args.get('beaconId',None)
-    packets = MEOInput_Analysis.api_meo_packet_throughput(MEOLUT_ID, StartTime, EndTime, config_dict, 
-                                                          rep_rate = rep_rate, minutes = minutes, beaconId = beaconId)
-    packets['StartTime'] = StartTime
-    packets['EndTime'] = EndTime
+    arg_dict = url_arg_processor(request.args)
+    packets = MEOInput_Analysis.api_meo_packet_throughput(MEOLUT_ID, arg_dict['StartTime'], arg_dict['EndTime'], config_dict, 
+                                                          rep_rate = arg_dict['rep_rate'], minutes = arg_dict['minutes'], beaconId = arg_dict['beaconId'])
+    packets['StartTime'] = arg_dict['StartTime']
+    packets['EndTime'] = arg_dict['EndTime']
     return jsonify(packets)
+
+@app.route('/api/MEO/schedule', methods=['GET'])
+def meodata():
+    """/api/MEO/schedule?MEOLUT=3385&StartTime=2019-01-21 01:00:00&EndTime=2019-01-21 02:00:00
+    """
+    arg_dict = url_arg_processor(request.args)
+    outdata = MEOInput_Analysis.api_meo_schedule(arg_dict['MEOLUTList'], arg_dict['StartTime'], arg_dict['EndTime'], arg_dict['output_format'], config_dict)
+    if outdata: 
+        if arg_dict['output_format'] == 'csv': return outdata
+        return jsonify(outdata)
+    return jsonify("None")
+
+@app.route('/api/LEO/LMDB', methods=['GET'])
+def api_leo_lmdb():
+    """ returns LMDB for specified period"""
+    arg_dict = url_arg_processor(request.args)
+    
+    arg_dict['LEOLUTList'] = [x for x in request.args.getlist('LEOLUT')] # defaults to emptylist (all if not specified)
+    arg_dict['SATList'] = [int(x) for x in request.args.getlist('SAT')] # defaults to emptylist (all if not specified)
+    outdata = MEOInput_Analysis.api_leo_lmdb(config_dict, arg_dict, request.args.get('output_format',None))
+    if outdata: 
+        if arg_dict['output_format'] == 'csv': return outdata
+        return jsonify(outdata)
+    return jsonify("None")
 
 
 @app.route('/api/site/<table>/<int:sitenum>', methods = ['GET','POST'])
@@ -565,7 +618,7 @@ def api_site(table, sitenum):
     input_data = request.args.to_dict()
     if table not in ['alertsitesol', 'alertsitesum' , 'outsolution', 'leo','meo','enc']:
         raise TypeError("table must be type 'alertsitesol', 'alertsitesum', 'outsolution', 'leo','meo' or 'enc' not {}".format(table))
-        return render_templat('error.html',404) 
+        return render_template('error.html',404) 
     outdata = MEOInput_Analysis.api_site(config_dict, sitenum, table)
     #print outdata[0]
     return jsonify(outdata)
@@ -586,7 +639,7 @@ def api_JSON_leo_geo_sols():
 
 @app.route('/api/<type>/<int:sitenum>', methods = ['GET','POST'])
 def api_comp_sols(type, sitenum):
-    # returns all type (leo, meo, comp, enc) of locations for a site
+    # returns composite locations of all types (leo, meo, comp, enc) a site
     urlbase = url_for('index', _external = True)
     url = urlbase + "api/site/alertsitesol/{}".format(sitenum)
     composite_columns = ['alertsitenum','gentime', 'addtime','complat','complon','altitude','matchdistance', 

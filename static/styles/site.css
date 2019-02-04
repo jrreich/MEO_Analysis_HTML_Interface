@@ -3,47 +3,12 @@
     height: 100%; 
     margin: 0; 
     padding: 0; 
-    overflow: hidden;
 }
 
-.buttonHolder {
-    position: absolute;
-    top: 12px;
-    left: 5px;
-    padding: 7px;
-    background-color: rgba(42, 42, 42, 0.8);
-    border: 2px solid grey;
-    border-radius: 7px;
-    vertical-align: middle;
-    color: grey;
-}
-
-.toolHolder {
-    position: absolute;
-    bottom: 140px;
-    right: 5px;
-    padding: 7px;
-    background-color: rgba(42, 42, 42, 0.8);
-    border: 2px solid grey;
-    border-radius: 7px;
-    vertical-align: middle;
-    color: grey;
-}
-
-.uiButton {
-    position: relative;
-    z-index: 2;
-    height: 30px;
-    width: 150px;
-    background-color: #4cff00;
-    font-weight: bold;
-}
-
-#toolbar {
-    padding: 2px 5px;
-    position: absolute;
-    bottom: 40px;
-    right: 5px;
-    font-family: sans-serif;
-    color: #edffff;
+@media (min-width: 1200px) {
+    .container {
+        max-width: 3440px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 }

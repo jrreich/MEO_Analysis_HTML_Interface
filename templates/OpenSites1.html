@@ -7,82 +7,134 @@
   </style>
 {% endblock %}
 {% block content %}
-<section class="content">
-        <article id="opensites">
-            <h3> {{ num_sites }} Open Sites </h3>
-                <table id="opensite_table"  class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="AlertSiteNum: activate to sort column ascending" style="width: 57px;">AlertSiteNum</th>
-                            <th>Beacon ID</th>
-                            <th>Country Code Name</th>
-                            <th>Comp Lat</th>
-                            <th>Comp Lon</th>
-                            <th>Open Time</th>
-                            <th>Last Update</th>
-                            <th>Num Passes</th>
-                            <th>Num Sol</th>
-                            <th>Num LEO/GEO Sol</th>
-                            <th>Num MEO Sol</th>
-                            <th>Num Doppler Sol</th>
-                            <th>Num DOA Sol</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in open_site_list %}
-                        <tr>
-                            <td><a href="/SiteQuery?sitenum={{ row.0 }}">{{ row.0 }}</a></td>
-                            <td>{{ row.1 }}</td>
-                            <td>{{ row.2 }}</td>
-                            <td>{{ row.3 }}</td>
-                            <td>{{ row.4 }}</td>
-                            <td>{{ row.5 }}</td>
-                            <td>{{ row.6 }}</td>
-                            <td>{{ row.7 }}</td>
-                            <td>{{ row.8 }}</td>
-                            <td>{{ row.9 }}</td>
-                            <td>{{ row.10 }}</td>
-                            <td>{{ row.11 }}</td>
-                            <td>{{ row.12 }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>AlertSiteNum</th>
-                            <th>Beacon ID</th>
-                            <th>Country Code Name</th>
-                            <th>Comp Lat</th>
-                            <th>Comp Lon</th>
-                            <th>Open Time</th>
-                            <th>Last Update</th>
-                            <th>Num Passes</th>
-                            <th>Num Sol</th>
-                            <th>Num LEO/GEO Sol</th>
-                            <th>Num MEO Sol</th>
-                            <th>Num Doppler Sol</th>
-                            <th>Num DOA Sol</th>
-                        </tr>
-                    </tfootd>
-            </table>
-        </article>
-    </section>
+<h3> {{ num_open_sites }} Open Sites </h3>
+<table id="opensite_table"  class="display" style="width:100%">
+    <thead>
+        <tr>
+            {% for item in open_site_list[0] %}
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in open_site_list[1:] %}
+        <tr>
+            {% for val in item %}
+            <td>{{ val }} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            {% for item in open_site_list[0] %}
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+            {% endfor %}
+        </tr>
+    </tfootd>
+</table>
+{% if no_all_sites %}
+<h3> 0 Total Sites in past 5 days </h3>
+{% else %}
+<h3> {{ num_all_sites }} Total Sites in past 5 days </h3>
+<table id="all_site_table"  class="display" style="width:100%">
+    <thead>
+        <tr>
+            {% for item in all_site_list[0] %}
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in all_site_list[1:] %}
+        <tr>
+            {% for val in item %}
+            <td>{{ val }} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            {% for item in all_site_list[0] %}
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+            {% endfor %}
+        </tr>
+    </tfootd>
+</table>
+{% endif %}
+
 {% endblock %}
 {% block footer %}
+<script src="{{ url_for('static', filename='js/dataTables.fixedHeader.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.fixedColumns.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.colVis.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons.flash.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons.print.min.js') }}"></script>
 <script>
 $(document).ready(function() {
-    $('#opensite_table').DataTable( {
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-    });
-    $('a.toggle-vis').on( 'click', function (e) {
-        e.preventDefault();
+    // Setup - add a text input to each footer cell
+    $('#opensite_table thead tr').clone(true).appendTo( '#opensite_table thead' );
+    $('#opensite_table thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
  
-        // Get the column API object
-        var column = table.column( $(this).attr('data-column') );
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
  
-        // Toggle the visibility
-        column.visible( ! column.visible() );
-    });
-}   );
+    var table = $('#opensite_table').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true,
+        autoWidth: true,
+        scrollX: true,
+        scrollY: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'columnsToggle', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+
+    } );
+    //All site table below
+    $('#all_site_table thead tr').clone(true).appendTo( '#all_site_table thead' );
+    $('#all_site_table thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#all_site_table').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true,
+        autoWidth: true,
+        scrollX: true,
+        scrollY: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'columnsToggle', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+
+    } );
+    $('#opensite_table thead input').width('100px')
+} );
 </script>
 {% endblock %}
+
+

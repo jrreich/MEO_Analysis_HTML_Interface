@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block title %} MEOLUT Schedule {% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+{% block content %}
+<section class="content">
+            <h3> MEOLUT Schedule as of {{ arg_dict['EndTime'] }} </h3>
+            {% if arg_dict['no_data'] is defined %}
+            <h5> No schedule found </h5>
+            {% else %}
+                <table id="meoschedule_table"  class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            {% for item in json_data[0] %}
+                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in json_data[1:] %}
+                        <tr>
+                            {% for val in item %}
+                            <td>{{ val }} </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            {% for item in json_data[0] %}
+                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+                            {% endfor %}
+                        </tr>
+                    </tfootd>
+            </table>
+            {% endif %}
+</section>
+{% endblock %}
+{% block footer %}
+<script>
+$(document).ready(function() {
+    $('#meoschedule_table').DataTable( {
+        "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
+    });
+    $('a.toggle-vis').on( 'click', function (e) {
+        e.preventDefault();
+ 
+        // Get the column API object
+        var column = table.column( $(this).attr('data-column') );
+ 
+        // Toggle the visibility
+        column.visible( ! column.visible() );
+    });
+}   );
+</script>
+{% endblock %}

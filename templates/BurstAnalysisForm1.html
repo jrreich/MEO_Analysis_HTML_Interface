@@ -10,59 +10,151 @@
 {% block content %}
 <div class="row">
     <div class="form-container left-nav-container">
-        <form method="post" enctype="multipart/form-data">
-            <fieldset>
-                <legend>MEOLUT</legend>
-                <label for="3385">Hawaii</label>
-                <input type="checkbox" name="MEOLUT" value="3385" checked /><br />
-                <label for="3669">Florida</label>
-                <input type="checkbox" name="MEOLUT" value="3669" checked /><br />
+        <form class= "col-sm- flex-column" enctype="multipart/form-data">
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">MEOLUT</legend>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="MEOLUT" value="3385" checked />
+                        <label for="3385" class="form-check-label">
+                            Hawaii
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="MEOLUT" value="3669" checked />
+                        <label for="3385" class="form-check-label">
+                            Florida
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="MEOLUT" value="2276" />
+                        <label for="2276" class="form-check-label">
+                            France (2276)
+                        </label>
+                    </div>
+                </div>
             </fieldset>
-            <fieldset>
-                <legend>Date/Time</legend>
-                <label for="realtime"> Real Time </label>
-                <input type="radio" id="realtime" name="RealPastTime" value="RT_yes" checked />
-                <label for="pasttime"> Past Time </label>
-                <input type="radio" id="pasttime" name="RealPastTime" value="RT_no"> <br />
-                <label id="rthours"> Number of Hours to Display <input type="number" name="realtimehours" value="4" /></label>
-                <label class="times"> Start Time <input type="datetime-local" name="StartTime" /> </label><br />
-                <label class="times"> End Time <input type="datetime-local" name="EndTime" /><br /></label>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Date/Time
+                    </legend>
+                </div>
+                    <div class="form-check ">
+                        <input type="radio" id="realtime" class="form-check-input hoursRadio" name="RealPastTime" value="RT_yes" checked />
+                        <label for="realtime" class="form-check-label">
+                            Real Time
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="pasttime" class="form-check-input hoursRadio" name="RealPastTime" value="RT_no" />
+                        <label for="realtime" class="form-check-label">
+                            Past Time
+                        </label>
+                    </div>
+                <div class="col-sm-6">
+                    <div id="rthoursinput" >
+                        <input type="number" class="form-control" name="realtimehours" aria-describedby="rthours" value="24" />
+                        <small id="rthours" class="form-text text-muted" name="realtimehours">
+                            Number of Hours to Display
+                        </small>
+                    </div>
+                    <div id="pasttimeinput" class="start-hidden">
+                        <input type="datetime-local" id="StartTime" name="StartTime" />
+                        <small class="form-text text-muted pasttimeinput"> Start Time</small>
+                        <input type="datetime-local" id="EndTime" name="EndTime" />
+                        <small class="form-text text-muted pasttimeinput"> End Time</small>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Beacon or Site
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <input type="radio" name="UseBeaconID" value="UseRefBeacon" checked />
+                        <label for="UseRefBeacon" class="form-check-label">Reference Beacon</label>
+                    </div>
+                    <div class="form-group" id="ref-beacon-group">
+                        <select class="form-control" name="refbeacon">
+                            <option value="FL-HI-Ref">Colocated Ref Beacons</option>
+                            <option value="Florida-1">Florida-1</option>
+                            <option value="Hawaii-1">Hawaii-1</option>
+                            <option value="California">California</option>
+                            <option value="NASA_Goddard">NASA_Goddard</option>
+                            <option value="ToulouseMeoQMS">ToulouseMeoQMS</option>
+                            <option value="Ottawa">Ottawa</option>
+                            <option value="ToulouseOrb">ToulouseOrb</option>
+                            <option value="McMurdo">McMurdo</option>
+                            <option value="SpitsbergenMeoQMS">SpitsbergenMeoQMS</option> 
+                            <option value="Edmonton">Edmonton</option>
+                            <option value="MaspalomasMeoQMS">MaspalomasMeoQMS</option> 
+                            <option value="ToulouseTCAL">ToulouseTCAL</option>
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="userbeaconid" name="UseBeaconID" value="BeaconInput" />
+                        <label for="UseBeaconID" class="form-check-label">Use Beacon ID</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" />
+                        <label for="UseSiteID" class="form-check-label">Use Site Number</label>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <input type="text" class="form-control form-control-sm beaconinputfield beaconfield col-12" id="beaconIDinput" name="beaconID" placeholder="Beacon ID">
+                    <input type="text" class="form-control form-control-sm beaconinputfield sitefield col-12" id="siteIDinput" name="siteID" placeholder="Site ID">
 
+                    <input type="text" class="form-control form-control-sm beaconinputfield sitefield beaconfield col-12" id="siteLocationName" name="Location" placeholder="Location Name">
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Data Source
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="radio" class="fileinputradio" name="inputsource" value="mccdb" checked/>
+                        <label class="form-check-label" for="mccdb"> Use USMCC DB</label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="radio" class="fileinputneeded fileinputradio" name="inputsource" value="excelfile" disabled/>
+                        <label class="form-check-label" for="excelfile">Input Excel File</label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="radio" class="fileinputneeded fileinputradio" name="inputsource" value="csvfile" disabled/>
+                        <label class="form-check-label" for="csvfile">Input CSV File</label>
+                    </div>
+                </div>
             </fieldset>
             <fieldset>
-                <legend>Beacon</legend>
-                <label for="REFref">Reference Beacon Analysis</label>
-                <input type="radio" name="UseBeaconID" value="REFref" checked /><br />
-                <label for="HIref">Hawaii Reference Beacon</label>
-                <input type="radio" name="UseBeaconID" value="HIref" /><br />
-                <label for="FLref">Florida Reference Beacon</label>
-                <input type="radio" name="UseBeaconID" value="FLref" /><br />
-                <label for="UseBeaconID">Use Beacon ID</label>
-                <input type="radio" id="userbeaconid" name="UseBeaconID" value="UserInput" /> <br />
-                <input type="text" id="beaconIDinput" name="beaconID" placeholder="BeaconID">
-            </fieldset>
-            <fieldset>
-                <legend>Input File</legend>
-                <label for="mccdb"> Use USMCC DB</label>
-                <input type="radio" id="mccdb" name="inputsource" value="mccdb" checked /> <br />
-                <!--<label for="xmlfile">Input XML File</label>
-            <input type="radio" class="fileinputneeded" name="inputsource" value="xmlfile" /><br />
-            <label for="zipfile">Input ZIP File</label>
-            <input type="radio" class="fileinputneeded" name="inputsource" value="zipfile" /><br />
-            <label for="sqldbfile">Input SQL lite DB</label>
-            <input type="radio" class="fileinputneeded" name="inputsource" value="sqldbfile" /> <br />
-            <input type="file" id="fileinput" name="inputfile" >-->
-                <br />
-            </fieldset>
-            <fieldset>
-                <legend>Options</legend>
-                <label for="ploton"> Show Plots </label>
-                <input type="radio" id="ploton" name="plotoptions" value="plotyes" checked /> <br />
-                <label for="percenton"> Show Percentage </label>
-                <input type="radio" id="percenton" name="plotoptions" value="percentyes" checked />
-                <label for="percenton"> (only accurate for reference beacons) </label>
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Data Options
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="radio" name="plotoptions" value="plotyes" checked/>
+                        <label class="form-check-label" for="ploton"> Show Plots </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="radio" name="plotoptions" value="percentyes" />
+                        <label class="form-check-label" for="plotoptions"> Show Percentage </label>
+                    </div>
+                </div>
             </fieldset>
             <button type="submit"> Submit </button> <br />
+            <div class="row">
+                <button class="btn btn-primary btn-block" type="submit"> Submit </button>
+            </div>
         </form>
     </div>
     <div class="col-lg-8 ">

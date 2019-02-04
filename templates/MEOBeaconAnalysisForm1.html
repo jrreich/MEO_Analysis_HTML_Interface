@@ -9,7 +9,7 @@
 {% block content %}
 <div class="row">
     <div class="form-container">
-        <form class= "col-sm- flex-column method="post" enctype="multipart/form-data">
+        <form class= "col-sm- flex-column" enctype="multipart/form-data">
             <fieldset class="form-group">
                 <div class="row">
                     <legend class="col-form-label pt-0">MEOLUT</legend>
@@ -55,7 +55,7 @@
                     </div>
                 <div class="col-sm-6">
                     <div id="rthoursinput" >
-                        <input type="number" class="form-control" name="realtimehours" aria-describedby="rthours" />
+                        <input type="number" class="form-control" name="realtimehours" aria-describedby="rthours" value="24" />
                         <small id="rthours" class="form-text text-muted" name="realtimehours">
                             Number of Hours to Display
                         </small>
@@ -285,7 +285,6 @@
                             <label for="J3data" class="form-check-label">J3 data (MEO schedule)</label>
                         </div>
                     </div>
-
                 </div>
             </fieldset>
             <fieldset>

@@ -19,7 +19,7 @@
                     <label for="refreshtimer">Refresh Time (sec)</label>
                 </div>
                 <div class="form-label-group">
-                    <input class="form-control form-realtime" id="burstwindow" name="burstwindow" type="text" placeholder="Time Window" value="{{burstwindow}}" />
+                    <input class="form-control form-realtime" id="burstwindow" name="burstwindow" type="text" placeholder="Time Window" value="{{burstwindow}}" disabled />
                     <label for="burstwindow">Time Window (mins)</label>
                     <button class="btn btn-outline-success" type="submit">Submit</button>
                 </div>
@@ -201,37 +201,32 @@
         </div>
     </div>
     <div class="row">
-        <div class="col " id="opensitemon">
+        <div class="col ">
             <h3> {{ num_sites }} Open Sites </h3>
-            <table id="opensite_table" class="display">
+            <table id="opensitemon"  class="display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>AlertSiteNum</th>
-                        <th>Beacon ID</th>
-                        <th>Country Code Name</th>
-                        <th>Comp Lat</th>
-                        <th>Comp Lon</th>
-                        <th>Open Time</th>
-                        <th>Last Update</th>
-                        <th>Num LEO/GEO Sol</th>
-                        <th>Num MEO Sol</th>
+                        {% for item in open_site_list[0] %}
+                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+                        {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
-                    {% for row in open_site_list %}
+                    {% for item in open_site_list[1:] %}
                     <tr>
-                        <td><a href="/SiteQuery?sitenum={{ row.0 }}">{{ row.0 }}</a></td>
-                        <td>{{ row.1 }}</td>
-                        <td>{{ row.2 }}</td>
-                        <td>{{ row.3 }}</td>
-                        <td>{{ row.4 }}</td>
-                        <td>{{ row.5.strftime('%m/%d/%y %H:%M:%S') }}</td>
-                        <td>{{ row.6.strftime('%m/%d/%y %H:%M:%S') }}</td>
-                        <td>{{ row.9 }}</td>
-                        <td>{{ row.10 }}</td>
+                        {% for val in item %}
+                        <td>{{ val }} </td>
+                        {% endfor %}
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        {% for item in open_site_list[0] %}
+                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="{{ key }}: activate to sort column ascending" style="width: 57px;">{{ item }}</th>
+                        {% endfor %}
+                    </tr>
+                </tfootd>
             </table>
         </div>
     </div>
@@ -239,24 +234,45 @@
 </body>
 
 {% block scripts %}
+<script src="{{ url_for('static', filename='js/dataTables.fixedHeader.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.fixedColumns.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.colVis.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons.flash.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons.print.min.js') }}"></script>
 <script>
-    $(document).ready(function () {
-        $('#opensite_table').DataTable({
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-        });
-        $('#closedalarms').DataTable({
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-        });
-        
-        $('a.toggle-vis').on('click', function (e) {
-            e.preventDefault();
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#opensitemon thead tr').clone(true).appendTo( '#opensitemon thead' );
+    $('#opensitemon thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#opensitemon').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true,
+        autoWidth: true,
+        scrollX: true,
+        scrollY: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'columnsToggle', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
 
-            // Get the column API object
-            var column = table.column($(this).attr('data-column'));
-
-            // Toggle the visibility
-            column.visible(!column.visible());
-        });
-    });
+    } );
+    $('#opensitemon thead input').width('100px')
+} );
 </script>
 {% endblock %}

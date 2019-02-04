@@ -1,0 +1,238 @@
+{% extends "layout.html" %}
+{% block title %} LMDB CrossFilter {% endblock %}
+{% block head %}
+  {{ super() }}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dc.css') }}" id="dc-css">
+{% endblock %}
+{% block content %}
+<h3> LMDB with CrossFilter </h3>
+{% if NODATA %}
+<h5> No data was found using: {{ json_data_url }}</h5>
+{% else %}
+  <h5> {{ num_passes }} passes from {{ arg_dict.StartTime }} to {{ arg_dict.EndTime }} </h5>
+  <a href="{{ json_data_url }}" title="{{ json_data_url }}" >data source</a>
+
+<div class="row">
+  <div id="lutchart">
+      <strong>Number of Passes by LUT</strong>
+      <span class="reset" style="display: none;">LUT: <span class="filter"></span></span>
+      <a class="reset" href="javascript:lutChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+      <div class="clearfix"></div>
+  </div>
+
+  <div id="satchart">
+      <strong>Number of Passes by Satellite</strong>
+      <span class="reset" style="display: none;">LUT: <span class="filter"></span></span>
+      <a class="reset" href="javascript:satChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+      <div class="clearfix"></div>
+  </div>
+  <div id="missed-pass-pie-chart">
+      <strong>Missed Passes </strong>
+      <a class="reset" href="javascript:missedPassPieChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+      <div class="clearfix"></div>
+  </div>
+  <div id="scheduled-pie-chart">
+      <strong>Scheduled </strong>
+      <a class="reset" href="javascript:scheduledChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+      <div class="clearfix"></div>
+  </div>
+  <div id="inspec-pie-chart">
+      <strong>In Spec </strong>
+      <a class="reset" href="javascript:inspecChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+      <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="row">
+    <div>
+        <div class="dc-data-count">
+            <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+        </div>
+    </div>
+    <table class="table table-hover dc-data-table">
+    </table>
+</div>
+
+<script src="{{ url_for('static', filename='js/d3.js') }}"></script>
+<script src="{{ url_for('static', filename='js/crossfilter.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dc.js') }}"></script>
+<script src="{{ url_for('static', filename='js/d3-time.v1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/d3-time-format.v2.min.js') }}"></script>
+<script>
+
+  var lutChart = dc.rowChart("#lutchart"), 
+  satChart = dc.rowChart("#satchart"),
+  missedPassPieChart = dc.pieChart('#missed-pass-pie-chart'),
+  scheduledChart = dc.pieChart('#scheduled-pie-chart'),
+  inspecChart = dc.pieChart('#inspec-pie-chart'),
+  visCount = dc.dataCount(".dc-data-count"),
+  visTable = dc.dataTable(".dc-data-table"),
+
+  // Look for the moveChart in https://dc-js.github.io/dc.js/stock.js to add Missed vs AOS or maybe a bubble of PDS size 
+  
+  formatDateTime = d3.timeFormat("%d-%b %Y %H:%M:%S")
+  formatDay = d3.timeFormat("%d-%b %Y")
+
+  //d3.csv('{{ json_data }}', function(err, data) {
+  //    if (err) throw err;
+  var data1 = JSON.parse('{{ json_obj | tojson | safe }}')
+  data1.forEach(function (d) {
+    d.aos = formatDateTime(new Date(d.aos));
+    d.los = formatDateTime(new Date(d.los));
+    d.mccrcvd = (d.mccrcvd == null) ? null : formatDateTime( new Date(d.mccrcvd));
+    d.timestamp = (d.timestamp == null) ? null : formatDateTime( new Date(d.timestamp));
+    d.date = formatDay(new Date(d.aos));
+  });
+  
+  
+  var ndx = crossfilter(data1);
+  var all = ndx.groupAll();
+
+
+
+  var aosDim = ndx.dimension(function(d) {return d.aos});
+  var azAosDim = ndx.dimension(function(d) {return d.azaos});
+  var azLosDim = ndx.dimension(function(d) {return d.azlos});
+  var azTcaDim = ndx.dimension(function(d) {return d.azTca});
+  var conflictDim = ndx.dimension(function(d) {return d.conflict});
+  var inspecDim = ndx.dimension(function(d) {return d.inspec});
+  var losDim = ndx.dimension(function(d) {return d.los});
+  var lutDim = ndx.dimension(function(d) {return d.lut});
+  var maxelevationDim = ndx.dimension(function(d) {return d.maxelavation});
+  var mccrcvdDim = ndx.dimension(function(d) {return d.mccrcvd});
+  var missExcusedDim = ndx.dimension(function(d) {return d.missexcused});
+  var missExcuseReasonDim = ndx.dimension(function(d) {return d.missexcusereason});
+  var num406Dim = ndx.dimension(function(d) {return d.num406});
+  var numintDim = ndx.dimension(function(d) {return d.numint});
+  var orbitDim = ndx.dimension(function(d) {return d.orbit}); 
+  var passMissedDim = ndx.dimension(function(d) {return d.passmissed});
+  var passMissedReasonDim = ndx.dimension(function(d) {return d.passmissedreason});
+  var passRcvdMccDim = ndx.dimension(function(d) {return d.passrcvdmcc});
+  var passSummaryReceivedDim = ndx.dimension(function(d) {return d.passsummaryreceived});
+  var satDim = ndx.dimension(function(d) {return d.sat});
+  var scheduledDim = ndx.dimension(function(d) {return d.scheduled});
+  var timeStampDim = ndx.dimension(function(d) {return d.timestamp});
+  var dateDim = ndx.dimension(function (d) {return d.date});
+
+  var aosGroup = aosDim.group() 
+  var azAosGroup = azAosDim.group() 
+  var azLosGroup = azLosDim.group() 
+  var azTcaGroup = azTcaDim.group() 
+  var conflictGroup = conflictDim.group() 
+  var inspecGroup = inspecDim.group() 
+  var losGroup = losDim.group() 
+  var lutGroup = lutDim.group() 
+  var maxelevationGroup = maxelevationDim.group()
+  var mccrcvdGroup = mccrcvdDim.group() 
+  var missExcusedGroup = missExcusedDim.group()
+  var missExcuseReasonGroup = missExcuseReasonDim.group()
+  var num406Group = num406Dim.group() 
+  var numintGroup = numintDim.group() 
+  var orbitGroup = orbitDim.group() 
+  var passMissedGroup = passMissedDim.group() 
+  var passMissedReasonGroup = passMissedReasonDim.group()
+  var passRcvdMccGroup = passRcvdMccDim.group()
+  var passSummaryReceivedGroup = passSummaryReceivedDim.group()
+  var satGroup = satDim.group() 
+  var scheduledGroup = scheduledDim.group()
+  var timeStampGroup = timeStampDim.group()
+  var dateGroup = dateDim.group()
+
+
+
+  
+  lutChart
+    .dimension(lutDim)
+    .group(lutGroup)
+    .elasticX(true);
+
+  satChart
+    .dimension(satDim)
+    .group(satGroup)
+    .elasticX(true);
+  missedPassPieChart
+    .dimension(passMissedDim)
+    .group(passMissedGroup)
+    .label(function (d) {
+      if (missedPassPieChart.hasFilter() && !missedPassPieChart.hasFilter(d.key)) {
+        return d.key + '(0%)';
+      }
+      var label = (d.key == true) ? "Missed " : "Successful ";
+      if (all.value()) {
+        label +='(' + Math.floor(d.value / all.value() *100) + '%)';
+      }
+      return label;
+    });
+
+    scheduledChart
+    .dimension(scheduledDim)
+    .group(scheduledGroup)
+    .label(function (d) {
+      if (scheduledChart.hasFilter() && !scheduledChart.hasFilter(d.key)) {
+        return d.key + '(0%)';
+      }
+      var label = (d.key == true) ? "Scheduled " : "Not ";
+      if (all.value()) {
+        label +='(' + Math.floor(d.value / all.value() *100) + '%)';
+      }
+      return label;
+    });
+    inspecChart
+    .dimension(inspecDim)
+    .group(inspecGroup)
+    .label(function (d) {
+      if (inspecChart.hasFilter() && !inspecChart.hasFilter(d.key)) {
+        return d.key + '(0%)';
+      }
+      var label = (d.key == true) ? "In Spec " : "Out of Spec ";
+      if (all.value()) {
+        label +='(' + Math.floor(d.value / all.value() *100) + '%)';
+      }
+      return label;
+    });
+
+  visCount
+    .dimension(ndx)
+    .group(all);
+  visTable
+    .dimension(aosDim)
+    .group(function (d) {return formatDay(new Date(d.aos))}) //function (d) {
+      //var format = d3.format('02d');
+      //return d.aos.getFullYear() + '/' + format((d.aos.getMonth()+1));
+      //(d.aos);
+    //})
+    .columns([
+      {label: "LEOLUT", format: function(d) {return d.lut;}},
+      "sat",
+      "orbit",
+      {label: "AOS", format: function(d) {return d.aos;}},
+      {label: "LOS", format: function(d) {return d.los;}},
+      "scheduled",
+      "conflict",
+      "inspec",
+      "num406",
+      "numint",
+      {label: "Max Ele", format: function(d) {return d.maxelavation.toFixed(1);}},
+      {label: "Az AOS", format: function(d) {return d.azaos.toFixed(1);}},
+      {label: "Az LOS", format: function(d) {return d.azlos.toFixed(1);}},
+      {label: "Az TCA", format: function(d) {return d.aztca.toFixed(1);}},
+      {label: "Missed Pass", format: function(d) {return d.passmissed;}},
+      {label: "Missed Pass Reason", format: function(d) {return d.passmissedreason;}},
+      {label: "LEOLUT", format: function(d) {return d.passsummaryreceived;}},
+      "mccrcvd"
+    ]);
+  
+  dc.renderAll();
+  
+
+  
+</script>
+
+{% endif %}
+
+{% endblock %}
