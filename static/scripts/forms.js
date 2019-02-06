@@ -109,30 +109,33 @@ $(document).ready(function () {
 
     $("#siteIDinput").blur(function () {
         var SiteNum = $("#siteIDinput").val();
-        $.getJSON('/api/sitesum/' + SiteNum, {}, function (data) {
-            var now = new Date();
-            var sd = new Date(data.OpenTime);
-            var ed = new Date(data.TimeLast);
-            $('#beaconIDinput').show('fast');
-            $('#beaconIDinput').val(data.BcnId15);
-            $('#StartTime').val(sd.toISOString().slice(0, 16));
-            $('#pasttime').prop('checked', true);
-            $('.pasttimeinput').show('fast');
-            $('#usersiteid').prop('checked', true);
-            if (data.Closed == "Y") {
-                $('#EndTime').val(ed.toISOString().slice(0, 16));
-            }
-            else {
-                $('#EndTime').val(now.toISOString().slice(0, 16));
-            };
-            if (data.CompLat) {
-                $('#beaconLat').val(data.CompLat);
-                $('#beaconLon').val(data.CompLon);
-            }
-            $('#siteLocationName').val('Site - ' + SiteNum)
-            
+        console.log(SiteNum); 
+        $.getJSON('/api/sitesum', {sitenum: SiteNum, output_format: "json" })
+            .then(function (data) {
+                console.log(this)
+                var now = new Date();
+                var sd = new Date(data[0].opentime);
+                var ed = new Date(data[0].timelast);
+                $('#beaconIDinput').show('fast');
+                $('#beaconIDinput').val(data[0].bcnid15);
+                $('#StartTime').val(sd.toISOString().slice(0, 16));
+                $('#pasttime').prop('checked', true);
+                $('.pasttimeinput').show('fast');
+                $('#usersiteid').prop('checked', true);
+                if (data[0].closed == "Y") {
+                    $('#EndTime').val(ed.toISOString().slice(0, 16));
+                }
+                else {
+                    $('#EndTime').val(now.toISOString().slice(0, 16));
+                };
+                if (data[0].complat) {
+                    $('#beaconLat').val(data[0].complat);
+                    $('#beaconLon').val(data[0].complon);
+                }
+                $('#siteLocationName').val('Site - ' + SiteNum)
+                
 
-        });
+            });
 
 
 

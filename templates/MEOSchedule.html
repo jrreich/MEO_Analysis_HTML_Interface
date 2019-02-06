@@ -7,7 +7,7 @@
 {% block content %}
 <section class="content">
             <h3> MEOLUT Schedule as of {{ arg_dict['EndTime'] }} </h3>
-            {% if arg_dict['no_data'] is defined %}
+            {% if arg_dict['no_data'] %}
             <h5> No schedule found </h5>
             {% else %}
                 <table id="meoschedule_table"  class="display" style="width:100%">
