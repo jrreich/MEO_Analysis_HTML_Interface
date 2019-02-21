@@ -9,7 +9,7 @@ import datetime
 import csv
 import sys
 import os
-import json
+import simplejson as json
 import requests 
 from requests import get
 from collections import OrderedDict
@@ -407,6 +407,20 @@ def meo_schedule():
         arg_dict['no_data'] = True
     return render_template('MEOSchedule.html', arg_dict=arg_dict, json_data = out_request.json())
 
+@app.route('/MEO/CF')
+def meo_cf():
+    arg_dict = url_arg_processor(request.args,7*24)
+    urlbase = url_for('index', _external = True)
+    url = urlbase + "api/MEO/location_accuracy/all"
+    json_data = requests.get(url,verify=False, params = {'StartTime': arg_dict['StartTime'], 'EndTime': arg_dict['EndTime'], 'output_format':'json'})
+    print json_data.json()
+    NODATA = None
+    if json_data.json() == "None":
+        NODATA = True 
+    #return jsonify(json_data.json())
+    return render_template('MEO_CrossFilter.html', json_data_url=json_data.url, json_obj = json_data.json(), NODATA = NODATA, arg_dict = arg_dict, num_passes = len(json_data.json()))
+
+
 @app.route('/LMDB/CF')
 def dc():
     arg_dict = url_arg_processor(request.args,7*24)
@@ -538,6 +552,18 @@ def meolut_location_accuracy(MEOLUT_ID):
     output[MEOLUT_ID]['StartTime'] = arg_dict['StartTime']
     output[MEOLUT_ID]['EndTime'] = arg_dict['EndTime']
     return jsonify(output)
+
+@app.route('/api/MEO/location_accuracy/all',methods=['GET'])
+def api_meo_location_accuracy_all():
+    """ returns MEOLUT Location Accuracy from table [MeolutRealTimeLocationMonitor] for specified period"""
+    arg_dict = url_arg_processor(request.args)
+    
+    arg_dict['MEOLUTList'] = [x for x in request.args.getlist('MEOLUT')] # defaults to emptylist (all if not specified)
+    outdata = MEOInput_Analysis.api_meo_accuracy_all(config_dict, arg_dict, request.args.get('output_format',None))
+    if outdata: 
+        if arg_dict['output_format'] == 'csv': return outdata
+        return jsonify(outdata)
+    return jsonify("None")
 
 @app.route('/api/MEO/reference_location_accuracy/<int:MEOLUT_ID>', methods=['GET'])
 def meolut_referenece_location_accuracy(MEOLUT_ID):

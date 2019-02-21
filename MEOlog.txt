@@ -1,23 +1,25 @@
-2019-02-03 15:33:59,328 INFO app root
-2019-02-03 15:33:59,342 INFO executed activate virtualenv
-2019-02-03 15:33:59,342 INFO executed path insert
-2019-02-03 15:33:59,351 INFO beacon decode as a test
-2019-02-03 15:34:06,367 INFO numpy pandas and itertools
-2019-02-03 15:34:07,858 INFO imported matplotlib
-2019-02-03 15:34:08,026 INFO imported math, sys, os and xlrd
-2019-02-03 15:34:08,026 INFO datetime and csv
-2019-02-03 15:34:08,322 INFO collections and simplekml
-2019-02-03 15:34:08,322 INFO re and beacon decode
-2019-02-03 15:34:08,322 INFO pypyodbc imported - all modules imported
-2019-02-03 15:34:10,253 INFO imported app
-2019-02-03 15:34:10,253 INFO imported application as app
-2019-02-04 08:49:33,612 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2019-02-04 08:49:34,424 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/schedule?StartTime=2019-02-03+13%3A49%3A33&MEOLUTList=3669&MEOLUTList=3385&output_format=data_list&EndTime=2019-02-04+13%3A49%3A33&minutes=1440 HTTP/1.1" 200 7
-2019-02-04 08:49:58,823 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2019-02-04 08:49:59,607 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-04+13%3A49%3A58&StartTime=2019-01-28+13%3A49%3A58 HTTP/1.1" 200 7
-2019-02-04 18:40:36,430 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2019-02-04 18:40:37,244 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-04+23%3A40%3A36&StartTime=2019-01-28+23%3A40%3A36 HTTP/1.1" 200 7
-2019-02-05 07:50:10,592 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2019-02-05 07:50:11,463 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 12104
-2019-02-05 07:50:11,466 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
-2019-02-05 07:50:12,234 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum HTTP/1.1" 200 7
+2019-02-18 16:37:01,815 INFO app root
+2019-02-18 16:37:01,822 INFO executed activate virtualenv
+2019-02-18 16:37:01,822 INFO executed path insert
+2019-02-18 16:37:01,822 INFO beacon decode as a test
+2019-02-18 16:37:03,640 INFO numpy pandas and itertools
+2019-02-18 16:37:03,887 INFO imported matplotlib
+2019-02-18 16:37:03,895 INFO imported math, sys, os and xlrd
+2019-02-18 16:37:03,895 INFO datetime and csv
+2019-02-18 16:37:03,911 INFO collections and simplekml
+2019-02-18 16:37:03,911 INFO re and beacon decode
+2019-02-18 16:37:03,911 INFO pypyodbc imported - all modules imported
+2019-02-18 16:37:04,381 INFO imported app
+2019-02-18 16:37:04,381 INFO imported application as app
+2019-02-19 12:14:04,681 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-19 12:14:05,871 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?StartTime=2019-02-14+17%3A14%3A04&output_format=data_list&EndTime=2019-02-19+17%3A14%3A04 HTTP/1.1" 200 7
+2019-02-19 12:14:24,519 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-19 12:14:26,408 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=data_list&StartTime=2019-01-21+00%3A00%3A00&EndTime=2019-02-19+17%3A14%3A24 HTTP/1.1" 200 158884
+2019-02-19 12:14:32,220 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-19 12:14:33,045 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-19+17%3A14%3A32&StartTime=2019-02-12+17%3A14%3A32 HTTP/1.1" 200 7
+2019-02-19 12:14:43,230 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-19 12:14:45,183 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-19+17%3A14%3A43&StartTime=2019-01-21+00%3A00%3A00 HTTP/1.1" 200 274476
+2019-02-19 12:17:21,032 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-19 12:17:21,944 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/all?output_format=json&EndTime=2019-02-19+17%3A17%3A21&StartTime=2019-02-12+17%3A17%3A21 HTTP/1.1" 200 7
+2019-02-19 13:27:39,654 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-19 13:27:41,651 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-19+18%3A27%3A39&StartTime=2019-01-21+00%3A00%3A00 HTTP/1.1" 200 274476
