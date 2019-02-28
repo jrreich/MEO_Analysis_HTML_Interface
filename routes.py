@@ -38,12 +38,13 @@ TimeLog = True
 
 if Deploy_on == 'MCC':
     servername = 'localhost' #for deploying on MCC
-    #oppsdatabase = 'mccoperationalRpt' #for deploying on operational MCC
+    oppsdatabase_old = 'mccoperationalRpt' #for deploying on operational MCC data from 2018 
     oppsdatabase = 'MccMeoLutMonitor' #for deploying on MCC - new db
     mcctestLGM = 'MccMeoLutMonitor' #for deploying on MCC - new db
     #urlbase = 'https://sar-reportsrv'
 elif Deploy_on == 'other1':
     servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC - 2018 and on
+    oppsdatabase_old = 'MccMeoLutMonitor' 
     oppsdatabase = 'MccMeoLutMonitor' # for deploying on REICHJ-PC
     mcctestLGM = 'MccMeoLutMonitor' #should work for both MCC and REICHJ-PC
     #urlbase = "http://jrreich.myftp.org/"
@@ -208,6 +209,8 @@ def MEOBeaconAnalysis():
     if len(result)==0: return render_template('MEOBeaconAnalysisForm1.html')
     ### get inputs for MSSQL_beacon_analysis
     arg_dict = url_arg_processor(result)
+    ### use old database if selected
+    if result.get('inputsource') == 'mcc_operational_rpt': config_dict['oppsdatabase'] = oppsdatabase_old
     MEOLUTList, StartTime, EndTime, filesaved = arg_dict['MEOLUTList'], arg_dict['StartTime'], arg_dict['EndTime'], arg_dict.get('filesaved')
     fileout_dict = {}
     filelist1_dict = None

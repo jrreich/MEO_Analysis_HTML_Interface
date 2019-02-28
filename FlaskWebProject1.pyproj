@@ -73,6 +73,7 @@
     <Content Include="templates\BeaconDecode.html" />
     <Content Include="templates\BurstAnalysisForm.html" />
     <Content Include="templates\layout.html" />
+    <Content Include="templates\MEOBeaconAnalysisForm1.html" />
     <Content Include="templates\MEOBeaconAnalysisReturn.html" />
     <Content Include="templates\MeoDataCollection.html" />
     <Content Include="templates\index.html" />

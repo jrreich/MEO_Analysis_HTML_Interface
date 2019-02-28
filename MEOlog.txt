@@ -23,3 +23,86 @@
 2019-02-19 12:17:21,944 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/all?output_format=json&EndTime=2019-02-19+17%3A17%3A21&StartTime=2019-02-12+17%3A17%3A21 HTTP/1.1" 200 7
 2019-02-19 13:27:39,654 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
 2019-02-19 13:27:41,651 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-19+18%3A27%3A39&StartTime=2019-01-21+00%3A00%3A00 HTTP/1.1" 200 274476
+2019-02-27 12:55:58,318 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 12:55:59,364 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/all?output_format=json&EndTime=2019-02-27+17%3A55%3A57&StartTime=2019-02-20+17%3A55%3A57 HTTP/1.1" 200 7
+2019-02-27 12:56:07,269 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 12:56:08,236 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 12104
+2019-02-27 12:56:08,239 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 12:56:09,009 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum HTTP/1.1" 200 7
+2019-02-27 13:46:31,618 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 13:46:34,184 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-27+18%3A46%3A31&StartTime=2019-01-21+00%3A00%3A00 HTTP/1.1" 200 274476
+2019-02-27 13:46:42,453 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 13:46:43,322 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/all?output_format=json&EndTime=2019-02-27+18%3A46%3A42&StartTime=2019-02-20+18%3A46%3A42 HTTP/1.1" 200 7
+2019-02-27 13:46:47,799 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 13:46:49,776 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-27+18%3A46%3A47&StartTime=2019-01-21+00%3A00%3A00 HTTP/1.1" 200 274476
+2019-02-27 13:47:36,724 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 13:47:38,760 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-27+18%3A47%3A36&StartTime=2019-01-21+00%3A00%3A00 HTTP/1.1" 200 274476
+2019-02-27 13:47:55,341 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 13:47:56,158 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-27+18%3A47%3A55&StartTime=2019-02-10+00%3A00%3A00 HTTP/1.1" 200 7
+2019-02-27 13:48:05,040 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 13:48:05,901 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-27+18%3A48%3A05&StartTime=2019-02-01+00%3A00%3A00 HTTP/1.1" 200 7
+2019-02-27 13:48:22,440 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 13:48:24,288 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-27+18%3A48%3A22&StartTime=2018-12-01+00%3A00%3A00 HTTP/1.1" 200 275749
+2019-02-27 14:03:55,486 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 14:03:57,400 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?output_format=json&EndTime=2019-02-27+19%3A03%3A55&StartTime=2019-01-21+00%3A00%3A00 HTTP/1.1" 200 274476
+2019-02-27 14:05:33,197 ERROR Exception on /beacon [POST]
+Traceback (most recent call last):
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 141, in beacon
+    beaconID = beaconID, \
+AttributeError: 'beacon' object has no attribute 'bcnID15'
+2019-02-27 14:17:59,145 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 14:18:00,112 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 12104
+2019-02-27 14:18:16,855 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 14:18:17,678 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/location_accuracy/all?output_format=json&EndTime=2019-02-27+19%3A18%3A16&StartTime=2019-02-20+19%3A18%3A16 HTTP/1.1" 200 7
+2019-02-27 14:18:19,996 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 14:18:20,742 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/schedule?output_format=data_list&EndTime=2019-02-27+19%3A18%3A19&StartTime=2019-02-26+19%3A18%3A19 HTTP/1.1" 200 7
+2019-02-27 14:18:23,194 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 14:18:23,990 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?StartTime=2019-02-22+19%3A18%3A23&output_format=data_list&EndTime=2019-02-27+19%3A18%3A23 HTTP/1.1" 200 7
+2019-02-27 14:20:04,193 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 14:20:04,246 DEBUG http://jrreich.myftp.org:80 "GET /site-map HTTP/1.1" 200 5875
+2019-02-27 14:23:02,426 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 14:23:03,313 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 12104
+2019-02-27 14:23:03,315 DEBUG Starting new HTTP connection (1): jrreich.myftp.org
+2019-02-27 14:23:04,096 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum HTTP/1.1" 200 7
+2019-02-27 15:09:19,950 ERROR Exception on /beacon [POST]
+Traceback (most recent call last):
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 141, in beacon
+    beaconID = beaconID, \
+AttributeError: 'beacon' object has no attribute 'bcnID15'
+2019-02-27 15:09:44,076 ERROR Exception on /beacon [POST]
+Traceback (most recent call last):
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\flask\app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\routes.py", line 137, in beacon
+    #decode and return it
+  File "C:\Users\jrrei\Source\Repos\MEO_Analysis_HTML_Interface\env\Lib\site-packages\beacon_decode\__init__.py", line 15, in __init__
+    binary1 = bin(int(hexdata, scale))[2:].zfill(num_of_bits)
+ValueError: invalid literal for int() with base 16: ''
