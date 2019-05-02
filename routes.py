@@ -5,6 +5,7 @@ from flask import Flask, url_for, request, render_template, jsonify
 import beacon_decode as bcn
 import pypyodbc
 import MEOInput_Analysis
+import SiteAnalysis
 import datetime
 import csv
 import sys
@@ -44,7 +45,7 @@ if Deploy_on == 'MCC':
     #urlbase = 'https://sar-reportsrv'
 elif Deploy_on == 'other1':
     servername = r'.\SQLEXPRESS' #for deploying on REICHJ-PC - 2018 and on
-    oppsdatabase_old = 'MccMeoLutMonitor' 
+    oppsdatabase_old = 'mccoperationalRpt' 
     oppsdatabase = 'MccMeoLutMonitor' # for deploying on REICHJ-PC
     mcctestLGM = 'MccMeoLutMonitor' #should work for both MCC and REICHJ-PC
     #urlbase = "http://jrreich.myftp.org/"
@@ -250,9 +251,10 @@ def MEOBeaconAnalysis():
 @app.route('/RealTimeMonitor', methods=['GET'])
 def realtimemonitor():
     urlbase = url_for('index', _external = True)
+    ### Simple chane of this flag enables the use of the specially developed SQL table (MeolutRealTimeMonitor) for antenna percentages as opposed to pulling all of the data and 
+    ### analyzing each refresh -> True should be far quicker as long as the background service to populate this table is running 
     use_realtimemonitor_sql_db = False
     #use_realtimemonitor_sql_db = True
-    
     
     startofscript = datetime.datetime.utcnow()
     if request.args.get('days') <> None:
@@ -412,17 +414,104 @@ def meo_schedule():
 
 @app.route('/MEO/CF')
 def meo_cf():
-    arg_dict = url_arg_processor(request.args,7*24)
+    arg_dict = url_arg_processor(request.args,24)
     urlbase = url_for('index', _external = True)
-    url = urlbase + "api/MEO/location_accuracy/all"
+    url = urlbase + "api/MEO/reference_beacon_locations"
     json_data = requests.get(url,verify=False, params = {'StartTime': arg_dict['StartTime'], 'EndTime': arg_dict['EndTime'], 'output_format':'json'})
-    print json_data.json()
     NODATA = None
-    if json_data.json() == "None":
+    if (json_data.json() == "None" or json_data.json() is None):
         NODATA = True 
+        num_passes = 0
+    else: 
+        num_passes = len(json_data.json())
     #return jsonify(json_data.json())
-    return render_template('MEO_CrossFilter.html', json_data_url=json_data.url, json_obj = json_data.json(), NODATA = NODATA, arg_dict = arg_dict, num_passes = len(json_data.json()))
+    return render_template('MEO_CrossFilter2.html', json_data_url=json_data.url, json_obj = json_data.json(), NODATA = NODATA, arg_dict = arg_dict, num_passes = num_passes)
 
+@app.route('/SiteAnalysis', methods = ['GET','POST'])
+def site_analysis():
+    result = request.args
+    if len(result)==0: return render_template('SiteAnalysisForm.html')
+
+    # Need Data Source (list), and Beacon or site ID to get data
+    if result.get('UseBeaconID',False) == 'SiteInput':
+        site_num = result.get('siteID',False)
+    else: 
+        raise ValidationError()
+
+    ### use old database if selected
+    if result.get('inputsource') == 'mcc_operational_rpt': config_dict['oppsdatabase'] = oppsdatabase_old
+
+    data_sources = result.getlist('LUT')
+
+    if TimeLog: print 'Starting Data Collection - ' + str(datetime.datetime.utcnow()) 
+    data_source_dict = {}
+    for ds in data_sources:
+        data_source_dict[ds] = json.loads(api_site_sols(ds, site_num).get_data().decode("utf-8"))
+
+    print data_source_dict
+
+    # Create diction of output files 
+    fileout_dict = {}
+    histoout_dict = {}
+    filelist1_dict = None
+
+    # Get ground truth source 
+    if result.get('GTSource', False) is None:
+        gt_type = None
+        gt = None
+    elif result.get('GTSource', False) == 'enc':
+        gt_type = 'enc'
+        # don't think you need to get the enc location below, just use them in each location
+        #gt = api_site_sols('enc', site_num)
+        gt = None
+    elif result.get('GTSource', False) == 'GTLatLon':
+        gt_type = 'latlon'
+        gt =(float(result.get('beaconLat')),float(result.get('beaconLat')))
+    elif result.get('GTSource', False) == 'GTFile':
+        gt_type = 'file'
+        return '<p> File upload not working yet </p>'
+        # process gt into a csv file - 
+    
+    if gt_type is None:
+        print 'dt'
+        data_collect_only = True
+    else: 
+        # send data and gt to function to analyze
+        print ' should have errors '
+        for data_type, data in data_source_dict.iteritems():
+            data_out = SiteAnalysis.data_source_compare(data_type, data , gt, gt_type) 
+            print 'data out = ' 
+            print data_out
+            #fileout_dict[data_set], histoout_dict[data_set] = 
+    
+
+    print 'is this thing on?'
+    
+    #Creating Summary Table if available
+    if csvoutfile == None: 
+        SummaryData = False
+        sum_data = None
+    else: 
+        SummaryData = True
+        rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
+        sum_data = [ row for row in rdr ]
+    if filelist1_dict is not None: fileout_dict.update(filelist1_dict)
+    if filelist_dict is not None: fileout_dict.update(filelist_dict)
+    if csvoutfile is not None: fileout_dict.update({csvoutfile:'Summary Stats'})
+    output_data = {'StartTime': StartTime,
+                'EndTime': EndTime,
+                'beaconID': beacon_out,
+                'MEOLUTList': ", ".join(str(MEO) for MEO in MEOLUTList),
+                'csvoutfile': csvoutfile,
+                'imglist': imglist,
+                'linklist': fileout_dict,
+                'BeaconType': result['UseBeaconID'],
+                'siteID': result['siteID'],
+                'SummaryData': SummaryData}
+    return render_template('MEOBeaconAnalysisForm1.html', data=sum_data, output_data=output_data )
+
+
+    
 
 @app.route('/LMDB/CF')
 def dc():
@@ -444,18 +533,11 @@ def lmdb():
     arg_dict.pop('MEOLUTList',None)
     arg_dict.pop('minutes',None)
     arg_dict.pop('rep_rate', None)
-    for key, val in arg_dict.iteritems():
-        print key, val
     urlbase = url_for('index', _external = True)
     out_request = requests.get(urlbase + 'api/LEO/LMDB', params = arg_dict, verify=False)
     if out_request:
         return render_template('LMDB.html', arg_dict=arg_dict, json_data = out_request.json())
     return jsonify("No data")
-
-
-@app.route('/api/sites', methods=['GET'])
-def api_sites(sites_type):
-    result = request.args
 
 @app.route('/api/sitesum', methods=['GET','POST'])
 def sitereturn():
@@ -465,8 +547,6 @@ def sitereturn():
     input_dict = {}
     for key, val in request.args.iteritems():
         input_dict.update({key:val})
-    print 'api/sitsum input_dict' 
-    print input_dict
     if not request.args: input_dict.update({'days':5})
     arg_dict = url_arg_processor(input_dict)
     if request.args.get('open_closed', False): arg_dict['open_closed'] =  request.args.get('open_closed')
@@ -474,8 +554,6 @@ def sitereturn():
     if request.args.get('sitenum', False): arg_dict['sitenum'] = request.args.get('sitenum')
     arg_dict.pop('MEOLUTList',None)
     arg_dict.pop('minutes',None)
-    print 'api/sitsum arg_dict before function call' 
-    print arg_dict
     outdata = MEOInput_Analysis.api_site_sum_query(arg_dict, config_dict)
     if outdata: return jsonify(outdata)
     else: return jsonify('None')
@@ -484,8 +562,6 @@ def url_arg_processor(url_args, default_hours = 24):
     
     out_dict = {}
     out_dict.update(dict((key,val) for key, val in url_args.iteritems()))
-    print 'in url_arg_processor  line 468'
-    print out_dict
     # Determine End Time for RealTime
     if url_args.get('RealPastTime') == "RT_yes":
         EndTime = datetime.datetime.utcnow()  
@@ -569,7 +645,7 @@ def api_meo_location_accuracy_all():
     return jsonify("None")
 
 @app.route('/api/MEO/reference_location_accuracy/<int:MEOLUT_ID>', methods=['GET'])
-def meolut_referenece_location_accuracy(MEOLUT_ID):
+def api_meolut_referenece_location_accuracy(MEOLUT_ID):
     '''
     Get Location stats per MEOLUT. Optional args StartTime, EndTime, hours, days, minutes
     If no args are supplied, uses current time as StartTime and 60 minutes 
@@ -581,6 +657,20 @@ def meolut_referenece_location_accuracy(MEOLUT_ID):
     #StartTime = datetime.datetime(2019,01,21,01,00)
     #EndTime = datetime.datetime(2019,01,21,02,00)
     output = MEOInput_Analysis.api_meo_ref_beacon_accuracy(MEOLUT_ID, arg_dict['StartTime'], arg_dict['EndTime'], arg_dict,config_dict)
+    return jsonify(output)
+
+@app.route('/api/MEO/reference_beacon_locations', methods=['GET'])
+def api_meolut_referenece_beacon_locations():
+    '''
+    Get reference beacon locations for MEOLUTs. Optional args MEOLUT, StartTime, EndTime, hours, days, minutes
+    If no args are supplied, uses current time as StartTime and 7 days, uses all MEOLUTs
+    Example of using args: 
+    /api/MEO/reference_beacon_locations?StartTime=2019-01-21 01:00:00&EndTime=2019-01-21 02:00:00
+    '''
+    kwargs = {}
+    arg_dict = url_arg_processor(request.args)
+    if not request.args.get('MEOLUT',False): arg_dict.pop('MEOLUTList', False)
+    output = MEOInput_Analysis.api_meo_ref_beacon_locations(arg_dict,config_dict)
     return jsonify(output)
 
 @app.route('/api/MEO/real_time_packet_stats/<int:MEOLUT_ID>', methods=['GET'])
@@ -637,11 +727,16 @@ def api_leo_lmdb():
 def api_site(table, sitenum):
     # can return any table where a sitenum is defined -- ie alertsitesol, (default if not defined), alertsitesum , outsolution 
     input_data = request.args.to_dict()
-    if table not in ['alertsitesol', 'alertsitesum' , 'outsolution', 'leo','meo','enc']:
+    type = 'all'
+    if table not in ['alertsitesol', 'alertsitesum' , 'outsolution', 'leo','meo','enc','comp']:
         raise TypeError("table must be type 'alertsitesol', 'alertsitesum', 'outsolution', 'leo','meo' or 'enc' not {}".format(table))
         return render_template('error.html',404) 
-    outdata = MEOInput_Analysis.api_site(config_dict, sitenum, table)
-    #print outdata[0]
+    if table in ['leo','meo','enc','comp']:
+        type = table 
+        table = 'alertsitesol'
+    outdata = MEOInput_Analysis.api_site(config_dict, sitenum, table, type)
+    print 'returning table: ' + table + ', type: ' + type 
+    print str(len(outdata)) + ' rows'
     return jsonify(outdata)
 
 @app.route('/api/leogeo/sols', methods = ['GET','POST'])
@@ -659,26 +754,61 @@ def api_JSON_leo_geo_sols():
     return outdata
 
 @app.route('/api/<type>/<int:sitenum>', methods = ['GET','POST'])
-def api_comp_sols(type, sitenum):
-    # returns composite locations of all types (leo, meo, comp, enc) a site
+def api_site_sols(type, sitenum):
+    # returns solutions of all types (all, leo, meo, comp, enc, - out, outleo, outmeo, outcomp, outenc) a site
     urlbase = url_for('index', _external = True)
     url = urlbase + "api/site/alertsitesol/{}".format(sitenum)
-    composite_columns = ['alertsitenum','gentime', 'addtime','complat','complon','altitude','matchdistance', 
+    if type[:3] == 'out': url = urlbase + "api/site/outsolution/{}".format(sitenum)
+    composite_columns = ['alertsitenum','alertsitesolid', 'gentime', 'addtime','complat','complon','matchdistance', 
                          'enclat','enclon', 'encmatchdistance', 'inputdatatype',  'alertmsgstate', 'bcnid15', 'bcnid30', 
                         'sourceid', 'sourcename', 'sat','satelliteids','numbursts','numpackets','numsatellites','dop',
                         'sourceantennaids', 'indlocweight', 'indencdistance','rcvtime']
-    leo_columns = ['alertsitenum','gentime', 'addtime','a_lat','a_lon','tca','complat','complon','altitude','matchdistance', 
+    leo_columns = ['alertsitenum','alertsitesolid','gentime', 'addtime','a_lat','a_lon','tca','complat','complon','altitude','matchdistance', 
                          'enclat','enclon', 'encmatchdistance', 'inputdatatype',  'alertmsgstate', 'bcnid15', 'bcnid30', 
                         'sourceid', 'sourcename', 'sat', 'orbit', 'points', 'a_prob', 'indlocweight', 'indencdistance', 'rcvtime']
+    meo_columns = ['alertsitenum','alertsitesolid','gentime', 'addtime','complat','complon','matchdistance', 
+                         'enclat','enclon', 'encmatchdistance', 'inputdatatype',  'alertmsgstate', 'bcnid15', 'bcnid30', 
+                        'sourceid', 'sourcename', 'sat','satelliteids','sourceantennaids','latitude', 'longitude', 'altitude', 'numbursts',
+                        'numpackets','numsatellites','dop', 'sourceantennaids', 'indlocweight', 'indencdistance','rcvtime']
+    enc_columns = ['alertsitenum','alertsitesolid','gentime', 'addtime','complat','complon','altitude','matchdistance', 'enclatcoarse', 'encloncoarse',
+                         'enclat','enclon', 'encmatchdistance', 'inputdatatype',  'alertmsgstate', 'bcnid15', 'bcnid30', 
+                        'sourceid', 'sourcename', 'sat','satelliteids',  'indlocweight', 'indencdistance','rcvtime']
+    print url 
+
     data = requests.get(url,verify=False).json()
-    out_dict = {}
-    for row in data:
-        if type == 'comp' or type == 'all':
-            if row['complat'] != "null":
-                out_dict[row['alertsitesolid']] = {x:row[x] for x in composite_columns}
-        if type == 'leo' or type == 'all':
-            if row['a_lat'] != "null":
-                out_dict[row['alertsitesolid']] = {x:row[x] for x in leo_columns}
+    
+    out_dict = []
+    field_to_check_dict = {'comp': 'complat', 'leo': 'a_lat', 'enc': 'enclat', 'meo': 'latitude', 
+            'outcomp': 'complat', 'outleo': 'a_lat', 'outenc': 'enclat', 'outmeo': 'latitude'}
+    columns_dict = {'comp': composite_columns, 'leo': leo_columns, 'enc': enc_columns, 'meo': meo_columns, 
+            'outcomp': composite_columns, 'outleo': leo_columns, 'outenc': enc_columns, 'outmeo': meo_columns} 
+    loc_dict = {'comp': ('complat', 'complon'), 'leo': ('a_lat','a_lon'), 'enc': ('enclat','enclon'), 'meo': ('latitude','longitude'), 
+            'outcomp': ('complat', 'complon'), 'outleo': ('a_lat','a_lon'), 'outenc': ('enclat','enclon'), 'outmeo': ('latitude','longitude') }
+    
+    if type == 'all' or type == 'output':
+        out_dict = data
+    else:
+        field_to_check = field_to_check_dict[type]
+        columns = columns_dict[type]
+        if type[:3] == 'out':
+            columns.extend(['outmsgid', 'updatetype','alertmsgstate','frequency','positionconfflag', 'solreal',
+            'encreal','srr','regtype','pooraccwarn','srrname1','srrname2','srrname3','mid','midname','craftid',
+            'homing','manufact','model','serialnum','bcntype','activtype','specprogramname','tacnumber',
+            'positionmatchinfo','isbeaconsgb'])
+            cols_to_remove = ['gentime', 'matchdistance','encmatchdistance','inputdatatype','sourcename',
+                        'orbit','indlocweight','indencdistance','rcvtime','sourceantennaids','enclatcoarse',
+                        'encloncoarse', 'sourceantennaids']
+            for col in cols_to_remove: 
+                if col in columns: columns.remove(col)
+        for row in data:
+            if row[field_to_check] != "null" and row[field_to_check] is not None:
+                row_dict = {x:row[x] for x in columns}
+                row_dict.update({'lat': row[loc_dict[type][0]], 'lon': row[loc_dict[type][1]]})
+                out_dict.append(row_dict)
+
+            
+    print type 
+    print str(len(out_dict)) + ' rows'
     return jsonify(out_dict)
     #return leo_columns
 
@@ -723,9 +853,6 @@ def czml_meo_input_by_site(sitenum):
 def czml_alert_site(type, sitenum):
     urlbase = url_for('index', _external = True)
     url = urlbase + "api/"+type+"/{}".format(sitenum)
-    print '/api/czml/site/<type>/<int:sitenum'
-    print 'pointing to > '
-    print url
     data = requests.get(url,verify=False).json()
     outczml = MEOInput_Analysis.czml_alert_site(type, sitenum, data) 
     return jsonify(outczml)

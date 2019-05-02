@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block title %} MEO Monitor {% endblock %}
+{% block head %}
+  {{ super() }}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dc.css') }}" id="dc-css">
+{% endblock %}
+{% block content %}
+<h3> MEO with CrossFilter </h3>
+{% if NODATA %}
+<h5> No data was found using: {{ json_data_url }}</h5>
+{% else %}
+  <h5> {{ num_passes }} passes from {{ arg_dict.StartTime }} to {{ arg_dict.EndTime }} </h5>
+  <a href="{{ json_data_url }}" title="{{ json_data_url }}" >data source</a>
+<div class="row">
+  <div class="pie-graph span6" id="lutchart">
+      <strong>MEOLUT</strong>
+      <span class="reset" style="display: none;">: <span class="filter"></span></span>
+      <a class="reset" href="javascript:lutChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+      <div class="clearfix"></div>
+  </div>
+
+  <div class="pie-graph span6" id="refBeaconChart">
+      <strong>Reference Beacon </strong>
+      <span class="reset" style="display: none;">: <span class="filter"></span></span>
+      <a class="reset" href="javascript:refBeaconChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+      <div class="clearfix"></div>
+  </div>
+  <div id="numLocVsDistanceChart">
+      <strong>Num Locations Vs Distance </strong>
+      <span class="reset" style="display: none;">Distance: <span class="filter"></span> </span>
+      <a class="reset" href="javascript:numLocVsDistanceChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+      <div class="clearfix"></div>
+  </div>
+  <div id="meanVsDistanceChart">
+      <strong>Mean Vs Distance </stong>
+        <span class="reset" style="display: none;">Distance: <span class="filter"></span> </span>
+      <a class="reset" href="javascript:meanVsDistanceChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+      <div class="clearfix"></div>
+  </div>
+  <div id="lessThan5kmChart">
+      <strong>Less Than 5km Vs Distance </strong>
+      <a class="reset" href="javascript:lessThan5kmChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+      <div class="clearfix"></div>
+  </div>
+</div>
+<div class = "row">
+  <div id="date-chart" class="dc-chart">
+    <span class="reset" style="display: none;">Dates: <span class="filter"></span> </span>
+    <a class="reset" href="javascript:dateChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="dc-data-count">
+      <span class="filter-count"></span> selected out of <span class="total-count"></span> passes | <a
+          href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+  </div>
+  <table class="table table-hover dc-data-table">
+  </table>
+</div>
+<style>
+.bottom-buffer {
+  padding-bottom: 20px;
+}
+</style>
+<script src="{{ url_for('static', filename='js/d3.js') }}"></script>
+<script src="{{ url_for('static', filename='js/crossfilter.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dc.js') }}"></script>
+<script src="{{ url_for('static', filename='js/d3-time.v1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/d3-time-format.v2.min.js') }}"></script>
+<script> 
+
+var data1 = JSON.parse('{{ json_obj | tojson | safe }}');
+let minDate = new Date (new Date("{{ arg_dict.StartTime }}").valueOf() - 2*86400)
+let maxDate = new Date (new Date("{{ arg_dict.EndTime }}").valueOf() - 2*86400)
+
+</script>
+
+<script></script>
+<script src="{{ url_for('static', filename='scripts/MEO_CF2.js') }}"></script>
+  
+
+{% endif %}
+
+{% endblock %}

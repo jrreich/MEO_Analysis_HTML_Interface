@@ -1,0 +1,284 @@
+{% extends "layout.html" %}
+{% block title %} Site Analysis {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="form-container">
+        <form class= "col-sm- flex-column" enctype="multipart/form-data">
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Site or Beacon
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <input type="radio" disabled id="userbeaconid" name="UseBeaconID" value="BeaconInput" />
+                        <label for="UseBeaconID" class="form-check-label">Use Beacon ID</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="usersiteid" name="UseBeaconID" value="SiteInput" checked/>
+                        <label for="UseSiteID" class="form-check-label">Use Site Number</label>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <input type="text" disabled class="form-control form-control-sm beaconinputfield beaconfield col-12" id="beaconIDinput" name="beaconID" placeholder="Beacon ID">
+                    <input type="text" class="form-control form-control-sm sitefield col-12" id="siteIDinput" name="siteID" placeholder="Site ID">
+                    <input type="text" class="form-control form-control-sm sitefield beaconfield col-12" id="siteLocationName" name="Location" placeholder="Location Name">
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Data Source</legend>
+                </div>
+                <div class="row col-10">
+                    <div class="form-check">
+                        <input type="checkbox" name="LUT" value="meo" />
+                        <label for="3385" class="form-check-label">
+                            MEOLUTs
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="LUT" value="leo" />
+                        <label for="2276" class="form-check-label">
+                            LEOLUTs
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="LUT" value="enc" />
+                        <label for="2276" class="form-check-label">
+                            Encoded Locations
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="LUT" value="comp" />
+                        <label for="2276" class="form-check-label">
+                            Confirmed Locations
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="LUT" value="output" />
+                        <label for="2276" class="form-check-label">
+                            Output Locations
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">Ground Truth Source</legend>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <input type="radio" id="gtlatlon" name="GTSource" value="None" checked />
+                        <label for="None" class="form-check-label"> None (just collect data)</label><br/>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="gtlatlon" name="GTSource" value="enc" checked />
+                        <label for="None" class="form-check-label"> Encoded Locations</label><br/>
+                    </div>
+                    <div class="form-check" >
+                        <input type="radio" id="gtlatlon" name="GTSource" value="GTLatLon" />
+                        <label for="GTLatLon" class="form-check-label"> Input Lat, Lon</label><br/>
+                    </div>
+
+                    <div class="row col-12">
+                        <input type="text" class="form-control form-control-sm posfield col-6" id='beaconLat' name="beaconLat" placeholder="Ground Truth Latitude">
+                        <input type="text" class="form-control form-control-sm posfield col-6" id='beaconLon' name="beaconLon" placeholder="Ground Truth Longitude">
+                        
+                    </div>
+                    <div class="row col-12">
+                        <div class="form-check">
+                            <input type="radio" id="gtfile" name="GTSource" value="GTFile" />
+                            <label for="GTFile" class="form-check-label"> Use File</label>
+                            <input type="file" class="form-control-file form-control-sm" id="gtfileinput" name="gt_inputfile">
+                        </div>
+                    </div>
+                </div>  
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Data Source
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="radio" class="fileinputradio" name="inputsource" value="mccdb" checked />
+                        <label class="form-check-label" for="mccdb">MccMeoLutMonitor (Last ~45 days)</label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="radio" class="fileinputradio" name="inputsource" value="mcc_operational_rpt" />
+                        <label class="form-check-label" for="mccdb">MccOperationalRpt (2018 - present)</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        Data Collection
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="SolutionsOut" value="True" />
+                        <label class="form-check-label" for="SolutionsOut"> Output data to csv </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="AllSiteSols" value="True" />
+                        <label class="form-check-label" for="AllSiteSols"> All alertsite sols to csv </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" id="Jdata" name="Jdata" value="True" />
+                        <label class="form-check-label" for="Jdata"> Get J1,J2,J3 data </label>
+                    </div>
+                    <div class="col-12 start-hidden form-group Jdata-group">
+                        <div class="form-check">
+                            <input type="checkbox" name="J1data" value="True" checked> 
+                            <label for="J1data" class="form-check-label">J1 data (raw bursts)</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="J2data" value="True" checked> 
+                            <label for="J2data" class="form-check-label">J2 data (MEO solutions)</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="J3data" value="True" checked> 
+                            <label for="J3data" class="form-check-label">J3 data (MEO schedule)</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                       Histogram 
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="histcum" value="True" />
+                        <label class="form-check-label" for="histcum">Generate Histogram </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" id="plotvary" name="plotvary" value="True" />
+                        <label class="form-check-label" for="plotvary"> Variable in Histogram (MEO only) </label>
+                    </div>
+                    <div class="form-group plotvaryby-group start-hidden">
+                        <label for="plotvaryby">Vary by:</label>
+                        <select class="form-control" id="plotvaryby" name="plotvaryby">
+                            <option value="dopname">DOP</option>
+                            <option value="ehename">ExpectedHorzError</option>
+                            <option value="numburstsname">NumBursts</option>
+                            <option value="numpacketsname">NumPackets</option>
+                            <option value="numsatsname">NumSatellites</option>
+                            <option value="cn0name">Average CN0</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <legend class="col-form-label pt-0">
+                        KML Options
+                    </legend>
+                </div>
+                <div class="row">
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="KMLgen" value="True" />
+                        <label class="form-check-label" for="KMLgen"> Generate KML file </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="ErrorLines" value="True" />
+                        <label class="form-check-label" for="ErrorLines"> Draw Error Lines in KML file </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="ErrorLines" value="True" />
+                        <label class="form-check-label" for="ErrorLines"> LEO </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="ErrorLines" value="True" />
+                        <label class="form-check-label" for="ErrorLines"> Enc </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="ErrorLines" value="True" />
+                        <label class="form-check-label" for="ErrorLines"> Comp </label>
+                    </div>
+                    <div class="form-check col-12">
+                        <input type="checkbox" name="ErrorLines" value="True" />
+                        <label class="form-check-label" for="ErrorLines"> Output </label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row">
+                <button class="btn btn-primary btn-block" type="submit"> Submit </button>
+            </div>
+        </form>
+        <div class="col">
+            {% if output_data is defined %}
+                {% if output_data.linklist %}
+                    {% for link, desc in output_data.linklist.iteritems() %}
+                        <a href="{{ link }}">{{ desc }}  </a> <br />
+                    {% else %}
+                        <h5> No links to display </h5>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col">
+    {% if output_data is defined %}
+        <div class="results jumbotron">
+            <h3 class="display-4">Results</h3>
+            <h5>MEOLUT: {{ output_data.MEOLUTList }}</h5>
+            <h5>BeaconID: {{ output_data.beaconID }} </h5>
+            <h5>SiteID: {{ output_data.siteID }}
+            <h5>Between {{ output_data.StartTime.strftime('%m/%d/%y %H:%M') }} and {{ output_data.EndTime.strftime('%m/%d/%y %H:%M') }}</h5>
+            <h5>Using {{ output_data.BeaconType }} to collect data </h5> 
+            {% if output_data.SummaryData %}
+            <hr class="my-4">
+        <div class="container">
+            <table class="display">
+                {% for row in data %}
+                <tr>
+                    {% for i in range(0, row|length) %}
+                    <td>{{ row[i] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+
+            {% else %}
+                {% if output_data.BeaconType == "SiteInput" %}
+                    <h5> No location summary to display for site - {{ output_data.siteID }}  </h5>
+                    {% else %}
+                    <h5> No location summary to display for beacon - {{ output_data.beaconID }}  </h5>
+                {% endif %}
+            {% endif %}
+        {% if output_data.imglist %}
+            {% for filename in output_data.imglist %}
+                <img class="img-fluid" id="HistogramCumulativePlotResult" src="{{ filename }}" alt="Results png" title="results" />
+            {% else %}
+                <h5> No Histogram to display </h5> 
+            {% endfor %}
+            
+        {% endif %}
+
+        </div>
+    </div>
+    {% endif %}
+    </div>
+
+
+</div>
+{% endblock content %}
+
+{% block footer %}
+<script src="{{ url_for('static', filename='scripts/forms.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" >
+{% endblock footer %}
