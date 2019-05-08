@@ -1,10 +1,11 @@
 from werkzeug.utils import secure_filename
 from werkzeug.routing import BaseConverter, ValidationError
-from flask import Flask, url_for, request, render_template, jsonify
+from flask import Flask, url_for, request, render_template, jsonify, redirect, make_response
 #from app import app
 import beacon_decode as bcn
 import decodehex2
 import definitions
+from decodefunctions import is_number, dec2bin
 import pypyodbc
 import MEOInput_Analysis
 import SiteAnalysis
@@ -132,23 +133,91 @@ def layout():
 def beacon():
     if request.method == 'GET':
         # Send the user the form
-        return render_template('BeaconDecode1.html')
-    elif request.method == 'POST':
-        # read beacon ID and save it
-        beaconID = request.form['beaconID']        
-
-        #decode and return it
-        bcn1 = bcn.beacon(beaconID)
-        bcn1 = decodehex2.Beacon(beaconID)
-        #return results
-        return render_template('BeaconDecoded.html', \
-            beaconID = beaconID, \
-            beaconID15 = bcn1.bcnID15, \
-            countrycode = int(bcn1.country_code,2), \
-            protocolcode = bcn1.protocol,
-            bcn = bcn1)
+        return render_template('BeaconDecoder1.html')
     else: 
-        return '<h2> Invalid Request </h2>'
+        print(request.form)
+        hexcode = str(request.form['hexcode']).strip()
+        return redirect(url_for('decodedhex',hexcode=hexcode))
+
+@app.route('/beacon/<hexcode>')
+def decodedhex(hexcode):
+    # read beacon ID and save it
+    geocoord = (0, 0)
+    locationcheck = False
+    #decode and return it
+    hexcode = hexcode.replace(" ","")
+    beacon = decodehex2.Beacon(hexcode)
+
+    error=''
+    if len(beacon.errors)>0 :
+        error = ', '.join(beacon.errors)
+
+    # if beacon.gentype=='first':
+    #     tmp = 'encodelongfirst.html'
+    #     # redirect with the hexcode, beacon type - different inputs depending on type of first gen
+    # elif beacon.gentype=='second':
+    #     tmp = 'encodelongsecond.html'
+    # elif beacon.gentype=='secondtruncated':
+    #     tmp = 'output.html'
+
+    tmp = 'BeaconDecode1.html'
+
+    #return results
+        
+    if beacon.has_loc() and is_number(beacon.location[0]) and is_number(beacon.location[1]):
+        geocoord = (float(beacon.location[0]),float(beacon.location[1]))
+        print(geocoord)
+        locationcheck=True
+
+    # return render_template('BeaconDecode1.html', \
+    #     beaconID = beaconID, \
+    #     beaconID15 = bcn1.bcnID15, \
+    #     countrycode = int(bcn1.country_code,2), \
+    #     protocolcode = bcn1.protocol,
+    #     bcn = bcn1)
+
+    return render_template(tmp, 
+        hexcode=hexcode.upper(), 
+        decoded=beacon.tablebin, 
+        locationcheck=locationcheck,
+        geocoord=geocoord, 
+        genmsg=beacon.genmsg)
+
+@app.route('/beaconjson/<hexcode>')
+def decodedhexjson(hexcode):
+    # read beacon ID and save it
+    #decode and return it
+    hexcode = hexcode.replace(" ","")
+    beacon = decodehex2.Beacon(hexcode)
+    outdict = {}
+    
+    for num, item in enumerate(beacon.tablebin):
+        fielddict = {}
+        fielddict['bits'] = item[0]
+        fielddict['bitvalue'] = item[1]
+        fielddict['meaning'] = item[2]
+        fielddict['beaconvalue'] = item[3]
+        outdict[num] = fielddict
+
+    if beacon.has_loc() and is_number(beacon.location[0]) and is_number(beacon.location[1]):
+        outdict['latitude'] = float(beacon.location[0])
+        outdict['longitude'] = float(beacon.location[1])
+
+
+
+
+    return jsonify(outdict)
+
+@app.route("/bch/<hexcode>")
+def download_bch(hexcode):
+    beacon = decodehex2.Beacon(hexcode)
+    bchout=beacon.bchstring
+    response = make_response(bchout)
+    cd = 'attachment; filename=mybch.txt'
+    response.headers['Content-Disposition'] = cd
+    response.mimetype = 'text/csv'
+    return response
+
 
 @app.route('/rawburst', methods=['GET'])
 def rawburst():

@@ -5,6 +5,7 @@ It contains the definition of routes and views for the application.
 
 from flask import Flask
 from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.debug import DebuggedApplication
 #from flask_cors import CORS
 
 
@@ -35,6 +36,7 @@ if __name__ == '__main__':
     #except ValueError:
     PORT = 8081
     app.debug = True
+    app.wsgi_app = DebuggedApplication(app.wsgi_app, evalex=True, pin_security=False)
     #print PORT
     app.run(HOST, PORT, threaded = True)
     #app.run(port = 8081, threaded = True, debug = True)

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %} Beacon Decode {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+
+<div class="form-group" >
+      <form class="form-horizontal"  action="/longfirstgen" >
+        <h2 class="form-signin-heading">First Generation Beacon {{hexcode}} </h2>
+          <input type="hidden"  name="hex_code" value="{{hexcode}}" style="min-width: 500px;">
+        <button class="btn btn-lg btn-primary btn-block" type="submit"  id="encodebutton" >Encode Long Message</button>
+      </form>
+</div>
+
+{{super()}}
+
+{% endblock %}
