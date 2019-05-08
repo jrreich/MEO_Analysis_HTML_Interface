@@ -1,8 +1,6 @@
 from werkzeug.utils import secure_filename
 from werkzeug.routing import BaseConverter, ValidationError
 from flask import Flask, url_for, request, render_template, jsonify, redirect, make_response
-#from app import app
-import beacon_decode as bcn
 import decodehex2
 import definitions
 from decodefunctions import is_number, dec2bin
@@ -195,13 +193,12 @@ def decodedhexjson(hexcode):
         fielddict = {}
         fielddict['bits'] = item[0]
         fielddict['bitvalue'] = item[1]
-        fielddict['meaning'] = item[2]
-        fielddict['beaconvalue'] = item[3]
-        outdict[num] = fielddict
+        fielddict['value'] = item[3]
+        outdict[item[2]] = fielddict
 
     if beacon.has_loc() and is_number(beacon.location[0]) and is_number(beacon.location[1]):
-        outdict['latitude'] = float(beacon.location[0])
-        outdict['longitude'] = float(beacon.location[1])
+        outdict['lat'] = float(beacon.location[0])
+        outdict['lon'] = float(beacon.location[1])
 
 
 

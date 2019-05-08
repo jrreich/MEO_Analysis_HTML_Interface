@@ -2,6 +2,7 @@ var app = (function () {
     //var viewer = {};
     var _initCesium = function () {
         Cesium.BingMapsApi.defaultKey = 'AroVSp3EEqOsbIrQmLLaavG0aGanIvBJ3iVmsayjLrmWFcU5KSCx1zCLE5AkByXq'; // For use in this application only. Do not reuse!
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNTBmODQyNi1mODlhLTRjMGYtYTQ3Zi1kMzdiNGIyZmQyN2IiLCJpZCI6MTA3NjgsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NTczMzI4NDF9.CjdCeI3wLGmDhHNf_jEPghiVrcM7cV8RvjL9HtqcY1c';
         viewer = new Cesium.Viewer('cesiumContainer', {
             imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
                 url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer',
