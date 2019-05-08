@@ -3,6 +3,8 @@ from werkzeug.routing import BaseConverter, ValidationError
 from flask import Flask, url_for, request, render_template, jsonify
 #from app import app
 import beacon_decode as bcn
+import decodehex2
+import definitions
 import pypyodbc
 import MEOInput_Analysis
 import SiteAnalysis
@@ -137,6 +139,7 @@ def beacon():
 
         #decode and return it
         bcn1 = bcn.beacon(beaconID)
+        bcn1 = decodehex2.Beacon(beaconID)
         #return results
         return render_template('BeaconDecoded.html', \
             beaconID = beaconID, \
@@ -154,8 +157,8 @@ def rawburst():
     if len(request.args)==0: return render_template('BurstAnalysisForm1.html')
     arg_dict = url_arg_processor(request.args, 4)
     #MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip, output_format = arg_processor(result)
-    for key, val in arg_dict.iteritems():
-        print key, val 
+    for key, val in arg_dict.items():
+        print(key, val) 
     #print MEOLUTList, StartTime, EndTime, filesaved, filesaved_zip
     if not arg_dict.get('MEOLUTList'): arg_dict['MEOLUTList'] = ['%']  ## probably not needed
     if arg_dict.get('inputsource') in ["excelfile", "zipfile", "sqldbfile"]:
@@ -195,9 +198,9 @@ def MEOInputAnalysis():
             MEOInput_Analysis.xlx_analysis(filesaved, OUTPUTFOLDER, MEOLUTList, StartTime, EndTime, result) # need to add approot if this will be functional on apache
     """
     #elif result.get('inputsource') == 'mccdb':
-    if TimeLog: print 'Starting MSSQL_analysis - ' + str(datetime.datetime.utcnow()) 
+    if TimeLog: print('Starting MSSQL_analysis - ' + str(datetime.datetime.utcnow())) 
     csvoutfile, filelist = MEOInput_Analysis.MSSQL_analysis(result, MEOLUTList, StartTime, EndTime, config_dict)
-    if TimeLog: print 'Finished MSSQL_analysis - ' + str(datetime.datetime.utcnow())  
+    if TimeLog: print('Finished MSSQL_analysis - ' + str(datetime.datetime.utcnow()))  
     if csvoutfile == None:
         return render_template('MEOInputAnalysisForm1.html', NODATA = True, result=result, StartTime = StartTime, EndTime = EndTime, data = filelist)
     rdr= csv.reader( open(os.path.join(approot,csvoutfile), "r" ))
@@ -216,13 +219,13 @@ def MEOBeaconAnalysis():
     fileout_dict = {}
     filelist1_dict = None
     #Calling appropriate functions
-    if TimeLog: print 'Starting Analysis calls - ' + str(datetime.datetime.utcnow()) 
+    if TimeLog: print('Starting Analysis calls - ' + str(datetime.datetime.utcnow())) 
     if result.get('Jdata',False) or result.get('AllSiteSols', False):
-        if TimeLog: print '  Starting MeoDataCollection - ' + str(datetime.datetime.utcnow()) 
+        if TimeLog: print('  Starting MeoDataCollection - ' + str(datetime.datetime.utcnow())) 
         filelist1_dict, beacon_out = MEOInput_Analysis.MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict) 
-    if TimeLog: print '  Starting MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
+    if TimeLog: print('  Starting MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow())) 
     beacon_out, csvoutfile, imglist, filelist_dict = MEOInput_Analysis.MSSQL_beacon_analysis(result, MEOLUTList, StartTime, EndTime, config_dict, filesaved) 
-    if TimeLog: print '  Done MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow()) 
+    if TimeLog: print('  Done MSSQL_beacon_analysis - ' + str(datetime.datetime.utcnow())) 
     
     #Creating Summary Table if available
     if csvoutfile == None: 
@@ -257,7 +260,7 @@ def realtimemonitor():
     #use_realtimemonitor_sql_db = True
     
     startofscript = datetime.datetime.utcnow()
-    if request.args.get('days') <> None:
+    if request.args.get('days') != None:
         days = request.args.get('days')
     else:
         days = 4
@@ -265,7 +268,7 @@ def realtimemonitor():
         refreshtimer = float(request.args.get('refreshtimer'))
     else:
         refreshtimer = 300
-    if request.args.get('burstwindow') <> None:
+    if request.args.get('burstwindow') != None:
         burstwindow = float(request.args.get('burstwindow'))
     else:
         burstwindow = 60
@@ -276,13 +279,13 @@ def realtimemonitor():
     BurstStartTime = EndTime - datetime.timedelta(minutes=burstwindow)
     #BurstStartTime_str = BurstStartTime.strftime('%Y-%m-%d %H:%M:%S')
     alarmlist, closedalarms, numalarms = MEOInput_Analysis.MEOLUT_alarms(StartTime,EndTime, servername,oppsdatabase) #, sql_login = 'yes')
-    if TimeLog: print '1 - MEO Alarms - ' + str(datetime.datetime.utcnow() - startofscript)
+    if TimeLog: print('1 - MEO Alarms - ' + str(datetime.datetime.utcnow() - startofscript))
     statusHI, statusFL = MEOInput_Analysis.MEOLUT_status(StartTime,EndTime, servername,oppsdatabase)  #, sql_login = 'yes')
-    if TimeLog: print '2 - MEO Status - ' + str(datetime.datetime.utcnow() - startofscript)
+    if TimeLog: print('2 - MEO Status - ' + str(datetime.datetime.utcnow() - startofscript))
     HI_location_accuracy = MEOInput_Analysis.api_meo_location_accuracy(3385, BurstStartTime, EndTime, config_dict)[3385]
     #HI_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3385, _external = True, 
     #                                              StartTime = BurstStartTime_str, EndTime = EndTime_str),verify = False).content)
-    if TimeLog: print '3 - HI loc accuracy - ' + str(datetime.datetime.utcnow() - startofscript)
+    if TimeLog: print('3 - HI loc accuracy - ' + str(datetime.datetime.utcnow() - startofscript))
     if use_realtimemonitor_sql_db:
         url = urlbase + "api/MEO/real_time_packet_stats/3385"
         HI_packet_percent =  requests.get(url,verify=False).json()
@@ -297,11 +300,11 @@ def realtimemonitor():
     #HI_packet_percent = json.loads(get(url_for('meolut_packet_throughput', MEOLUT_ID = 3385, rep_rate = 50, 
     #                                           StartTime = BurstStartTime_str, EndTime = EndTime_str, beaconId = 'AA5FC0000000001', 
     #                                           _external = True),verify = False).content)
-    if TimeLog: print '4 - HI packet percent - ' + str(datetime.datetime.utcnow() - startofscript) 
+    if TimeLog: print('4 - HI packet percent - ' + str(datetime.datetime.utcnow() - startofscript)) 
     FL_location_accuracy = MEOInput_Analysis.api_meo_location_accuracy(3669, BurstStartTime, EndTime, config_dict)[3669]
     #FL_location_accuracy = json.loads(get(url_for('meolut_location_accuracy', MEOLUT_ID = 3669, _external = True,
     #                                              StartTime = BurstStartTime_str, EndTime = EndTime_str), verify = False).content)
-    if TimeLog: print '5 - FL loc accuracy - ' + str(datetime.datetime.utcnow() - startofscript) 
+    if TimeLog: print('5 - FL loc accuracy - ' + str(datetime.datetime.utcnow() - startofscript)) 
     if use_realtimemonitor_sql_db:
         url = urlbase + "api/MEO/real_time_packet_stats/3669"
         FL_packet_percent =  requests.get(url,verify=False).json()
@@ -319,7 +322,7 @@ def realtimemonitor():
     #                                           StartTime = BurstStartTime_str, EndTime = EndTime_str)
     #FL_packet_percent = json.loads(get(FL_url, verify = False).content)
     if TimeLog: 
-        print '6 - FL packet percent - (total load time) = ' + str(datetime.datetime.utcnow() - startofscript)    
+        print('6 - FL packet percent - (total load time) = ' + str(datetime.datetime.utcnow() - startofscript))    
     #open_site_list = MEOInput_Analysis.Open_Sites(servername,oppsdatabase)
    
     open_site_list =  requests.get(urlbase + "api/sitesum",verify=False, params = {'open_closed':'all_open'}).json()
@@ -443,12 +446,12 @@ def site_analysis():
 
     data_sources = result.getlist('LUT')
 
-    if TimeLog: print 'Starting Data Collection - ' + str(datetime.datetime.utcnow()) 
+    if TimeLog: print('Starting Data Collection - ' + str(datetime.datetime.utcnow())) 
     data_source_dict = {}
     for ds in data_sources:
         data_source_dict[ds] = json.loads(api_site_sols(ds, site_num).get_data().decode("utf-8"))
 
-    print data_source_dict
+    print(data_source_dict)
 
     # Create diction of output files 
     fileout_dict = {}
@@ -473,19 +476,19 @@ def site_analysis():
         # process gt into a csv file - 
     
     if gt_type is None:
-        print 'dt'
+        print('dt')
         data_collect_only = True
     else: 
         # send data and gt to function to analyze
-        print ' should have errors '
-        for data_type, data in data_source_dict.iteritems():
+        print(' should have errors ')
+        for data_type, data in data_source_dict.items():
             data_out = SiteAnalysis.data_source_compare(data_type, data , gt, gt_type) 
-            print 'data out = ' 
-            print data_out
+            print('data out = ') 
+            print(data_out)
             #fileout_dict[data_set], histoout_dict[data_set] = 
     
 
-    print 'is this thing on?'
+    print('is this thing on?')
     
     #Creating Summary Table if available
     if csvoutfile == None: 
@@ -545,7 +548,7 @@ def sitereturn():
     Note: if sitenum is set all other inputs are ignored, if all_open is set all other inputs are ignored """
     
     input_dict = {}
-    for key, val in request.args.iteritems():
+    for key, val in request.args.items():
         input_dict.update({key:val})
     if not request.args: input_dict.update({'days':5})
     arg_dict = url_arg_processor(input_dict)
@@ -561,7 +564,7 @@ def sitereturn():
 def url_arg_processor(url_args, default_hours = 24):
     
     out_dict = {}
-    out_dict.update(dict((key,val) for key, val in url_args.iteritems()))
+    out_dict.update(dict((key,val) for key, val in url_args.items()))
     # Determine End Time for RealTime
     if url_args.get('RealPastTime') == "RT_yes":
         EndTime = datetime.datetime.utcnow()  
@@ -735,8 +738,8 @@ def api_site(table, sitenum):
         type = table 
         table = 'alertsitesol'
     outdata = MEOInput_Analysis.api_site(config_dict, sitenum, table, type)
-    print 'returning table: ' + table + ', type: ' + type 
-    print str(len(outdata)) + ' rows'
+    print('returning table: ' + table + ', type: ' + type) 
+    print(str(len(outdata)) + ' rows')
     return jsonify(outdata)
 
 @app.route('/api/leogeo/sols', methods = ['GET','POST'])
@@ -773,7 +776,7 @@ def api_site_sols(type, sitenum):
     enc_columns = ['alertsitenum','alertsitesolid','gentime', 'addtime','complat','complon','altitude','matchdistance', 'enclatcoarse', 'encloncoarse',
                          'enclat','enclon', 'encmatchdistance', 'inputdatatype',  'alertmsgstate', 'bcnid15', 'bcnid30', 
                         'sourceid', 'sourcename', 'sat','satelliteids',  'indlocweight', 'indencdistance','rcvtime']
-    print url 
+    print(url) 
 
     data = requests.get(url,verify=False).json()
     
@@ -807,8 +810,8 @@ def api_site_sols(type, sitenum):
                 out_dict.append(row_dict)
 
             
-    print type 
-    print str(len(out_dict)) + ' rows'
+    print(type) 
+    print(str(len(out_dict)) + ' rows')
     return jsonify(out_dict)
     #return leo_columns
 

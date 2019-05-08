@@ -26,10 +26,10 @@ from routes import *
 
 # Launching server
 if __name__ == '__main__':
-    print 'running on localhost port 8081 huh'
+    print('running on localhost port 8081 huh')
     #import os
     HOST = os.environ.get('SERVER_HOST', 'localhost')
-    print HOST
+    print(HOST)
     #try:
     #    PORT = int(os.environ.get('SERVER_PORT', '8000'))
     #except ValueError:
