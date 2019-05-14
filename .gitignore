@@ -242,23 +242,8 @@ ModelManifest.xml
 .fake/
 
 
-
-
-testenv2/
-
-!venv/
-
-venv/*
-!venv/Lib/
-
-venv/Lib/*
-!venv/Lib/my-packages/
-!venv/Lib/site-packages/
-
-venv/Lib/site-packages/*
-!venv/Lib/site-packages/my-packages-import.pth
-
-
+venv/
+whl_files/
 
 !env/
 
@@ -274,7 +259,6 @@ env/Lib/site-packages/*
 !env/Lib/site-packages/MEOInput_Analysis/
 
 
-whl_files/
 var/
 
 static/output/

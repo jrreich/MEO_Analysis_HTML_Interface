@@ -32,8 +32,8 @@ logging.info('collections and simplekml')
 import re
 import beacon_decode as bcn
 logging.info('re and beacon decode')
-#import pypyodbc as odbc 
-import pyodbc as odbc
+import pypyodbc as odbc 
+#import pyodbc as odbc
 logging.info('pyodbc imported - all modules imported')
 from polycircles import polycircles
 from decimal import *
