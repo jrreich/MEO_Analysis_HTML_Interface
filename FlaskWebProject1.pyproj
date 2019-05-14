@@ -16,7 +16,7 @@
     <PythonWsgiHandler>{StartupModule}.wsgi_app</PythonWsgiHandler>
     <Name>FlaskWebProject1</Name>
     <RootNamespace>FlaskWebProject1</RootNamespace>
-    <InterpreterId>MSBuild|testenv2|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|venv|$(MSBuildProjectFullPath)</InterpreterId>
     <WebBrowserUrl>http://localhost</WebBrowserUrl>
     <WebBrowserUrl>http://localhost</WebBrowserUrl>
   </PropertyGroup>
@@ -2741,10 +2741,10 @@
     <Folder Include="templates\" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="testenv2\">
-      <Id>testenv2</Id>
+    <Interpreter Include="venv\">
+      <Id>venv</Id>
       <Version>3.7</Version>
-      <Description>testenv2 (Anaconda3 (3.7, 64-bit))</Description>
+      <Description>venv (Anaconda 2019.03)</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>

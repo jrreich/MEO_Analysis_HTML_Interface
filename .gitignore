@@ -241,6 +241,25 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
+
+
+
+testenv2/*
+
+!venv/
+
+venv/*
+!venv/Lib/
+
+venv/Lib/*
+!venv/Lib/my-packages/
+!venv/Lib/site-packages/
+
+venv/Lib/site-packages/*
+!venv/Lib/site-packages/my-packages-import.pth
+
+
+
 !env/
 
 env/*
@@ -255,6 +274,7 @@ env/Lib/site-packages/*
 !env/Lib/site-packages/MEOInput_Analysis/
 
 
+whl_files/
 var/
 
 static/output/
