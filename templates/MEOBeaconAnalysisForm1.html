@@ -355,7 +355,7 @@
         <div class="col">
             {% if output_data is defined %}
                 {% if output_data.linklist %}
-                    {% for link, desc in output_data.linklist.iteritems() %}
+                    {% for link, desc in output_data.linklist.items() %}
                         <a href="{{ link }}">{{ desc }}  </a> <br />
                     {% else %}
                         <h5> No links to display </h5>

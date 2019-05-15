@@ -156,6 +156,15 @@ var app = (function () {
         if (!$('#leo' + siteNum.value).length) {
             //Add MEO Input Locations
             //_addCzmlDataSource("/api/czml/site/" + siteNum.value);
+            _addCzmlDataSource("/api/czml/site/meo/" + siteNum.value);
+            $('<br />').appendTo('#siteButtonHolder');
+            $('<input />', { type: 'checkbox', id: 'meo' + siteNum.value, name: 'meo' + siteNum.value, checked: 'True' })
+                .change(function () {
+                    var sitechanged = $(this).prop('name');
+                    _toggleEntity(sitechanged);
+                })
+                .appendTo('#siteButtonHolder');
+            $('<label />', { for: 'meo'+ siteNum.value, text: '  meo -'+siteNum.value }).appendTo('#siteButtonHolder');
 
             //Add LEO Locations
             _addCzmlDataSource("/api/czml/site/leo/" + siteNum.value);
@@ -244,6 +253,7 @@ var app = (function () {
         }
         else {
             entity = czmlDataSource.entities.getById(id_list);
+            console.log(id_list);
             entity.show = !entity.show;
         }
     };

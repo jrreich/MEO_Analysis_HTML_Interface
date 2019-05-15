@@ -469,6 +469,16 @@ def SarsatMap():
         else: 
             return render_template('Cesium_Map.html')
 
+@app.route('/maptest', methods=['GET','POST'])
+def maptest():
+    if request.method == 'GET':
+        if request.args.get('KML', None):
+            return render_template('Cesium_Map.html', KMLFILE = request.args.get('KML'))
+        if request.args.get('CZML',None): 
+            return render_template('Cesium_Map.html', CZMLFILE = request.args.get('CZML'))
+        else: 
+            return render_template('MapTest.html')
+
 @app.route('/MEOSchedule', methods=['GET'])
 def meo_schedule():
     """/api/MEO/schedule?MEOLUT=3385&StartTime=2019-01-21 01:00:00&EndTime=2019-01-21 02:00:00
@@ -519,7 +529,7 @@ def site_analysis():
 
     print(data_source_dict)
 
-    # Create diction of output files 
+    # Create dictionary of output files 
     fileout_dict = {}
     histoout_dict = {}
     filelist1_dict = None
@@ -554,7 +564,7 @@ def site_analysis():
             #fileout_dict[data_set], histoout_dict[data_set] = 
     
 
-    print('is this thing on?')
+    csvoutfile = None
     
     #Creating Summary Table if available
     if csvoutfile == None: 

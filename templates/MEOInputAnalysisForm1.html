@@ -162,7 +162,7 @@
             <h5>MEOLUT: {{ output_data.MEOLUTList }}</h5>
             <h5>BeaconID: {{ output_data.BeaconID }} </h5>
             {% if linklist is defined %}
-            {% for link, desc in linklist.iteritems() %}
+            {% for link, desc in linklist.items() %}
             <a href="{{ link }}">{{ desc }}  </a> <br />{% endfor %}
                 <table>
                     {% for row in data %}

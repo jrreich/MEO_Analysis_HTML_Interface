@@ -105,6 +105,8 @@ ReferenceBeacons = {'Florida-1':{'beaconId': 'ADDC00202020201',
 
 #Date Formats
 timepacket_format = '%Y-%m-%d %H:%M:%S.%f'
+datetime_format = '%y %j %H%M %S.%f'
+GMT_format = '%a, %d %b %Y %H:%M:%S %Z'
 sec_f = '%S.%f'
 plot_fmt = DateFormatter('%m-%d %H:%M')
 Hours = MinuteLocator(interval = 30)
@@ -141,7 +143,7 @@ us_sarsats = allsats = [408, 409, 419, 422, 424, 426, 430, 301, 302, 303, 306,
                         308, 309, 310, 312, 315, 316, 317, 318, 319, 323, 324, 
                         326, 327, 329, 330, 332]
 
-datetime_format = '%y %j %H%M %S.%f'
+
 
 USMCC = False
 
@@ -206,8 +208,16 @@ def xldate_to_datetime(xldate):
 def time_to_datetime(timein):
     if isinstance(timein, datetime): 
         return timein
-    if isinstance(timein, str): 
-        return datetime.strptime(timein, timepacket_format)
+    if isinstance(timein, str):
+        try: 
+            return datetime.strptime(timein, timepacket_format)
+        except:
+            pass
+        try: 
+            return datetime.strptime(timein, datetime_format)
+        except: pass
+        try: return datetime.strptime(timein, GMT_format)
+        except: TypeError('timein string does not match available formats') 
     if isinstance(timein, float): return xldate_to_datetime(timein)
     else: raise TypeError('timein is unrecognized type, must be a datetime, string, or excel serial float, not a %s' % type(timein))
         
@@ -251,7 +261,7 @@ def JSON_to_csv(url, csvout):
     response = urllib.request.urlopen(url)
     data = json.loads(response.read())
     file_out = r'D:\Reich_disk1\Documents\Coding\Python\JSON_to_csv\test.csv'
-    with open( file_out, 'wb' ) as out_file:
+    with open( file_out, 'w', newline="" ) as out_file:
         csv_w = csv.writer( out_file )
         for i_r in data:
             csv_w.writerow( i_r )
@@ -301,7 +311,7 @@ def multiburst_loc(df,lat_GT,lon_GT,MEOLUT, window_span):
     return df3 
 
 def write_headers(filetype,csvoutfile, approot, J1_header):
-    with open(os.path.join(approot,csvoutfile), 'wb') as csvfile:
+    with open(os.path.join(approot,csvoutfile), 'w', newline="") as csvfile:
         wr = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
         if (filetype == "packet" or filetype == "TOA_FOA_DATA"): wr.writerow(J1_header)
         elif filetype == 'status': wr.writerow(Statusfileheader)
@@ -354,7 +364,7 @@ def file_search_regex(filetypesearch, country):
 def write_bursts_csv(packets,csvoutfile, filetypesearch, filename, approot, bcnId = False):
     burst = list()
     componentlist = list()
-    with open(os.path.join(approot,csvoutfile), 'ab') as csvfile:
+    with open(os.path.join(approot,csvoutfile), 'a', newline="") as csvfile:
         csvoutwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
         if (filetypesearch == "packet" or filetypesearch == "TOA_FOA_DATA"):   
@@ -592,7 +602,7 @@ def xlx_analysis(UPLOADFILE, OUTPUTFOLDER, MEOLUT, TimeStart, TimeEnd, result, L
     outfilelist.append(MBLfile)
     outfilelist.append(OUTfile)
     
-    with open(OUTfile, 'wb') as csvfile:
+    with open(OUTfile, 'w', newline="") as csvfile:
         csvoutwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
         csvoutwriter.writerow(['MEOLUT', MEOLUTName[MEOLUT]])
@@ -657,7 +667,7 @@ def xlx_analysis(UPLOADFILE, OUTPUTFOLDER, MEOLUT, TimeStart, TimeEnd, result, L
         #print '\nCreating KML file - ' + KMLfile
         if 'SingleBurstGen' in result:
             #print 'Writing Single Burst Locations to KML' 
-            with open(SBLfile, 'rb') as csvfile:
+            with open(SBLfile, 'r') as csvfile:
                 next(csvfile)
                 filereader = csv.reader(csvfile)
                 folSBL = kml.newfolder(name='Single Burst Locations - '+ str(MEOLUT))
@@ -674,7 +684,7 @@ def xlx_analysis(UPLOADFILE, OUTPUTFOLDER, MEOLUT, TimeStart, TimeEnd, result, L
                     pntSBL.style.iconstyle.icon.href = icon_list['white_dot']
         if 'EncLocGen' in result:
             #print 'Writing Encoded Locations to KML'
-            with open(SBLfile, 'rb') as csvfile:
+            with open(SBLfile, 'r') as csvfile:
                 next(csvfile)
                 filereader = csv.reader(csvfile)
                 folEnc = kml.newfolder(name = 'Encoded Locations - '+ str(MEOLUT))                
@@ -689,7 +699,7 @@ def xlx_analysis(UPLOADFILE, OUTPUTFOLDER, MEOLUT, TimeStart, TimeEnd, result, L
                         pntEnc.style.labelstyle.color = '00ff0000'  # Red
                     #pnt.snippet.content = 'this is content'
                     #print row[0],row[7],row[8]
-        with open(MBLfile, 'rb') as csvfile:
+        with open(MBLfile, 'r') as csvfile:
             next(csvfile)
             filereader = csv.reader(csvfile)
             folMBL = kml.newfolder(name='Multi Burst Locations - '+ str(MEOLUT))
@@ -721,7 +731,7 @@ def xlx_analysis(UPLOADFILE, OUTPUTFOLDER, MEOLUT, TimeStart, TimeEnd, result, L
             dfLEO = df[df.Orbit.notnull()]
             dfLEO_loc = dfLEO[dfLEO.A_Lat.notnull()]
             dfLEO_loc.to_csv(LEOoutfile)
-            with open(LEOoutfile, 'rb') as csvfile:
+            with open(LEOoutfile, 'r') as csvfile:
                 filereader = csv.reader(csvfile)
                 next(csvfile)
                 fol_LEO = kml.newfolder(name='LEO Locations - '+ str(MEOLUT))
@@ -911,7 +921,7 @@ def MSSQL_analysis(result, MEOLUTList, TimeStart, TimeEnd, config_dict=False, La
     #outfilelist.append(OUTfile)
 
 
-    with open(os.path.join(approot,OUTfile), 'wb') as csvfile:
+    with open(os.path.join(approot,OUTfile), 'w', newline="") as csvfile:
         csvoutwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
         csvoutwriter.writerow(['MEOLUT', MEOStr])
@@ -1006,7 +1016,7 @@ def MSSQL_analysis(result, MEOLUTList, TimeStart, TimeEnd, config_dict=False, La
             pntEnc.style.iconstyle.scale = 0.8
             pntEnc.style.labelstyle.color = '00ff0000'  # Red
         if 'SingleBurstGen' in result:
-            with open(os.path.join(approot,SBLfile), 'rb') as csvfile:
+            with open(os.path.join(approot,SBLfile), 'r') as csvfile:
                 next(csvfile)
                 filereader = csv.reader(csvfile)
                 folSBL = kml.newfolder(name='Single Burst Locations - '+ str(MEOLUT))
@@ -1026,7 +1036,7 @@ def MSSQL_analysis(result, MEOLUTList, TimeStart, TimeEnd, config_dict=False, La
                     pntSBL.timespan.begin = row[0][:10] + 'T' + row[0][11:19]
                     pntSBL.style.iconstyle.icon.href = icon_list['little_L']
         if 'EncLocGen' in result:
-            with open(os.path.join(approot,MBLfile), 'rb') as csvfile:
+            with open(os.path.join(approot,MBLfile), 'r') as csvfile:
                 next(csvfile)
                 filereader = csv.reader(csvfile)
                 folEnc = kml.newfolder(name = 'Encoded Locations - '+ str(MEOLUT))                
@@ -1043,7 +1053,7 @@ def MSSQL_analysis(result, MEOLUTList, TimeStart, TimeEnd, config_dict=False, La
                         pntEnc.style.iconstyle.scale = 0.8
                         pntEnc.style.labelstyle.color = '00ff0000'  # Red
                         pntEnc.style.labelstyle.scale = 0 
-        with open(os.path.join(approot,MBLfile), 'rb') as csvfile:
+        with open(os.path.join(approot,MBLfile), 'r') as csvfile:
             next(csvfile)
             filereader = csv.reader(csvfile)
             folMBL = kml.newfolder(name='Multi Burst Locations - '+ str(MEOLUT))
@@ -1084,7 +1094,7 @@ def MSSQL_analysis(result, MEOLUTList, TimeStart, TimeEnd, config_dict=False, La
                 #dfLEO = df[df.Orbit.notnull()]
 
                 dfLEO_loc.to_csv(os.path.join(approot,LEOGEO_file))
-                with open(os.path.join(approot,LEOGEO_file), 'rb') as csvfile:
+                with open(os.path.join(approot,LEOGEO_file), 'r') as csvfile:
                     filereader = csv.reader(csvfile)
                     next(csvfile)
                     fol_LEO = kml.newfolder(name='LEO Locations')
@@ -1132,7 +1142,7 @@ def MSSQL_analysis(result, MEOLUTList, TimeStart, TimeEnd, config_dict=False, La
                 #dfLEO = df[df.Orbit.notnull()]
                 dfRCC_loc = df[df.a_lat.notnull()]
                 dfRCC_loc.to_csv(os.path.join(approot,RCC_Output_file))
-                with open(os.path.join(approot,RCC_Output_file), 'rb') as csvfile:
+                with open(os.path.join(approot,RCC_Output_file), 'r') as csvfile:
                     filereader = csv.reader(csvfile)
                     next(csvfile)
                     fol_RCC = kml.newfolder(name='RCC Output Locations')
@@ -2052,7 +2062,7 @@ def MSSQL_beacon_analysis(result, MEOLUTList, TimeStart, TimeEnd, config_dict, g
     statsrow.extend(statslist)
     statsrow.extend(rw)
 
-    with open(os.path.join(approot, statsfile), 'a') as csvfile:
+    with open(os.path.join(approot, statsfile), 'a', newline="") as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',')
         csvwriter.writerow(headrow)
         csvwriter.writerow(statsrow)
@@ -2101,7 +2111,7 @@ def MSSQL_beacon_analysis(result, MEOLUTList, TimeStart, TimeEnd, config_dict, g
             pntEnc.style.iconstyle.scale = 0.8
             pntEnc.style.labelstyle.color = '00ff0000'  # Red
 
-        with open(os.path.join(approot,Solutionfilename), 'rb') as csvfile:
+        with open(os.path.join(approot,Solutionfilename), 'r') as csvfile:
             next(csvfile)
             filereader = csv.reader(csvfile)
             try: 
@@ -2122,7 +2132,7 @@ def MSSQL_beacon_analysis(result, MEOLUTList, TimeStart, TimeEnd, config_dict, g
                     pntEnc.style.iconstyle.scale = 0.8
                     pntEnc.style.labelstyle.color = '00ff0000'  # Red
                     pntEnc.style.labelstyle.scale = 0 
-        with open(os.path.join(approot,Solutionfilename), 'rb') as csvfile:
+        with open(os.path.join(approot,Solutionfilename), 'r') as csvfile:
             next(csvfile)
             filereader = csv.reader(csvfile)
             folMBL = kml.newfolder(name='MEOLUT Locations')
@@ -2203,7 +2213,7 @@ def MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, zip_f
         if out:
             allsols_file = os.path.join(OUTPUTFOLDER, 'all_alert_site_sols' + outfiletag +'.csv')
             outfile_dict[allsols_file] = 'All Alert Site Solutions'
-            with open(os.path.join(approot,allsols_file), 'wb') as csvfile:
+            with open(os.path.join(approot,allsols_file), 'w', newline="") as csvfile:
                 csvoutwriter = csv.writer(csvfile, delimiter=',',
                                         quoting=csv.QUOTE_MINIMAL)
                 csvoutwriter.writerow(columns)
@@ -2238,7 +2248,7 @@ def MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, zip_f
         if out:
             J1_file = os.path.join(OUTPUTFOLDER, 'J1_' + meoListString + outfiletag +'.csv')
             outfile_dict[J1_file] = 'J1 - Raw Bursts'
-            with open(os.path.join(approot,J1_file), 'wb') as csvfile:
+            with open(os.path.join(approot,J1_file), 'w', newline="") as csvfile:
                 csvoutwriter = csv.writer(csvfile, delimiter=',',
                                         quoting=csv.QUOTE_MINIMAL)
                 csvoutwriter.writerow(columns)
@@ -2297,7 +2307,7 @@ def MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, zip_f
         if out:
             J2_file = os.path.join(OUTPUTFOLDER, 'J2_' + meoListString + outfiletag +'.csv')
             outfile_dict[J2_file] = 'J2 - MEOLUT Solutions'
-            with open(os.path.join(approot,J2_file), 'wb') as csvfile:
+            with open(os.path.join(approot,J2_file), 'w', newline="") as csvfile:
                 csvoutwriter = csv.writer(csvfile, delimiter=',',
                                         quoting=csv.QUOTE_MINIMAL)
                 csvoutwriter.writerow(columns)
@@ -2342,8 +2352,8 @@ def MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, zip_f
         if out:   
             J3_file = os.path.join(OUTPUTFOLDER, 'J3_' + meoListString + '_{:%Y-%m-%d-%H%M}_{:%Y-%m-%d-%H%M}'.format(StartTime, EndTime) + '.csv')
             outfile_dict[J3_file] = 'J3 - MEOLUT Tracked Passes'
-            with open(os.path.join(approot,J3_file), 'wb') as csvfile:
-                csvoutwriter = csv.writer(csvfile, delimiter=',',
+            with open(os.path.join(approot,J3_file), 'w', newline="") as csvfile:
+                csvoutwriter = csv.writer(csvfile, delimiter=',', 
                                         quoting=csv.QUOTE_MINIMAL)
                 csvoutwriter.writerow(columns)
                 for row in out:
@@ -2493,7 +2503,7 @@ def api_meo_schedule(MEOLUTList, StartTime, EndTime, output_format, config_dict)
         # if output_format == 'csv':   
         #     meoListString = "_".join([str(i) for i in MEOLUTList])
         #     J3_file = os.path.join(OUTPUTFOLDER, 'J3_' + meoListString + '_{:%Y-%m-%d-%H%M}_{:%Y-%m-%d-%H%M}.csv'.format(StartTime, EndTime) )
-        #     with open(os.path.join(approot,J3_file), 'wb') as csvfile:
+        #     with open(os.path.join(approot,J3_file), 'w') as csvfile:
         #         csvoutwriter = csv.writer(csvfile, delimiter=',',
         #                                 quoting=csv.QUOTE_MINIMAL)
         #         csvoutwriter.writerow(columns)
@@ -2514,7 +2524,7 @@ def sql_outputer(outdata, output_format, c, one=False, **kwargs ):
     columns = [column[0] for column in c.description]
     if output_format == 'csv':   
         csv_out_file = os.path.join(kwargs.get('OUTPUTFOLDER') + kwargs.get('out_file_string'))
-        with open(os.path.join(kwargs.get('approot'),csv_out_file), 'wb') as csvfile:
+        with open(os.path.join(kwargs.get('approot'),csv_out_file), 'w', newline="") as csvfile:
             csvoutwriter = csv.writer(csvfile, delimiter=',',
                                     quoting=csv.QUOTE_MINIMAL)
             csvoutwriter.writerow(columns)
@@ -3059,19 +3069,19 @@ def czml_site_meo_input(Sitenum, servername = 'localhost', databasename='mccoper
 def czml_alert_site(type, sitenum, jsonIn):
     r = OrderedDict()
     idlist = [{"id":"document", "version":"1.0"}]
-    delta = timedelta(minutes=(30))
+    delta = timedelta(minutes=(60))
     if type == "comp":
         pointcolor = [200,25,25,200]
         nameheader = "composite location: "
-        pointsize = 10
+        pointsize = 15
         lonfield, latfield ='complon', 'complat'
     if type == "leo":
         pointcolor = [100,100,100,100]
         nameheader = "leo location: "
         pointsize = 10
         lonfield, latfield = 'a_lat', 'a_lon'
-    for solid, solution in jsonIn.items():
-        #for field, value in solution.iteritems():
+    for solid, solution in enumerate(jsonIn):
+        #for field, value in solution.items():
         #idlist.append({field: value})
         idlist.append({"id": str(solid),
                         "name": nameheader + str(solid),
