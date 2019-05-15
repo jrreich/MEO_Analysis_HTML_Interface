@@ -3069,21 +3069,32 @@ def czml_site_meo_input(Sitenum, servername = 'localhost', databasename='mccoper
 def czml_alert_site(type, sitenum, jsonIn):
     r = OrderedDict()
     idlist = [{"id":"document", "version":"1.0"}]
-    delta = timedelta(minutes=(60))
+    delta = timedelta(minutes=(600))
     if type == "comp":
-        pointcolor = [200,25,25,200]
+        pointcolor = [235,183,51,200]
         nameheader = "composite location: "
         pointsize = 15
         lonfield, latfield ='complon', 'complat'
     if type == "leo":
-        pointcolor = [100,100,100,100]
+        pointcolor = [95,191,119,100]
         nameheader = "leo location: "
         pointsize = 10
-        lonfield, latfield = 'a_lat', 'a_lon'
+        lonfield, latfield = 'a_lon', 'a_lat'
+    if type == "meo":
+        pointcolor = [95,140,191,100]
+        nameheader = "meo location: "
+        pointsize = 9 
+        lonfield, latfield = 'lon', 'lat'
+    if type == "enc":
+        pointcolor = [223,252,223,100]
+        pointcolor = [223,252,223,100]
+        nameheader = "meo location: "
+        pointsize = 12 
+        lonfield, latfield = 'enclon', 'enclat'
     for solid, solution in enumerate(jsonIn):
         #for field, value in solution.items():
         #idlist.append({field: value})
-        idlist.append({"id": str(solid),
+        idlist.append({"id": type + "-" + str(solid),
                         "name": nameheader + str(solid),
                         #"availability":"2017-08-04T16:00:00Z/9999-12-31T24:00:00Z",
                         "parent": str(sitenum),
@@ -3108,7 +3119,8 @@ def czml_alert_site(type, sitenum, jsonIn):
                             "outlineColor": {
                                 "rgba": [255, 255, 255, 255]
                             },
-                            "outlineWidth" : 1
+                            "outlineWidth" : 1,
+                            "clampToGround": "true"
                         },
                         "description": "<br>".join(['Site : ' + str(sitenum)] + [str(field) + " : " + str(value) for field, value in solution.items()])})
     try:

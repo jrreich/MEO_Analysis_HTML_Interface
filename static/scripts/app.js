@@ -176,6 +176,16 @@ var app = (function () {
                 })
                 .appendTo('#siteButtonHolder');
             $('<label />', { for: 'leo'+ siteNum.value, text: '  leo -'+siteNum.value }).appendTo('#siteButtonHolder');
+            //Add ENC Locations
+            _addCzmlDataSource("/api/czml/site/enc/" + siteNum.value);
+            $('<br />').appendTo('#siteButtonHolder');
+            $('<input />', { type: 'checkbox', id: 'enc' + siteNum.value, name: 'enc' + siteNum.value, checked: 'True' })
+                .change(function () {
+                    var sitechanged = $(this).prop('name');
+                    _toggleEntity(sitechanged);
+                })
+                .appendTo('#siteButtonHolder');
+            $('<label />', { for: 'enc'+ siteNum.value, text: '  enc -'+siteNum.value }).appendTo('#siteButtonHolder');
         }
         if (!$('#comp' + siteNum.value).length) {
             _addCzmlDataSource("/api/czml/site/comp/" + siteNum.value);
