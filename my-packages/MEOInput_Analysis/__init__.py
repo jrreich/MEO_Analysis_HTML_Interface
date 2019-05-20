@@ -30,7 +30,7 @@ from collections import OrderedDict, defaultdict
 import simplekml
 logging.info('collections and simplekml')
 import re
-import beacon_decode as bcn
+import beacon as bcn
 logging.info('re and beacon decode')
 import pypyodbc as odbc 
 #import pyodbc as odbc
@@ -2278,7 +2278,7 @@ def MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, zip_f
                 FileTime as 'Time Solution Sent', 
                 BcnId15 as 'Beacon 15 Hex ID', 
                 FreqBias/1000000 as 'Detection Frequency', 
-                BcnId36 as 'Beacon 36 Hex ID', 
+                BcnId30 as 'Beacon 30 Hex ID', 
                 NumBursts, NULL as 'Data Used', 
                 SourceAntennaIds as 'Antenna IDs',
                 NumPackets as 'Number of Packets used', 
@@ -2290,7 +2290,8 @@ def MeoDataCollection(result, MEOLUTList, StartTime, EndTime, config_dict, zip_f
                 NULL as 'Location Methodology', 
                 Latitude, 
                 Longitude, 
-                Altitude 
+                Altitude,
+                FrameSync
             FROM [MccMeoLutMonitor].[dbo].[InputMEOSolution]
             WHERE TimeLast > ? 
             AND TimeFirst < ?

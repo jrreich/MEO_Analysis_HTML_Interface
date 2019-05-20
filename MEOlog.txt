@@ -1,135 +1,154 @@
-2019-05-14 19:42:52,712 INFO app root
-2019-05-14 19:42:52,721 INFO executed path insert
-2019-05-14 19:42:58,318 DEBUG $HOME=C:\Users\jrrei
-2019-05-14 19:42:58,319 DEBUG CONFIGDIR=C:\Users\jrrei\.matplotlib
-2019-05-14 19:42:58,319 DEBUG matplotlib data path: c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\matplotlib\mpl-data
-2019-05-14 19:42:58,328 DEBUG loaded rc file c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\matplotlib\mpl-data\matplotlibrc
-2019-05-14 19:42:58,330 DEBUG matplotlib version 3.0.3
-2019-05-14 19:42:58,330 DEBUG interactive is False
-2019-05-14 19:42:58,330 DEBUG platform is win32
-2019-05-14 19:42:58,330 DEBUG loaded modules: ['sys', 'builtins', '_frozen_importlib', '_imp', '_thread', '_warnings', '_weakref', 'zipimport', '_frozen_importlib_external', '_io', 'marshal', 'nt', 'winreg', 'encodings', 'codecs', '_codecs', 'encodings.aliases', 'encodings.utf_8', '_signal', '__main__', 'encodings.latin_1', 'io', 'abc', '_abc', '_bootlocale', '_locale', 'encodings.cp1252', 'site', 'os', 'stat', '_stat', 'ntpath', 'genericpath', 'os.path', '_collections_abc', 'types', 'importlib', 'importlib._bootstrap', 'importlib._bootstrap_external', 'warnings', 'importlib.util', 'importlib.abc', 'importlib.machinery', 'contextlib', 'collections', 'operator', '_operator', 'keyword', 'heapq', '_heapq', 'itertools', 'reprlib', '_collections', 'functools', '_functools', 'backports', 'mpl_toolkits', 'locale', 're', 'enum', 'sre_compile', '_sre', 'sre_parse', 'sre_constants', 'copyreg', 'signal', 'encodings.ascii', 'mod_wsgi', 'pkgutil', 'weakref', '_weakrefset', 'apache', '_mod_wsgi_46e8119bd60296ccca9f75a5317797d3', 'logging', 'time', 'traceback', 'linecache', 'tokenize', 'token', 'collections.abc', 'string', '_string', 'threading', 'atexit', 'app', 'flask', 'werkzeug', 'werkzeug.exceptions', 'werkzeug._compat', 'werkzeug._internal', 'inspect', 'dis', 'opcode', '_opcode', 'datetime', 'math', '_datetime', 'werkzeug.wrappers', 'werkzeug.wrappers.accept', 'werkzeug.datastructures', 'mimetypes', 'posixpath', 'urllib', 'urllib.parse', 'copy', 'werkzeug.filesystem', 'werkzeug.http', 'base64', 'struct', '_struct', 'binascii', 'hashlib', '_hashlib', '_blake2', '_sha3', 'email', 'email.utils', 'random', 'bisect', '_bisect', '_random', 'socket', '_socket', 'selectors', 'select', 'errno', 'email._parseaddr', 'calendar', 'email.charset', 'email.base64mime', 'email.quoprimime', 'email.errors', 'email.encoders', 'quopri', 'urllib.request', 'http', 'http.client', 'email.parser', 'email.feedparser', 'email._policybase', 'email.header', 'email.message', 'uu', 'email._encoded_words', 'email.iterators', 'ssl', '_ssl', 'tempfile', 'shutil', 'fnmatch', 'zlib', 'bz2', '_compression', '_bz2', 'lzma', '_lzma', 'urllib.error', 'urllib.response', 'nturl2path', 'werkzeug.urls', 'werkzeug.utils', 'html', 'html.entities', 'werkzeug.wrappers.auth', 'werkzeug.wrappers.base_request', 'werkzeug.formparser', 'werkzeug.wsgi', 'werkzeug.middleware', 'werkzeug.middleware.dispatcher', 'werkzeug.middleware.http_proxy', 'werkzeug.middleware.shared_data', 'werkzeug.wrappers.base_response', 'werkzeug.wrappers.common_descriptors', 'werkzeug.wrappers.etag', 'werkzeug.wrappers.request', 'werkzeug.wrappers.user_agent', 'werkzeug.wrappers.response', 'jinja2', 'jinja2.environment', 'jinja2.nodes', 'jinja2.utils', 'json', 'json.decoder', 'json.scanner', '_json', 'json.encoder', 'jinja2._compat', 'pickle', '_compat_pickle', '_pickle', 'markupsafe', 'markupsafe._compat', 'markupsafe._speedups', 'jinja2.defaults', 'jinja2.filters', 'jinja2.runtime', 'jinja2.exceptions', 'jinja2.tests', 'decimal', 'numbers', '_decimal', 'jinja2.lexer', 'unicodedata', 'jinja2.parser', 'jinja2.compiler', 'jinja2.visitor', 'jinja2.optimizer', 'jinja2.idtracking', '__future__', 'jinja2.loaders', 'jinja2.bccache', 'jinja2.asyncsupport', 'asyncio', 'asyncio.base_events', 'concurrent', 'concurrent.futures', 'concurrent.futures._base', 'subprocess', 'msvcrt', '_winapi', 'asyncio.constants', 'asyncio.coroutines', 'asyncio.base_futures', 'asyncio.format_helpers', 'asyncio.log', 'asyncio.events', 'contextvars', '_contextvars', 'asyncio.base_tasks', '_asyncio', 'asyncio.futures', 'asyncio.protocols', 'asyncio.sslproto', 'asyncio.transports', 'asyncio.tasks', 'asyncio.locks', 'asyncio.runners', 'asyncio.queues', 'asyncio.streams', 'asyncio.subprocess', 'asyncio.windows_events', '_overlapped', 'asyncio.base_subprocess', 'asyncio.proactor_events', 'asyncio.selector_events', 'asyncio.windows_utils', 'jinja2.asyncfilters', 'flask.app', 'werkzeug.routing', 'difflib', 'uuid', 'pprint', 'flask.cli', 'ast', '_ast', 'click', 'click.core', 'click.types', 'click._compat', 'click._winconsole', 'ctypes', '_ctypes', 'ctypes._endian', 'ctypes.wintypes', 'colorama', 'colorama.initialise', 'colorama.ansitowin32', 'colorama.ansi', 'colorama.winterm', 'colorama.win32', 'click.exceptions', 'click.utils', 'click.globals', 'click.termui', 'click.formatting', 'click.parser', 'click._unicodefun', 'click.decorators', 'flask._compat', 'flask.globals', 'werkzeug.local', 'flask.helpers', 'flask.signals', 'flask.json', 'itsdangerous', 'hmac', 'simplejson', 'simplejson.errors', 'simplejson.raw_json', 'simplejson.decoder', 'simplejson.compat', 'simplejson.scanner', 'simplejson._speedups', 'simplejson.encoder', 'flask.config', 'flask.ctx', 'flask.logging', 'flask.sessions', 'flask.json.tag', 'flask.templating', 'flask.wrappers', 'flask.blueprints', 'werkzeug.contrib', 'werkzeug.contrib.fixers', 'werkzeug.middleware.proxy_fix', 'werkzeug.useragents', 'werkzeug.debug', 'getpass', 'werkzeug.security', 'werkzeug.debug.console', 'code', 'codeop', 'werkzeug.debug.repr', 'werkzeug.debug.tbtools', 'sysconfig', 'routes', 'decodehex2', 'decodefunctions', 'definitions', 'moreinfo', 'Gen2secondgen', 'Gen2functions', 'Gen2rotating', 'writebch', 'csv', '_csv', 'pypyodbc', 'MEOInput_Analysis', 'zipfile', 'lxml', 'lxml.etree', '_cython_0_29_6', 'cython_runtime', 'backports_abc', 'lxml._elementpath', 'gzip', 'numpy', 'numpy._globals', 'numpy.__config__', 'numpy.version', 'numpy._distributor_init', 'numpy.core', 'numpy.core.info', 'glob', 'numpy.core.multiarray', 'numpy.core.overrides', 'numpy.core._multiarray_umath', 'numpy.compat', 'numpy.compat._inspect', 'numpy.compat.py3k', 'pathlib', 'numpy.core.umath', 'numpy.core.numerictypes', 'numpy.core._string_helpers', 'numpy.core._type_aliases', 'numpy.core._dtype', 'numpy.core.numeric', 'numpy.core._internal', 'numpy.core.fromnumeric', 'numpy.core._methods', 'numpy.core.arrayprint', 'numpy.core.defchararray', 'numpy.core.records', 'numpy.core.memmap', 'numpy.core.function_base', 'numpy.core.machar', 'numpy.core.getlimits', 'numpy.core.shape_base', 'numpy.core.einsumfunc', 'numpy.core._add_newdocs', 'numpy.core._multiarray_tests', 'numpy.core._dtype_ctypes', 'numpy._pytesttester', 'numpy.lib', 'numpy.lib.info', 'numpy.lib.type_check', 'numpy.lib.ufunclike', 'numpy.lib.index_tricks', 'numpy.matrixlib', 'numpy.matrixlib.defmatrix', 'numpy.linalg', 'numpy.linalg.info', 'numpy.linalg.linalg', 'numpy.lib.twodim_base', 'numpy.linalg.lapack_lite', 'numpy.linalg._umath_linalg', 'numpy.lib.function_base', 'numpy.lib.utils', 'numpy.lib.histograms', 'numpy.lib.stride_tricks', 'numpy.lib.mixins', 'numpy.lib.nanfunctions', 'numpy.lib.shape_base', 'numpy.lib.scimath', 'numpy.lib.polynomial', 'numpy.lib.arraysetops', 'numpy.lib.npyio', 'numpy.lib.format', 'numpy.lib._datasource', 'numpy.lib._iotools', 'numpy.lib.financial', 'numpy.lib.arrayterator', 'numpy.lib.arraypad', 'numpy.lib._version', 'numpy.fft', 'numpy.fft.info', 'numpy.fft.fftpack', 'numpy.fft.fftpack_lite', 'numpy.fft.helper', 'numpy.polynomial', 'numpy.polynomial.polynomial', 'numpy.polynomial.polyutils', 'numpy.polynomial._polybase', 'numpy.polynomial.chebyshev', 'numpy.polynomial.legendre', 'numpy.polynomial.hermite', 'numpy.polynomial.hermite_e', 'numpy.polynomial.laguerre', 'numpy.random', 'numpy.random.mtrand', 'mtrand', 'numpy.ctypeslib', 'numpy.ma', 'numpy.ma.core', 'textwrap', 'numpy.ma.extras', 'numpy.testing', 'unittest', 'unittest.result', 'unittest.util', 'unittest.case', 'unittest.suite', 'unittest.loader', 'unittest.main', 'argparse', 'gettext', 'unittest.runner', 'unittest.signals', 'numpy.testing._private', 'numpy.testing._private.utils', 'gc', 'numpy.testing._private.decorators', 'numpy.testing._private.nosetester', 'pandas', 'pytz', 'pytz.exceptions', 'pytz.lazy', 'pytz.tzinfo', 'pytz.tzfile', 'dateutil', 'dateutil._version', 'pandas.compat', 'distutils', 'distutils.dist', 'distutils.errors', 'distutils.fancy_getopt', 'getopt', 'distutils.util', 'distutils.dep_util', 'distutils.spawn', 'distutils.debug', 'distutils.log', 'distutils.sysconfig', 'distutils.command', 'distutils.command.build_ext', 'distutils.core', 'distutils.cmd', 'distutils.dir_util', 'distutils.file_util', 'distutils.archive_util', 'distutils.config', 'configparser', 'distutils.extension', 'distutils.version', 'platform', 'pandas.compat.chainmap', 'dateutil.parser', 'dateutil.parser._parser', 'six', 'dateutil.relativedelta', 'dateutil._common', 'dateutil.tz', 'dateutil.tz.tz', 'six.moves', 'dateutil.tz._common', 'dateutil.tz._factories', 'dateutil.tz.win', 'dateutil.parser.isoparser', 'typing', 'typing.io', 'typing.re', 'pandas.compat.numpy', 'pandas._libs', 'pandas._libs.tslibs', 'pandas._libs.tslibs.conversion', 'pandas._libs.tslibs.nattype', 'pandas._libs.tslibs.np_datetime', 'pandas._libs.tslibs.timedeltas', 'pandas._libs.tslibs.offsets', 'pandas._libs.tslibs.ccalendar', 'pandas._libs.tslibs.strptime', 'pandas._libs.tslibs.timezones', 'pandas._libs.tslibs.parsing', 'pandas._libs.tslibs.period', 'pandas._libs.tslibs.frequencies', 'pandas._libs.tslibs.timestamps', 'pandas._libs.tslibs.fields', 'pandas._libs.tslibs.resolution', 'pandas._libs.hashtable', 'pandas._libs.missing', 'pandas._libs.lib', 'fractions', 'pandas._libs.tslib', 'pandas.core', 'pandas.core.config_init', 'pandas.core.config', 'pandas.io', 'pandas.io.formats', 'pandas.io.formats.printing', 'pandas.core.dtypes', 'pandas.core.dtypes.inference', 'pandas.io.formats.console', 'pandas.io.formats.terminal', 'pandas.core.api', 'pandas.core.arrays', 'pandas.core.arrays.array_', 'pandas.core.dtypes.common', 'pandas._libs.algos', 'pandas.core.dtypes.dtypes', 'pandas._libs.interval', 'pandas.core.dtypes.generic', 'pandas.core.dtypes.base', 'pandas.errors', 'pandas.core.arrays.base', 'pandas.compat.numpy.function', 'pandas.util', 'pandas.util._decorators', 'pandas._libs.properties', 'pandas.core.util', 'pandas.core.util.hashing', 'pandas._libs.hashing', 'pandas.core.dtypes.cast', 'pandas.core.dtypes.missing', 'pandas.util._validators', 'pandas.core.ops', 'pandas._libs.ops', 'pandas.core.common', 'pandas.core.missing', 'pandas.core.arrays.categorical', 'pandas.core.accessor', 'pandas.core.algorithms', 'pandas.core.base', 'pandas.core.nanops', 'pandas.tseries', 'pandas.tseries.offsets', 'dateutil.easter', 'pandas.core.tools', 'pandas.core.tools.datetimes', 'pandas.core.sorting', 'pandas.core.arrays.datetimes', 'pandas.core.arrays.datetimelike', 'pandas.tseries.frequencies', 'pandas.core.arrays._ranges', 'pandas.core.arrays.interval', 'pandas.util._doctools', 'pandas.core.indexes', 'pandas.core.indexes.base', 'pandas._libs.index', 'pandas._libs.join', 'pandas.core.dtypes.concat', 'pandas.core.indexes.frozen', 'pandas.core.strings', 'pandas.core.arrays.period', 'pandas.core.arrays.timedeltas', 'pandas.core.arrays.integer', 'pandas.core.tools.numeric', 'pandas.core.arrays.sparse', 'pandas._libs.sparse', 'pandas.core.arrays.numpy_', 'pandas.core.groupby', 'pandas.core.groupby.groupby', 'pandas._libs.groupby', 'pandas.core.frame', 'pandas.core.generic', 'pandas.core.index', 'pandas.core.indexes.api', 'pandas.core.indexes.category', 'pandas.core.indexes.datetimes', 'pandas.core.indexes.datetimelike', 'pandas.core.tools.timedeltas', 'pandas.core.indexes.numeric', 'pandas.core.indexes.interval', 'pandas.util._exceptions', 'pandas.core.indexes.multi', 'pandas.core.indexes.timedeltas', 'pandas.core.indexes.period', 'pandas.core.indexes.range', 'pandas.core.indexing', 'pandas._libs.indexing', 'pandas.core.internals', 'pandas.core.internals.blocks', 'pandas._libs.internals', 'pandas.core.internals.arrays', 'pandas.core.internals.managers', 'pandas.core.internals.concat', 'pandas.io.formats.format', 'pandas.io.common', 'mmap', 'pandas.core.internals.construction', 'pandas.core.series', 'pandas.core.indexes.accessors', 'pandas.plotting', 'pandas.plotting._misc', 'pandas.plotting._style', 'pandas.plotting._tools', 'pandas.plotting._core', 'pandas.plotting._compat', 'pandas.plotting._converter', 'matplotlib', 'matplotlib.cbook', 'matplotlib.cbook.deprecation', 'matplotlib.rcsetup', 'matplotlib.fontconfig_pattern', 'pyparsing', 'matplotlib.colors', 'matplotlib._color_data', 'cycler', 'matplotlib._version']
-2019-05-14 19:42:58,862 INFO numpy pandas and itertools
-2019-05-14 19:42:59,014 DEBUG CACHEDIR=C:\Users\jrrei\.matplotlib
-2019-05-14 19:42:59,023 DEBUG Using fontManager instance from C:\Users\jrrei\.matplotlib\fontlist-v300.json
-2019-05-14 19:42:59,486 DEBUG Loaded backend agg version unknown.
-2019-05-14 19:42:59,535 INFO imported matplotlib
-2019-05-14 19:42:59,604 INFO imported math, sys, os and xlrd
-2019-05-14 19:42:59,604 INFO datetime and csv
-2019-05-14 19:42:59,743 INFO collections and simplekml
-2019-05-14 19:42:59,748 INFO re and beacon decode
-2019-05-14 19:42:59,748 INFO pyodbc imported - all modules imported
-2019-05-14 19:55:33,500 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:55:33,532 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:55:33,579 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:55:33,582 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:55:35,106 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
-2019-05-14 19:55:35,201 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
-2019-05-14 19:55:35,681 DEBUG http://jrreich.myftp.org:80 "GET /api/leo/162503 HTTP/1.1" 200 263396
-2019-05-14 19:55:36,129 ERROR Exception on /api/czml/site/leo/162503 [GET]
-Traceback (most recent call last):
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:/Users/jrrei/Source/Repos/MEO_Analysis_HTML_Interface\routes.py", line 936, in czml_alert_site
-    outczml = MEOInput_Analysis.czml_alert_site(type, sitenum, data)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\my-packages\MEOInput_Analysis\__init__.py", line 3073, in czml_alert_site
-    for solid, solution in jsonIn.items():
-AttributeError: 'list' object has no attribute 'items'
-2019-05-14 19:55:36,130 DEBUG http://jrreich.myftp.org:80 "GET /api/comp/162503 HTTP/1.1" 200 1759860
-2019-05-14 19:55:36,235 ERROR Exception on /api/czml/site/comp/162503 [GET]
-Traceback (most recent call last):
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:/Users/jrrei/Source/Repos/MEO_Analysis_HTML_Interface\routes.py", line 936, in czml_alert_site
-    outczml = MEOInput_Analysis.czml_alert_site(type, sitenum, data)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\my-packages\MEOInput_Analysis\__init__.py", line 3073, in czml_alert_site
-    for solid, solution in jsonIn.items():
-AttributeError: 'list' object has no attribute 'items'
-2019-05-14 19:56:22,873 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:56:22,877 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:56:22,960 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:56:22,964 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:56:24,430 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
-2019-05-14 19:56:24,647 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
-2019-05-14 19:56:25,011 DEBUG http://jrreich.myftp.org:80 "GET /api/leo/162503 HTTP/1.1" 200 263396
-2019-05-14 19:56:25,063 ERROR Exception on /api/czml/site/leo/162503 [GET]
-Traceback (most recent call last):
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:/Users/jrrei/Source/Repos/MEO_Analysis_HTML_Interface\routes.py", line 936, in czml_alert_site
-    outczml = MEOInput_Analysis.czml_alert_site(type, sitenum, data)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\my-packages\MEOInput_Analysis\__init__.py", line 3073, in czml_alert_site
-    for solid, solution in jsonIn.items():
-AttributeError: 'list' object has no attribute 'items'
-2019-05-14 19:56:25,534 DEBUG http://jrreich.myftp.org:80 "GET /api/comp/162503 HTTP/1.1" 200 1759860
-2019-05-14 19:56:25,700 ERROR Exception on /api/czml/site/comp/162503 [GET]
-Traceback (most recent call last):
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:/Users/jrrei/Source/Repos/MEO_Analysis_HTML_Interface\routes.py", line 936, in czml_alert_site
-    outczml = MEOInput_Analysis.czml_alert_site(type, sitenum, data)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\my-packages\MEOInput_Analysis\__init__.py", line 3073, in czml_alert_site
-    for solid, solution in jsonIn.items():
-AttributeError: 'list' object has no attribute 'items'
-2019-05-14 19:56:35,395 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:56:35,429 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
-2019-05-14 19:56:36,267 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
-2019-05-14 19:56:36,771 DEBUG http://jrreich.myftp.org:80 "GET /api/leo/162503 HTTP/1.1" 200 263396
-2019-05-14 19:56:36,811 ERROR Exception on /api/czml/site/leo/162503 [GET]
-Traceback (most recent call last):
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:/Users/jrrei/Source/Repos/MEO_Analysis_HTML_Interface\routes.py", line 936, in czml_alert_site
-    outczml = MEOInput_Analysis.czml_alert_site(type, sitenum, data)
-  File "c:\users\jrrei\source\repos\meo_analysis_html_interface\my-packages\MEOInput_Analysis\__init__.py", line 3073, in czml_alert_site
-    for solid, solution in jsonIn.items():
-AttributeError: 'list' object has no attribute 'items'
+2019-05-15 01:26:24,695 INFO app root
+2019-05-15 01:26:24,710 INFO executed path insert
+2019-05-15 01:26:29,209 DEBUG $HOME=C:\Users\jrrei
+2019-05-15 01:26:29,209 DEBUG CONFIGDIR=C:\Users\jrrei\.matplotlib
+2019-05-15 01:26:29,209 DEBUG matplotlib data path: c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\matplotlib\mpl-data
+2019-05-15 01:26:29,225 DEBUG loaded rc file c:\users\jrrei\source\repos\meo_analysis_html_interface\venv\lib\site-packages\matplotlib\mpl-data\matplotlibrc
+2019-05-15 01:26:29,225 DEBUG matplotlib version 3.0.3
+2019-05-15 01:26:29,225 DEBUG interactive is False
+2019-05-15 01:26:29,225 DEBUG platform is win32
+2019-05-15 01:26:29,225 DEBUG loaded modules: ['sys', 'builtins', '_frozen_importlib', '_imp', '_thread', '_warnings', '_weakref', 'zipimport', '_frozen_importlib_external', '_io', 'marshal', 'nt', 'winreg', 'encodings', 'codecs', '_codecs', 'encodings.aliases', 'encodings.utf_8', '_signal', '__main__', 'encodings.latin_1', 'io', 'abc', '_abc', '_bootlocale', '_locale', 'encodings.cp1252', 'site', 'os', 'stat', '_stat', 'ntpath', 'genericpath', 'os.path', '_collections_abc', 'types', 'importlib', 'importlib._bootstrap', 'importlib._bootstrap_external', 'warnings', 'importlib.util', 'importlib.abc', 'importlib.machinery', 'contextlib', 'collections', 'operator', '_operator', 'keyword', 'heapq', '_heapq', 'itertools', 'reprlib', '_collections', 'functools', '_functools', 'backports', 'mpl_toolkits', 'locale', 're', 'enum', 'sre_compile', '_sre', 'sre_parse', 'sre_constants', 'copyreg', 'signal', 'encodings.ascii', 'mod_wsgi', 'pkgutil', 'weakref', '_weakrefset', 'apache', '_mod_wsgi_46e8119bd60296ccca9f75a5317797d3', 'logging', 'time', 'traceback', 'linecache', 'tokenize', 'token', 'collections.abc', 'string', '_string', 'threading', 'atexit', 'app', 'flask', 'werkzeug', 'werkzeug.exceptions', 'werkzeug._compat', 'werkzeug._internal', 'inspect', 'dis', 'opcode', '_opcode', 'datetime', 'math', '_datetime', 'werkzeug.wrappers', 'werkzeug.wrappers.accept', 'werkzeug.datastructures', 'mimetypes', 'posixpath', 'urllib', 'urllib.parse', 'copy', 'werkzeug.filesystem', 'werkzeug.http', 'base64', 'struct', '_struct', 'binascii', 'hashlib', '_hashlib', '_blake2', '_sha3', 'email', 'email.utils', 'random', 'bisect', '_bisect', '_random', 'socket', '_socket', 'selectors', 'select', 'errno', 'email._parseaddr', 'calendar', 'email.charset', 'email.base64mime', 'email.quoprimime', 'email.errors', 'email.encoders', 'quopri', 'urllib.request', 'http', 'http.client', 'email.parser', 'email.feedparser', 'email._policybase', 'email.header', 'email.message', 'uu', 'email._encoded_words', 'email.iterators', 'ssl', '_ssl', 'tempfile', 'shutil', 'fnmatch', 'zlib', 'bz2', '_compression', '_bz2', 'lzma', '_lzma', 'urllib.error', 'urllib.response', 'nturl2path', 'werkzeug.urls', 'werkzeug.utils', 'html', 'html.entities', 'werkzeug.wrappers.auth', 'werkzeug.wrappers.base_request', 'werkzeug.formparser', 'werkzeug.wsgi', 'werkzeug.middleware', 'werkzeug.middleware.dispatcher', 'werkzeug.middleware.http_proxy', 'werkzeug.middleware.shared_data', 'werkzeug.wrappers.base_response', 'werkzeug.wrappers.common_descriptors', 'werkzeug.wrappers.etag', 'werkzeug.wrappers.request', 'werkzeug.wrappers.user_agent', 'werkzeug.wrappers.response', 'jinja2', 'jinja2.environment', 'jinja2.nodes', 'jinja2.utils', 'json', 'json.decoder', 'json.scanner', '_json', 'json.encoder', 'jinja2._compat', 'pickle', '_compat_pickle', '_pickle', 'markupsafe', 'markupsafe._compat', 'markupsafe._speedups', 'jinja2.defaults', 'jinja2.filters', 'jinja2.runtime', 'jinja2.exceptions', 'jinja2.tests', 'decimal', 'numbers', '_decimal', 'jinja2.lexer', 'unicodedata', 'jinja2.parser', 'jinja2.compiler', 'jinja2.visitor', 'jinja2.optimizer', 'jinja2.idtracking', '__future__', 'jinja2.loaders', 'jinja2.bccache', 'jinja2.asyncsupport', 'asyncio', 'asyncio.base_events', 'concurrent', 'concurrent.futures', 'concurrent.futures._base', 'subprocess', 'msvcrt', '_winapi', 'asyncio.constants', 'asyncio.coroutines', 'asyncio.base_futures', 'asyncio.format_helpers', 'asyncio.log', 'asyncio.events', 'contextvars', '_contextvars', 'asyncio.base_tasks', '_asyncio', 'asyncio.futures', 'asyncio.protocols', 'asyncio.sslproto', 'asyncio.transports', 'asyncio.tasks', 'asyncio.locks', 'asyncio.runners', 'asyncio.queues', 'asyncio.streams', 'asyncio.subprocess', 'asyncio.windows_events', '_overlapped', 'asyncio.base_subprocess', 'asyncio.proactor_events', 'asyncio.selector_events', 'asyncio.windows_utils', 'jinja2.asyncfilters', 'flask.app', 'werkzeug.routing', 'difflib', 'uuid', 'pprint', 'flask.cli', 'ast', '_ast', 'click', 'click.core', 'click.types', 'click._compat', 'click._winconsole', 'ctypes', '_ctypes', 'ctypes._endian', 'ctypes.wintypes', 'colorama', 'colorama.initialise', 'colorama.ansitowin32', 'colorama.ansi', 'colorama.winterm', 'colorama.win32', 'click.exceptions', 'click.utils', 'click.globals', 'click.termui', 'click.formatting', 'click.parser', 'click._unicodefun', 'click.decorators', 'flask._compat', 'flask.globals', 'werkzeug.local', 'flask.helpers', 'flask.signals', 'flask.json', 'itsdangerous', 'hmac', 'simplejson', 'simplejson.errors', 'simplejson.raw_json', 'simplejson.decoder', 'simplejson.compat', 'simplejson.scanner', 'simplejson._speedups', 'simplejson.encoder', 'flask.config', 'flask.ctx', 'flask.logging', 'flask.sessions', 'flask.json.tag', 'flask.templating', 'flask.wrappers', 'flask.blueprints', 'werkzeug.contrib', 'werkzeug.contrib.fixers', 'werkzeug.middleware.proxy_fix', 'werkzeug.useragents', 'werkzeug.debug', 'getpass', 'werkzeug.security', 'werkzeug.debug.console', 'code', 'codeop', 'werkzeug.debug.repr', 'werkzeug.debug.tbtools', 'sysconfig', 'routes', 'decodehex2', 'decodefunctions', 'definitions', 'moreinfo', 'Gen2secondgen', 'Gen2functions', 'Gen2rotating', 'writebch', 'csv', '_csv', 'pypyodbc', 'MEOInput_Analysis', 'zipfile', 'lxml', 'lxml.etree', '_cython_0_29_6', 'cython_runtime', 'backports_abc', 'lxml._elementpath', 'gzip', 'numpy', 'numpy._globals', 'numpy.__config__', 'numpy.version', 'numpy._distributor_init', 'numpy.core', 'numpy.core.info', 'glob', 'numpy.core.multiarray', 'numpy.core.overrides', 'numpy.core._multiarray_umath', 'numpy.compat', 'numpy.compat._inspect', 'numpy.compat.py3k', 'pathlib', 'numpy.core.umath', 'numpy.core.numerictypes', 'numpy.core._string_helpers', 'numpy.core._type_aliases', 'numpy.core._dtype', 'numpy.core.numeric', 'numpy.core._internal', 'numpy.core.fromnumeric', 'numpy.core._methods', 'numpy.core.arrayprint', 'numpy.core.defchararray', 'numpy.core.records', 'numpy.core.memmap', 'numpy.core.function_base', 'numpy.core.machar', 'numpy.core.getlimits', 'numpy.core.shape_base', 'numpy.core.einsumfunc', 'numpy.core._add_newdocs', 'numpy.core._multiarray_tests', 'numpy.core._dtype_ctypes', 'numpy._pytesttester', 'numpy.lib', 'numpy.lib.info', 'numpy.lib.type_check', 'numpy.lib.ufunclike', 'numpy.lib.index_tricks', 'numpy.matrixlib', 'numpy.matrixlib.defmatrix', 'numpy.linalg', 'numpy.linalg.info', 'numpy.linalg.linalg', 'numpy.lib.twodim_base', 'numpy.linalg.lapack_lite', 'numpy.linalg._umath_linalg', 'numpy.lib.function_base', 'numpy.lib.utils', 'numpy.lib.histograms', 'numpy.lib.stride_tricks', 'numpy.lib.mixins', 'numpy.lib.nanfunctions', 'numpy.lib.shape_base', 'numpy.lib.scimath', 'numpy.lib.polynomial', 'numpy.lib.arraysetops', 'numpy.lib.npyio', 'numpy.lib.format', 'numpy.lib._datasource', 'numpy.lib._iotools', 'numpy.lib.financial', 'numpy.lib.arrayterator', 'numpy.lib.arraypad', 'numpy.lib._version', 'numpy.fft', 'numpy.fft.info', 'numpy.fft.fftpack', 'numpy.fft.fftpack_lite', 'numpy.fft.helper', 'numpy.polynomial', 'numpy.polynomial.polynomial', 'numpy.polynomial.polyutils', 'numpy.polynomial._polybase', 'numpy.polynomial.chebyshev', 'numpy.polynomial.legendre', 'numpy.polynomial.hermite', 'numpy.polynomial.hermite_e', 'numpy.polynomial.laguerre', 'numpy.random', 'numpy.random.mtrand', 'mtrand', 'numpy.ctypeslib', 'numpy.ma', 'numpy.ma.core', 'textwrap', 'numpy.ma.extras', 'numpy.testing', 'unittest', 'unittest.result', 'unittest.util', 'unittest.case', 'unittest.suite', 'unittest.loader', 'unittest.main', 'argparse', 'gettext', 'unittest.runner', 'unittest.signals', 'numpy.testing._private', 'numpy.testing._private.utils', 'gc', 'numpy.testing._private.decorators', 'numpy.testing._private.nosetester', 'pandas', 'pytz', 'pytz.exceptions', 'pytz.lazy', 'pytz.tzinfo', 'pytz.tzfile', 'dateutil', 'dateutil._version', 'pandas.compat', 'distutils', 'distutils.dist', 'distutils.errors', 'distutils.fancy_getopt', 'getopt', 'distutils.util', 'distutils.dep_util', 'distutils.spawn', 'distutils.debug', 'distutils.log', 'distutils.sysconfig', 'distutils.command', 'distutils.command.build_ext', 'distutils.core', 'distutils.cmd', 'distutils.dir_util', 'distutils.file_util', 'distutils.archive_util', 'distutils.config', 'configparser', 'distutils.extension', 'distutils.version', 'platform', 'pandas.compat.chainmap', 'dateutil.parser', 'dateutil.parser._parser', 'six', 'dateutil.relativedelta', 'dateutil._common', 'dateutil.tz', 'dateutil.tz.tz', 'six.moves', 'dateutil.tz._common', 'dateutil.tz._factories', 'dateutil.tz.win', 'dateutil.parser.isoparser', 'typing', 'typing.io', 'typing.re', 'pandas.compat.numpy', 'pandas._libs', 'pandas._libs.tslibs', 'pandas._libs.tslibs.conversion', 'pandas._libs.tslibs.nattype', 'pandas._libs.tslibs.np_datetime', 'pandas._libs.tslibs.timedeltas', 'pandas._libs.tslibs.offsets', 'pandas._libs.tslibs.ccalendar', 'pandas._libs.tslibs.strptime', 'pandas._libs.tslibs.timezones', 'pandas._libs.tslibs.parsing', 'pandas._libs.tslibs.period', 'pandas._libs.tslibs.frequencies', 'pandas._libs.tslibs.timestamps', 'pandas._libs.tslibs.fields', 'pandas._libs.tslibs.resolution', 'pandas._libs.hashtable', 'pandas._libs.missing', 'pandas._libs.lib', 'fractions', 'pandas._libs.tslib', 'pandas.core', 'pandas.core.config_init', 'pandas.core.config', 'pandas.io', 'pandas.io.formats', 'pandas.io.formats.printing', 'pandas.core.dtypes', 'pandas.core.dtypes.inference', 'pandas.io.formats.console', 'pandas.io.formats.terminal', 'pandas.core.api', 'pandas.core.arrays', 'pandas.core.arrays.array_', 'pandas.core.dtypes.common', 'pandas._libs.algos', 'pandas.core.dtypes.dtypes', 'pandas._libs.interval', 'pandas.core.dtypes.generic', 'pandas.core.dtypes.base', 'pandas.errors', 'pandas.core.arrays.base', 'pandas.compat.numpy.function', 'pandas.util', 'pandas.util._decorators', 'pandas._libs.properties', 'pandas.core.util', 'pandas.core.util.hashing', 'pandas._libs.hashing', 'pandas.core.dtypes.cast', 'pandas.core.dtypes.missing', 'pandas.util._validators', 'pandas.core.ops', 'pandas._libs.ops', 'pandas.core.common', 'pandas.core.missing', 'pandas.core.arrays.categorical', 'pandas.core.accessor', 'pandas.core.algorithms', 'pandas.core.base', 'pandas.core.nanops', 'pandas.tseries', 'pandas.tseries.offsets', 'dateutil.easter', 'pandas.core.tools', 'pandas.core.tools.datetimes', 'pandas.core.sorting', 'pandas.core.arrays.datetimes', 'pandas.core.arrays.datetimelike', 'pandas.tseries.frequencies', 'pandas.core.arrays._ranges', 'pandas.core.arrays.interval', 'pandas.util._doctools', 'pandas.core.indexes', 'pandas.core.indexes.base', 'pandas._libs.index', 'pandas._libs.join', 'pandas.core.dtypes.concat', 'pandas.core.indexes.frozen', 'pandas.core.strings', 'pandas.core.arrays.period', 'pandas.core.arrays.timedeltas', 'pandas.core.arrays.integer', 'pandas.core.tools.numeric', 'pandas.core.arrays.sparse', 'pandas._libs.sparse', 'pandas.core.arrays.numpy_', 'pandas.core.groupby', 'pandas.core.groupby.groupby', 'pandas._libs.groupby', 'pandas.core.frame', 'pandas.core.generic', 'pandas.core.index', 'pandas.core.indexes.api', 'pandas.core.indexes.category', 'pandas.core.indexes.datetimes', 'pandas.core.indexes.datetimelike', 'pandas.core.tools.timedeltas', 'pandas.core.indexes.numeric', 'pandas.core.indexes.interval', 'pandas.util._exceptions', 'pandas.core.indexes.multi', 'pandas.core.indexes.timedeltas', 'pandas.core.indexes.period', 'pandas.core.indexes.range', 'pandas.core.indexing', 'pandas._libs.indexing', 'pandas.core.internals', 'pandas.core.internals.blocks', 'pandas._libs.internals', 'pandas.core.internals.arrays', 'pandas.core.internals.managers', 'pandas.core.internals.concat', 'pandas.io.formats.format', 'pandas.io.common', 'mmap', 'pandas.core.internals.construction', 'pandas.core.series', 'pandas.core.indexes.accessors', 'pandas.plotting', 'pandas.plotting._misc', 'pandas.plotting._style', 'pandas.plotting._tools', 'pandas.plotting._core', 'pandas.plotting._compat', 'pandas.plotting._converter', 'matplotlib', 'matplotlib.cbook', 'matplotlib.cbook.deprecation', 'matplotlib.rcsetup', 'matplotlib.fontconfig_pattern', 'pyparsing', 'matplotlib.colors', 'matplotlib._color_data', 'cycler', 'matplotlib._version']
+2019-05-15 01:26:29,698 INFO numpy pandas and itertools
+2019-05-15 01:26:29,839 DEBUG CACHEDIR=C:\Users\jrrei\.matplotlib
+2019-05-15 01:26:29,839 DEBUG Using fontManager instance from C:\Users\jrrei\.matplotlib\fontlist-v300.json
+2019-05-15 01:26:30,261 DEBUG Loaded backend agg version unknown.
+2019-05-15 01:26:30,308 INFO imported matplotlib
+2019-05-15 01:26:30,355 INFO imported math, sys, os and xlrd
+2019-05-15 01:26:30,355 INFO datetime and csv
+2019-05-15 01:26:30,465 INFO collections and simplekml
+2019-05-15 01:26:30,465 INFO re and beacon decode
+2019-05-15 01:26:30,465 INFO pyodbc imported - all modules imported
+2019-05-15 11:12:26,060 DEBUG update_title_pos
+2019-05-15 11:12:26,075 DEBUG findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('c:\\users\\jrrei\\source\\repos\\meo_analysis_html_interface\\venv\\lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans.ttf') with score of 0.050000.
+2019-05-15 11:12:26,113 DEBUG findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('c:\\users\\jrrei\\source\\repos\\meo_analysis_html_interface\\venv\\lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans.ttf') with score of 0.050000.
+2019-05-15 11:12:26,114 DEBUG update_title_pos
+2019-05-15 11:12:26,140 DEBUG update_title_pos
+2019-05-15 11:12:26,166 DEBUG update_title_pos
+2019-05-15 11:12:26,192 DEBUG update_title_pos
+2019-05-15 11:12:26,217 DEBUG update_title_pos
+2019-05-15 11:12:26,718 DEBUG update_title_pos
+2019-05-15 11:12:26,736 DEBUG update_title_pos
+2019-05-15 11:12:26,754 DEBUG update_title_pos
+2019-05-15 11:12:26,772 DEBUG update_title_pos
+2019-05-15 11:12:26,789 DEBUG update_title_pos
+2019-05-15 11:12:26,807 DEBUG update_title_pos
+2019-05-15 11:12:27,315 DEBUG update_title_pos
+2019-05-15 11:12:27,345 DEBUG update_title_pos
+2019-05-15 11:12:27,370 DEBUG update_title_pos
+2019-05-15 11:12:27,397 DEBUG update_title_pos
+2019-05-15 11:12:27,422 DEBUG update_title_pos
+2019-05-15 11:12:27,447 DEBUG update_title_pos
+2019-05-15 11:12:27,933 DEBUG update_title_pos
+2019-05-15 11:12:27,951 DEBUG update_title_pos
+2019-05-15 11:12:27,969 DEBUG update_title_pos
+2019-05-15 11:12:27,986 DEBUG update_title_pos
+2019-05-15 11:12:28,006 DEBUG update_title_pos
+2019-05-15 11:12:28,023 DEBUG update_title_pos
+2019-05-15 11:12:59,627 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:12:59,699 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-15 11:14:59,368 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:14:59,445 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/schedule?StartTime=2019-05-14+15%3A14%3A59&EndTime=2019-05-15+15%3A14%3A59&output_format=data_list HTTP/1.1" 200 7
+2019-05-15 11:15:02,864 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:15:02,897 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?StartTime=2019-05-08+15%3A15%3A02&EndTime=2019-05-15+15%3A15%3A02&output_format=json HTTP/1.1" 200 7
+2019-05-15 11:15:17,953 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:15:17,982 DEBUG http://jrreich.myftp.org:80 "GET /site-map HTTP/1.1" 200 4285
+2019-05-15 11:15:22,267 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:15:22,302 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-15 11:15:22,304 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:15:22,335 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum HTTP/1.1" 200 7
+2019-05-15 11:15:25,892 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:15:25,946 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-15 11:15:25,948 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:15:25,979 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum HTTP/1.1" 200 7
+2019-05-15 11:16:40,722 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:16:40,778 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/reference_beacon_locations?StartTime=2019-05-14+15%3A16%3A40&EndTime=2019-05-15+15%3A16%3A40&output_format=json HTTP/1.1" 200 5
+2019-05-15 11:16:45,948 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:16:45,996 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/reference_beacon_locations?StartTime=2019-05-14+15%3A16%3A45&EndTime=2019-05-15+15%3A16%3A45&output_format=json HTTP/1.1" 200 5
+2019-05-15 11:16:53,290 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:16:53,326 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-15 11:18:32,186 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:18:32,267 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?StartTime=2019-01-21+00%3A00%3A00&EndTime=2019-05-15+15%3A18%3A32&output_format=json HTTP/1.1" 200 204716
+2019-05-15 11:18:44,318 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:18:44,322 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:18:44,373 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?StartTime=2019-05-08+15%3A18%3A44&EndTime=2019-05-15+15%3A18%3A44&output_format=json HTTP/1.1" 200 7
+2019-05-15 11:18:44,401 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?StartTime=2019-01-21+00%3A00%3A00&EndTime=2019-05-15+15%3A18%3A44&output_format=json HTTP/1.1" 200 204716
+2019-05-15 11:21:33,740 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:21:33,823 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?StartTime=2019-01-05+00%3A00%3A00&EndTime=2019-05-15+15%3A21%3A33&output_format=json HTTP/1.1" 200 205669
+2019-05-15 11:21:51,193 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:21:51,224 DEBUG http://jrreich.myftp.org:80 "GET /api/LEO/LMDB?StartTime=2019-05-05+00%3A00%3A00&EndTime=2019-05-15+15%3A21%3A51&output_format=json HTTP/1.1" 200 7
+2019-05-15 11:24:14,549 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:24:14,618 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/reference_beacon_locations?StartTime=2019-05-14+15%3A24%3A14&EndTime=2019-05-15+15%3A24%3A14&output_format=json HTTP/1.1" 200 5
+2019-05-15 11:24:39,784 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:24:39,819 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-15 11:26:55,835 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:26:55,900 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-15 11:26:55,902 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:26:55,936 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum HTTP/1.1" 200 7
+2019-05-15 11:27:01,779 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:27:01,814 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-15 11:29:25,856 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:29:25,908 DEBUG http://jrreich.myftp.org:80 "GET /site-map HTTP/1.1" 200 4285
+2019-05-15 11:29:30,260 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:29:30,307 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-15 11:29:30,309 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:29:30,339 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum HTTP/1.1" 200 7
+2019-05-15 11:29:31,807 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:29:31,841 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-15 11:30:05,216 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:05,220 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:05,304 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:05,308 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:05,357 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:05,357 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:05,415 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:05,416 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:06,404 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162459 HTTP/1.1" 200 3453489
+2019-05-15 11:30:06,448 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162459 HTTP/1.1" 200 3453489
+2019-05-15 11:30:06,810 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162459 HTTP/1.1" 200 3453489
+2019-05-15 11:30:06,983 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162459 HTTP/1.1" 200 3453489
+2019-05-15 11:30:07,078 DEBUG http://jrreich.myftp.org:80 "GET /api/leo/162459 HTTP/1.1" 200 230739
+2019-05-15 11:30:07,082 DEBUG http://jrreich.myftp.org:80 "GET /api/meo/162459 HTTP/1.1" 200 422999
+2019-05-15 11:30:07,243 DEBUG http://jrreich.myftp.org:80 "GET /api/comp/162459 HTTP/1.1" 200 807628
+2019-05-15 11:30:07,443 DEBUG http://jrreich.myftp.org:80 "GET /api/enc/162459 HTTP/1.1" 200 3
+2019-05-15 11:30:30,058 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:30,144 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:30,153 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:30,153 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:30,236 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:30,248 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:30,249 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:30,249 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:30:32,462 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
+2019-05-15 11:30:33,464 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
+2019-05-15 11:30:33,580 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
+2019-05-15 11:30:33,589 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
+2019-05-15 11:30:34,057 DEBUG http://jrreich.myftp.org:80 "GET /api/meo/162503 HTTP/1.1" 200 724613
+2019-05-15 11:30:34,590 DEBUG http://jrreich.myftp.org:80 "GET /api/enc/162503 HTTP/1.1" 200 3
+2019-05-15 11:30:34,625 DEBUG http://jrreich.myftp.org:80 "GET /api/leo/162503 HTTP/1.1" 200 263396
+2019-05-15 11:30:35,039 DEBUG http://jrreich.myftp.org:80 "GET /api/comp/162503 HTTP/1.1" 200 1759860
+2019-05-15 11:37:02,639 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:37:02,700 DEBUG http://jrreich.myftp.org:80 "GET /api/MEO/reference_beacon_locations?StartTime=2019-05-14+15%3A37%3A02&EndTime=2019-05-15+15%3A37%3A02&output_format=json HTTP/1.1" 200 5
+2019-05-15 11:37:04,186 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-15 11:37:04,221 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-17 21:04:07,267 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:07,350 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-17 21:04:12,450 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:12,488 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum?open_closed=all_open HTTP/1.1" 200 8324
+2019-05-17 21:04:12,489 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:12,521 DEBUG http://jrreich.myftp.org:80 "GET /api/sitesum HTTP/1.1" 200 7
+2019-05-17 21:04:29,362 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:29,377 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:29,378 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:29,378 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:29,457 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:29,470 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:29,470 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:29,471 DEBUG Starting new HTTP connection (1): jrreich.myftp.org:80
+2019-05-17 21:04:32,223 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
+2019-05-17 21:04:32,732 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
+2019-05-17 21:04:32,821 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
+2019-05-17 21:04:32,908 DEBUG http://jrreich.myftp.org:80 "GET /api/site/alertsitesol/162503 HTTP/1.1" 200 7580796
+2019-05-17 21:04:33,421 DEBUG http://jrreich.myftp.org:80 "GET /api/meo/162503 HTTP/1.1" 200 724613
+2019-05-17 21:04:33,979 DEBUG http://jrreich.myftp.org:80 "GET /api/comp/162503 HTTP/1.1" 200 1759860
+2019-05-17 21:04:34,028 DEBUG http://jrreich.myftp.org:80 "GET /api/enc/162503 HTTP/1.1" 200 3
+2019-05-17 21:04:34,256 DEBUG http://jrreich.myftp.org:80 "GET /api/leo/162503 HTTP/1.1" 200 263396

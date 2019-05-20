@@ -199,6 +199,9 @@ def decodedhexjson(hexcode):
     if beacon.has_loc() and is_number(beacon.location[0]) and is_number(beacon.location[1]):
         outdict['lat'] = float(beacon.location[0])
         outdict['lon'] = float(beacon.location[1])
+    else:
+        outdict['lat'] = None
+        outdict['lon'] = None
 
 
 
