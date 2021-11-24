@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.DEBUG,
 app_root = os.path.dirname(__file__)
 logging.info('app root') 
 
-activate_this = os.path.dirname(os.path.realpath(__file__))+r'\venv\Scripts\activate_this.py'
+activate_this = os.path.dirname(os.path.realpath(__file__))+r'\mcc_venv\Scripts\activate_this.py'
 with open(activate_this) as file_:
     exec(file_.read(), dict(__file__=activate_this))
 

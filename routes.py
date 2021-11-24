@@ -2,6 +2,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.routing import BaseConverter, ValidationError
 from flask import (
     Flask,
+    Blueprint,
     url_for,
     request,
     render_template,
@@ -76,29 +77,16 @@ config_dict = {
     "mcctestLGM": mcctestLGM,
 }
 
-app = Flask(__name__)
+# app = Flask(__name__)
+app = Blueprint("routes_blueprint", __name__)
 
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-class DateConverter(BaseConverter):
-    """Extracts a ISO8601 date from the path and validates it."""
-
-    regex = r"\d{4}-\d{2}-\d{2}"
-
-    def to_python(self, value):
-        try:
-            return datetime.datetime.strptime(value, "%Y-%m-%d")
-        except ValueError:
-            raise ValidationError()
-
-    def to_url(self, value):
-        return value.strftime("%Y-%m-%d")
 
 
-app.url_map.converters["date"] = DateConverter
 
 # Function and route to get list of all routes:
 def has_no_empty_params(rule):
